@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "dtmplace",
+      "public": "dist/dtmplace",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

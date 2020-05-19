@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "dtmplace-ad671": {
+      "hosting": {
+        "dtmplace": [
+          "dtmplace-ad671"
+        ]
+      }
+    }
+  }
+}
