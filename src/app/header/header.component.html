@@ -1,0 +1,33 @@
+<mat-toolbar color="primary" class="header">
+  <mat-toolbar-row class="header__container">
+    <a routerLink="/" class="header__title">DTMPlace</a>
+    <form class="search">
+      <input
+        matInput
+        placeholder="キーワードを入力"
+        class="search__input"
+        autocomplete="off"
+      />
+      <button
+        mat-icon-button
+        color="white"
+        aria-label="icon button with a search icon"
+        class="search__button"
+      >
+        <mat-icon>search</mat-icon>
+      </button>
+    </form>
+    <div class="header__nav">
+      <button mat-flat-button color="primary" medium class="post-button">
+        投稿する
+      </button>
+      <button mat-icon-button large>
+        <img
+          class="profile-image"
+          src="https://placehold.it/40x40"
+          alt="プロフィールの画像です"
+        />
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
