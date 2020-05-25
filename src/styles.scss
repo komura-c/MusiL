@@ -8,6 +8,11 @@ body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
+a {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
 img {
   max-width: 100%;
 }
