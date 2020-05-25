@@ -1,0 +1,16 @@
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.12);
+  padding: 16px;
+  &__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    a {
+      margin-right: 16px;
+      text-align: center;
+    }
+  }
+}
+.copyright {
+  text-align: center;
+}
