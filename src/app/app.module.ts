@@ -9,6 +9,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from './footer/footer.component';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
   imports: [
@@ -18,8 +26,14 @@ import { FooterComponent } from './footer/footer.component';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
+    AngularFirestoreModule,
+    AngularFireStorageModule,
+    AngularFireFunctionsModule,
+    AngularFireAuthModule,
   ],
-  providers: [],
+  providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
