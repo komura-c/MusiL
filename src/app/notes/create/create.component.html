@@ -1,1 +1,46 @@
-<p>create works!</p>
+<div class="container">
+  <mat-card class="editor">
+    <form class="editor__form" [formGroup]="form">
+      <mat-form-field class="editor__title" appearance="outline">
+        <mat-label>タイトル</mat-label>
+        <input
+          type="text"
+          formControlName="title"
+          matInput
+          autocomplete="off"
+        />
+      </mat-form-field>
+      <mat-form-field class="editor__tag" appearance="outline">
+        <mat-label>タグ</mat-label>
+        <input type="text" formControlName="tag" matInput autocomplete="off" />
+      </mat-form-field>
+      <mat-form-field class="editor__text" appearance="outline">
+        <mat-label>本文</mat-label>
+        <textarea
+          type="text"
+          formControlName="text"
+          matInput
+          autocomplete="off"
+        ></textarea>
+      </mat-form-field>
+      <div class="editor__buttons">
+        <button
+          [disabled]="form.invalid"
+          class="draft"
+          mat-flat-button
+          color="primary"
+        >
+          下書きに保存
+        </button>
+        <button
+          [disabled]="form.invalid"
+          class="post"
+          mat-flat-button
+          color="primary"
+        >
+          記事を公開する
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>
