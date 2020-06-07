@@ -1,0 +1,27 @@
+.editor {
+  background-color: #ffffff;
+  text-align: center;
+  &__form {
+    display: flex;
+    flex-direction: column;
+  }
+  &__text textarea {
+    resize: none;
+    height: 280px;
+  }
+  &__buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+}
+.draft {
+  background-color: grey;
+}
+button {
+  max-width: 440px;
+  width: 100%;
+  padding: 8px 32px;
+  margin: 8px;
+}
