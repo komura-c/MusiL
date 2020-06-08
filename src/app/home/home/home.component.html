@@ -4,6 +4,9 @@
     <button mat-button class="home-menu__item" large>新着記事</button>
   </div>
   <div class="home-main">
-    <app-article></app-article>
+    <app-article
+      *ngFor="let article of articles"
+      [article]="article"
+    ></app-article>
   </div>
 </div>

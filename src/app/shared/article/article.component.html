@@ -1,14 +1,13 @@
-<mat-card class="card" *ngFor="let homeItem of homeItems">
+<mat-card class="card">
   <div class="card__icon">
-    <img src="https://placehold.it/80x80" alt="アイコン" />
+    <img [src]="article.thumbnailUrl" alt="アイコン" />
   </div>
   <div class="card__right">
     <a class="card__title">
-      {{ homeItem.title }}
+      {{ article.title }}
     </a>
     <p class="card__text">
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Id cumque
-      reprehenderit autem voluptatum dolores blanditiis consequatur dolorem eum!
+      {{ article.text }}
     </p>
   </div>
 </mat-card>
