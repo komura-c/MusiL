@@ -18,26 +18,3 @@
   max-width: 800px;
   margin: 0 auto;
 }
-
-.home-item {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  margin: 4px 0;
-  &__icon {
-    min-width: 80px;
-    margin-right: 16px;
-  }
-  &__right {
-    height: 100px;
-  }
-  &__title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  &__text {
-    max-height: 44px;
-    margin: 0;
-    overflow: hidden;
-  }
-}
