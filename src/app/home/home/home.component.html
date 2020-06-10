@@ -4,20 +4,9 @@
     <button mat-button class="home-menu__item" large>新着記事</button>
   </div>
   <div class="home-main">
-    <mat-card class="home-item" *ngFor="let homeItem of homeItems">
-      <div class="home-item__icon">
-        <img src="https://placehold.it/80x80" alt="アイコン" />
-      </div>
-      <div class="home-item__right">
-        <a class="home-item__title">
-          {{ homeItem.title }}
-        </a>
-        <p class="home-item__text">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Id cumque
-          reprehenderit autem voluptatum dolores blanditiis consequatur dolorem
-          eum!
-        </p>
-      </div>
-    </mat-card>
+    <app-article
+      *ngFor="let article of articles"
+      [article]="article"
+    ></app-article>
   </div>
 </div>
