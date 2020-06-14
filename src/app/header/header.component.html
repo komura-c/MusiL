@@ -8,15 +8,22 @@
       </button>
     </form>
     <div class="header__nav">
-      <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
-        Twitterでログイン
-      </button>
-      <button mat-flat-button color="primary" medium class="post-button">
-        投稿する
-      </button>
-      <button (click)="logout()" mat-flat-button color="primary" medium class="logout-button">
-        ログアウト
-      </button>
+
+      <ng-template #default>
+        <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
+          Twitterでログイン
+        </button>
+      </ng-template>
+
+      <ng-container *ngIf="user$ | async as user; else default">
+        <button mat-flat-button color="primary" medium class="post-button">
+          投稿する
+        </button>
+        <button (click)="logout()" mat-flat-button color="primary" medium class="logout-button">
+          ログアウト
+        </button>
+      </ng-container>
+
     </div>
   </mat-toolbar-row>
 </mat-toolbar>
