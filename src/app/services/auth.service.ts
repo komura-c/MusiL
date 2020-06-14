@@ -18,13 +18,10 @@ export class AuthService {
   ) {
   }
   login() {
-    this.afAuth.signInWithPopup(
+    this.afAuth.signInWithRedirect(
       new auth.TwitterAuthProvider()
-    ).then(result => {
-      this.snackBar.open('ログインしました', null, { duration: 2000 });
-    });
+    );
   }
-
   logout() {
     this.afAuth.signOut().then(() => {
       this.snackBar.open('ログアウトしました', null, { duration: 2000 });
