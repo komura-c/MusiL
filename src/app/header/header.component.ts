@@ -7,7 +7,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  user$ = this.authService.afUser$;
   constructor(
     private authService: AuthService
   ) { }
@@ -17,5 +17,9 @@ export class HeaderComponent implements OnInit {
 
   login() {
     this.authService.login();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
