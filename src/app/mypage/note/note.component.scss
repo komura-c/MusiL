@@ -1,0 +1,101 @@
+h2,
+h3,
+h4 {
+  padding: 12px 0;
+  border-bottom: solid 1px #b6b6b6;
+}
+
+.note {
+  background-color: #fff;
+  padding: 16px 24px;
+  margin: auto;
+  max-width: 800px;
+  &__content {
+    padding: 20px 8px;
+    border-bottom: solid 1px #b6b6b6;
+  }
+}
+
+.note-header {
+  padding: 0 4px;
+  &__author {
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  &__user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+  &__user-name {
+    font-weight: bold;
+    padding: 8px;
+  }
+  &__twitter {
+    width: 24px;
+  }
+  &__updated-date {
+    color: #808080;
+    margin: 0;
+  }
+  &__title {
+    padding: 0 4px;
+  }
+  &__tag {
+    background-color: #eee;
+    padding: 8px;
+    color: #5e5d5d;
+    margin: 0 4px;
+    border-radius: 4px;
+  }
+}
+
+.mat-icon-button {
+  width: 50px;
+  height: 50px;
+}
+.mat-icon {
+  font-size: 32px;
+  width: 32px;
+}
+
+.actions {
+  padding: 16px 0;
+  display: flex;
+  justify-content: space-between;
+  &__twitter img {
+    width: 30px;
+  }
+  &__link {
+    color: #808080;
+  }
+}
+
+.note-footer {
+  padding: 12px 4px 0 4px;
+  &__author {
+    padding: 4px;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  &__user-profile {
+    padding: 0 12px;
+  }
+  &__user-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  &__user-name {
+    font-weight: bold;
+  }
+  a {
+    margin: 0;
+  }
+  &__twitter {
+    width: 20px;
+    margin: 0;
+  }
+}
