@@ -16,6 +16,10 @@
       color: white;
     }
   }
+  &__nav {
+    display: flex;
+    align-items: center;
+  }
 }
 .search {
   display: block;
@@ -45,5 +49,9 @@
 }
 
 .post-button {
-  margin-right: 12px;
+  margin-right: 24px;
+}
+
+.my-menu {
+  background-size: cover;
 }

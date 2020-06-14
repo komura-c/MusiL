@@ -7,21 +7,39 @@
         <mat-icon>search</mat-icon>
       </button>
     </form>
+
+
+    <ng-template #default>
+      <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
+        Twitterでログイン
+      </button>
+    </ng-template>
+
     <div class="header__nav">
-
-      <ng-template #default>
-        <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
-          Twitterでログイン
-        </button>
-      </ng-template>
-
       <ng-container *ngIf="user$ | async as user; else default">
         <button mat-flat-button color="primary" medium class="post-button">
           投稿する
         </button>
-        <button (click)="logout()" mat-flat-button color="primary" medium class="logout-button">
-          ログアウト
+
+        <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
+          [style.background-image]="'url(' + user.photoURL + ')'" class="my-menu">
         </button>
+
+
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon>account_box</mat-icon>
+            <span>マイページ</span>
+          </button>
+          <button mat-menu-item>
+            <mat-icon>article</mat-icon>
+            <span>記事一覧</span>
+          </button>
+          <button (click)="logout()" mat-menu-item color="primary" medium class="logout-button">
+            <mat-icon>exit_to_app</mat-icon>
+            <span>ログアウト</span>
+          </button>
+        </mat-menu>
       </ng-container>
 
     </div>

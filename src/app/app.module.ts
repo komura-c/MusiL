@@ -7,6 +7,7 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 import { FooterComponent } from './footer/footer.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AngularFireModule } from '@angular/fire';
@@ -26,6 +27,7 @@ import { environment } from '../environments/environment';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatMenuModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAnalyticsModule,
     AngularFirestoreModule,
@@ -36,4 +38,4 @@ import { environment } from '../environments/environment';
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
