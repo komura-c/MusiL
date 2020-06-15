@@ -16,6 +16,10 @@
       color: white;
     }
   }
+  &__nav {
+    display: flex;
+    align-items: center;
+  }
 }
 .search {
   display: block;
@@ -43,11 +47,11 @@
     right: 24px;
   }
 }
+
 .post-button {
   margin-right: 24px;
 }
-.profile-image {
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
+
+.my-menu {
+  background-size: cover;
 }
