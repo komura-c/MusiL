@@ -38,7 +38,7 @@ export class CreateComponent implements OnInit {
       id: 'n00001',
       thumbnailUrl: 'imageUrl',
       title: formData.title,
-      tag: formData.tag,
+      tag: 'DTM',
       text: formData.text,
     });
   }
