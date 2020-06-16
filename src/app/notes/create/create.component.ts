@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { ArticleService } from 'src/app/services/article.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-create',
@@ -21,7 +23,23 @@ export class CreateComponent implements OnInit {
     return this.form.get('text') as FormControl;
   }
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private articleService: ArticleService,
+    private authService: AuthService,
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  submit() {
+    const formData = this.form.value;
+    this.articleService.createArticle({
+      userId: this.authService.uid,
+      id: 'n00001',
+      thumbnailUrl: 'imageUrl',
+      title: formData.title,
+      tag: formData.tag,
+      text: formData.text,
+    });
+  }
 }
