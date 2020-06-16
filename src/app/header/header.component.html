@@ -1,24 +1,25 @@
-<mat-toolbar color="primary" class="header">
+<mat-toolbar class="header">
   <mat-toolbar-row class="header__container">
     <a routerLink="/" class="header__title">DTMPlace</a>
     <form class="search">
       <input matInput placeholder="キーワードを入力" class="search__input" autocomplete="off" />
-      <button mat-icon-button color="white" aria-label="icon button with a search icon" class="search__button">
+      <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">
         <mat-icon>search</mat-icon>
       </button>
     </form>
 
-
     <ng-template #default>
       <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
-        Twitterでログイン
+        <mat-icon>login</mat-icon>
+        <span>Twitterでログイン</span>
       </button>
     </ng-template>
 
     <div class="header__nav">
       <ng-container *ngIf="user$ | async as user; else default">
         <button mat-flat-button color="primary" medium class="post-button">
-          投稿する
+          <mat-icon>post_add</mat-icon>
+          <span> 投稿する</span>
         </button>
 
         <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
