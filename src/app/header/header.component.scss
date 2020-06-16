@@ -13,7 +13,7 @@
     margin: 0 auto;
   }
   &__title {
-    color: white;
+    color: #ffffff;
     font-weight: bold;
     font-size: 24px;
     text-decoration: none;
@@ -26,8 +26,7 @@
 .search {
   display: block;
   position: relative;
-  max-width: 640px;
-  min-width: 110px;
+  min-width: 114px;
   flex: 1;
   padding: 0 24px;
   &__input {
@@ -52,7 +51,11 @@
 }
 
 .login-button {
-  background-color: #ff5500;
+  background-color: #1da1f2;
+}
+
+.login-button:disabled {
+  display: none;
 }
 
 .post-button {

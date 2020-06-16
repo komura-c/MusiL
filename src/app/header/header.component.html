@@ -9,17 +9,16 @@
     </form>
 
     <ng-template #default>
-      <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
-        <mat-icon>login</mat-icon>
+      <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
         <span>Twitterでログイン</span>
       </button>
     </ng-template>
 
-    <div class="header__nav">
-      <ng-container *ngIf="user$ | async as user; else default">
+    <ng-container *ngIf="user$ | async as user; else default">
+      <div class="header__nav">
         <button mat-flat-button color="primary" medium class="post-button">
           <mat-icon>post_add</mat-icon>
-          <span> 投稿する</span>
+          <span>投稿する</span>
         </button>
 
         <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
@@ -41,8 +40,7 @@
             <span>ログアウト</span>
           </button>
         </mat-menu>
-      </ng-container>
-
-    </div>
+      </div>
+    </ng-container>
   </mat-toolbar-row>
 </mat-toolbar>
