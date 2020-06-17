@@ -18,10 +18,10 @@ export class ArticleService {
     const id = this.db.createId();
     return this.db.doc(`articles/${id}`).set(article)
       .then(() => {
+        this.router.navigateByUrl('/');
         this.snackBar.open('記事を投稿しました', null, {
           duration: 2000,
         });
-        this.router.navigateByUrl('/');
       });
   }
 }
