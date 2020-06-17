@@ -1,20 +1,22 @@
 .header {
-  background-color: #262d30;
+  background-color: #424242;
+  position: fixed;
+  z-index: 1;
   margin: 0;
   display: flex;
   height: 70px;
   &__container {
+    max-width: 1000px;
     height: 100%;
+    flex-wrap: wrap;
     justify-content: space-between;
+    margin: 0 auto;
   }
   &__title {
+    color: #ffffff;
+    font-weight: bold;
     font-size: 24px;
     text-decoration: none;
-    &:active,
-    &:visited,
-    &:hover {
-      color: white;
-    }
   }
   &__nav {
     display: flex;
@@ -24,7 +26,7 @@
 .search {
   display: block;
   position: relative;
-  max-width: 640px;
+  min-width: 114px;
   flex: 1;
   padding: 0 24px;
   &__input {
@@ -39,19 +41,46 @@
     font-size: 12px;
     margin: 0;
     outline: none;
-    border: none;
+    border: solid 2px #f3f3f3;
   }
   &__button {
     position: absolute;
-    color: black;
+    color: #757575;
     right: 24px;
   }
 }
 
+.login-button {
+  background-color: #1da1f2;
+}
+
+.login-button:disabled {
+  display: none;
+}
+
 .post-button {
+  background-color: #ff5500;
   margin-right: 24px;
 }
 
 .my-menu {
   background-size: cover;
+  border: solid 1px #f3f3f3;
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    height: 110px;
+  }
+  .search {
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .post-button {
+    span {
+      display: none;
+    }
+  }
 }
