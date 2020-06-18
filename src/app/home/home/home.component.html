@@ -4,9 +4,8 @@
     <button mat-button class="home-menu__item" large>新着記事</button>
   </div>
   <div class="home-main">
-    <app-article
-      *ngFor="let article of articles"
-      [article]="article"
-    ></app-article>
+    <ng-container *ngFor="let article of articles$ | async">
+      <app-article *ngIf="article" [article]="article"></app-article>
+    </ng-container>
   </div>
 </div>

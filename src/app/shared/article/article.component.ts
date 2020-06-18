@@ -9,7 +9,7 @@ import { Article } from 'src/app/interfaces/article';
 export class ArticleComponent implements OnInit {
   @Input() article: Article;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
