@@ -3,6 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +25,9 @@ export class ArticleService {
           duration: 2000,
         });
       });
+  }
+
+  getArticle() {
+    return this.db.collection<Article>(`articles`).valueChanges();
   }
 }
