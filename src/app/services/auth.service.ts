@@ -10,12 +10,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AuthService {
   afUser$: Observable<User> = this.afAuth.user;
+  uid: string;
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
     private snackBar: MatSnackBar
   ) {
+    this.afUser$.subscribe(user => {
+      this.uid = user && user.uid;
+    });
   }
   login() {
     this.afAuth.signInWithRedirect(
