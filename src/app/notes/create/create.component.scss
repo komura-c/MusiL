@@ -1,15 +1,21 @@
 .editor {
   background-color: #ffffff;
-  text-align: center;
   &__form {
     display: flex;
-    flex-direction: column;
+    justify-content: column;
+    flex-wrap: wrap;
   }
-  &__text textarea {
-    resize: none;
-    height: 280px;
+  &__title {
+    width: 100%;
+  }
+  &__tag {
+    width: 100%;
+  }
+  &__text {
+    width: 100%;
   }
   &__buttons {
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

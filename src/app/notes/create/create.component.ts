@@ -12,15 +12,11 @@ export class CreateComponent implements OnInit {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(80)]],
     tag: [''],
-    text: ['', Validators.required],
+    editorContent: [''],
   });
 
   get titleControl() {
     return this.form.get('title') as FormControl;
-  }
-
-  get textControl() {
-    return this.form.get('text') as FormControl;
   }
 
   constructor(
@@ -29,7 +25,11 @@ export class CreateComponent implements OnInit {
     private authService: AuthService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe((val) => {
+      console.log('Value Changes:', val);
+    });
+  }
 
   submit() {
     const formData = this.form.value;
@@ -39,7 +39,7 @@ export class CreateComponent implements OnInit {
       thumbnailUrl: 'imageUrl',
       title: formData.title,
       tag: 'DTM',
-      text: formData.text,
+      text: formData.editorContent,
     });
   }
 }
