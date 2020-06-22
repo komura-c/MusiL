@@ -19,6 +19,14 @@ export class CreateComponent implements OnInit {
     return this.form.get('title') as FormControl;
   }
 
+  get tagControl() {
+    return this.form.get('tag') as FormControl;
+  }
+
+  get editorContentControl() {
+    return this.form.get('editorContent') as FormControl;
+  }
+
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,

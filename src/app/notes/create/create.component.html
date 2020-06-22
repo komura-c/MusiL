@@ -11,7 +11,7 @@
         <mat-label></mat-label>
         <input type="text" formControlName="tag" matInput placeholder="作曲やDTMに関するタグを入力" autocomplete="off" />
       </mat-form-field>
-      <ngx-editor formControlName="editorContent" class="editor__text">
+      <ngx-editor formControlName="editorContent" class="editor__text" min-height="'300px'" resizer="none">
       </ngx-editor>
       <div class="editor__buttons">
         <button [disabled]="form.invalid" class="draft" mat-flat-button color="primary">

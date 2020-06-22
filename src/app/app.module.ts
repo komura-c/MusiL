@@ -20,6 +20,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { NgxEditorModule } from 'ngx-editor';
 import { menu, placeholder, schema } from 'ngx-editor';
+import { keymap } from 'prosemirror-keymap';
+import { baseKeymap } from 'prosemirror-commands';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent],
@@ -41,6 +43,7 @@ import { menu, placeholder, schema } from 'ngx-editor';
     NgxEditorModule.forRoot({
       schema,
       plugins: [
+        keymap(baseKeymap),
         menu({
           toolbar: [
             [{ heading: ['h1', 'h2', 'h3', 'h4'] }, 'bold', 'italic', 'ordered_list', 'bullet_list', 'blockquote'],
