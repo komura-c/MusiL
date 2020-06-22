@@ -36,7 +36,7 @@ export class CreateComponent implements OnInit {
     this.articleService.createArticle({
       userId: this.authService.uid,
       id: 'n00001',
-      thumbnailUrl: 'imageUrl',
+      thumbnailUrl: 'http://placekitten.com/100/100',
       title: formData.title,
       tag: 'DTM',
       text: formData.text,
