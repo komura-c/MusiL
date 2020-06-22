@@ -32,9 +32,9 @@ export class CreateComponent implements OnInit {
   editorConfig: AngularEditorConfig = {
     editable: true,
     spellcheck: true,
-    height: '400px',
-    minHeight: '400px',
-    maxHeight: '400px',
+    height: '350px',
+    minHeight: '350px',
+    maxHeight: '350px',
     width: 'auto',
     minWidth: '0',
     translate: 'yes',
