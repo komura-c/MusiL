@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-create',
@@ -14,6 +15,7 @@ export class CreateComponent implements OnInit {
     tag: [''],
     editorContent: [''],
   });
+  editorPreview: string;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -27,6 +29,33 @@ export class CreateComponent implements OnInit {
     return this.form.get('editorContent') as FormControl;
   }
 
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '400px',
+    minHeight: '400px',
+    maxHeight: '400px',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: '作曲やDTMに関する知識を共有しよう',
+    defaultParagraphSeparator: 'p',
+    uploadUrl: 'v1/image',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['subscript',
+        'superscript', 'indent',
+        'outdent', 'fontName'],
+      ['fontSize', 'textColor',
+        'backgroundColor', 'customClasses', 'insertHorizontalRule',
+        'toggleEditorMode']
+    ]
+  };
+
   constructor(
     private fb: FormBuilder,
     private articleService: ArticleService,
@@ -34,8 +63,8 @@ export class CreateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.form.valueChanges.subscribe((val) => {
-      console.log('Value Changes:', val);
+    this.form.valueChanges.subscribe((inputText) => {
+      this.editorPreview = inputText.editorContent;
     });
   }
 
@@ -44,7 +73,7 @@ export class CreateComponent implements OnInit {
     this.articleService.createArticle({
       userId: this.authService.uid,
       id: 'n00001',
-      thumbnailUrl: 'imageUrl',
+      thumbnailUrl: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',
       text: formData.editorContent,
