@@ -18,10 +18,6 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { NgxEditorModule } from 'ngx-editor';
-import { menu, placeholder, schema } from 'ngx-editor';
-import { keymap } from 'prosemirror-keymap';
-import { baseKeymap } from 'prosemirror-commands';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent],
@@ -40,26 +36,6 @@ import { baseKeymap } from 'prosemirror-commands';
     AngularFireStorageModule,
     AngularFireFunctionsModule,
     AngularFireAuthModule,
-    NgxEditorModule.forRoot({
-      schema,
-      plugins: [
-        keymap(baseKeymap),
-        menu({
-          toolbar: [
-            [{ heading: ['h1', 'h2', 'h3', 'h4'] }, 'bold', 'italic', 'ordered_list', 'bullet_list', 'blockquote'],
-          ],
-          labels: {
-            bold: 'Bold',
-            italics: 'Italics',
-            ordered_list: 'Ordered List',
-            bullet_list: 'Bullet List',
-            heading: '見出し'
-          }
-        }),
-        placeholder('作曲やDTMに関する知識を共有しよう'),
-      ],
-      nodeViews: {}
-    })
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
