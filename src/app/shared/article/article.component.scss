@@ -1,22 +1,30 @@
 .card {
-  display: flex;
-  align-items: center;
-  padding: 16px;
-  margin: 4px 0;
-  &__icon {
-    min-width: 80px;
-    margin-right: 16px;
+  max-width: 610px;
+  padding: 16px 0 0 0;
+  margin-bottom: 30px;
+  &__eye-catch {
+    max-height: 300px;
+    margin: 0;
   }
-  &__right {
-    height: 100px;
+  &__content {
+    padding: 16px;
   }
   &__title {
     font-size: 20px;
     font-weight: bold;
   }
-  &__text {
-    max-height: 44px;
+  &__author {
     margin: 0;
-    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  &__user-icon {
+    background-image: url("https://pbs.twimg.com/profile_images/1020302875229007872/nvfnS9YM_normal.jpg");
+    background-size: cover;
+  }
+  &__user-name {
+    font-size: 16px;
+    padding: 8px;
   }
 }
