@@ -1,12 +1,16 @@
 <div class="container">
-  <div class="home-menu">
-    <button mat-button class="home-menu__item" large>人気記事</button>
-    <button mat-button class="home-menu__item" large>新着記事</button>
-  </div>
-  <div class="home-main">
-    <app-article
-      *ngFor="let article of articles"
-      [article]="article"
-    ></app-article>
+  <div class="home-page">
+    <div class="home-main">
+      <h3 class="home-main__title">トレンド</h3>
+      <ng-container *ngFor="let article of articles$ | async">
+        <app-article *ngIf="article" [article]="article"></app-article>
+      </ng-container>
+    </div>
+    <div class="home-sub">
+      <h3 class="home-main__title">最新の記事</h3>
+      <ng-container *ngFor="let article of articles$ | async">
+        <app-article *ngIf="article" [article]="article"></app-article>
+      </ng-container>
+    </div>
   </div>
 </div>
