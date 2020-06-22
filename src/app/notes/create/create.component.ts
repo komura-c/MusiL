@@ -72,7 +72,7 @@ export class CreateComponent implements OnInit {
     const formData = this.form.value;
     this.articleService.createArticle({
       userId: this.authService.uid,
-      id: 'n00001',
+      id: '',
       thumbnailUrl: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',
