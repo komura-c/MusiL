@@ -11,8 +11,18 @@
   &__tag {
     width: 100%;
   }
-  &__text {
+  &__body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  &__content {
     width: 100%;
+  }
+  &__preview {
+    border: 1px solid #ddd;
+    padding: 12px;
+    background-color: #f5f5f5;
+    overflow: scroll;
   }
   &__buttons {
     margin: 0 auto;
@@ -27,7 +37,6 @@
 }
 button {
   max-width: 440px;
-  width: 100%;
   padding: 8px 32px;
   margin: 8px;
 }
