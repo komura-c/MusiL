@@ -18,6 +18,7 @@ export class ArticleService {
 
   createArticle(article: Article) {
     const id = this.db.createId();
+    article.id = id;
     return this.db.doc(`articles/${id}`).set(article)
       .then(() => {
         this.router.navigateByUrl('/');

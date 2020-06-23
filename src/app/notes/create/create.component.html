@@ -1,21 +1,21 @@
 <div class="container">
   <mat-card class="editor">
     <form class="editor__form" [formGroup]="form">
-      <mat-form-field class="editor__title" appearance="outline">
-        <mat-label>タイトル（80文字以内）</mat-label>
-        <input type="text" formControlName="title" matInput autocomplete="off" />
+      <mat-form-field class="editor__title" floatLabel="always">
+        <mat-label></mat-label>
+        <input type="text" formControlName="title" matInput placeholder="タイトル（80文字以内）*" autocomplete="off" />
         <mat-error *ngIf="titleControl.hasError('required')">必須入力です</mat-error>
         <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは80文字以内にしてください</mat-error>
       </mat-form-field>
-      <mat-form-field class="editor__tag" appearance="outline">
-        <mat-label>作曲やDTMに関するタグを入力</mat-label>
-        <input type="text" formControlName="tag" matInput autocomplete="off" />
+      <mat-form-field class="editor__tag" floatLabel="always">
+        <mat-label></mat-label>
+        <input type="text" formControlName="tag" matInput placeholder="作曲やDTMに関するタグを入力" autocomplete="off" />
       </mat-form-field>
-      <mat-form-field class="editor__text" appearance="outline">
-        <mat-label>DTMの知識を書いて共有しよう</mat-label>
-        <textarea type="text" formControlName="text" matInput autocomplete="off"></textarea>
-        <mat-error *ngIf="textControl.hasError('required')">必須入力です</mat-error>
-      </mat-form-field>
+      <div class="editor__body">
+        <angular-editor formControlName="editorContent" class="editor__content" [config]="editorConfig">
+        </angular-editor>
+        <div class="editor__preview" [innerHTML]='editorPreview'></div>
+      </div>
       <div class="editor__buttons">
         <button [disabled]="form.invalid" class="draft" mat-flat-button color="primary">
           下書きに保存

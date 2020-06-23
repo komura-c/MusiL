@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-create',
@@ -12,16 +13,48 @@ export class CreateComponent implements OnInit {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(80)]],
     tag: [''],
-    text: ['', Validators.required],
+    editorContent: [''],
   });
+  editorPreview: string;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
   }
 
-  get textControl() {
-    return this.form.get('text') as FormControl;
+  get tagControl() {
+    return this.form.get('tag') as FormControl;
   }
+
+  get editorContentControl() {
+    return this.form.get('editorContent') as FormControl;
+  }
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '350px',
+    minHeight: '350px',
+    maxHeight: '350px',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: '作曲やDTMに関する知識を共有しよう',
+    defaultParagraphSeparator: 'p',
+    uploadUrl: 'v1/image',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [
+      ['subscript',
+        'superscript', 'indent',
+        'outdent', 'fontName'],
+      ['fontSize', 'textColor',
+        'backgroundColor', 'customClasses', 'insertHorizontalRule',
+        'toggleEditorMode']
+    ]
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -29,17 +62,21 @@ export class CreateComponent implements OnInit {
     private authService: AuthService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.form.valueChanges.subscribe((inputText) => {
+      this.editorPreview = inputText.editorContent;
+    });
+  }
 
   submit() {
     const formData = this.form.value;
     this.articleService.createArticle({
       userId: this.authService.uid,
-      id: 'n00001',
-      thumbnailUrl: 'http://placekitten.com/100/100',
+      id: '',
+      thumbnailUrl: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',
-      text: formData.text,
+      text: formData.editorContent,
     });
   }
 }

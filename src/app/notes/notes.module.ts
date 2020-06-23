@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -21,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatButtonModule,
     MatCardModule,
+    AngularEditorModule
   ],
 })
-export class NotesModule {}
+export class NotesModule { }
