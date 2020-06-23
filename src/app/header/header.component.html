@@ -27,7 +27,7 @@
 
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/', user.uid]">
+          <button mat-menu-item [routerLink]="['/', user.providerData[0].uid]">
             <mat-icon>account_box</mat-icon>
             <span>マイページ</span>
           </button>
