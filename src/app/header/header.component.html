@@ -1,6 +1,6 @@
 <mat-toolbar class="header">
   <mat-toolbar-row class="header__container">
-    <a routerLink="/" class="header__title">DTMPlace</a>
+    <a routerLink="/" class="header__title">MusiL</a>
     <form class="search">
       <input matInput placeholder="キーワードを入力" class="search__input" autocomplete="off" />
       <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">
@@ -16,7 +16,7 @@
 
     <ng-container *ngIf="user$ | async as user; else default">
       <div class="header__nav">
-        <button mat-flat-button color="primary" medium class="post-button">
+        <button mat-flat-button color="primary" medium class="post-button" routerLink="/notes/create">
           <mat-icon>post_add</mat-icon>
           <span>投稿する</span>
         </button>
@@ -27,15 +27,15 @@
 
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item>
+          <button mat-menu-item [routerLink]="['/', user.providerData[0].uid]">
             <mat-icon>account_box</mat-icon>
             <span>マイページ</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item mat-menu-item routerLink="/notes">
             <mat-icon>article</mat-icon>
             <span>記事一覧</span>
           </button>
-          <button (click)="logout()" mat-menu-item color="primary" medium class="logout-button">
+          <button (click)="logout()" mat-menu-item class="logout-button">
             <mat-icon>exit_to_app</mat-icon>
             <span>ログアウト</span>
           </button>
