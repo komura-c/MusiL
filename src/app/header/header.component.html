@@ -10,7 +10,7 @@
 
     <ng-template #default>
       <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
-        <span>Twitterでログイン</span>
+        <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
       </button>
     </ng-template>
 
@@ -22,12 +22,12 @@
         </button>
 
         <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
-          [style.background-image]="'url(' + user.photoURL + ')'" class="my-menu">
+          [style.background-image]="'url(' + user.avatarURL + ')'" class="my-menu">
         </button>
 
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/', user.providerData[0].uid]">
+          <button mat-menu-item [routerLink]="['/', user.screenName]">
             <mat-icon>account_box</mat-icon>
             <span>マイページ</span>
           </button>
