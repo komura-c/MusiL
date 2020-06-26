@@ -1,35 +1,64 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth, User } from 'firebase/app';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UserService } from './user.service';
+import { UserData } from '../interfaces/user';
+import { switchMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   afUser$: Observable<User> = this.afAuth.user;
-  uid: string;
+  uId: string;
+  user$: Observable<UserData> = this.afAuth.authState.pipe(
+    switchMap((afUser) => {
+      if (afUser) {
+        return this.userService.getUser(afUser.uid);
+      } else {
+        return of(null);
+      }
+    })
+  );
 
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private userService: UserService,
   ) {
     this.afUser$.subscribe(user => {
-      this.uid = user && user.uid;
+      this.uId = user && user.uid;
     });
   }
-  login() {
-    this.afAuth.signInWithRedirect(
-      new auth.TwitterAuthProvider()
-    );
+
+  login(): Promise<void> {
+    const provider = new auth.TwitterAuthProvider();
+    return this.afAuth.signInWithPopup(provider)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        const screenName = userCredential.additionalUserInfo.username;
+        this.userService.updateUser(
+          user.uid,
+          user.displayName,
+          user.photoURL,
+          screenName,
+        );
+      })
+      .catch((error) => {
+        this.router.navigateByUrl('/');
+        const errorMessage = error.message;
+        this.snackBar.open(errorMessage, null, { duration: 2000 });
+      });
   }
+
   logout() {
     this.afAuth.signOut().then(() => {
+      this.router.navigateByUrl('/');
       this.snackBar.open('ログアウトしました', null, { duration: 2000 });
     });
-    this.router.navigateByUrl('/');
   }
 }

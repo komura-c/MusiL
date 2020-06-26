@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { take } from 'rxjs/operators';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-header',
@@ -8,22 +8,23 @@ import { take } from 'rxjs/operators';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.authService.afUser$;
-  isProcessing = true;
+  user$ = this.authService.user$;
+  isProcessing: boolean;
 
   constructor(
-    private authService: AuthService
-  ) {
-    this.user$.pipe(take(1)).subscribe(() => {
-      this.isProcessing = false;
-    });
-  }
+    private authService: AuthService,
+    private userService: UserService,
+  ) { }
 
   ngOnInit(): void {
   }
 
   login() {
-    this.authService.login();
+    this.isProcessing = true;
+    this.authService.login().finally(() => {
+      this.isProcessing = false;
+      this.userService.getUser(this.authService.uId);
+    });
   }
 
   logout() {
