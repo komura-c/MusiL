@@ -7,10 +7,17 @@ import { NoteComponent } from './note/note.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [MypageComponent, NoteComponent],
-  imports: [CommonModule, MypageRoutingModule, MatButtonModule, MatTooltipModule,
-    MatIconModule],
+  imports: [
+    CommonModule,
+    MypageRoutingModule,
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    SharedModule
+  ],
 })
 export class MypageModule { }
