@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  articles$: Observable<Article[]> = this.articleService.getArticle();
+  articles$: Observable<Article[]> = this.articleService.getAllArticles();
   constructor(
     private articleService: ArticleService,
   ) { }

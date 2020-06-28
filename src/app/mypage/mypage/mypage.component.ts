@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { UserData } from 'src/app/interfaces/user';
 import { Article } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/article.service';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-mypage',
@@ -14,7 +15,7 @@ import { ArticleService } from 'src/app/services/article.service';
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
   screenName: string;
-  articles$: Observable<Article[]> = this.articleService.getArticle();
+  articles$: Observable<Article[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,9 @@ export class MypageComponent implements OnInit {
       this.user$ = this.userService.getUserByScreenName(
         this.screenName
       );
+      this.articles$ = this.user$.pipe(
+        map((user: UserData) => user.uId),
+        switchMap((uId: string) => this.articleService.getArticlesByUId(uId)));
     });
   }
 
