@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { UserData } from 'src/app/interfaces/user';
+import { Article } from 'src/app/interfaces/article';
+import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
   selector: 'app-mypage',
@@ -11,16 +13,18 @@ import { UserData } from 'src/app/interfaces/user';
 })
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
-  userId: string;
+  screenName: string;
+  articles$: Observable<Article[]> = this.articleService.getArticle();
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private articleService: ArticleService,
   ) {
     route.paramMap.subscribe(params => {
-      this.userId = params.get('id');
+      this.screenName = params.get('id');
       this.user$ = this.userService.getUserByScreenName(
-        this.userId
+        this.screenName
       );
     });
   }

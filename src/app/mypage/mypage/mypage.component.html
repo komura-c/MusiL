@@ -1,7 +1,21 @@
-<ng-container *ngIf="user$ | async as user; else error;">
-  <p>{{user.uName}}</p>
-  <img [src]="user.avatarURL" class="user-icon">
-</ng-container>
-<ng-template #error>
-  <p>「{{userId}}」というユーザーは存在しませんでした。</p>
-</ng-template>
+<div class="mypage">
+  <div class="mypage__profile">
+    <ng-container *ngIf="user$ | async as user; else error;">
+      <p>{{user.uName}}</p>
+      <p>@{{user.screenName}}</p>
+      <img [src]="user.avatarURL" class="user-icon">
+      <p>{{user.description}}</p>
+    </ng-container>
+    <ng-template #error>
+      <p>「{{screenName}}」というユーザーは存在しませんでした。</p>
+    </ng-template>
+  </div>
+  <div class="mypage__menu">
+
+  </div>
+  <div class="mypage__body">
+    <ng-container *ngFor="let article of articles$ | async">
+      <app-article *ngIf="article" [article]="article"></app-article>
+    </ng-container>
+  </div>
+</div>
