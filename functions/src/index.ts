@@ -9,6 +9,5 @@ export const createUser = functions.region('asia-northeast1').auth.user().onCrea
     uId: user.uid,
     uName: user.displayName,
     avatarURL: user.photoURL,
-    screenName: null,
   });
 });

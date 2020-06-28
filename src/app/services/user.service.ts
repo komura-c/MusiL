@@ -32,12 +32,8 @@ export class UserService {
       );
   }
 
-  updateUser(uId: string, uName: string, avatarURL: string, screenName: string): Promise<void> {
-    return this.db.doc<UserData>(`users/${uId}`).update(
-      {
-        uId, uName, avatarURL, screenName
-      }
-    );
+  updateUser(userData: UserData): Promise<void> {
+    return this.db.doc<UserData>(`users/${userData.uId}`).update(userData);
   }
 
   deleteUser(uId: string): Promise<void> {
