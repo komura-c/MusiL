@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class ArticleService {
   constructor(
     private db: AngularFirestore,
+    private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
   ) { }
@@ -28,7 +29,12 @@ export class ArticleService {
       });
   }
 
-  getArticle() {
+  getAllArticles(): Observable<Article[]> {
     return this.db.collection<Article>(`articles`).valueChanges();
+  }
+
+  getArticlesByUId(uId: string): Observable<Article[]> {
+    return this.db.collection<Article>(`articles`, ref => ref.where('userId', '==', uId))
+      .valueChanges();
   }
 }
