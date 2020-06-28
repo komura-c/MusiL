@@ -42,10 +42,11 @@ export class AuthService {
         const user = userCredential.user;
         const userInfo = userCredential.additionalUserInfo.profile;
         const userInfoObj = JSON.parse(JSON.stringify(userInfo));
+        const avatarURL = userInfoObj.profile_image_url.replace('_normal', '');
         this.userService.updateUser({
           uId: user.uid,
           uName: userInfoObj.name,
-          avatarURL: userInfoObj.profile_image_url,
+          avatarURL,
           screenName: userInfoObj.screen_name,
           description: userInfoObj.description,
         });
