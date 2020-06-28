@@ -40,13 +40,15 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
       .then((userCredential) => {
         const user = userCredential.user;
-        const screenName = userCredential.additionalUserInfo.username;
-        this.userService.updateUser(
-          user.uid,
-          user.displayName,
-          user.photoURL,
-          screenName,
-        );
+        const userInfo = userCredential.additionalUserInfo.profile;
+        const userInfoObj = JSON.parse(JSON.stringify(userInfo));
+        this.userService.updateUser({
+          uId: user.uid,
+          uName: userInfoObj.name,
+          avatarURL: userInfoObj.profile_image_url,
+          screenName: userInfoObj.screen_name,
+          description: userInfoObj.description,
+        });
       })
       .catch((error) => {
         this.router.navigateByUrl('/');
