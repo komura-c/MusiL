@@ -17,7 +17,7 @@ export class AuthService {
   user$: Observable<UserData> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
-        return this.userService.getUser(afUser.uid);
+        return this.userService.getUserByUId(afUser.uid);
       } else {
         return of(null);
       }

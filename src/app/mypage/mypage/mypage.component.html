@@ -1,1 +1,7 @@
-<p>mypage works!</p>
+<ng-container *ngIf="user$ | async as user; else error;">
+  <p>{{user.uName}}</p>
+  <img [src]="user.avatarURL" class="user-icon">
+</ng-container>
+<ng-template #error>
+  <p>「{{userId}}」というユーザーは存在しませんでした。</p>
+</ng-template>
