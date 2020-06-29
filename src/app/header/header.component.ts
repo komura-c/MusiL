@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit {
     this.isProcessing = true;
     this.authService.login().finally(() => {
       this.isProcessing = false;
-      this.userService.getUser(this.authService.uId);
+      this.userService.getUserByUId(this.authService.uId);
     });
   }
 

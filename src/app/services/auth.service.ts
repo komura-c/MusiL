@@ -17,7 +17,7 @@ export class AuthService {
   user$: Observable<UserData> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
-        return this.userService.getUser(afUser.uid);
+        return this.userService.getUserByUId(afUser.uid);
       } else {
         return of(null);
       }
@@ -40,13 +40,16 @@ export class AuthService {
     return this.afAuth.signInWithPopup(provider)
       .then((userCredential) => {
         const user = userCredential.user;
-        const screenName = userCredential.additionalUserInfo.username;
-        this.userService.updateUser(
-          user.uid,
-          user.displayName,
-          user.photoURL,
-          screenName,
-        );
+        const userInfo = userCredential.additionalUserInfo.profile;
+        const userInfoObj = JSON.parse(JSON.stringify(userInfo));
+        const avatarURL = userInfoObj.profile_image_url.replace('_normal', '');
+        this.userService.updateUser({
+          uId: user.uid,
+          uName: userInfoObj.name,
+          avatarURL,
+          screenName: userInfoObj.screen_name,
+          description: userInfoObj.description,
+        });
       })
       .catch((error) => {
         this.router.navigateByUrl('/');

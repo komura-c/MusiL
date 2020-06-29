@@ -1,6 +1,7 @@
 <mat-toolbar class="header">
   <mat-toolbar-row class="header__container">
-    <a routerLink="/" class="header__title">MusiL</a>
+    <a routerLink="/">
+      <img src="/assets/icons/musil_logo.png" class="logo"></a>
     <form class="search">
       <input matInput placeholder="キーワードを入力" class="search__input" autocomplete="off" />
       <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">
@@ -18,13 +19,12 @@
       <div class="header__nav">
         <button mat-flat-button color="primary" medium class="post-button" routerLink="/notes/create">
           <mat-icon>post_add</mat-icon>
-          <span>投稿する</span>
+          <span>投稿</span>
         </button>
 
         <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
           [style.background-image]="'url(' + user.avatarURL + ')'" class="my-menu">
         </button>
-
 
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="['/', user.screenName]">
