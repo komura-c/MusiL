@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [MypageComponent, NoteComponent],
@@ -17,7 +18,8 @@ import { SharedModule } from '../shared/shared.module';
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
-    SharedModule
+    SharedModule,
+    MatTabsModule,
   ],
 })
 export class MypageModule { }

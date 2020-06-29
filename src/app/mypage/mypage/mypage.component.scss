@@ -1,0 +1,42 @@
+.mypage {
+  background-color: #fff;
+  padding: 12px;
+  margin: 0 auto;
+  max-width: 800px;
+  border: solid 1px #e0e0e0;
+  border-radius: 4px;
+  &__profile {
+    text-align: center;
+  }
+  &__user-icon {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+  &__user-name {
+    font-weight: bold;
+    padding: 8px;
+    margin: 0;
+  }
+  &__twitter-icon {
+    width: 40px;
+    margin: 4px 0;
+  }
+  &__screen-name {
+    margin: 0;
+  }
+  &__menu {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  &__body {
+    padding: 12px 0;
+    display: grid;
+    justify-content: center;
+    grid-column-gap: 12px;
+  }
+}
+
+.mat-tab-label {
+  font-size: 24px;
+}
