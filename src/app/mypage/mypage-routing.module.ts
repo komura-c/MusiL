@@ -5,7 +5,7 @@ import { NoteComponent } from './note/note.component';
 
 const routes: Routes = [
   {
-    path: 'note',
+    path: 'n/:id',
     component: NoteComponent,
   },
   {
@@ -19,4 +19,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MypageRoutingModule {}
+export class MypageRoutingModule { }

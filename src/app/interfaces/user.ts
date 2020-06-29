@@ -3,4 +3,5 @@ export interface UserData {
   uName: string;
   avatarURL: string;
   screenName: string;
+  description: string;
 }

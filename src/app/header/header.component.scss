@@ -1,23 +1,17 @@
 .header {
-  background-color: #424242;
+  background-color: #ffffff;
   position: fixed;
-  z-index: 1;
+  z-index: 10;
   margin: 0;
   display: flex;
   height: 70px;
+  border-bottom: solid 1px #e0e0e0;
   &__container {
     max-width: 1000px;
     height: 100%;
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
-  }
-  &__title {
-    color: #ffffff;
-    font-weight: bold;
-    font-size: 28px;
-    text-decoration: none;
-    letter-spacing: 2px;
   }
   &__nav {
     display: flex;
@@ -42,13 +36,18 @@
     font-size: 12px;
     margin: 0;
     outline: none;
-    border: solid 2px #f3f3f3;
+    border: solid 1px #e0e0e0;
   }
   &__button {
     position: absolute;
     color: #757575;
     right: 24px;
   }
+}
+
+.logo {
+  height: 40px;
+  padding-top: 5px;
 }
 
 .login-button {
@@ -62,10 +61,9 @@
 
 .my-menu {
   background-size: cover;
-  border: solid 1px #f3f3f3;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 456px) {
   .header {
     height: 110px;
   }
