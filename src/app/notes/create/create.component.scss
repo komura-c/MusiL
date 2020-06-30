@@ -21,11 +21,11 @@
     width: 100%;
   }
   &__preview {
-    height: 430px;
+    width: 100%;
     border: 1px solid #ddd;
     padding: 12px;
     background-color: #f5f5f5;
-    overflow: scroll;
+    overflow-y: scroll;
   }
   &__buttons {
     width: 100%;
