@@ -1,7 +1,7 @@
 export interface Article {
-  userId: string;
-  id: string;
-  thumbnailUrl: string;
+  uId: string;
+  aId: string;
+  imageURL: string;
   title: string;
   tag: string;
   text: string;
