@@ -1,3 +1,4 @@
+import { UserData } from './user';
 export interface Article {
   uId: string;
   aId: string;
@@ -5,4 +6,8 @@ export interface Article {
   title: string;
   tag: string;
   text: string;
+}
+
+export interface ArticleWithAuthor extends Article {
+  author: UserData;
 }

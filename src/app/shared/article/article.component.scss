@@ -1,10 +1,14 @@
 .card {
   max-width: 610px;
-  padding: 16px 0 0 0;
-  margin-bottom: 30px;
-  &__eye-catch {
-    max-height: 300px;
-    margin: 0;
+  border: solid 1px #e0e0e0;
+  border-radius: 4px;
+  background-color: #ffffff;
+  display: block;
+  position: relative;
+  &__inner {
+    display: block;
+    outline-style: none;
+    cursor: pointer;
   }
   &__content {
     padding: 16px;
@@ -19,12 +23,13 @@
     flex-wrap: wrap;
     align-items: center;
   }
-  &__user-icon {
-    background-image: url("https://pbs.twimg.com/profile_images/1020302875229007872/nvfnS9YM_normal.jpg");
-    background-size: cover;
-  }
   &__user-name {
     font-size: 16px;
     padding: 8px;
   }
+}
+
+.card:hover {
+  transition-duration: 0.4s;
+  background-color: #e7e7e7;
 }

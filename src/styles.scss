@@ -13,6 +13,9 @@ a {
   text-decoration: none;
   cursor: pointer;
 }
+a:hover {
+  text-decoration: underline;
+}
 img {
   max-width: 100%;
 }

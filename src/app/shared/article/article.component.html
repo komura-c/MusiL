@@ -1,15 +1,13 @@
-<mat-card class="card">
-  <img mat-card-image class="card__eye-catch" [src]="article.imageURL" alt="アイコン" />
-  <mat-card-content class="card__content">
-    <a class="card__title">
-      {{ article.title }}
-    </a>
-    <p class="card__text">
-      {{ article.text }}
-    </p>
-    <div class="card__author">
-      <a mat-card-avatar class="card__user-icon"></a>
-      <a class="card__user-name">こむら</a>
+<div class="card">
+  <a [routerLink]="'/komura_c/n/' + article.uId" class="card__inner">
+    <div class="card__content">
+      <a class="card__title" (click)="$event.stopPropagation()" [routerLink]="'/komura_c/n/' + article.uId">
+        {{ article.title }}
+      </a>
     </div>
-  </mat-card-content>
-</mat-card>
+    <div class="card__author">
+      <a class="card__user-icon" (click)="$event.stopPropagation()" [routerLink]="'/komura_c'"></a>
+      <a class="card__user-name" (click)="$event.stopPropagation()" [routerLink]="'/komura_c'">こむら</a>
+    </div>
+  </a>
+</div>
