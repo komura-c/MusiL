@@ -20,7 +20,7 @@ export class ArticleService {
   }
 
   getArticlesByUId(uId: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('userId', '==', uId))
+    return this.db.collection<Article>(`articles`, ref => ref.where('uId', '==', uId))
       .valueChanges();
   }
 }
