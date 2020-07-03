@@ -27,18 +27,25 @@ export class MypageComponent implements OnInit {
       this.user$ = this.userService.getUserByScreenName(
         this.screenName
       );
-      // this.articles$ = this.user$.pipe(
-      //   map((user: UserData) => user.uId),
-      //   switchMap((uId: string) => this.articleService.getArticlesByUId(uId))),
-      //   map((articles: Article[]) => {
-      //     articles.map(article => {
-      //       const result: ArticleWithAuthor = {
-      //         ...article,
-      //         author: ,
-      //       };
-      //       return result;
-      //     });
-      //   });
+      let author: UserData;
+      this.articles$ = this.user$.pipe(
+        map((user: UserData) => {
+          author = user;
+          return user.uId;
+        }),
+        switchMap((uId) => {
+          return this.articleService.getArticlesByUId(uId);
+        }),
+        map((articles: Article[]) => {
+          return articles.map(article => {
+            const result: ArticleWithAuthor = {
+              ...article,
+              author,
+            };
+            return result;
+          });
+        })
+      );
     });
   }
 
