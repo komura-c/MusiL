@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Article } from 'src/app/interfaces/article';
+import { ArticleWithAuthor } from 'src/app/interfaces/article';
 
 @Component({
   selector: 'app-article',
@@ -7,7 +7,7 @@ import { Article } from 'src/app/interfaces/article';
   styleUrls: ['./article.component.scss'],
 })
 export class ArticleComponent implements OnInit {
-  @Input() article: Article;
+  @Input() article: ArticleWithAuthor;
 
   constructor() { }
 
