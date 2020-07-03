@@ -3,33 +3,54 @@
   border: solid 1px #e0e0e0;
   border-radius: 4px;
   background-color: #ffffff;
-  display: block;
-  position: relative;
+  :hover {
+    transition-duration: 0.2s;
+    background-color: #e7e7e7;
+  }
   &__inner {
+    padding: 20px;
     display: block;
     outline-style: none;
-    cursor: pointer;
+    text-decoration: none;
   }
-  &__content {
-    padding: 16px;
+  &__thumbnail-image {
+    border-radius: 4px;
   }
   &__title {
+    margin: 8px 0;
     font-size: 20px;
     font-weight: bold;
+    cursor: pointer;
   }
   &__author {
-    margin: 0;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
   }
-  &__user-name {
-    font-size: 16px;
+  &__user-icon {
+    width: 40px;
+    border-radius: 50%;
+  }
+  &__author-name {
+    display: flex;
+    flex-direction: column;
     padding: 8px;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+  &__user-name {
+    font-weight: bold;
+    font-size: 16px;
+    :hover {
+      text-decoration: underline;
+    }
+  }
+  &__screen-name {
+    padding-left: 4px;
   }
 }
 
-.card:hover {
-  transition-duration: 0.4s;
-  background-color: #e7e7e7;
+h3.card__title:hover {
+  text-decoration: underline;
 }

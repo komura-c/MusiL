@@ -1,13 +1,18 @@
 <div class="card">
   <a [routerLink]="'/komura_c/n/' + article.uId" class="card__inner">
-    <div class="card__content">
-      <a class="card__title" (click)="$event.stopPropagation()" [routerLink]="'/komura_c/n/' + article.uId">
-        {{ article.title }}
-      </a>
-    </div>
+    <img class="card__thumbnail-image" [src]="article.imageURL" alt="サムネイル画像">
+    <h3 class="card__title" (click)="$event.stopPropagation()" [routerLink]="'/komura_c/n/' + article.uId">
+      {{ article.title }}
+    </h3>
     <div class="card__author">
-      <a class="card__user-icon" (click)="$event.stopPropagation()" [routerLink]="'/komura_c'"></a>
-      <a class="card__user-name" (click)="$event.stopPropagation()" [routerLink]="'/komura_c'">こむら</a>
+      <a (click)="$event.stopPropagation()" [routerLink]="'/'  + article.author.screenName">
+        <img class="card__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
+      <div class="card__author-name">
+        <a class="card__user-name" (click)="$event.stopPropagation()"
+          [routerLink]="'/' + article.author.screenName">{{article.author.uName}}</a>
+        <a class="card__screen-name" (click)="$event.stopPropagation()"
+          [routerLink]="'/' + article.author.screenName">@{{article.author.screenName}}</a>
+      </div>
     </div>
   </a>
 </div>
