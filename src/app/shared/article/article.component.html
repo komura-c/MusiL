@@ -1,7 +1,7 @@
 <div class="card">
-  <a [routerLink]="'/komura_c/n/' + article.uId" class="card__inner">
+  <a [routerLink]="'/komura_c/n/' + article.aId" class="card__inner">
     <img class="card__thumbnail-image" [src]="article.imageURL" alt="サムネイル画像">
-    <h3 class="card__title" (click)="$event.stopPropagation()" [routerLink]="'/komura_c/n/' + article.uId">
+    <h3 class="card__title" (click)="$event.stopPropagation()" [routerLink]="'/komura_c/n/' + article.aId">
       {{ article.title }}
     </h3>
     <div class="card__author">
