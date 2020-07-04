@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { Observable } from 'rxjs';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +30,9 @@ export class ArticleService {
   getArticlesByUId(uId: string): Observable<Article[]> {
     return this.db.collection<Article>(`articles`, ref => ref.where('uId', '==', uId))
       .valueChanges();
+  }
+
+  getArticleByAId(aId: string): Observable<Article> {
+    return this.db.doc<Article>(`articles/${aId}`).valueChanges();
   }
 }
