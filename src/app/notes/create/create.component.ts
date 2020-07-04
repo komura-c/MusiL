@@ -3,9 +3,9 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Article } from 'src/app/interfaces/article';
 
 @Component({
   selector: 'app-create',
@@ -66,7 +66,6 @@ export class CreateComponent implements OnInit {
     private fb: FormBuilder,
     private articleService: ArticleService,
     private authService: AuthService,
-    private db: AngularFirestore,
     private snackBar: MatSnackBar,
     private router: Router,
   ) { }
@@ -79,15 +78,15 @@ export class CreateComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    const aId = this.db.createId();
-    this.articleService.createArticle({
+    const sendData: Omit<Article, 'aId' | 'createdAt' | 'updatedAt'>
+      = {
       uId: this.authService.uId,
-      aId,
       imageURL: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',
       text: formData.editorContent,
-    }).then(() => {
+    };
+    this.articleService.createArticle(sendData).then(() => {
       this.router.navigateByUrl('/');
       this.snackBar.open('記事を投稿しました', null, {
         duration: 2000,
