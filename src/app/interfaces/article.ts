@@ -1,5 +1,5 @@
 import { UserData } from './user';
-import { firestore } from 'firebase';
+import { firestore } from 'firebase/app';
 
 export interface Article {
   uId: string;
