@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { Observable } from 'rxjs';
+import { firestore } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +12,15 @@ export class ArticleService {
     private db: AngularFirestore,
   ) { }
 
-  createArticle(article: Article): Promise<void> {
-    return this.db.doc(`articles/${article.aId}`).set(article);
+  createArticle(article: Omit<Article, 'aId' | 'createdAt' | 'updatedAt'>
+  ): Promise<void> {
+    const aId = this.db.createId();
+    return this.db.doc(`articles/${aId}`).set({
+      aId,
+      ...article,
+      createdAt: firestore.Timestamp.now(),
+      updatedAt: firestore.Timestamp.now()
+    });
   }
 
   getAllArticles(): Observable<Article[]> {
