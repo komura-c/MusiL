@@ -5,7 +5,7 @@
   background-color: #ffffff;
   :hover {
     transition-duration: 0.2s;
-    background-color: #e7e7e7;
+    background-color: #f5f5f5;
   }
   &__inner {
     padding: 20px;
@@ -28,7 +28,9 @@
     align-items: center;
   }
   &__user-icon {
+    display: block;
     width: 40px;
+    height: 40px;
     border-radius: 50%;
   }
   &__author-name {
