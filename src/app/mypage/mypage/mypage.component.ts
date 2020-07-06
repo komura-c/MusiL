@@ -31,10 +31,10 @@ export class MypageComponent implements OnInit {
       this.articles$ = this.user$.pipe(
         map((user: UserData) => {
           author = user;
-          return user.uId;
+          return user.uid;
         }),
-        switchMap((uId) => {
-          return this.articleService.getArticlesByUId(uId);
+        switchMap((uid) => {
+          return this.articleService.getArticles(uid);
         }),
         map((articles: Article[]) => {
           return articles.map(article => {

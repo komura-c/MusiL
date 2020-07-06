@@ -12,11 +12,11 @@ export class ArticleService {
     private db: AngularFirestore,
   ) { }
 
-  createArticle(article: Omit<Article, 'aId' | 'createdAt' | 'updatedAt'>
+  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
   ): Promise<void> {
-    const aId = this.db.createId();
-    return this.db.doc(`articles/${aId}`).set({
-      aId,
+    const articleId = this.db.createId();
+    return this.db.doc(`articles/${articleId}`).set({
+      articleId,
       ...article,
       createdAt: firestore.Timestamp.now(),
       updatedAt: firestore.Timestamp.now()
@@ -27,12 +27,12 @@ export class ArticleService {
     return this.db.collection<Article>(`articles`).valueChanges();
   }
 
-  getArticlesByUId(uId: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uId', '==', uId))
+  getArticles(uid: string): Observable<Article[]> {
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid))
       .valueChanges();
   }
 
-  getArticleByAId(aId: string): Observable<Article> {
-    return this.db.doc<Article>(`articles/${aId}`).valueChanges();
+  getArticleOnly(articleId: string): Observable<Article> {
+    return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
   }
 }
