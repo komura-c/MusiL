@@ -28,10 +28,10 @@ export class HomeComponent implements OnInit {
 
         if (articles.length) {
           const authorIds: string[] = articles.filter((article, index, self) => {
-            return self.findIndex(item => article.uId === item.uId) === index;
-          }).map(post => post.uId);
-          return combineLatest(authorIds.map(uId => {
-            return this.userService.getUserByUId(uId);
+            return self.findIndex(item => article.uid === item.uid) === index;
+          }).map(post => post.uid);
+          return combineLatest(authorIds.map(uid => {
+            return this.userService.getUserData(uid);
           }));
         } else {
           return of([]);
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
         return articles.map(article => {
           const result: ArticleWithAuthor = {
             ...article,
-            author: users.find(user => user.uId === article.uId),
+            author: users.find(user => user.uid === article.uid),
           };
           return result;
         });

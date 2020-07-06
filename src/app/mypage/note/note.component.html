@@ -4,7 +4,7 @@
       <div class="note-header__author">
         <a [routerLink]="'/'  + article.author.screenName">
           <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
-        <a class="note-header__user-name" [routerLink]="'/' + article.author.screenName">{{article.author.uName}}</a>
+        <a class="note-header__user-name" [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
         <a class="note-header__twitter" [href]="'https://twitter.com/' + article.author.screenName">
           <img src="/assets/icons/twitter.png" alt="twitterアイコン">
         </a>

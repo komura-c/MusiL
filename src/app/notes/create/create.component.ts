@@ -78,9 +78,9 @@ export class CreateComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    const sendData: Omit<Article, 'aId' | 'createdAt' | 'updatedAt'>
+    const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
       = {
-      uId: this.authService.uId,
+      uid: this.authService.uid,
       imageURL: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',

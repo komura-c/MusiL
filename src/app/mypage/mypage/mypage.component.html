@@ -2,7 +2,7 @@
   <div class="mypage__profile">
     <ng-container *ngIf="user$ | async as user; else notFound;">
       <img [src]="user.avatarURL" class="mypage__user-icon">
-      <h2 class="mypage__user-name">{{user.uName}}</h2>
+      <h2 class="mypage__user-name">{{user.userName}}</h2>
       <p class="mypage__screen-name">@{{user.screenName}}</p>
       <a [href]="'https://twitter.com/' + user.screenName">
         <img src="/assets/icons/twitter.png" alt="twitterアイコン" class="mypage__twitter-icon">

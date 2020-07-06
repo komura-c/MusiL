@@ -23,15 +23,15 @@ export class NoteComponent implements OnInit {
   ) {
     route.paramMap.subscribe(params => {
       this.articleId = params.get('id');
-      const post$ = this.articleService.getArticleByAId(this.articleId);
+      const post$ = this.articleService.getArticleOnly(this.articleId);
       let articleData: Article;
       this.article$ = post$.pipe(
         map((article: Article) => {
           articleData = article;
-          return article.uId;
+          return article.uid;
         }),
-        switchMap((uId: string) => {
-          return this.userService.getUserByUId(uId);
+        switchMap((uid: string) => {
+          return this.userService.getUserData(uid);
         }),
         map((author: UserData) => {
           const result: ArticleWithAuthor = {
