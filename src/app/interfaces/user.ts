@@ -1,6 +1,6 @@
 export interface UserData {
-  uId: string;
-  uName: string;
+  uid: string;
+  userName: string;
   avatarURL: string;
   screenName: string;
   description: string;

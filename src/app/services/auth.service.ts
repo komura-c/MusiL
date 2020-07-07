@@ -13,11 +13,11 @@ import { switchMap } from 'rxjs/operators';
 })
 export class AuthService {
   afUser$: Observable<User> = this.afAuth.user;
-  uId: string;
+  uid: string;
   user$: Observable<UserData> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
-        return this.userService.getUserByUId(afUser.uid);
+        return this.userService.getUserData(afUser.uid);
       } else {
         return of(null);
       }
@@ -31,7 +31,7 @@ export class AuthService {
     private userService: UserService,
   ) {
     this.afUser$.subscribe(user => {
-      this.uId = user && user.uid;
+      this.uid = user && user.uid;
     });
   }
 
@@ -42,10 +42,10 @@ export class AuthService {
         const user = userCredential.user;
         const userInfo = userCredential.additionalUserInfo.profile;
         const userInfoObj = JSON.parse(JSON.stringify(userInfo));
-        const avatarURL = userInfoObj.profile_image_url.replace('_normal', '');
+        const avatarURL = userInfoObj.profile_image_url_https.replace('_normal', '');
         this.userService.updateUser({
-          uId: user.uid,
-          uName: userInfoObj.name,
+          uid: user.uid,
+          userName: userInfoObj.name,
           avatarURL,
           screenName: userInfoObj.screen_name,
           description: userInfoObj.description,

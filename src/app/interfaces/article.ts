@@ -1,8 +1,17 @@
+import { UserData } from './user';
+import { firestore } from 'firebase/app';
+
 export interface Article {
-  userId: string;
-  id: string;
-  thumbnailUrl: string;
+  articleId: string;
+  uid: string;
+  imageURL: string;
   title: string;
   tag: string;
   text: string;
+  createdAt: firestore.Timestamp;
+  updatedAt: firestore.Timestamp;
+}
+
+export interface ArticleWithAuthor extends Article {
+  author: UserData;
 }
