@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
 import { UserData } from 'src/app/interfaces/user';
-import { Article } from 'src/app/interfaces/article';
+import { Article, ArticleWithAuthor } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { map, switchMap } from 'rxjs/operators';
 
@@ -15,7 +15,7 @@ import { map, switchMap } from 'rxjs/operators';
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
   screenName: string;
-  articles$: Observable<Article[]>;
+  articles$: Observable<ArticleWithAuthor[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,9 +27,25 @@ export class MypageComponent implements OnInit {
       this.user$ = this.userService.getUserByScreenName(
         this.screenName
       );
+      let author: UserData;
       this.articles$ = this.user$.pipe(
-        map((user: UserData) => user.uId),
-        switchMap((uId: string) => this.articleService.getArticlesByUId(uId)));
+        map((user: UserData) => {
+          author = user;
+          return user.uid;
+        }),
+        switchMap((uid) => {
+          return this.articleService.getArticles(uid);
+        }),
+        map((articles: Article[]) => {
+          return articles.map(article => {
+            const result: ArticleWithAuthor = {
+              ...article,
+              author,
+            };
+            return result;
+          });
+        })
+      );
     });
   }
 

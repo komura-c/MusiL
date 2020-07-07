@@ -3,6 +3,7 @@ import { UserData } from '../interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,11 @@ export class UserService {
 
   constructor(
     private db: AngularFirestore,
+    private afAuth: AngularFireAuth,
   ) { }
 
-  getUserByUId(uId: string): Observable<UserData> {
-    return this.db.doc<UserData>(`users/${uId}`).valueChanges();
+  getUserData(uid: string): Observable<UserData> {
+    return this.db.doc<UserData>(`users/${uid}`).valueChanges();
   }
 
   getUserByScreenName(screenName: string): Observable<UserData> {
@@ -33,10 +35,10 @@ export class UserService {
   }
 
   updateUser(userData: UserData): Promise<void> {
-    return this.db.doc<UserData>(`users/${userData.uId}`).update(userData);
+    return this.db.doc<UserData>(`users/${userData.uid}`).update(userData);
   }
 
-  deleteUser(uId: string): Promise<void> {
-    return this.db.doc<UserData>(`users/${uId}`).delete();
+  async deleteUser(): Promise<void> {
+    return (await this.afAuth.currentUser).delete();
   }
 }

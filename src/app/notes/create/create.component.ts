@@ -3,6 +3,9 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { Article } from 'src/app/interfaces/article';
 
 @Component({
   selector: 'app-create',
@@ -42,16 +45,19 @@ export class CreateComponent implements OnInit {
     showToolbar: true,
     placeholder: '作曲やDTMに関する知識を共有しよう',
     defaultParagraphSeparator: 'p',
-    uploadUrl: 'v1/image',
-    uploadWithCredentials: false,
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
       ['subscript',
-        'superscript', 'indent',
+        'superscript', 'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull', 'indent',
         'outdent', 'fontName'],
       ['fontSize', 'textColor',
-        'backgroundColor', 'customClasses', 'insertHorizontalRule',
+        'backgroundColor', 'customClasses',
+        'insertImage',
+        'insertVideo', 'insertHorizontalRule',
         'toggleEditorMode']
     ]
   };
@@ -60,6 +66,8 @@ export class CreateComponent implements OnInit {
     private fb: FormBuilder,
     private articleService: ArticleService,
     private authService: AuthService,
+    private snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -70,13 +78,19 @@ export class CreateComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    this.articleService.createArticle({
-      userId: this.authService.uId,
-      id: '',
-      thumbnailUrl: 'http://placekitten.com/700/300',
+    const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
+      = {
+      uid: this.authService.uid,
+      imageURL: 'http://placekitten.com/700/300',
       title: formData.title,
       tag: 'DTM',
       text: formData.editorContent,
+    };
+    this.articleService.createArticle(sendData).then(() => {
+      this.router.navigateByUrl('/');
+      this.snackBar.open('記事を投稿しました', null, {
+        duration: 2000,
+      });
     });
   }
 }
