@@ -1,5 +1,5 @@
 .editor {
-  margin: -16px -16px -16px -16px;
+  margin: -16px 0;
   background-color: #ffffff;
   &__form {
     width: 100%;
@@ -30,9 +30,8 @@
   }
   &__preview {
     width: 95%;
+    height: 100%;
     border: 1px solid #ddd;
-    padding: 12px;
-    background-color: #f5f5f5;
     overflow-y: scroll;
   }
   &__buttons {
@@ -50,4 +49,21 @@ button {
   max-width: 440px;
   padding: 8px 32px;
   margin: 8px;
+}
+.preview {
+  &__header {
+    background-color: #f5f5f5;
+    line-height: 32px;
+    padding: 4px;
+    border: 1px solid #ddd;
+    background-color: #f5f5f5;
+  }
+  &__title {
+    font-size: 16px;
+    color: #92989e;
+    padding-left: 10px;
+  }
+  &__main {
+    padding: 0.5rem 0.8rem 1rem;
+  }
 }

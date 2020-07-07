@@ -23,6 +23,9 @@ img {
   padding: 76px 16px 16px 16px;
   background-color: #ffffff;
 }
+.angular-editor-textarea {
+  margin: 0 !important;
+}
 
 @media screen and (max-width: 480px) {
   .container {

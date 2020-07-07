@@ -44,19 +44,19 @@ export class CreateComponent implements OnInit {
     enableToolbar: true,
     showToolbar: true,
     placeholder: '作曲やDTMに関する知識を共有しよう',
-    defaultParagraphSeparator: 'p',
     sanitize: true,
     toolbarPosition: 'top',
     toolbarHiddenButtons: [
-      ['subscript',
+      ['undo',
+        'redo', 'subscript',
         'superscript', 'justifyLeft',
         'justifyCenter',
         'justifyRight',
         'justifyFull', 'indent',
         'outdent', 'fontName'],
       ['fontSize', 'textColor',
-        'backgroundColor', 'customClasses',
-        'insertImage',
+        'customClasses',
+        'backgroundColor',
         'insertVideo', 'insertHorizontalRule',
         'toggleEditorMode']
     ]
