@@ -8,7 +8,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    MatCardModule,
     AngularEditorModule
   ],
 })

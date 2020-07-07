@@ -1,4 +1,4 @@
-<mat-card class="editor">
+<div class="editor">
   <form class="editor__form" [formGroup]="form">
     <div class="editor__header">
       <mat-form-field class="editor__title" floatLabel="always">
@@ -14,10 +14,15 @@
     </div>
     <div class="editor__body">
       <div class="editor__content">
-        <angular-editor formControlName="editorContent" class="editor__main" [config]="editorConfig">
+        <angular-editor formControlName="editorContent" [config]="editorConfig">
         </angular-editor>
       </div>
-      <div class="editor__preview" [innerHTML]='editorPreview'></div>
+      <div class="editor__preview">
+        <div class="preview__header">
+          <div class="preview__title">プレビュー</div>
+        </div>
+        <div class="preview__main" [innerHTML]='editorPreview'></div>
+      </div>
     </div>
     <div class="editor__buttons">
       <button [disabled]="form.invalid" class="draft" mat-flat-button color="primary">
@@ -28,4 +33,4 @@
       </button>
     </div>
   </form>
-</mat-card>
+</div>
