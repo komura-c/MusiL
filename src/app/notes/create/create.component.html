@@ -14,14 +14,13 @@
     </div>
     <div class="editor__body">
       <div class="editor__content">
-        <angular-editor formControlName="editorContent" [config]="editorConfig">
-        </angular-editor>
+        <div [froalaEditor]="options" formControlName="editorContent" [(froalaModel)]="editorPreview"></div>
       </div>
       <div class="editor__preview">
         <div class="preview__header">
           <div class="preview__title">プレビュー</div>
         </div>
-        <div class="preview__main" [innerHTML]='editorPreview'></div>
+        <div class="preview__main" [froalaView]="editorPreview"></div>
       </div>
     </div>
     <div class="editor__buttons">

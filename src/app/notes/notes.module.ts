@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { AngularEditorModule } from '@kolkov/angular-editor';
+import { FroalaViewModule, FroalaEditorModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -20,7 +20,8 @@ import { AngularEditorModule } from '@kolkov/angular-editor';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    AngularEditorModule
+    FroalaEditorModule,
+    FroalaViewModule,
   ],
 })
 export class NotesModule { }
