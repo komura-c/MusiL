@@ -29,10 +29,8 @@
     width: 100%;
   }
   &__preview {
-    width: 95%;
-    height: 100%;
+    width: 98%;
     border: 1px solid #ddd;
-    overflow-y: scroll;
   }
   &__buttons {
     width: 100%;
@@ -65,5 +63,7 @@ button {
   }
   &__main {
     padding: 0.5rem 0.8rem 1rem;
+    max-height: 370px;
+    overflow-y: scroll;
   }
 }
