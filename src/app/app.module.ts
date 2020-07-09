@@ -18,7 +18,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { HttpClientModule } from '@angular/common/http';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent],
@@ -37,7 +37,8 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireStorageModule,
     AngularFireFunctionsModule,
     AngularFireAuthModule,
-    HttpClientModule,
+    FroalaEditorModule.forRoot(),
+    FroalaViewModule.forRoot(),
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
