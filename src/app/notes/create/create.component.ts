@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
-import 'froala-editor/js/plugins/code_beautifier.min.js';
-import 'froala-editor/js/plugins/code_view.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
 import 'froala-editor/js/plugins/file.min.js';
@@ -16,18 +14,19 @@ import 'froala-editor/js/plugins/font_size.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
 import 'froala-editor/js/plugins/image.min.js';
 import 'froala-editor/js/plugins/image_manager.min.js';
-import 'froala-editor/js/third_party/image_tui.min.js';
+import 'froala-editor/js/plugins/inline_style.min.js';
 import 'froala-editor/js/plugins/line_breaker.min.js';
 import 'froala-editor/js/plugins/link.min.js';
 import 'froala-editor/js/plugins/lists.min.js';
-import 'froala-editor/js/plugins/help.min.js';
 import 'froala-editor/js/plugins/paragraph_style.min.js';
 import 'froala-editor/js/plugins/paragraph_format.min.js';
 import 'froala-editor/js/plugins/quick_insert.min.js';
 import 'froala-editor/js/plugins/quote.min.js';
+import 'froala-editor/js/plugins/special_characters.min.js';
 import 'froala-editor/js/plugins/table.min.js';
 import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
+import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
 
 @Component({
@@ -42,6 +41,7 @@ export class CreateComponent implements OnInit {
     editorContent: [''],
   });
   editorPreview = '';
+  froalaEditor;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -58,13 +58,11 @@ export class CreateComponent implements OnInit {
   public options = {
     toolbarSticky: false,
     toolbarInline: false,
-    height: 350,
+    height: '310',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
     language: 'ja',
-    toolbarButtons: [['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'], ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote'], ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters', 'embedly', 'insertFile'], ['undo', 'redo', 'fullscreen', 'help']]
-    ,
-    toolbarButtonsXS: {
+    toolbarButtons: {
       moreText: {
         buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting']
       },
@@ -72,11 +70,26 @@ export class CreateComponent implements OnInit {
         buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote']
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters', 'embedly', 'insertFile']
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters', 'insertFile']
       },
       moreMisc: {
-        buttons: ['undo', 'redo', 'fullscreen', 'help']
+        buttons: ['undo', 'redo', 'fullscreen']
       }
+    },
+    pastePlain: true,
+    imageAddNewLine: true,
+    events: {
+      initialized: (editor) => {
+        this.froalaEditor = editor;
+      },
+      'image.beforeUpload': (images) => {
+        const file = images[0];
+        const uid = this.authService.uid;
+        const downloadURLPromise = this.articleService.uploadImage(uid, file);
+        downloadURLPromise.then((downloadURL) => {
+          this.froalaEditor._editor.image.insert(downloadURL, null, null, this.froalaEditor._editor.image.get());
+        });
+      },
     }
   };
 
@@ -86,12 +99,14 @@ export class CreateComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private route: ActivatedRoute,
   ) { }
 
   ngOnInit(): void { }
 
   submit() {
     const formData = this.form.value;
+    console.log(formData);
     const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
       = {
       uid: this.authService.uid,

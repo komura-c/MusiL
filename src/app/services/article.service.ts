@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase/app';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,14 @@ import { firestore } from 'firebase/app';
 export class ArticleService {
   constructor(
     private db: AngularFirestore,
+    private storage: AngularFireStorage,
   ) { }
+
+  async uploadImage(uid: string, file: File): Promise<void> {
+    const time: number = new Date().getTime();
+    const result = await this.storage.ref(`upload_images/${uid}/${time}`).put(file);
+    return await result.ref.getDownloadURL();
+  }
 
   createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
   ): Promise<void> {
