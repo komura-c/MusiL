@@ -9,7 +9,6 @@ import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
-import 'froala-editor/js/plugins/file.min.js';
 import 'froala-editor/js/plugins/font_size.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
 import 'froala-editor/js/plugins/image.min.js';
@@ -70,7 +69,7 @@ export class CreateComponent implements OnInit {
         buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote']
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters', 'insertFile']
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters']
       },
       moreMisc: {
         buttons: ['undo', 'redo', 'fullscreen']
@@ -84,11 +83,24 @@ export class CreateComponent implements OnInit {
       },
       'image.beforeUpload': (images) => {
         const file = images[0];
+        const fileSizeLimit = 2000000;
         const uid = this.authService.uid;
-        const downloadURLPromise = this.articleService.uploadImage(uid, file);
-        downloadURLPromise.then((downloadURL) => {
-          this.froalaEditor._editor.image.insert(downloadURL, null, null, this.froalaEditor._editor.image.get());
-        });
+        if ((file.size < fileSizeLimit)) {
+          const downloadURLPromise = this.articleService.uploadImage(uid, file);
+          downloadURLPromise.then((downloadURL) => {
+            this.froalaEditor._editor.image.insert(downloadURL, null, null, this.froalaEditor._editor.image.get());
+          });
+          return null;
+        } else {
+          const msg = 'ファイルサイズは2MB以内にしてください';
+          this.snackBar.open(msg, '閉じる');
+          return false;
+        }
+      },
+      'video.beforeUpload': () => {
+        const msg = 'すみません…動画はアップロードできません…';
+        this.snackBar.open(msg, '閉じる');
+        return false;
       },
     }
   };
@@ -106,7 +118,6 @@ export class CreateComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    console.log(formData);
     const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
       = {
       uid: this.authService.uid,
