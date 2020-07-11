@@ -14,7 +14,8 @@
     </div>
     <div class="editor__body">
       <div class="editor__content">
-        <div [froalaEditor]="options" formControlName="editorContent" [(froalaModel)]="editorPreview"></div>
+        <div id="froalaEditor" [froalaEditor]="options" formControlName="editorContent" [(froalaModel)]="editorPreview">
+        </div>
       </div>
       <div class="editor__preview">
         <div class="preview__header">
