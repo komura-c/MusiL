@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
