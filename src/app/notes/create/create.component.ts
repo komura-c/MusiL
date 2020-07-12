@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -21,7 +21,6 @@ import 'froala-editor/js/plugins/paragraph_style.min.js';
 import 'froala-editor/js/plugins/paragraph_format.min.js';
 import 'froala-editor/js/plugins/quick_insert.min.js';
 import 'froala-editor/js/plugins/quote.min.js';
-import 'froala-editor/js/plugins/special_characters.min.js';
 import 'froala-editor/js/plugins/table.min.js';
 import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
@@ -35,11 +34,10 @@ import 'froala-editor/js/languages/ja.js';
 })
 export class CreateComponent implements OnInit {
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(80)]],
+    title: ['', [Validators.required, Validators.maxLength(255)]],
     tag: [''],
     editorContent: [''],
   });
-  editorPreview = '';
   froalaEditor;
 
   get titleControl() {
@@ -57,33 +55,58 @@ export class CreateComponent implements OnInit {
   public options = {
     toolbarSticky: false,
     toolbarInline: false,
-    height: '310',
+    height: '350',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
     language: 'ja',
-    toolbarButtons: {
+    toolbarButtonsSM: {
       moreText: {
-        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting']
+        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
+        buttonsVisible: 3
       },
       moreParagraph: {
-        buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote']
+        buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote'],
+        buttonsVisible: 3
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons', 'specialCharacters']
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttonsVisible: 3
       },
       moreMisc: {
-        buttons: ['undo', 'redo', 'fullscreen']
+        buttons: ['undo', 'redo', 'fullscreen'],
+        align: 'right',
+        buttonsVisible: 3
+      }
+    },
+    toolbarButtonsXS: {
+      moreText: {
+        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
+        buttonsVisible: 0
+      },
+      moreParagraph: {
+        buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote'],
+        buttonsVisible: 0
+      },
+      moreRich: {
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttonsVisible: 0
+      },
+      moreMisc: {
+        buttons: ['undo', 'redo', 'fullscreen'],
+        align: 'right',
+        buttonsVisible: 3
       }
     },
     pastePlain: true,
     imageAddNewLine: true,
+    videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
     events: {
       initialized: (editor) => {
         this.froalaEditor = editor;
       },
       'image.beforeUpload': (images) => {
         const file = images[0];
-        const fileSizeLimit = 2000000;
+        const fileSizeLimit = 3000000;
         const uid = this.authService.uid;
         if ((file.size < fileSizeLimit)) {
           const downloadURLPromise = this.articleService.uploadImage(uid, file);
@@ -92,15 +115,12 @@ export class CreateComponent implements OnInit {
           });
           return null;
         } else {
-          const msg = 'ファイルサイズは2MB以内にしてください';
-          this.snackBar.open(msg, '閉じる');
+          const msg = '３メガバイト未満の画像を利用してください';
+          this.ngZone.run(() => {
+            this.snackBar.open(msg, '閉じる');
+          });
           return false;
         }
-      },
-      'video.beforeUpload': () => {
-        const msg = 'すみません…動画はアップロードできません…';
-        this.snackBar.open(msg, '閉じる');
-        return false;
       },
     }
   };
@@ -112,6 +132,7 @@ export class CreateComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private route: ActivatedRoute,
+    private ngZone: NgZone,
   ) { }
 
   ngOnInit(): void { }

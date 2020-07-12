@@ -1,6 +1,6 @@
 .editor {
-  margin: -16px 0;
-  background-color: #ffffff;
+  max-width: 800px;
+  margin: -10px auto;
   &__form {
     width: 100%;
   }
@@ -9,30 +9,18 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 12px 0;
+    align-items: center;
+    padding: 8px 0;
   }
   &__title {
     width: 48%;
-    min-width: 300px;
-    margin-right: 24px;
+    padding-right: 18px;
   }
   &__tag {
     width: 48%;
-    min-width: 300px;
-  }
-  &__body {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
   }
   &__content {
     width: 100%;
-    max-width: 100%;
-  }
-  &__preview {
-    width: 98%;
-    border: 1px solid #ddd;
-    border-radius: 8px;
   }
   &__buttons {
     width: 100%;
@@ -49,31 +37,19 @@ button {
   padding: 8px 32px;
   margin: 8px;
 }
-.preview {
-  &__header {
-    line-height: 40px;
-    padding: 4px;
-    border-bottom: 1px solid #ddd;
-  }
-  &__title {
-    font-size: 16px;
-    color: #92989e;
-    padding-left: 10px;
-  }
-  &__main {
-    padding: 20px;
-    max-height: 370px;
-    overflow-y: scroll;
-  }
+
+.input-thumbnail {
+  display: none;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 612px) {
   .editor {
-    &__body {
-      display: block;
+    &__title {
+      width: 100%;
+      padding-right: 0;
     }
-    &__preview {
-      display: none;
+    &__tag {
+      width: 100%;
     }
   }
 }

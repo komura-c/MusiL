@@ -1,27 +1,19 @@
 <div class="editor">
-  <form class="editor__form" [formGroup]="form">
+  <form class="editor__form" [formGroup]="form" [style.fontSize.px]="16">
     <div class="editor__header">
       <mat-form-field class="editor__title" floatLabel="always">
         <mat-label></mat-label>
-        <input type="text" formControlName="title" matInput placeholder="タイトル（80文字以内）*" autocomplete="off" />
-        <mat-error *ngIf="titleControl.hasError('required')">必須入力です</mat-error>
-        <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは80文字以内にしてください</mat-error>
+        <input type="text" formControlName="title" matInput placeholder="タイトル*" autocomplete="off" />
+        <mat-error *ngIf="titleControl.hasError('required')">必須項目です</mat-error>
+        <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは255文字以内にしてください</mat-error>
       </mat-form-field>
       <mat-form-field class="editor__tag" floatLabel="always">
         <mat-label></mat-label>
-        <input type="text" formControlName="tag" matInput placeholder="作曲やDTMに関するタグを入力" autocomplete="off" />
+        <input type="text" formControlName="tag" matInput placeholder="タグ" autocomplete="off" />
       </mat-form-field>
     </div>
-    <div class="editor__body">
-      <div class="editor__content">
-        <div id="froalaEditor" [froalaEditor]="options" formControlName="editorContent" [(froalaModel)]="editorPreview">
-        </div>
-      </div>
-      <div class="editor__preview">
-        <div class="preview__header">
-          <div class="preview__title">プレビュー</div>
-        </div>
-        <div class="preview__main" [froalaView]="editorPreview"></div>
+    <div class="editor__content">
+      <div [froalaEditor]="options" formControlName="editorContent">
       </div>
     </div>
     <div class="editor__buttons">
