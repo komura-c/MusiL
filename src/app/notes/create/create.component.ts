@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -39,6 +39,7 @@ export class CreateComponent implements OnInit {
     editorContent: [''],
   });
   froalaEditor;
+  isComplete: boolean;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -136,6 +137,14 @@ export class CreateComponent implements OnInit {
 
   ngOnInit(): void { }
 
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.form.dirty) {
+      $event.preventDefault();
+      $event.returnValue = '作業中の内容が失われますがよろしいですか？';
+    }
+  }
+
   getFirstImageURL(html: string): string {
     const imgTagPattern = /<img(?: .+?)?>.*?/i;
     if (imgTagPattern.test(html)) {
@@ -159,6 +168,7 @@ export class CreateComponent implements OnInit {
       tag: 'DTM',
       text: formData.editorContent,
     };
+    this.isComplete = true;
     this.articleService.createArticle(sendData).then(() => {
       this.router.navigateByUrl('/');
       this.snackBar.open('記事を投稿しました', null, {
