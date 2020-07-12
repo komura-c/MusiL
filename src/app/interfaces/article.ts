@@ -4,7 +4,7 @@ import { firestore } from 'firebase/app';
 export interface Article {
   articleId: string;
   uid: string;
-  imageURL: string;
+  thumbnailURL: string;
   title: string;
   tag: string;
   text: string;
