@@ -1,6 +1,6 @@
 <div class="card">
   <a [routerLink]="'/komura_c/n/' + article.articleId" class="card__inner">
-    <ng-container *ngIf="article.thumbnailURL">
+    <ng-container *ngIf="article.thumbnailURL && article.thumbnailURL != 'null'">
       <img class="card__thumbnail-image" [src]="article.thumbnailURL" alt="サムネイル画像">
     </ng-container>
     <h3 class="card__title" (click)="$event.stopPropagation(); $event.preventDefault()"
