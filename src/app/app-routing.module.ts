@@ -21,6 +21,9 @@ const routes: Routes = [
   },
   {
     path: 'notes',
+    data: {
+      isNotShowFooter: true,
+    },
     loadChildren: () =>
       import('./notes/notes.module').then((m) => m.NotesModule),
     canLoad: [AuthGuard],
