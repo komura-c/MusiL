@@ -131,18 +131,30 @@ export class CreateComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private router: Router,
-    private route: ActivatedRoute,
     private ngZone: NgZone,
   ) { }
 
   ngOnInit(): void { }
 
+  getFirstImageURL(html: string): string {
+    const imgTagPattern = /<img(?: .+?)?>.*?/i;
+    if (imgTagPattern.test(html)) {
+      const firstImgTag = html.match(imgTagPattern);
+      const srcPattern = /src=["|'](.*?)["|']+/i;
+      return firstImgTag[0].match(srcPattern)[1].replace(/&amp;/, '&');
+    } else {
+      return 'null';
+    }
+  }
+
   submit() {
     const formData = this.form.value;
+    const html = formData.editorContent;
+    const firstImageURL = this.getFirstImageURL(html);
     const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
       = {
       uid: this.authService.uid,
-      imageURL: 'http://placekitten.com/700/300',
+      thumbnailURL: firstImageURL,
       title: formData.title,
       tag: 'DTM',
       text: formData.editorContent,
