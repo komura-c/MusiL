@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Article } from '../interfaces/article';
 import { Observable } from 'rxjs';
 import { firestore } from 'firebase/app';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,16 @@ import { firestore } from 'firebase/app';
 export class ArticleService {
   constructor(
     private db: AngularFirestore,
+    private storage: AngularFireStorage,
   ) { }
 
-  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
+  async uploadImage(uid: string, file: File): Promise<void> {
+    const time: number = new Date().getTime();
+    const result = await this.storage.ref(`users/${uid}/images/${time}`).put(file);
+    return await result.ref.getDownloadURL();
+  }
+
+  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'thumbnailURL' | 'isPublic'>
   ): Promise<void> {
     const articleId = this.db.createId();
     return this.db.doc(`articles/${articleId}`).set({
@@ -24,12 +32,11 @@ export class ArticleService {
   }
 
   getAllArticles(): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`).valueChanges();
+    return this.db.collection<Article>(`articles`, ref => ref.where('isPublic', '==', true)).valueChanges();
   }
 
   getArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid))
-      .valueChanges();
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true)).valueChanges();
   }
 
   getArticleOnly(articleId: string): Observable<Article> {

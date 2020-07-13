@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -14,7 +13,6 @@ export class AboutComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private router: Router,
     private snackBar: MatSnackBar,
   ) { }
@@ -27,11 +25,10 @@ export class AboutComponent implements OnInit {
       this.isProcessing = true;
       this.authService.login().finally(() => {
         this.isProcessing = false;
-        this.userService.getUserByUId(this.authService.uId);
       });
     } else {
       this.router.navigateByUrl('/');
-      this.snackBar.open('すでにログインしています', null, { duration: 2000 });
+      this.snackBar.open('すでにログインしています。', '閉じる', { duration: 5000 });
     }
   }
 }

@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from 'src/app/interfaces/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-note',
@@ -20,8 +21,9 @@ export class NoteComponent implements OnInit {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private userService: UserService,
+    private authService: AuthService,
   ) {
-    route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
       this.articleId = params.get('id');
       const post$ = this.articleService.getArticleOnly(this.articleId);
       let articleData: Article;
@@ -38,7 +40,11 @@ export class NoteComponent implements OnInit {
             ...articleData,
             author,
           };
-          return result;
+          if ((articleData.isPublic === true) || (this.authService.uid === author.uid)) {
+            return result;
+          } else {
+            return null;
+          }
         })
       );
     });

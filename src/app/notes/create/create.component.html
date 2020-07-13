@@ -1,31 +1,30 @@
-<mat-card class="editor">
+<div class="editor">
   <form class="editor__form" [formGroup]="form">
     <div class="editor__header">
       <mat-form-field class="editor__title" floatLabel="always">
         <mat-label></mat-label>
-        <input type="text" formControlName="title" matInput placeholder="タイトル（80文字以内）*" autocomplete="off" />
-        <mat-error *ngIf="titleControl.hasError('required')">必須入力です</mat-error>
-        <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは80文字以内にしてください</mat-error>
+        <input type="text" formControlName="title" matInput placeholder="タイトル*" autocomplete="off" />
+        <mat-error *ngIf="titleControl.hasError('required')">必須項目です</mat-error>
+        <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは255文字以内にしてください</mat-error>
       </mat-form-field>
       <mat-form-field class="editor__tag" floatLabel="always">
         <mat-label></mat-label>
-        <input type="text" formControlName="tag" matInput placeholder="作曲やDTMに関するタグを入力" autocomplete="off" />
+        <input type="text" formControlName="tag" matInput placeholder="タグ" autocomplete="off" />
       </mat-form-field>
     </div>
-    <div class="editor__body">
-      <div class="editor__content">
-        <angular-editor formControlName="editorContent" class="editor__main" [config]="editorConfig">
-        </angular-editor>
+    <div class="editor__content">
+      <div [froalaEditor]="options" formControlName="editorContent">
       </div>
-      <div class="editor__preview" [innerHTML]='editorPreview'></div>
     </div>
     <div class="editor__buttons">
-      <button [disabled]="form.invalid" class="draft" mat-flat-button color="primary">
-        下書きに保存
+      <mat-slide-toggle class="public-option" formControlName="isPublic">公開設定</mat-slide-toggle>
+      <button class="cancel-button" mat-button (click)="cancel()">
+        キャンセル
       </button>
-      <button [disabled]="form.invalid" class="post" mat-flat-button color="primary" (click)="submit()">
-        記事を公開する
+      <button [disabled]="form.invalid || form.pristine" class="post-button" mat-flat-button color="primary"
+        (click)="submit()">
+        {{isPublicControl.value ? '記事を公開' : '下書き保存'}}
       </button>
     </div>
   </form>
-</mat-card>
+</div>
