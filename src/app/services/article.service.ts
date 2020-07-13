@@ -32,12 +32,11 @@ export class ArticleService {
   }
 
   getAllArticles(): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`).valueChanges();
+    return this.db.collection<Article>(`articles`, ref => ref.where('isPublic', '==', true)).valueChanges();
   }
 
   getArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid))
-      .valueChanges();
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true)).valueChanges();
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
