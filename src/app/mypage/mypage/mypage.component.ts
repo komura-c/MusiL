@@ -22,7 +22,7 @@ export class MypageComponent implements OnInit {
     private userService: UserService,
     private articleService: ArticleService,
   ) {
-    route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
       this.screenName = params.get('id');
       this.user$ = this.userService.getUserByScreenName(
         this.screenName
