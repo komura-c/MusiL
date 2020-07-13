@@ -53,15 +53,15 @@ export class AuthService {
       })
       .catch((error) => {
         this.router.navigateByUrl('/');
-        const errorMessage = error.message;
-        this.snackBar.open(errorMessage, null, { duration: 2000 });
+        console.log(error.message);
+        this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
       });
   }
 
   logout() {
     this.afAuth.signOut().then(() => {
       this.router.navigateByUrl('/');
-      this.snackBar.open('ログアウトしました', null, { duration: 2000 });
+      this.snackBar.open('ログアウトしました。', '閉じる', { duration: 5000 });
     });
   }
 }

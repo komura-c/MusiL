@@ -2,11 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotesComponent } from './notes/notes.component';
 import { CreateComponent } from './create/create.component';
+import { FormGuard } from '../guards/form.guard';
 
 const routes: Routes = [
   {
     path: 'create',
     component: CreateComponent,
+    canDeactivate: [FormGuard],
   },
   {
     path: '',
@@ -19,4 +21,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class NotesRoutingModule {}
+export class NotesRoutingModule { }

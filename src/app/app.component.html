@@ -2,4 +2,6 @@
 <div class="container">
   <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
+<ng-container *ngIf="activatedRouteData | async as data">
+  <app-footer *ngIf="!data.isNotShowFooter"></app-footer>
+</ng-container>
