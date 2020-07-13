@@ -17,12 +17,13 @@
       </div>
     </div>
     <div class="editor__buttons">
-      <button [disabled]="form.invalid || form.pristine" class="draft" mat-flat-button color="primary">
-        下書きに保存
+      <mat-slide-toggle class="public-option" formControlName="isPublic">公開設定</mat-slide-toggle>
+      <button class="cancel-button" mat-button (click)="cancel()">
+        キャンセル
       </button>
-      <button [disabled]="form.invalid || form.pristine" class="post" mat-flat-button color="primary"
+      <button [disabled]="form.invalid || form.pristine" class="post-button" mat-flat-button color="primary"
         (click)="submit()">
-        記事を公開する
+        {{isPublicControl.value ? '記事を公開' : '下書き保存'}}
       </button>
     </div>
   </form>
