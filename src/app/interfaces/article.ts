@@ -8,6 +8,7 @@ export interface Article {
   title: string;
   tag: string;
   text: string;
+  isPublic: boolean;
   createdAt: firestore.Timestamp;
   updatedAt: firestore.Timestamp;
 }

@@ -20,7 +20,7 @@ export class ArticleService {
     return await result.ref.getDownloadURL();
   }
 
-  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'thumbnailURL'>
+  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'thumbnailURL' | 'isPublic'>
   ): Promise<void> {
     const articleId = this.db.createId();
     return this.db.doc(`articles/${articleId}`).set({

@@ -5,6 +5,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
+import { Location } from '@angular/common';
+
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
@@ -37,6 +39,7 @@ export class CreateComponent implements OnInit {
     title: ['', [Validators.required, Validators.maxLength(255)]],
     tag: [''],
     editorContent: [''],
+    isPublic: [true],
   });
   froalaEditor;
   isComplete: boolean;
@@ -51,6 +54,10 @@ export class CreateComponent implements OnInit {
 
   get editorContentControl() {
     return this.form.get('editorContent') as FormControl;
+  }
+
+  get isPublicControl() {
+    return this.form.get('isPublic') as FormControl;
   }
 
   public options = {
@@ -133,6 +140,7 @@ export class CreateComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     private ngZone: NgZone,
+    private location: Location,
   ) { }
 
   ngOnInit(): void { }
@@ -141,8 +149,12 @@ export class CreateComponent implements OnInit {
   unloadNotification($event: any) {
     if (this.form.dirty) {
       $event.preventDefault();
-      $event.returnValue = '作業中の内容が失われますがよろしいですか？';
+      $event.returnValue = '作業中の内容が失われますが、よろしいですか？';
     }
+  }
+
+  cancel() {
+    this.location.back();
   }
 
   getFirstImageURL(html: string): string {
@@ -167,11 +179,13 @@ export class CreateComponent implements OnInit {
       title: formData.title,
       tag: 'DTM',
       text: formData.editorContent,
+      isPublic: formData.isPublic
     };
+    const msg = '記事を投稿しました！';
     this.isComplete = true;
     this.articleService.createArticle(sendData).then(() => {
       this.router.navigateByUrl('/');
-      this.snackBar.open('記事を投稿しました', null, {
+      this.snackBar.open(msg, null, {
         duration: 2000,
       });
     });
