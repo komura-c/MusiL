@@ -125,7 +125,7 @@ export class CreateComponent implements OnInit {
         } else {
           const msg = '３メガバイト未満の画像を利用してください';
           this.ngZone.run(() => {
-            this.snackBar.open(msg, '閉じる');
+            this.snackBar.open(msg, '閉じる', { duration: 5000 });
           });
           return false;
         }
@@ -181,13 +181,16 @@ export class CreateComponent implements OnInit {
       text: formData.editorContent,
       isPublic: formData.isPublic
     };
-    const msg = '記事を投稿しました！';
     this.isComplete = true;
+    let msg: string;
+    if (formData.isPublic) {
+      msg = '記事を投稿しました！おめでとうございます。';
+    } else {
+      msg = '下書きを保存しました！おつかれさまです。';
+    }
     this.articleService.createArticle(sendData).then(() => {
       this.router.navigateByUrl('/');
-      this.snackBar.open(msg, null, {
-        duration: 2000,
-      });
+      this.snackBar.open(msg, '閉じる', { duration: 5000 });
     });
   }
 }

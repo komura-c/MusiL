@@ -28,7 +28,7 @@ export class AboutComponent implements OnInit {
       });
     } else {
       this.router.navigateByUrl('/');
-      this.snackBar.open('すでにログインしています', null, { duration: 2000 });
+      this.snackBar.open('すでにログインしています。', '閉じる', { duration: 5000 });
     }
   }
 }
