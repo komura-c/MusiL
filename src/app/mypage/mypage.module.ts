@@ -9,6 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { FroalaViewModule } from 'angular-froala-wysiwyg';
 
 @NgModule({
   declarations: [MypageComponent, NoteComponent],
@@ -20,6 +21,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatIconModule,
     SharedModule,
     MatTabsModule,
+    FroalaViewModule,
   ],
 })
 export class MypageModule { }

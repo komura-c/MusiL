@@ -3,14 +3,18 @@
   padding: 12px;
   margin: 0 auto;
   max-width: 800px;
-  border: solid 1px #e0e0e0;
-  border-radius: 4px;
-  &__profile {
-    text-align: center;
+  &__author {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  &__user-profile {
+    padding-left: 32px;
+    max-width: 460px;
   }
   &__user-icon {
-    width: 150px;
-    height: 150px;
+    width: 120px;
+    height: 120px;
     border-radius: 50%;
   }
   &__user-name {
@@ -18,12 +22,16 @@
     padding: 8px;
     margin: 0;
   }
-  &__twitter-icon {
-    width: 40px;
-    margin: 4px 0;
+  &__user-screen-name {
+    margin: 0 0 8px 0;
   }
-  &__screen-name {
-    margin: 0;
+  &__user-description {
+    margin: 0 0 8px 0;
+  }
+  &__twitter-icon {
+    .mat-icon {
+      width: 44px;
+    }
   }
   &__menu {
     max-width: 700px;
