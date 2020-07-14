@@ -1,10 +1,10 @@
 <div class="card">
-  <a [routerLink]="'/komura_c/n/' + article.articleId" class="card__inner">
+  <a [routerLink]="'/' + article.author.screenName + '/n/' + article.articleId" class="card__inner">
     <ng-container *ngIf="article.thumbnailURL && article.thumbnailURL != 'null'">
       <img class="card__thumbnail-image" [src]="article.thumbnailURL" alt="サムネイル画像">
     </ng-container>
     <h3 class="card__title" (click)="$event.stopPropagation(); $event.preventDefault()"
-      [routerLink]="'/komura_c/n/' + article.articleId">
+      [routerLink]="'/' + article.author.screenName + '/n/' + article.articleId">
       {{ article.title }}
     </h3>
     <div class="card__author">

@@ -1,10 +1,3 @@
-h2,
-h3,
-h4 {
-  padding: 12px 0;
-  border-bottom: solid 1px #b6b6b6;
-}
-
 .note {
   background-color: #fff;
   padding: 16px 24px;
@@ -34,7 +27,7 @@ h4 {
     padding: 8px;
   }
   &__twitter {
-    width: 24px;
+    margin: 0 4px -6px 0;
   }
   &__updated-date {
     color: #808080;
@@ -65,8 +58,17 @@ h4 {
   padding: 16px 0;
   display: flex;
   justify-content: space-between;
-  &__twitter img {
-    width: 30px;
+  &__share {
+    display: flex;
+    align-items: center;
+  }
+  &__twitter {
+    .mat-icon {
+      width: 44px;
+      img {
+        margin-top: -6px;
+      }
+    }
   }
   &__link {
     color: #808080;
@@ -89,13 +91,15 @@ h4 {
     border-radius: 50%;
   }
   &__user-name {
+    display: block;
     font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 8px;
   }
-  a {
-    margin: 0;
+  &__user-description {
+    margin: 0 0 8px 0;
   }
   &__twitter {
-    width: 20px;
-    margin: 0;
+    margin-left: -6px;
   }
 }

@@ -11,6 +11,7 @@
 
     <ng-template #default>
       <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
+        <mat-icon><img src="/assets/icons/twitter_logo_white.png"></mat-icon>
         <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
       </button>
     </ng-template>
