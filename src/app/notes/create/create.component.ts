@@ -66,6 +66,7 @@ export class CreateComponent implements OnInit {
     height: '350',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
+    attribution: false,
     language: 'ja',
     toolbarButtonsSM: {
       moreText: {
