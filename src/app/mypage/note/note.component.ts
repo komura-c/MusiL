@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleWithAuthor, Article } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/article.service';
@@ -13,9 +13,26 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit, AfterViewInit {
   article$: Observable<ArticleWithAuthor>;
   articleId: string;
+
+  activeHeadingIndex: number;
+  headingPositions: number[] = [];
+  headingElements: Element[] = [];
+
+  @HostListener('window:scroll', ['$event'])
+  getTableOfContents() {
+    if (this.headingPositions.length) {
+      const headerHeight = 70;
+      const positon = window.pageYOffset + headerHeight;
+      this.headingPositions.forEach((headingPositon, index) => {
+        if (headingPositon < positon) {
+          this.activeHeadingIndex = index;
+        }
+      });
+    }
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -48,6 +65,34 @@ export class NoteComponent implements OnInit {
         })
       );
     });
+  }
+
+  anchorLinkFixed(event) {
+    const id = event.target.hash.replace('#', '');
+    if (id !== '') {
+      const rectTop = document.getElementById(id).getBoundingClientRect().top;
+      const position = window.pageYOffset;
+      const buffer = 70;
+      const top = rectTop + position - buffer;
+      window.scrollTo({
+        top,
+        behavior: 'smooth'
+      });
+    }
+    return false;
+  }
+
+  ngAfterViewInit() {
+    if (this.article$) {
+      setTimeout(() => {
+        const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');
+        headingTagElements.forEach((headingTagElement, index) => {
+          headingTagElement.id = 'chapter-' + index;
+          this.headingElements.push(headingTagElement);
+          this.headingPositions.push(headingTagElement.getBoundingClientRect().top);
+        });
+      }, 1500);
+    }
   }
 
   ngOnInit(): void {

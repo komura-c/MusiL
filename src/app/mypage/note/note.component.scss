@@ -1,12 +1,51 @@
 .note {
   background-color: #fff;
-  padding: 16px 24px;
   margin: auto;
-  max-width: 800px;
-  &__content {
-    padding: 20px 8px;
-    border-bottom: solid 1px #b6b6b6;
+  max-width: 910px;
+  display: grid;
+  grid-template-columns: 80px calc(100% - 160px - 80px) 160px;
+  grid-template-rows: minmax(300px, auto) 1fr;
+  &__left-box {
+    position: sticky;
+    top: 130px;
   }
+  &__main-box {
+    grid-column: 2 / 3;
+    grid-row: 1 / 3;
+    padding: 16px;
+  }
+  &__sub-box {
+    position: sticky;
+    top: 100px;
+  }
+  &__sub-box-title {
+    text-align: center;
+  }
+  &__sub-box-toc {
+    padding: 0;
+    font-size: 14px;
+    overflow-y: auto;
+    max-height: 70vh;
+    li {
+      list-style: none;
+    }
+    a {
+      display: block;
+      padding: 4px;
+      text-decoration: none;
+      &:hover {
+        background: #f0f0f0;
+      }
+    }
+    .active {
+      background: #f0f0f0;
+    }
+  }
+}
+
+.left-box__actions {
+  display: flex;
+  flex-direction: column;
 }
 
 .note-header {
@@ -45,6 +84,11 @@
   }
 }
 
+.note-content {
+  padding: 20px 8px;
+  border-bottom: solid 1px #b6b6b6;
+}
+
 .mat-icon-button {
   width: 50px;
   height: 50px;
@@ -80,7 +124,6 @@
   &__author {
     padding: 4px;
     display: flex;
-    flex-wrap: wrap;
   }
   &__user-profile {
     padding: 0 12px;
@@ -89,6 +132,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
+    max-width: 80px;
   }
   &__user-name {
     display: block;
@@ -106,4 +150,30 @@
 
 .error {
   text-align: center;
+}
+
+.toc-h2 {
+  margin-left: 10px;
+}
+.toc-h3 {
+  margin-left: 20px;
+}
+.toc-h4 {
+  margin-left: 30px;
+}
+
+@media screen and (max-width: 896px) {
+  .note {
+    display: block;
+    &__left-box {
+      display: none;
+    }
+    &__main-box {
+      width: 100%;
+      padding: 0;
+    }
+    &__sub-box {
+      display: none;
+    }
+  }
 }
