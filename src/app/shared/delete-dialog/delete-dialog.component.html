@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>記事の削除</h2>
+<mat-dialog-content>
+  <p>{{ data.title }} を削除します。よろしいですか？</p>
+  <p>※削除するとデータはもとに戻すことはできません。</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>キャンセル</button>
+  <button mat-button color="warn" (click)="deleteArticle()">
+    削除
+  </button>
+</mat-dialog-actions>
