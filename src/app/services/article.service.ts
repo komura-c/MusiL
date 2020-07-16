@@ -39,6 +39,10 @@ export class ArticleService {
     return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true)).valueChanges();
   }
 
+  getMyArticles(uid: string): Observable<Article[]> {
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid)).valueChanges();
+  }
+
   getArticleOnly(articleId: string): Observable<Article> {
     return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
   }

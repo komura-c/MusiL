@@ -10,6 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -23,6 +25,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatButtonModule,
     FroalaEditorModule,
     MatSlideToggleModule,
+    MatIconModule,
+    MatMenuModule,
   ],
 })
 export class NotesModule { }
