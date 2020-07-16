@@ -10,6 +10,7 @@ import { Location } from '@angular/common';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
+import 'froala-editor/js/third_party/embedly.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
 import 'froala-editor/js/plugins/font_size.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
@@ -82,7 +83,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 3
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
         buttonsVisible: 3
       },
       moreMisc: {
@@ -101,7 +102,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 0
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
         buttonsVisible: 0
       },
       moreMisc: {
@@ -128,13 +129,41 @@ export class CreateComponent implements OnInit {
           });
           return null;
         } else {
-          const msg = '３メガバイト未満の画像を利用してください';
           this.ngZone.run(() => {
+            const msg = '３メガバイト未満の画像を利用してください';
             this.snackBar.open(msg, '閉じる', { duration: 5000 });
           });
           return false;
         }
       },
+      'link.beforeInsert': (link, text) => {
+        const httpPattern = /^(https|http):\/\//;
+        if (!httpPattern.test(link)) {
+          this.ngZone.run(() => {
+            const msg = '正しいURLではありません';
+            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+          });
+          return false;
+        }
+        const soundCloudPattern = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
+        if (soundCloudPattern.test(link)) {
+          const soundCloudURL = link.match(soundCloudPattern);
+          console.log(soundCloudURL);
+          const soundCloudEmbedPlayer = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' + soundCloudURL[2] + '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' + text;
+          const currentValue = this.form.value;
+          this.form.patchValue({
+            title: currentValue.title,
+            tag: currentValue.tag,
+            editorContent: currentValue.editorContent + soundCloudEmbedPlayer,
+            isPublic: currentValue.isPublic,
+          });
+          this.ngZone.run(() => {
+            const msg = 'SoundCloudの埋め込みが完了しました';
+            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+          });
+          return false;
+        }
+      }
     }
   };
 
