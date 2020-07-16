@@ -36,8 +36,7 @@ export class ArticleService {
     return await result.ref.getDownloadURL();
   }
 
-  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'thumbnailURL' | 'isPublic'>
-  ): Promise<void> {
+  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>): Promise<void> {
     const articleId = this.db.createId();
     return this.db.doc(`articles/${articleId}`).set({
       articleId,
@@ -47,8 +46,11 @@ export class ArticleService {
     });
   }
 
-  updateArticle(article: Article): Promise<void> {
-    return this.db.doc(`articles/${article.articleId}`).update(article);
+  updateArticle(articleId: string, article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>): Promise<void> {
+    return this.db.doc(`articles/${articleId}`).update({
+      ...article,
+      updatedAt: firestore.Timestamp.now()
+    });
   }
 
   deleteArticle(articleId: string): Promise<void> {

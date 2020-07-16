@@ -3,7 +3,7 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
 import { Location } from '@angular/common';
 
@@ -28,6 +28,8 @@ import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
 import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create',
@@ -43,6 +45,8 @@ export class CreateComponent implements OnInit {
   });
   froalaEditor;
   isComplete: boolean;
+
+  articleId: string;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -142,7 +146,23 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private location: Location,
-  ) { }
+    private route: ActivatedRoute,
+  ) {
+    this.route.paramMap.pipe(
+      switchMap(map => {
+        const id = map.get('id');
+        return id ? this.articleService.getArticleOnly(id) : of(null);
+      })
+    ).subscribe((article: Article) => {
+      this.articleId = article.articleId;
+      this.form.patchValue({
+        title: article.title,
+        tag: article.tag,
+        editorContent: article.text,
+        isPublic: article.isPublic,
+      });
+    });
+  }
 
   ngOnInit(): void { }
 
@@ -189,9 +209,16 @@ export class CreateComponent implements OnInit {
     } else {
       msg = '下書きを保存しました！おつかれさまです。';
     }
-    this.articleService.createArticle(sendData).then(() => {
-      this.router.navigateByUrl('/');
-      this.snackBar.open(msg, '閉じる', { duration: 5000 });
-    });
+    if (this.articleId) {
+      this.articleService.updateArticle(this.articleId, sendData).then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open(msg, '閉じる', { duration: 5000 });
+      });
+    } else {
+      this.articleService.createArticle(sendData).then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open(msg, '閉じる', { duration: 5000 });
+      });
+    }
   }
 }
