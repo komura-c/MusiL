@@ -1,5 +1,5 @@
-<div class="note">
-  <ng-container *ngIf="article$ | async as article; else notFound;">
+<ng-container *ngIf="article$ | async as article; else notFound;">
+  <div class="note">
     <div class="note__left-box">
       <div class="left-box__actions">
         <button mat-icon-button color="warn" class="actions__favorite" aria-label="いいね" matTooltip="いいね"
@@ -89,8 +89,8 @@
         </ul>
       </div>
     </ng-container>
-  </ng-container>
-</div>
+  </div>
+</ng-container>
 
 <ng-template #notFound>
   <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
