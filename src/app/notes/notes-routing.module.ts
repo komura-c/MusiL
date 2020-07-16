@@ -6,6 +6,11 @@ import { FormGuard } from '../guards/form.guard';
 
 const routes: Routes = [
   {
+    path: ':id/edit',
+    component: CreateComponent,
+    canDeactivate: [FormGuard],
+  },
+  {
     path: 'create',
     component: CreateComponent,
     canDeactivate: [FormGuard],
