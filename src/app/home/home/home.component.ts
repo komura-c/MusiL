@@ -27,10 +27,9 @@ export class HomeComponent implements OnInit {
         articles = docs;
 
         if (articles.length) {
-          const authorIds: string[] = articles.filter((article, index, self) => {
-            return self.findIndex(item => article.uid === item.uid) === index;
-          }).map(post => post.uid);
-          return combineLatest(authorIds.map(uid => {
+          const authorIds: string[] = articles.map(post => post.uid);
+          const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+          return combineLatest(authorUniqueIds.map(uid => {
             return this.userService.getUserData(uid);
           }));
         } else {

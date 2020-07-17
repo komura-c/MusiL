@@ -17,6 +17,7 @@ export class AuthService {
   user$: Observable<UserData> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
       if (afUser) {
+        this.uid = afUser && afUser.uid;
         return this.userService.getUserData(afUser.uid);
       } else {
         return of(null);
@@ -29,11 +30,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService,
-  ) {
-    this.afUser$.subscribe(user => {
-      this.uid = user && user.uid;
-    });
-  }
+  ) { }
 
   login(): Promise<void> {
     const provider = new auth.TwitterAuthProvider();

@@ -35,7 +35,7 @@ export class UserService {
   }
 
   updateUser(userData: UserData): Promise<void> {
-    return this.db.doc<UserData>(`users/${userData.uid}`).update(userData);
+    return this.db.doc<UserData>(`users/${userData.uid}`).set(userData);
   }
 
   async deleteUser(): Promise<void> {

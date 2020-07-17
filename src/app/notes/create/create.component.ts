@@ -3,13 +3,14 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Article } from 'src/app/interfaces/article';
 import { Location } from '@angular/common';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
+import 'froala-editor/js/third_party/embedly.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
 import 'froala-editor/js/plugins/font_size.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
@@ -28,6 +29,8 @@ import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
 import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
+import { of } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create',
@@ -43,6 +46,8 @@ export class CreateComponent implements OnInit {
   });
   froalaEditor;
   isComplete: boolean;
+
+  articleId: string;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -66,6 +71,7 @@ export class CreateComponent implements OnInit {
     height: '350',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
+    attribution: false,
     language: 'ja',
     toolbarButtonsSM: {
       moreText: {
@@ -77,7 +83,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 3
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
         buttonsVisible: 3
       },
       moreMisc: {
@@ -96,7 +102,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 0
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
         buttonsVisible: 0
       },
       moreMisc: {
@@ -123,13 +129,41 @@ export class CreateComponent implements OnInit {
           });
           return null;
         } else {
-          const msg = '３メガバイト未満の画像を利用してください';
           this.ngZone.run(() => {
+            const msg = '３メガバイト未満の画像を利用してください';
             this.snackBar.open(msg, '閉じる', { duration: 5000 });
           });
           return false;
         }
       },
+      'link.beforeInsert': (link, text) => {
+        const httpPattern = /^(https|http):\/\//;
+        if (!httpPattern.test(link)) {
+          this.ngZone.run(() => {
+            const msg = '正しいURLではありません';
+            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+          });
+          return false;
+        }
+        const soundCloudPattern = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
+        if (soundCloudPattern.test(link)) {
+          const soundCloudURL = link.match(soundCloudPattern);
+          console.log(soundCloudURL);
+          const soundCloudEmbedPlayer = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' + soundCloudURL[2] + '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' + text;
+          const currentValue = this.form.value;
+          this.form.patchValue({
+            title: currentValue.title,
+            tag: currentValue.tag,
+            editorContent: currentValue.editorContent + soundCloudEmbedPlayer,
+            isPublic: currentValue.isPublic,
+          });
+          this.ngZone.run(() => {
+            const msg = 'SoundCloudの埋め込みが完了しました';
+            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+          });
+          return false;
+        }
+      }
     }
   };
 
@@ -141,7 +175,23 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private ngZone: NgZone,
     private location: Location,
-  ) { }
+    private route: ActivatedRoute,
+  ) {
+    this.route.paramMap.pipe(
+      switchMap(map => {
+        const id = map.get('id');
+        return id ? this.articleService.getArticleOnly(id) : of(null);
+      })
+    ).subscribe((article: Article) => {
+      this.articleId = article.articleId;
+      this.form.patchValue({
+        title: article.title,
+        tag: article.tag,
+        editorContent: article.text,
+        isPublic: article.isPublic,
+      });
+    });
+  }
 
   ngOnInit(): void { }
 
@@ -188,9 +238,16 @@ export class CreateComponent implements OnInit {
     } else {
       msg = '下書きを保存しました！おつかれさまです。';
     }
-    this.articleService.createArticle(sendData).then(() => {
-      this.router.navigateByUrl('/');
-      this.snackBar.open(msg, '閉じる', { duration: 5000 });
-    });
+    if (this.articleId) {
+      this.articleService.updateArticle(this.articleId, sendData).then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open(msg, '閉じる', { duration: 5000 });
+      });
+    } else {
+      this.articleService.createArticle(sendData).then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open(msg, '閉じる', { duration: 5000 });
+      });
+    }
   }
 }
