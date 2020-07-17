@@ -2,10 +2,12 @@
   <div class="about__hero">
     <h1>音楽をもっと知り、もっと自由に</h1>
     <h2>MusiLは、音楽に関わる知識を記録・共有するためのサービスです。</h2>
-    <button (click)="login()" mat-flat-button color="primary" medium class="login-button">
-      <mat-icon><img src="/assets/icons/twitter_logo_white.png"></mat-icon>
-      <span>Twitterでログイン</span>
-    </button>
+    <ng-container *ngIf="!(user$ | async)">
+      <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
+        <mat-icon><img src="/assets/icons/twitter_logo_white.png"></mat-icon>
+        <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
+      </button>
+    </ng-container>
   </div>
   <div class="about__features">
     <div class="about__features-left">
