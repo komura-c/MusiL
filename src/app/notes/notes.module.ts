@@ -8,8 +8,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FroalaViewModule, FroalaEditorModule } from 'angular-froala-wysiwyg';
+import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -22,8 +25,10 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatButtonModule,
     FroalaEditorModule,
-    FroalaViewModule,
     MatSlideToggleModule,
+    MatIconModule,
+    MatMenuModule,
+    SharedModule,
   ],
 })
 export class NotesModule { }

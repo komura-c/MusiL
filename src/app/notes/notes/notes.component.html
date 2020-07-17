@@ -1,1 +1,54 @@
-<p>notes works!</p>
+<div class="notes">
+  <h1 class="notes__title">記事一覧</h1>
+  <ng-container *ngIf="articles$ | async as articles; else noArticle;">
+    <div class="notes__list-header">
+      <div class="list-header__num">{{articles.length}} 記事</div>
+    </div>
+    <ng-container *ngIf="user$ | async as user">
+      <div class="notes__list-body">
+        <div class="notes__list-item" *ngFor="let article of articles">
+          <a [routerLink]="'/' + user.screenName + '/n/' + article.articleId" class="list-item__body">
+            <a class="list-item__title" (click)="$event.stopPropagation(); $event.preventDefault()"
+              [routerLink]="'/' + user.screenName + '/n/' + article.articleId">{{article.title}}</a>
+            <div class="list-item__description">
+              <div class="list-item__status">
+                <i class="list-item__status-icon" [class.public]="article.isPublic == true"></i>
+                <p class="list-item__status-label">{{article.isPublic ? '公開済み' : '下書き　'}}</p>
+              </div>
+              <p class="list-item__updated-date">
+                {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日 HH:mm' }} 更新
+              </p>
+            </div>
+          </a>
+          <div class="list-item__actions">
+            <button mat-stroked-button class="list-item__edit"
+              [routerLink]="'/notes/' + article.articleId + '/edit'">編集</button>
+            <button mat-icon-button [matMenuTriggerFor]="noteAction" aria-label="ノートのアクション" class="list-item__others">
+              <mat-icon>more_horiz</mat-icon>
+            </button>
+
+            <mat-menu #noteAction="matMenu">
+              <button mat-menu-item>
+                <mat-icon>link</mat-icon>
+                <span>共有リンクを取得</span>
+              </button>
+              <button mat-menu-item class="delete" (click)="openDeleteDialog(article)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>削除</span>
+              </button>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #noArticle>
+    <div class="no-article">
+      <p>まだ、記事がありません。記事を投稿してみよう。</p>
+      <button mat-flat-button color="warn" class="post-button" routerLink="/notes/create">
+        <mat-icon>post_add</mat-icon>
+        <span>投稿</span>
+      </button>
+    </div>
+  </ng-template>
+</div>

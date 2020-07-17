@@ -10,9 +10,8 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'dtmplace';
   activatedRouteData: Observable<Data>;
-
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-    this.router.events.subscribe(event => {
+    this.router.events.forEach(event => {
       if ((event instanceof NavigationEnd)) {
         this.activatedRouteData = this.activatedRoute.firstChild.data;
       }

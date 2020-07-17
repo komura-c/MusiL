@@ -1,65 +1,97 @@
-<div class="note">
-  <ng-container *ngIf="article$ | async as article; else notFound;">
-    <div class="note-header">
-      <div class="note-header__author">
-        <a [routerLink]="'/'  + article.author.screenName">
-          <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
-        <a class="note-header__user-name" [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
-        <a class="note-header__twitter" [href]="'https://twitter.com/' + article.author.screenName">
-          <img src="/assets/icons/twitter.png" alt="twitterアイコン">
-        </a>
-        <p class="note-header__updated-date">
-          {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
-        </p>
-      </div>
-      <h1 class="note-header__title">{{article.title}}
-      </h1>
-      <a href="#" class="note-header__tag">DTM</a>
-      <a href="#" class="note-header__tag">Sylenth1</a>
-    </div>
-    <div class="note__content">
-      <h2>はじめに</h2>
-      <p>今回のLogicProのアップデートではEXS24がSamplerになりました</p>
-      <h2>Samplerの変更点</h2>
-      <p>以前よりもサンプルを加工しやすくなった。パラメーターが以下の通り増えている。</p>
-      <br>
-      <p>実際に</p>
-      <img src='https://placehold.it/800x200' alt='イメージ1' />
-      <p>ということだ</p>
-    </div>
-    <div class="note-footer">
-      <div class="actions">
-        <button mat-icon-button color="warn" class="actions__favorite" aria-label="いいね" matTooltip="いいね">
+<ng-container *ngIf="article$ | async as article; else notFound;">
+  <div class="note">
+    <div class="note__left-box">
+      <div class="left-actions">
+        <button mat-icon-button color="warn" class="left-actions__favorite" aria-label="いいね" matTooltip="いいね"
+          matTooltipPosition="right">
           <mat-icon>favorite</mat-icon>
         </button>
-        <div class="actions__share">
-          <button mat-icon-button class="actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア">
-            <img src="/assets/icons/twitter.png" alt="twitterアイコン">
-          </button>
-          <button mat-icon-button href="#" class="actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー">
-            <mat-icon>link</mat-icon>
-          </button>
-        </div>
-      </div>
-      <div class="note-footer__author">
-        <a href="#">
-          <img src='https://placehold.it/40x40' alt='ユーザーアイコン' class="note-footer__user-icon" />
+        <a mat-icon-button class="left-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
+          [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
+          target="_blank" matTooltipPosition="right">
+          <mat-icon>
+            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+          </mat-icon>
         </a>
-        <div class="note-footer__user-profile">
-          <a class="note-footer__user-name">
-            こむら
+        <button mat-icon-button href="#" class="left-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
+          matTooltipPosition="right">
+          <mat-icon>link</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="note__main-box">
+      <div class="note-header">
+        <div class="note-header__author">
+          <a [routerLink]="'/'  + article.author.screenName">
+            <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
+          <a class="note-header__user-name"
+            [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
+          <a class="note-header__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
+            <mat-icon>
+              <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+            </mat-icon>
           </a>
-          <p class="note-footer__user-text">インターネットと音楽が好きです</p>
-          <p>SNSでコメントを送ろう
+          <p class="note-header__updated-date">
+            {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
-          <a>
-            <img class="note-footer__twitter" src="/assets/icons/twitter.png" alt="twitterアイコン">
-          </a>
+        </div>
+        <h1 class="note-header__title">{{article.title}}
+        </h1>
+        <a href="#" class="note-header__tag">DTM</a>
+        <a href="#" class="note-header__tag">Sylenth1</a>
+      </div>
+      <div class="note-content" [froalaView]="article.text">
+      </div>
+      <div class="note-footer">
+        <div class="main-actions">
+          <button mat-icon-button color="warn" class="main-actions__favorite" aria-label="いいね" matTooltip="いいね">
+            <mat-icon>favorite</mat-icon>
+          </button>
+          <div class="main-actions__share">
+            <a mat-icon-button class="main-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
+              [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
+              target="_blank">
+              <mat-icon>
+                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+              </mat-icon>
+            </a>
+            <button mat-icon-button href="#" class="main-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー">
+              <mat-icon>link</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="note-footer__author">
+          <a [routerLink]="'/'  + article.author.screenName">
+            <img class="note-footer__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
+          <div class="note-footer__user-profile">
+            <a class="note-footer__user-name"
+              [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
+            <p class="note-footer__user-description">{{article.author.description}}</p>
+            <a class="note-footer__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
+              <mat-icon>
+                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+              </mat-icon>
+            </a>
+          </div>
         </div>
       </div>
     </div>
-  </ng-container>
-  <ng-template #notFound>
-    <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
-  </ng-template>
-</div>
+    <ng-container *ngIf="headingPositions.length">
+      <div class="note__sub-box">
+        <p class="note__sub-box-title">目次</p>
+        <ul class="note__sub-box-toc">
+          <ng-container *ngFor="let headingElement of headingElements; index as i">
+            <li><a [href]="'/' + article.author.screenName +'/n/' + article.articleId + '#' + headingElement.id"
+                [class.active]="i === activeHeadingIndex" [class.toc-h2]="headingElement.tagName === 'H2'"
+                [class.toc-h3]="headingElement.tagName === 'H3'" [class.toc-h4]="headingElement.tagName === 'H4'"
+                (click)="anchorLinkFixed($event)">{{headingElement.textContent}}</a></li>
+          </ng-container>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #notFound>
+  <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
+</ng-template>

@@ -4,8 +4,8 @@ service cloud.firestore {
     match /articles/{articleId} {
       allow read: if true;
       allow create: if request.auth.uid != null;
-      allow update: if request.auth.uid == resource.data.userId && resource.data.userId == request.resource.data.userId;
-      allow delete: if request.auth.uid == resource.data.userId;
+      allow update: if request.auth.uid == resource.data.uid && resource.data.uid == request.resource.data.uid;
+      allow delete: if request.auth.uid == resource.data.uid;
     }
     match /users/{userId} {
       allow read: if true;
