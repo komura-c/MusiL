@@ -1,14 +1,14 @@
 <div class="mypage">
   <ng-container *ngIf="user$ | async as user; else notFound;">
     <div class="mypage__author">
-      <img [src]="user.avatarURL" class="mypage__user-icon">
+      <img [src]="user.avatarURL" class="mypage__user-icon" alt="プロフィール画像">
       <div class="mypage__user-profile">
         <h2 class="mypage__user-name">{{user.userName}}</h2>
         <p class="mypage__user-screen-name">@{{user.screenName}}</p>
         <p class="mypage__user-description">{{user.description}}</p>
         <a [href]="'https://twitter.com/' + user.screenName" class="mypage__twitter-icon">
           <mat-icon>
-            <img src="/assets/icons/twitter-logo_blue.png" alt="twitterアイコン">
+            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
           </mat-icon>
         </a>
       </div>

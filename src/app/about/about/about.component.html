@@ -4,7 +4,7 @@
     <h2>MusiLは、音楽に関わる知識を記録・共有するためのサービスです。</h2>
     <ng-container *ngIf="!(user$ | async)">
       <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
-        <mat-icon><img src="/assets/icons/twitter_logo_white.png"></mat-icon>
+        <mat-icon><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"></mat-icon>
         <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
       </button>
     </ng-container>
@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="about__features-right">
-      <img src="/assets/icons/music_enjoying.png" alt="イメージ画像">
+      <img src="/assets/icons/music_enjoying.png" alt="サービスイメージ画像">
     </div>
   </div>
 </div>
