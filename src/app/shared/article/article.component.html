@@ -9,7 +9,7 @@
     </h3>
     <div class="card__author">
       <a (click)="$event.stopPropagation()" [routerLink]="'/'  + article.author.screenName">
-        <img class="card__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
+        <img class="card__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
       <div class="card__author-name">
         <a class="card__user-name" (click)="$event.stopPropagation()"
           [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>

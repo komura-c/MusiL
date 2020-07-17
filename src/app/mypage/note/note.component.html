@@ -10,7 +10,7 @@
           [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
           target="_blank" matTooltipPosition="right">
           <mat-icon>
-            <img src="/assets/icons/twitter-logo_blue.png" alt="twitterアイコン">
+            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
           </mat-icon>
         </a>
         <button mat-icon-button href="#" class="actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
@@ -23,12 +23,12 @@
       <div class="note-header">
         <div class="note-header__author">
           <a [routerLink]="'/'  + article.author.screenName">
-            <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
+            <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
           <a class="note-header__user-name"
             [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
           <a class="note-header__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
             <mat-icon>
-              <img src="/assets/icons/twitter-logo_blue.png" alt="twitterアイコン">
+              <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
             </mat-icon>
           </a>
           <p class="note-header__updated-date">
@@ -52,7 +52,7 @@
               [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
               target="_blank">
               <mat-icon>
-                <img src="/assets/icons/twitter-logo_blue.png" alt="twitterアイコン">
+                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
               </mat-icon>
             </a>
             <button mat-icon-button href="#" class="actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー">
@@ -62,14 +62,14 @@
         </div>
         <div class="note-footer__author">
           <a [routerLink]="'/'  + article.author.screenName">
-            <img class="note-footer__user-icon" [src]="article.author.avatarURL" alt="ユーザーアイコン"></a>
+            <img class="note-footer__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
           <div class="note-footer__user-profile">
             <a class="note-footer__user-name"
               [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
             <p class="note-footer__user-description">{{article.author.description}}</p>
             <a class="note-footer__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
               <mat-icon>
-                <img src="/assets/icons/twitter-logo_blue.png" alt="twitterアイコン">
+                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
               </mat-icon>
             </a>
           </div>
