@@ -183,13 +183,15 @@ export class CreateComponent implements OnInit {
         return id ? this.articleService.getArticleOnly(id) : of(null);
       })
     ).subscribe((article: Article) => {
-      this.articleId = article.articleId;
-      this.form.patchValue({
-        title: article.title,
-        tag: article.tag,
-        editorContent: article.text,
-        isPublic: article.isPublic,
-      });
+      if (article) {
+        this.articleId = article.articleId;
+        this.form.patchValue({
+          title: article.title,
+          tag: article.tag,
+          editorContent: article.text,
+          isPublic: article.isPublic,
+        });
+      }
     });
   }
 
