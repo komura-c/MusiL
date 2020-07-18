@@ -4,7 +4,6 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Article } from 'src/app/interfaces/article';
 import { Location } from '@angular/common';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
@@ -31,6 +30,7 @@ import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-create',

@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
-import { Article } from 'src/app/interfaces/article';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserData } from 'src/app/interfaces/user';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
+import { Article } from 'functions/src/interfaces/article';
+import { UserData } from 'functions/src/interfaces/user';
 
 @Component({
   selector: 'app-notes',

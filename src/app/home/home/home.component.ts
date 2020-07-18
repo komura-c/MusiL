@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Article, ArticleWithAuthor } from 'src/app/interfaces/article';
-import { UserData } from 'src/app/interfaces/user';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable, of, combineLatest } from 'rxjs';
 import { switchMap, map } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
+import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { UserData } from 'functions/src/interfaces/user';
+import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-home',

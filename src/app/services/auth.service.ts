@@ -5,8 +5,8 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './user.service';
-import { UserData } from '../interfaces/user';
 import { switchMap } from 'rxjs/operators';
+import { UserData } from 'functions/src/interfaces/user';
 
 @Injectable({
   providedIn: 'root'
