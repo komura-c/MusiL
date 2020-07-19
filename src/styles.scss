@@ -31,24 +31,20 @@ img {
 .fr-embedly {
   width: 100%;
   .embedly-card {
+    margin: 0 auto;
     max-width: 300px;
-    max-height: 300px;
     background: #ffffff;
-    padding: 14px;
     border: 1px solid #adabab80;
-    border-radius: 5px;
+    padding: 8px;
+    border-radius: 4px;
     box-shadow: 1px 1px 1px #999999;
     iframe.embedly-card {
       border: none;
       box-shadow: none;
-      padding: 0;
-      margin: 0;
     }
     .embdscl0 {
-      width: 0;
-      height: 0;
+      display: none;
       opacity: 0;
-      z-index: -10;
       transition: none;
     }
   }
