@@ -84,7 +84,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 3
       },
       moreRich: {
-        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
         buttonsVisible: 3
       },
       moreMisc: {
@@ -103,7 +103,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 0
       },
       moreRich: {
-        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
         buttonsVisible: 0
       },
       moreMisc: {
