@@ -4,6 +4,10 @@
 
 export const environment = {
   production: false,
+  algoria: {
+    appId: '80GEBX53JJ',
+    searchKey: '82e0769948e05598431bc29d2e801f57',
+  },
   firebase: {
     apiKey: 'AIzaSyCAb_-2_Z8IOP0fyitIdyWGuQ0kDsaBVFg',
     authDomain: 'dtmplace-ad671.firebaseapp.com',
