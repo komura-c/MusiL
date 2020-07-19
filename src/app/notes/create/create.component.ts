@@ -73,6 +73,7 @@ export class CreateComponent implements OnInit {
     charCounterCount: true,
     attribution: false,
     language: 'ja',
+    embedlyScriptPath: '',
     toolbarButtonsSM: {
       moreText: {
         buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
