@@ -1,0 +1,12 @@
+<form class="search" (ngSubmit)="routeSearch(searchControl.value)">
+  <input type="text" placeholder="キーワードを入力" aria-label="キーワード" autocomplete="off" matInput [formControl]="searchControl"
+    [matAutocomplete]="search" class="search__input" />
+  <mat-autocomplete #search="matAutocomplete">
+    <mat-option *ngFor="let option of searchResult?.hits" [value]="option.title">
+      {{option.title}}
+    </mat-option>
+  </mat-autocomplete>
+  <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">
+    <mat-icon>search</mat-icon>
+  </button>
+</form>
