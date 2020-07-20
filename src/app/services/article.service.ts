@@ -1,9 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import { firestore } from 'firebase/app';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Article } from 'functions/src/interfaces/article';
+import { ArticleWithAuthor } from '@interfaces/article-with-author';
+import { switchMap, map } from 'rxjs/operators';
+import { UserData } from '@interfaces/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +16,7 @@ export class ArticleService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage,
+    private userService: UserService,
   ) { }
 
   getAllArticles(): Observable<Article[]> {
@@ -55,5 +60,34 @@ export class ArticleService {
 
   deleteArticle(articleId: string): Promise<void> {
     return this.db.doc(`articles/${articleId}`).delete();
+  }
+
+  getArticlesWithAuthors(): Observable<ArticleWithAuthor[]> {
+    let articles: Article[];
+
+    return this.getAllArticles().pipe(
+      switchMap((docs: Article[]) => {
+        articles = docs;
+
+        if (articles.length) {
+          const authorIds: string[] = articles.map(post => post.uid);
+          const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+          return combineLatest(authorUniqueIds.map(uid => {
+            return this.userService.getUserData(uid);
+          }));
+        } else {
+          return of([]);
+        }
+      }),
+      map((users: UserData[]) => {
+        return articles.map(article => {
+          const result: ArticleWithAuthor = {
+            ...article,
+            author: users.find(user => user.uid === article.uid),
+          };
+          return result;
+        });
+      })
+    );
   }
 }
