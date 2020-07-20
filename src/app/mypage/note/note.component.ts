@@ -83,7 +83,7 @@ export class NoteComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.article$) {
       setTimeout(() => {
         const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');

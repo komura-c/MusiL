@@ -10,7 +10,6 @@
   &__container {
     max-width: 1000px;
     height: 100%;
-    flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
   }
@@ -23,7 +22,6 @@
 .search {
   display: block;
   position: relative;
-  min-width: 114px;
   flex: 1;
   padding: 0 24px;
 }
@@ -44,4 +42,17 @@
 
 .my-menu {
   background-size: cover;
+}
+
+@media screen and (max-width: 480px) {
+  .search {
+    padding: 0 4px;
+  }
+  .post-button {
+    min-width: 52px;
+    margin-right: 12px;
+    span {
+      display: none;
+    }
+  }
 }
