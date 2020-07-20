@@ -22,6 +22,8 @@ export class SearchInputComponent implements OnInit {
     hitsPerPage: 20,
   };
 
+  isSearchActive: boolean;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -42,7 +44,16 @@ export class SearchInputComponent implements OnInit {
     });
   }
 
+  searchActive() {
+    if (this.isSearchActive === false) {
+      this.isSearchActive = true;
+    } else {
+      this.isSearchActive = false;
+    }
+  }
+
   ngOnInit(): void {
+    this.isSearchActive = false;
     this.searchControl.valueChanges
       .pipe(startWith(''))
       .subscribe((keyword) => {
