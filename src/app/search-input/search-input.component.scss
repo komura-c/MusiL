@@ -1,0 +1,21 @@
+.search {
+  &__input {
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    line-height: 36px;
+    border-radius: 16px;
+    padding: 0 42px 0 16px;
+    font-size: 12px;
+    margin: 0;
+    outline: none;
+    border: solid 1px #e0e0e0;
+  }
+  &__button {
+    position: absolute;
+    color: #757575;
+    right: 24px;
+  }
+}
