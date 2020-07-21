@@ -30,13 +30,13 @@ export class MypageComponent implements OnInit {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe(params => {
       this.screenName = params.get('id');
-      this.user$ = this.userService.getUserByScreenName(this.screenName)
-        .pipe(tap(() => this.loadingService.toggleLoading(false)),
+      this.user$ = this.userService.getUserByScreenName(this.screenName).pipe(
+        tap(() => this.loadingService.toggleLoading(false),
           catchError(err => of(null).pipe(tap(() => {
             this.loadingService.toggleLoading(false);
             this.isNotFoundUser = true;
           })),
-          ));
+          )));
       let author: UserData;
       this.articles$ = this.user$.pipe(
         map((user: UserData) => {
@@ -59,7 +59,13 @@ export class MypageComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  stringToLink(description: string): string {
+    const linkReg = new RegExp(/(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi);
+    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+    const link = description.replace(linkReg, toATag);
+    return link;
   }
 
+  ngOnInit(): void {
+  }
 }

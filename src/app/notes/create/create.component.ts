@@ -138,18 +138,17 @@ export class CreateComponent implements OnInit {
         }
       },
       'link.beforeInsert': (link, text) => {
-        const httpPattern = /^(https|http):\/\//;
-        if (!httpPattern.test(link)) {
+        const httpReg = new RegExp(/^(https|http):\/\//);
+        if (!httpReg.test(link)) {
           this.ngZone.run(() => {
             const msg = '正しいURLではありません';
             this.snackBar.open(msg, '閉じる', { duration: 5000 });
           });
           return false;
         }
-        const soundCloudPattern = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
-        if (soundCloudPattern.test(link)) {
-          const soundCloudURL = link.match(soundCloudPattern);
-          console.log(soundCloudURL);
+        const soundCloudReg = new RegExp(/^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/);
+        if (soundCloudReg.test(link)) {
+          const soundCloudURL = link.match(soundCloudReg);
           const soundCloudEmbedPlayer = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' + soundCloudURL[2] + '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' + text;
           const currentValue = this.form.value;
           this.form.patchValue({
@@ -211,11 +210,11 @@ export class CreateComponent implements OnInit {
   }
 
   getFirstImageURL(html: string): string {
-    const imgTagPattern = /<img(?: .+?)?>.*?/i;
-    if (imgTagPattern.test(html)) {
-      const firstImgTag = html.match(imgTagPattern);
-      const srcPattern = /src=["|'](.*?)["|']+/i;
-      return firstImgTag[0].match(srcPattern)[1].replace(/&amp;/, '&');
+    const imgTagReg = new RegExp(/<img(?: .+?)?>.*?/i);
+    if (imgTagReg.test(html)) {
+      const firstImgTag = html.match(imgTagReg);
+      const srcReg = new RegExp(/src=["|'](.*?)["|']+/i);
+      return firstImgTag[0].match(srcReg)[1].replace(/&amp;/, '&');
     } else {
       return 'null';
     }

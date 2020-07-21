@@ -27,9 +27,16 @@ img {
   margin: 40px auto;
 }
 
+.mypage__user-description a {
+  color: #ff5500;
+}
+
 //  froala-editor
 .fr-element.fr-view p {
   font-size: 16px;
+}
+.fr-view a {
+  color: #ff5500;
 }
 .fr-embedly {
   width: 100%;
