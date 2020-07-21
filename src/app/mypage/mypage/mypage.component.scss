@@ -27,6 +27,9 @@
   }
   &__user-description {
     margin: 0 0 8px 0;
+    a {
+      color: #1da1f2;
+    }
   }
   &__twitter-icon {
     .mat-icon {

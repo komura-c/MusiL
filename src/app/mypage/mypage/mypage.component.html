@@ -1,11 +1,11 @@
 <div class="mypage">
-  <ng-container *ngIf="user$ | async as user; else notFound;">
+  <ng-container *ngIf="user$ | async as user">
     <div class="mypage__author">
       <img [src]="user.avatarURL" class="mypage__user-icon" alt="プロフィール画像">
       <div class="mypage__user-profile">
         <h2 class="mypage__user-name">{{user.userName}}</h2>
         <p class="mypage__user-screen-name">@{{user.screenName}}</p>
-        <p class="mypage__user-description">{{user.description}}</p>
+        <p class="mypage__user-description" [innerHTML]="stringToLink(user.description)"></p>
         <a [href]="'https://twitter.com/' + user.screenName" class="mypage__twitter-icon">
           <mat-icon>
             <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
@@ -16,22 +16,36 @@
     <mat-tab-group mat-stretch-tabs class="mypage__menu">
       <mat-tab label="記事">
         <div class="mypage__body">
-          <ng-container *ngFor="let article of articles$ | async">
-            <app-article *ngIf="article" [article]="article"></app-article>
+          <ng-container *ngIf="articles$ | async as articles">
+            <ng-container *ngIf="articles.length === 0">
+              <div class="no-article">
+                <p>まだ、記事はありません。</p>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let article of articles">
+              <app-article *ngIf="article" [article]="article"></app-article>
+            </ng-container>
           </ng-container>
         </div>
       </mat-tab>
       <mat-tab label="いいね">
         <div class="mypage__body">
-          <ng-container *ngFor="let article of articles$ | async">
-            <app-article *ngIf="article" [article]="article"></app-article>
+          <ng-container *ngIf="articles$ | async as articles">
+            <ng-container *ngIf="articles.length === 0">
+              <div class="no-article">
+                <p>まだ、記事はありません。</p>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let article of articles">
+              <app-article *ngIf="article" [article]="article"></app-article>
+            </ng-container>
           </ng-container>
         </div>
       </mat-tab>
     </mat-tab-group>
   </ng-container>
 
-  <ng-template #notFound>
+  <ng-container *ngIf="isNotFoundUser">
     <p class="error">「{{screenName}}」というユーザーは存在しませんでした。</p>
-  </ng-template>
+  </ng-container>
 </div>

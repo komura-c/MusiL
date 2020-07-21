@@ -1,4 +1,4 @@
-<ng-container *ngIf="article$ | async as article; else notFound;">
+<ng-container *ngIf="article$ | async as article">
   <div class="note">
     <div class="note__left-box">
       <div class="left-actions">
@@ -66,7 +66,7 @@
           <div class="note-footer__user-profile">
             <a class="note-footer__user-name"
               [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
-            <p class="note-footer__user-description">{{article.author.description}}</p>
+            <p class="note-footer__user-description" [innerHTML]="stringToLink(article.author.description)"></p>
             <a class="note-footer__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
               <mat-icon>
                 <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
@@ -92,6 +92,6 @@
   </div>
 </ng-container>
 
-<ng-template #notFound>
+<ng-container *ngIf="isNotFoundArticle">
   <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
-</ng-template>
+</ng-container>
