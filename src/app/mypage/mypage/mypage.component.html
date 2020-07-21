@@ -5,7 +5,7 @@
       <div class="mypage__user-profile">
         <h2 class="mypage__user-name">{{user.userName}}</h2>
         <p class="mypage__user-screen-name">@{{user.screenName}}</p>
-        <p class="mypage__user-description">{{user.description}}</p>
+        <p class="mypage__user-description" [innerHTML]="stringToLink(user.description)"></p>
         <a [href]="'https://twitter.com/' + user.screenName" class="mypage__twitter-icon">
           <mat-icon>
             <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
