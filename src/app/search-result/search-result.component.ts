@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { ArticleService } from '../services/article.service';
-import { map } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-search-result',
@@ -31,7 +32,9 @@ export class SearchResultComponent implements OnInit {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private articleService: ArticleService,
+    private loadingService: LoadingService,
   ) {
+    this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
       this.searchQuery = params.get('q');
       this.index.search(this.searchQuery).then((searchResult) => this.searchResult = searchResult)
@@ -41,7 +44,12 @@ export class SearchResultComponent implements OnInit {
             this.articles$ = this.articleService.getArticlesWithAuthors().pipe(
               map((articles: ArticleWithAuthor[]) => {
                 return articles.filter((article: Article) => algoriaItemIds.includes(article.articleId));
-              })
+              }),
+              tap(() => this.loadingService.toggleLoading(false)),
+              catchError(err => of(null).pipe(tap(() => {
+                this.loadingService.toggleLoading(false);
+              })),
+              )
             );
           }
         });

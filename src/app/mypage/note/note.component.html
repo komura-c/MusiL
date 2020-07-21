@@ -1,4 +1,4 @@
-<ng-container *ngIf="article$ | async as article; else notFound;">
+<ng-container *ngIf="article$ | async as article">
   <div class="note">
     <div class="note__left-box">
       <div class="left-actions">
@@ -92,6 +92,6 @@
   </div>
 </ng-container>
 
-<ng-template #notFound>
+<ng-container *ngIf="isNotFoundArticle">
   <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
-</ng-template>
+</ng-container>

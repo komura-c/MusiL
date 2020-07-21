@@ -7,6 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
+import { LoadingService } from 'src/app/services/loading.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-notes',
@@ -15,15 +17,20 @@ import { UserData } from 'functions/src/interfaces/user';
 })
 export class NotesComponent implements OnInit {
   uid = this.authService.uid;
-  articles$: Observable<Article[]> = this.articleService.getMyArticles(this.uid);
+  articles$: Observable<Article[]> = this.articleService.getMyArticles(this.uid).pipe(
+    tap(() => this.loadingService.toggleLoading(false))
+  );
   user$: Observable<UserData> = this.userService.getUserData(this.uid);
 
   constructor(
     private articleService: ArticleService,
     private authService: AuthService,
     private userService: UserService,
-    private dialog: MatDialog
-  ) { }
+    private dialog: MatDialog,
+    private loadingService: LoadingService,
+  ) {
+    this.loadingService.toggleLoading(true);
+  }
 
   ngOnInit(): void {
   }

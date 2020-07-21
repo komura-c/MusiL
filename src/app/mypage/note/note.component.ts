@@ -1,26 +1,30 @@
-import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { map, switchMap, tap, catchError } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
+import { LoadingService } from 'src/app/services/loading.service';
 
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss']
 })
-export class NoteComponent implements OnInit, AfterViewInit {
+
+export class NoteComponent implements OnInit {
   article$: Observable<ArticleWithAuthor>;
   articleId: string;
 
   activeHeadingIndex: number;
   headingPositions: number[] = [];
   headingElements: Element[] = [];
+
+  isNotFoundArticle: boolean;
 
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
@@ -40,7 +44,9 @@ export class NoteComponent implements OnInit, AfterViewInit {
     private articleService: ArticleService,
     private userService: UserService,
     private authService: AuthService,
+    private loadingService: LoadingService,
   ) {
+    this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe(params => {
       this.articleId = params.get('id');
       const post$ = this.articleService.getArticleOnly(this.articleId);
@@ -63,7 +69,14 @@ export class NoteComponent implements OnInit, AfterViewInit {
           } else {
             return null;
           }
-        })
+        }),
+        tap(() => this.getHeading()),
+        tap(() => this.loadingService.toggleLoading(false)),
+        catchError(err => of(null).pipe(tap(() => {
+          this.loadingService.toggleLoading(false);
+          this.isNotFoundArticle = true;
+        })),
+        )
       );
     });
   }
@@ -83,17 +96,15 @@ export class NoteComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  ngAfterViewInit(): void {
-    if (this.article$) {
-      setTimeout(() => {
-        const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');
-        headingTagElements.forEach((headingTagElement, index) => {
-          headingTagElement.id = 'chapter-' + index;
-          this.headingElements.push(headingTagElement);
-          this.headingPositions.push(headingTagElement.getBoundingClientRect().top);
-        });
-      }, 1500);
-    }
+  getHeading() {
+    setTimeout(() => {
+      const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');
+      headingTagElements.forEach((headingTagElement, index) => {
+        headingTagElement.id = 'chapter-' + index;
+        this.headingElements.push(headingTagElement);
+        this.headingPositions.push(headingTagElement.getBoundingClientRect().top);
+      });
+    }, 100);
   }
 
   ngOnInit(): void {
