@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +12,8 @@ import { LoadingService } from 'src/app/services/loading.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  isProcessing: boolean;
+  user$ = this.authService.user$;
 
   articles$: Observable<ArticleWithAuthor[]> = this.articleService.getArticlesWithAuthors().pipe(
     tap(() => this.loadingService.toggleLoading(false))
@@ -19,8 +22,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private loadingService: LoadingService,
+    private authService: AuthService,
   ) {
     this.loadingService.toggleLoading(true);
+  }
+
+  login() {
+    this.isProcessing = true;
+    this.authService.login().finally(() => {
+      this.isProcessing = false;
+    });
   }
 
   ngOnInit(): void { }
