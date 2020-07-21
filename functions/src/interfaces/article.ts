@@ -1,5 +1,4 @@
-import { UserData } from './user';
-import { firestore } from 'firebase/app';
+import { firestore } from 'firebase';
 
 export interface Article {
   articleId: string;
@@ -11,8 +10,4 @@ export interface Article {
   isPublic: boolean;
   createdAt: firestore.Timestamp;
   updatedAt: firestore.Timestamp;
-}
-
-export interface ArticleWithAuthor extends Article {
-  author: UserData;
 }

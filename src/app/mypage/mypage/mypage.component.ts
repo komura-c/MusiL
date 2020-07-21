@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Observable } from 'rxjs';
-import { UserData } from 'src/app/interfaces/user';
-import { Article, ArticleWithAuthor } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { map, switchMap } from 'rxjs/operators';
+import { UserData } from 'functions/src/interfaces/user';
+import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-mypage',

@@ -1,8 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
-import { Article } from 'src/app/interfaces/article';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-delete-dialog',

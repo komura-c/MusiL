@@ -1,12 +1,13 @@
 import { Component, OnInit, HostListener, AfterViewInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ArticleWithAuthor, Article } from 'src/app/interfaces/article';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
-import { UserData } from 'src/app/interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
+import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { Article } from 'functions/src/interfaces/article';
+import { UserData } from 'functions/src/interfaces/user';
 
 @Component({
   selector: 'app-note',
@@ -82,7 +83,7 @@ export class NoteComponent implements OnInit, AfterViewInit {
     return false;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.article$) {
       setTimeout(() => {
         const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');
