@@ -24,6 +24,22 @@
   }
 }
 
+.login-button {
+  background-color: #1da1f2;
+}
+
+.terms-link {
+  color: #ff5500;
+}
+
+.welcome {
+  &__title {
+    font-size: 24px;
+  }
+  &__sub-title {
+    font-size: 16px;
+  }
+}
 @media screen and (max-width: 940px) {
   .home-sub {
     max-width: 610px;
