@@ -6,7 +6,8 @@
     <app-search-input class="search"></app-search-input>
 
     <ng-template #default>
-      <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
+      <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button"
+        *ngIf="isUser">
         <mat-icon><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"></mat-icon>
         <span>{{isProcessing ? 'ログイン中' : 'ログイン'}}</span>
       </button>

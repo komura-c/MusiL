@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute, Data } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoadingService } from './services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,14 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'dtmplace';
   activatedRouteData: Observable<Data>;
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+
+  loading$ = this.loadingService.loading$;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private loadingService: LoadingService,
+  ) {
     this.router.events.forEach(event => {
       if ((event instanceof NavigationEnd)) {
         this.activatedRouteData = this.activatedRoute.firstChild.data;

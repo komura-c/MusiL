@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-header',
@@ -7,8 +8,9 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.authService.user$;
+  user$ = this.authService.user$.pipe(tap(() => this.isUser = true));
   isProcessing: boolean;
+  isUser: boolean;
 
   constructor(
     private authService: AuthService,
