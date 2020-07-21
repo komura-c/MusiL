@@ -2,17 +2,13 @@
   <mat-toolbar-row class="header__container">
     <a routerLink="/">
       <img src="/assets/icons/musil_logo.png" class="logo" alt="MusiLロゴ"></a>
-    <form class="search">
-      <input matInput placeholder="キーワードを入力" class="search__input" autocomplete="off" />
-      <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">
-        <mat-icon>search</mat-icon>
-      </button>
-    </form>
+
+    <app-search-input class="search"></app-search-input>
 
     <ng-template #default>
       <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button">
         <mat-icon><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"></mat-icon>
-        <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
+        <span>{{isProcessing ? 'ログイン中' : 'ログイン'}}</span>
       </button>
     </ng-template>
 

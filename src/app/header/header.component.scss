@@ -10,7 +10,6 @@
   &__container {
     max-width: 1000px;
     height: 100%;
-    flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 auto;
   }
@@ -19,31 +18,12 @@
     align-items: center;
   }
 }
+
 .search {
   display: block;
   position: relative;
-  min-width: 114px;
   flex: 1;
   padding: 0 24px;
-  &__input {
-    box-sizing: border-box;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    width: 100%;
-    line-height: 36px;
-    border-radius: 16px;
-    padding: 0 42px 0 16px;
-    font-size: 12px;
-    margin: 0;
-    outline: none;
-    border: solid 1px #e0e0e0;
-  }
-  &__button {
-    position: absolute;
-    color: #757575;
-    right: 24px;
-  }
 }
 
 .logo {
@@ -64,17 +44,13 @@
   background-size: cover;
 }
 
-@media screen and (max-width: 456px) {
-  .header {
-    height: 110px;
-  }
+@media screen and (max-width: 480px) {
   .search {
-    order: 1;
+    padding: 0 4px;
   }
-}
-
-@media screen and (max-width: 350px) {
   .post-button {
+    min-width: 52px;
+    margin-right: 12px;
     span {
       display: none;
     }

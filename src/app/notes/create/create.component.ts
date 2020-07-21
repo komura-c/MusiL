@@ -4,7 +4,6 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Article } from 'src/app/interfaces/article';
 import { Location } from '@angular/common';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
@@ -31,6 +30,7 @@ import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-create',
@@ -73,6 +73,7 @@ export class CreateComponent implements OnInit {
     charCounterCount: true,
     attribution: false,
     language: 'ja',
+    embedlyScriptPath: '',
     toolbarButtonsSM: {
       moreText: {
         buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
@@ -83,7 +84,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 3
       },
       moreRich: {
-        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
         buttonsVisible: 3
       },
       moreMisc: {
@@ -102,7 +103,7 @@ export class CreateComponent implements OnInit {
         buttonsVisible: 0
       },
       moreRich: {
-        buttons: ['insertLink', 'embedly', 'insertImage', 'insertVideo', 'insertTable', 'emoticons'],
+        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
         buttonsVisible: 0
       },
       moreMisc: {
@@ -183,13 +184,15 @@ export class CreateComponent implements OnInit {
         return id ? this.articleService.getArticleOnly(id) : of(null);
       })
     ).subscribe((article: Article) => {
-      this.articleId = article.articleId;
-      this.form.patchValue({
-        title: article.title,
-        tag: article.tag,
-        editorContent: article.text,
-        isPublic: article.isPublic,
-      });
+      if (article) {
+        this.articleId = article.articleId;
+        this.form.patchValue({
+          title: article.title,
+          tag: article.tag,
+          editorContent: article.text,
+          isPublic: article.isPublic,
+        });
+      }
     });
   }
 

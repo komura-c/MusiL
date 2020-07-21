@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Article, ArticleWithAuthor } from 'src/app/interfaces/article';
-import { UserData } from 'src/app/interfaces/user';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable, of, combineLatest } from 'rxjs';
-import { switchMap, map } from 'rxjs/operators';
-import { UserService } from 'src/app/services/user.service';
+import { Observable } from 'rxjs';
+import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 
 @Component({
   selector: 'app-home',
@@ -12,41 +9,11 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  articles$: Observable<ArticleWithAuthor[]> = this.getArticlesWithAuthors();
+  articles$: Observable<ArticleWithAuthor[]> = this.articleService.getArticlesWithAuthors();
 
   constructor(
     private articleService: ArticleService,
-    private userService: UserService,
   ) { }
-
-  getArticlesWithAuthors(): Observable<ArticleWithAuthor[]> {
-    let articles: Article[];
-
-    return this.articleService.getAllArticles().pipe(
-      switchMap((docs: Article[]) => {
-        articles = docs;
-
-        if (articles.length) {
-          const authorIds: string[] = articles.map(post => post.uid);
-          const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-          return combineLatest(authorUniqueIds.map(uid => {
-            return this.userService.getUserData(uid);
-          }));
-        } else {
-          return of([]);
-        }
-      }),
-      map((users: UserData[]) => {
-        return articles.map(article => {
-          const result: ArticleWithAuthor = {
-            ...article,
-            author: users.find(user => user.uid === article.uid),
-          };
-          return result;
-        });
-      })
-    );
-  }
 
   ngOnInit(): void { }
 }

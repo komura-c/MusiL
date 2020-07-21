@@ -19,9 +19,15 @@ import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { SearchResultComponent } from './search-result/search-result.component';
+import { SearchInputComponent } from './search-input/search-input.component';
+import { MatListModule } from '@angular/material/list';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent, SearchResultComponent, SearchInputComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -39,6 +45,11 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
     AngularFireAuthModule,
     FroalaEditorModule.forRoot(),
     FroalaViewModule.forRoot(),
+    MatListModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatAutocompleteModule,
+    SharedModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],

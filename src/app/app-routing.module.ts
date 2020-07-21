@@ -2,8 +2,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchResultComponent } from './search-result/search-result.component';
 
 const routes: Routes = [
+  {
+    path: 'search',
+    component: SearchResultComponent,
+  },
   {
     path: 'legal',
     loadChildren: () =>
