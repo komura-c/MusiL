@@ -37,10 +37,13 @@ export class SearchInputComponent implements OnInit {
     });
   }
 
-  routeSearch(q: string) {
+  routeSearch(keyword: string) {
+    if (keyword === null) {
+      keyword = '';
+    }
     this.router.navigate(['/search'], {
       queryParamsHandling: 'merge',
-      queryParams: { q },
+      queryParams: { q: keyword },
     });
   }
 

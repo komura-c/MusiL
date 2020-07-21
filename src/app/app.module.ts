@@ -25,6 +25,7 @@ import { MatListModule } from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from './shared/shared.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent, SearchResultComponent, SearchInputComponent],
@@ -50,6 +51,7 @@ import { SharedModule } from './shared/shared.module';
     ReactiveFormsModule,
     MatAutocompleteModule,
     SharedModule,
+    MatProgressSpinnerModule,
   ],
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],

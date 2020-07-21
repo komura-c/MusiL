@@ -1,6 +1,6 @@
 <div class="notes">
   <h1 class="notes__title">記事一覧</h1>
-  <ng-container *ngIf="articles$ | async as articles; else noArticle;">
+  <ng-container *ngIf="articles$ | async as articles">
     <div class="notes__list-header">
       <div class="list-header__num">{{articles.length}} 記事</div>
     </div>
@@ -41,14 +41,14 @@
         </div>
       </div>
     </ng-container>
+    <ng-container *ngIf="articles.length === 0">
+      <div class="no-article">
+        <p>まだ、記事がありません。記事を投稿してみよう。</p>
+        <button mat-flat-button color="warn" class="post-button" routerLink="/notes/create">
+          <mat-icon>post_add</mat-icon>
+          <span>投稿</span>
+        </button>
+      </div>
+    </ng-container>
   </ng-container>
-  <ng-template #noArticle>
-    <div class="no-article">
-      <p>まだ、記事がありません。記事を投稿してみよう。</p>
-      <button mat-flat-button color="warn" class="post-button" routerLink="/notes/create">
-        <mat-icon>post_add</mat-icon>
-        <span>投稿</span>
-      </button>
-    </div>
-  </ng-template>
 </div>
