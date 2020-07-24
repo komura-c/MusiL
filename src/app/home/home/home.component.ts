@@ -5,6 +5,7 @@ import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author'
 import { tap } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserData } from '@interfaces/user';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class HomeComponent implements OnInit {
   isProcessing: boolean;
-  user$ = this.authService.user$;
+  user$: Observable<UserData> = this.authService.user$;
 
   articles$: Observable<ArticleWithAuthor[]> = this.articleService.getArticlesWithAuthors().pipe(
     tap(() => this.loadingService.toggleLoading(false))
