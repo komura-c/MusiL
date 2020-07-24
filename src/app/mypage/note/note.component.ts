@@ -24,7 +24,7 @@ export class NoteComponent implements OnInit {
   headingPositions: number[] = [];
   headingElements: Element[] = [];
 
-  isNotFoundArticle: boolean;
+  isLoading: boolean;
 
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
@@ -47,6 +47,7 @@ export class NoteComponent implements OnInit {
     private loadingService: LoadingService,
   ) {
     this.loadingService.toggleLoading(true);
+    this.isLoading = true;
     this.route.paramMap.subscribe(params => {
       this.articleId = params.get('id');
       const post$ = this.articleService.getArticleOnly(this.articleId);
@@ -71,12 +72,15 @@ export class NoteComponent implements OnInit {
           }
         }),
         tap(() => this.getHeading()),
-        tap(() => this.loadingService.toggleLoading(false)),
-        catchError(err => of(null).pipe(tap(() => {
+        tap(() => {
           this.loadingService.toggleLoading(false);
-          this.isNotFoundArticle = true;
-        })),
-        )
+          this.isLoading = false;
+        }),
+        catchError((error) => {
+          this.loadingService.toggleLoading(false);
+          this.isLoading = false;
+          return of(null);
+        })
       );
     });
   }
