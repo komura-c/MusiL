@@ -113,9 +113,21 @@ export class NoteComponent implements OnInit {
 
   stringToLink(description: string): string {
     const linkReg = new RegExp(/(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi);
-    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
-    const link = description.replace(linkReg, toATag);
-    return link;
+    if (linkReg.test(description)) {
+      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+      const link = description.replace(linkReg, toATag);
+      return link;
+    } else {
+      return description;
+    }
+  }
+
+  isAuthor(author: UserData) {
+    if (author.uid === this.authService.uid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnInit(): void {

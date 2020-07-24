@@ -39,6 +39,8 @@
           <p class="note-header__updated-date">
             {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
+          <app-note-edit-buttons class="note-header__actions" *ngIf="isAuthor(article.author)" [article]="article">
+          </app-note-edit-buttons>
         </div>
         <h1 class="note-header__title">{{article.title}}
         </h1>

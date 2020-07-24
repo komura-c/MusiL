@@ -6,10 +6,13 @@ import { ArticleComponent } from './article/article.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
+import { NoteEditButtonsComponent } from './note-edit-buttons/note-edit-buttons.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [ArticleComponent, DeleteDialogComponent],
-  imports: [CommonModule, SharedRoutingModule, MatButtonModule, MatDialogModule],
-  exports: [ArticleComponent, DeleteDialogComponent],
+  declarations: [ArticleComponent, DeleteDialogComponent, NoteEditButtonsComponent],
+  imports: [CommonModule, SharedRoutingModule, MatButtonModule, MatDialogModule, MatMenuModule, MatIconModule],
+  exports: [ArticleComponent, DeleteDialogComponent, NoteEditButtonsComponent],
 })
 export class SharedModule { }

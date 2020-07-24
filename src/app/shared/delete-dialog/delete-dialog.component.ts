@@ -3,6 +3,7 @@ import { ArticleService } from 'src/app/services/article.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Article } from 'functions/src/interfaces/article';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-delete-dialog',
@@ -16,6 +17,7 @@ export class DeleteDialogComponent implements OnInit {
     private articleService: ArticleService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -24,6 +26,7 @@ export class DeleteDialogComponent implements OnInit {
   deleteArticle() {
     this.dialogRef.close();
     this.articleService.deleteArticle(this.data.articleId).then(() => {
+      this.router.navigateByUrl('/');
       this.snackBar.open('削除しました。', '閉じる', { duration: 5000 });
     });
   }
