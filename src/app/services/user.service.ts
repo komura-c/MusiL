@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserData } from 'functions/src/interfaces/user';
+import { auth } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,19 @@ export class UserService {
       );
   }
 
-  updateUser(userData: UserData): Promise<void> {
-    return this.db.doc<UserData>(`users/${userData.uid}`).set(userData);
+  async createUser(): Promise<void> {
+    const provider = new auth.TwitterAuthProvider();
+    const userCredential = await this.afAuth.signInWithPopup(provider);
+    const { user, additionalUserInfo } = userCredential;
+    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
+    const userData: UserData = {
+      uid: user.uid,
+      userName: userProfObj.name,
+      avatarURL: userProfObj.profile_image_url_https.replace('_normal', ''),
+      screenName: userProfObj.screen_name,
+      description: userProfObj.description,
+    };
+    return this.db.doc<UserData>(`users/${user.uid}`).set(userData);
   }
 
   async deleteUser(): Promise<void> {

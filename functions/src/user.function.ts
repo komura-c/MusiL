@@ -7,13 +7,13 @@ const db = admin.firestore();
 
 export const createUser = functions.region('asia-northeast1').auth.user().onCreate((user) => {
   if (user.displayName && user.photoURL) {
-    const sendUserData: Omit<UserData, 'screenName' | 'description'> = {
+    const userData: Omit<UserData, 'screenName' | 'description'> = {
       uid: user.uid,
       userName: user.displayName,
-      avatarURL: user.photoURL?.replace('_normal', '')
+      avatarURL: user.photoURL?.replace('_normal', ''),
     };
-    return db.doc(`users/${user.uid}`).set(sendUserData);
+    return db.doc(`users/${user.uid}`).set(userData, { merge: true });
   } else {
-    return db.doc(`users/${user.uid}`).set({ uid: user.uid });
+    return db.doc(`users/${user.uid}`).set({ uid: user.uid }, { merge: true });
   }
 });
