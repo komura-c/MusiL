@@ -19,7 +19,7 @@ export class MypageComponent implements OnInit {
   screenName: string;
   articles$: Observable<ArticleWithAuthor[]>;
 
-  isNotFoundUser: boolean;
+  isLoading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -28,15 +28,20 @@ export class MypageComponent implements OnInit {
     private loadingService: LoadingService,
   ) {
     this.loadingService.toggleLoading(true);
+    this.isLoading = true;
     this.route.paramMap.subscribe(params => {
       this.screenName = params.get('id');
       this.user$ = this.userService.getUserByScreenName(this.screenName).pipe(
-        tap(() => this.loadingService.toggleLoading(false),
-          catchError(err => of(null).pipe(tap(() => {
-            this.loadingService.toggleLoading(false);
-            this.isNotFoundUser = true;
-          })),
-          )));
+        tap(() => {
+          this.loadingService.toggleLoading(false);
+          this.isLoading = false;
+        }),
+        catchError((error) => {
+          this.loadingService.toggleLoading(false);
+          this.isLoading = false;
+          return of(null);
+        })
+      );
       let author: UserData;
       this.articles$ = this.user$.pipe(
         map((user: UserData) => {

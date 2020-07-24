@@ -61,6 +61,14 @@
 
 .note-header {
   padding: 0 4px;
+  &__draft {
+    background-color: #f0f0f0;
+    padding: 32px 0;
+    margin: 0 auto;
+  }
+  &__draft-text {
+    text-align: center;
+  }
   &__author {
     padding: 4px;
     display: flex;

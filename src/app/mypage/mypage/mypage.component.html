@@ -1,5 +1,5 @@
 <div class="mypage">
-  <ng-container *ngIf="user$ | async as user">
+  <ng-container *ngIf="user$ | async as user; else notFoundUser">
     <div class="mypage__author">
       <img [src]="user.avatarURL" class="mypage__user-icon" alt="プロフィール画像">
       <div class="mypage__user-profile">
@@ -45,7 +45,7 @@
     </mat-tab-group>
   </ng-container>
 
-  <ng-container *ngIf="isNotFoundUser">
-    <p class="error">「{{screenName}}」というユーザーは存在しませんでした。</p>
-  </ng-container>
+  <ng-template #notFoundUser>
+    <p class="error" *ngIf="!isLoading">「{{screenName}}」というユーザーは存在しませんでした。</p>
+  </ng-template>
 </div>
