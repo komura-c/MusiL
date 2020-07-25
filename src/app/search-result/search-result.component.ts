@@ -24,6 +24,7 @@ export class SearchResultComponent implements OnInit {
   searchOptions = {
     page: 0,
     hitsPerPage: 20,
+    facetFilters: ['isPublic:true']
   };
 
   articles$: Observable<ArticleWithAuthor[]>;
@@ -37,7 +38,7 @@ export class SearchResultComponent implements OnInit {
     this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
       this.searchQuery = params.get('q');
-      this.index.search(this.searchQuery).then((searchResult) => this.searchResult = searchResult)
+      this.index.search(this.searchQuery, this.searchOptions).then((searchResult) => this.searchResult = searchResult)
         .then(() => {
           if (this.searchResult.hits) {
             const algoriaItemIds: string[] = this.searchResult.hits.map(algoriaItem => algoriaItem.articleId);

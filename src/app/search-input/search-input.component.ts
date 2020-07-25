@@ -19,7 +19,8 @@ export class SearchInputComponent implements OnInit {
   };
   searchOptions = {
     page: 0,
-    hitsPerPage: 20,
+    hitsPerPage: 8,
+    facetFilters: ['isPublic:true']
   };
 
   isSearchActive: boolean;
@@ -61,7 +62,7 @@ export class SearchInputComponent implements OnInit {
       .pipe(startWith(''))
       .subscribe((keyword) => {
         const searchKeyword: string = keyword;
-        this.index.search(searchKeyword)
+        this.index.search(searchKeyword, this.searchOptions)
           .then((searchResult) => this.searchResult = searchResult);
       });
   }
