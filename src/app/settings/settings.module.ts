@@ -12,9 +12,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { ImageCropDialogComponent } from './image-crop-dialog/image-crop-dialog.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-account-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [SettingsComponent, ImageCropDialogComponent],
+  declarations: [SettingsComponent, ImageCropDialogComponent, DeleteAccountDialogComponent],
   imports: [
     CommonModule,
     SettingsRoutingModule,
@@ -27,6 +29,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatButtonModule,
     ImageCropperModule,
     MatProgressSpinnerModule,
+    MatDialogModule
   ]
 })
 export class SettingsModule { }

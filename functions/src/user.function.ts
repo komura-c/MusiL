@@ -4,6 +4,7 @@ import { UserData } from './interfaces/user'
 
 admin.initializeApp();
 const db = admin.firestore();
+const storage = admin.storage().bucket();
 
 export const createUser = functions.region('asia-northeast1').auth.user().onCreate((user) => {
   if (user.displayName && user.photoURL) {
@@ -17,3 +18,24 @@ export const createUser = functions.region('asia-northeast1').auth.user().onCrea
     return db.doc(`users/${user.uid}`).set({ uid: user.uid }, { merge: true });
   }
 });
+
+export const deleteUser = functions.region('asia-northeast1').auth.user()
+  .onDelete(async user => {
+    const deleteFromFireStore = db.doc(`users/${user.uid}`).delete();
+    const deleteFromStorage = storage.deleteFiles({ directory: `users/${user.uid}` });
+    return Promise.all([
+      deleteFromFireStore,
+      deleteFromStorage,
+    ]);
+  });
+
+export const deleteUserArticles = functions.region('asia-northeast1').auth.user()
+  .onDelete(async user => {
+    const articles = await db.collection('articles')
+      .where('authorId', '==', user.uid).get();
+    const batch = db.batch();
+    articles.forEach((doc) => {
+      batch.delete(doc.ref);
+    });
+    return await batch.commit();
+  });

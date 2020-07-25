@@ -3,8 +3,8 @@
   <ng-container *ngIf="user$ | async as user">
     <h2 class="settings__heading">プロフィール</h2>
     <form class="settings__profile-form" [formGroup]="form">
-      <label for="avatarFile" [style.background-image]="'url(' + form.value.avatarURL + ')'"
-        class="settings__avatar-image" alt="プロフィール画像">
+      <label for="avatarFile" [style.background-image]="'url(' + user.avatarURL + ')'" class="settings__avatar-image"
+        alt="プロフィール画像">
         <div class="settings__avatar-icon-wrap">
           <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
         </div>
@@ -28,14 +28,14 @@
         <mat-error *ngIf="descriptionControl.hasError('maxlength')">160文字以内にしてください</mat-error>
       </mat-form-field>
       <button [disabled]="form.invalid || form.pristine" class="save-button" mat-flat-button color="primary"
-        (click)="saveProfile()">
+        (click)="changeProfile()">
         プロフィールを更新
       </button>
     </form>
 
     <h2 class="settings__heading">退会</h2>
     <p>退会するとすべてのデータが削除され、復元できません。</p>
-    <button class="delete-account-button" mat-flat-button color="primary" (click)="deleteAccount()">
-    </button>
+    <button class="delete-account-button" mat-flat-button color="warn" (click)="openDeleteAccountDialog()">
+      退会する</button>
   </ng-container>
 </div>
