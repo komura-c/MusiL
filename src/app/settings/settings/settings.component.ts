@@ -71,7 +71,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
   changeProfile() {
     const formData = this.form.value;
-    const newUserData: Omit<UserData, 'uid' | 'avatarURL' | 'screenName'> = {
+    const newUserData: Pick<UserData, 'userName' | 'description'> = {
       userName: formData.userName,
       description: formData.description,
     };
