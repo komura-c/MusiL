@@ -8,6 +8,9 @@ import { tap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-settings',
@@ -16,19 +19,16 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   uid = this.authService.uid;
+  screenName: string;
   user$: Observable<UserData> = this.authService.user$.pipe(
+    tap((user) => this.screenName = user.screenName),
     tap(() => this.loadingService.toggleLoading(false))
   );
 
   form = this.fb.group({
-    avatarURL: [''],
     userName: ['', [Validators.required, Validators.maxLength(50)]],
     description: ['', [Validators.maxLength(160)]],
   });
-
-  get avatarURLControl() {
-    return this.form.get('avatarURL') as FormControl;
-  }
 
   get userNameControl() {
     return this.form.get('userName') as FormControl;
@@ -46,11 +46,12 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private fb: FormBuilder,
     private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private router: Router,
   ) {
     this.loadingService.toggleLoading(true);
     this.subscription = this.user$.subscribe((user: UserData) => {
       this.form.patchValue({
-        avatarURL: user.avatarURL,
         userName: user.userName,
         description: user.description,
       });
@@ -68,12 +69,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  saveProfile(): void {
-
+  changeProfile() {
+    const formData = this.form.value;
+    const newUserData: Omit<UserData, 'uid' | 'avatarURL' | 'screenName'> = {
+      userName: formData.userName,
+      description: formData.description,
+    };
+    this.userService.changeUserData(this.uid, newUserData);
+    this.router.navigateByUrl('/' + this.screenName);
+    this.snackBar.open('プロフィールが更新されました', '閉じる', { duration: 5000 });
   }
 
-  deleteAccount(): void {
-
+  openDeleteAccountDialog() {
+    this.dialog.open(DeleteAccountDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   ngOnDestroy(): void {

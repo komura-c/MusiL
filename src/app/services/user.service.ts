@@ -59,6 +59,10 @@ export class UserService {
     return this.db.doc<UserData>(`users/${uid}`).update({ avatarURL });
   }
 
+  changeUserData(uid: string, newUserData: Omit<UserData, 'uid' | 'avatarURL' | 'screenName'>): Promise<void> {
+    return this.db.doc<UserData>(`users/${uid}`).update(newUserData);
+  }
+
   async deleteUser(): Promise<void> {
     return (await this.afAuth.currentUser).delete();
   }
