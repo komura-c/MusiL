@@ -52,6 +52,17 @@ export class UserService {
     return this.db.doc<UserData>(`users/${user.uid}`).set(userData);
   }
 
+  async updateUser(): Promise<void> {
+    const provider = new auth.TwitterAuthProvider();
+    const userCredential = await this.afAuth.signInWithPopup(provider);
+    const { user, additionalUserInfo } = userCredential;
+    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
+    const userData: Pick<UserData, 'screenName'> = {
+      screenName: userProfObj.screen_name,
+    };
+    return this.db.doc<UserData>(`users/${user.uid}`).update(userData);
+  }
+
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage.ref(`users/${uid}/avatar/${time}`).putString(avatar, 'data_url');
@@ -59,7 +70,7 @@ export class UserService {
     return this.db.doc<UserData>(`users/${uid}`).update({ avatarURL });
   }
 
-  changeUserData(uid: string, newUserData: Omit<UserData, 'uid' | 'avatarURL' | 'screenName'>): Promise<void> {
+  changeUserData(uid: string, newUserData: Pick<UserData, 'userName' | 'description'>): Promise<void> {
     return this.db.doc<UserData>(`users/${uid}`).update(newUserData);
   }
 

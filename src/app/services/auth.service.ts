@@ -37,8 +37,7 @@ export class AuthService {
       await this.afAuth.signOut();
     }
     if (this.uid) {
-      const provider = new auth.TwitterAuthProvider();
-      return await this.afAuth.signInWithPopup(provider)
+      return await this.userService.updateUser()
         .then(() => {
           this.router.navigateByUrl('/');
           this.snackBar.open('ログインしました。', '閉じる', { duration: 5000 });
