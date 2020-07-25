@@ -2,7 +2,7 @@
   <input type="text" placeholder="キーワードを入力" aria-label="キーワード" autocomplete="off" matInput [formControl]="searchControl"
     [matAutocomplete]="search" class="search__input" />
   <mat-autocomplete #search="matAutocomplete">
-    <mat-option *ngFor="let option of searchResult?.hits" [value]="option.title">
+    <mat-option *ngFor="let option of searchResult?.hits" [value]="option.title" (click)="routeSearch(option.title)">
       {{option.title}}
     </mat-option>
   </mat-autocomplete>
