@@ -6,6 +6,13 @@ import { SearchResultComponent } from './search-result/search-result.component';
 
 const routes: Routes = [
   {
+    path: 'settings',
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'search',
     component: SearchResultComponent,
   },
