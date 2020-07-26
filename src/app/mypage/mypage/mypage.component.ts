@@ -37,6 +37,7 @@ export class MypageComponent implements OnInit {
           this.isLoading = false;
         }),
         catchError((error) => {
+          console.log(error.message);
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
           return of(null);

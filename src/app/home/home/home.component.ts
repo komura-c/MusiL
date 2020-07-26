@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { tap } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
@@ -17,7 +17,12 @@ export class HomeComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;
 
   articles$: Observable<ArticleWithAuthor[]> = this.articleService.getArticlesWithAuthors().pipe(
-    tap(() => this.loadingService.toggleLoading(false))
+    tap(() => this.loadingService.toggleLoading(false)),
+    catchError((error) => {
+      console.log(error.message);
+      this.loadingService.toggleLoading(false);
+      return of(null);
+    })
   );
 
   constructor(

@@ -47,10 +47,11 @@ export class SearchResultComponent implements OnInit {
                 return articles.filter((article: Article) => algoriaItemIds.includes(article.articleId));
               }),
               tap(() => this.loadingService.toggleLoading(false)),
-              catchError(err => of(null).pipe(tap(() => {
+              catchError((error) => {
+                console.log(error.message);
                 this.loadingService.toggleLoading(false);
-              })),
-              )
+                return of(null);
+              })
             );
           }
         });
