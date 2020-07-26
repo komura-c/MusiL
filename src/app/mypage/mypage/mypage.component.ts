@@ -8,6 +8,7 @@ import { UserData } from 'functions/src/interfaces/user';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { Article } from 'functions/src/interfaces/article';
 import { LoadingService } from 'src/app/services/loading.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-mypage',
@@ -24,6 +25,7 @@ export class MypageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
+    private authService: AuthService,
     private articleService: ArticleService,
     private loadingService: LoadingService,
   ) {
@@ -70,6 +72,14 @@ export class MypageComponent implements OnInit {
     const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
     const link = description.replace(linkReg, toATag);
     return link;
+  }
+
+  isAuthor(uid: string) {
+    if (uid === this.authService.uid) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   ngOnInit(): void {
