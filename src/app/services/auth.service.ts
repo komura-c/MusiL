@@ -32,33 +32,45 @@ export class AuthService {
     private userService: UserService,
   ) { }
 
-  login(): Promise<void> {
-    const provider = new auth.TwitterAuthProvider();
-    return this.afAuth.signInWithPopup(provider)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        const userInfo = userCredential.additionalUserInfo.profile;
-        const userInfoObj = JSON.parse(JSON.stringify(userInfo));
-        const avatarURL = userInfoObj.profile_image_url_https.replace('_normal', '');
-        this.userService.updateUser({
-          uid: user.uid,
-          userName: userInfoObj.name,
-          avatarURL,
-          screenName: userInfoObj.screen_name,
-          description: userInfoObj.description,
+  async login(): Promise<void> {
+    if (this.afUser$) {
+      await this.afAuth.signOut();
+    }
+    if (this.uid) {
+      return await this.userService.updateUser()
+        .then(() => {
+          this.router.navigateByUrl('/');
+          this.snackBar.open('ログインしました。', '閉じる', { duration: 5000 });
+        })
+        .catch((error) => {
+          this.router.navigateByUrl('/');
+          console.log(error.message);
+          this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
         });
+    } else {
+      return await this.userService.createUser()
+        .then(() => {
+          this.router.navigateByUrl('/');
+          this.snackBar.open('ログインしました。', '閉じる', { duration: 5000 });
+        })
+        .catch((error) => {
+          this.router.navigateByUrl('/');
+          console.log(error.message);
+          this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
+        });
+    }
+  }
+
+  logout() {
+    this.afAuth.signOut()
+      .then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open('ログアウトしました。', '閉じる', { duration: 5000 });
       })
       .catch((error) => {
         this.router.navigateByUrl('/');
         console.log(error.message);
-        this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
+        this.snackBar.open('ログアウトエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
       });
-  }
-
-  logout() {
-    this.afAuth.signOut().then(() => {
-      this.router.navigateByUrl('/');
-      this.snackBar.open('ログアウトしました。', '閉じる', { duration: 5000 });
-    });
   }
 }

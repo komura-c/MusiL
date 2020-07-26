@@ -29,9 +29,14 @@
             <mat-icon>account_box</mat-icon>
             <span>マイページ</span>
           </button>
-          <button mat-menu-item mat-menu-item routerLink="/notes">
+          <button mat-menu-item routerLink="/notes">
             <mat-icon>article</mat-icon>
             <span>記事一覧</span>
+          </button>
+          <mat-divider></mat-divider>
+          <button mat-menu-item routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+            <span>設定</span>
           </button>
           <button (click)="logout()" mat-menu-item class="logout-button">
             <mat-icon>exit_to_app</mat-icon>

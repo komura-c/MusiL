@@ -1,9 +1,16 @@
 <div class="mypage">
-  <ng-container *ngIf="user$ | async as user">
+  <ng-container *ngIf="user$ | async as user; else notFoundUser">
     <div class="mypage__author">
       <img [src]="user.avatarURL" class="mypage__user-icon" alt="プロフィール画像">
       <div class="mypage__user-profile">
-        <h2 class="mypage__user-name">{{user.userName}}</h2>
+        <div class="mypage__user-header">
+          <h2 class="mypage__user-name">{{user.userName}}</h2>
+          <ng-container *ngIf="isAuthor(user.uid)">
+            <div class="edit-profile">
+              <button mat-stroked-button class="edit-profile" routerLink="/settings">編集</button>
+            </div>
+          </ng-container>
+        </div>
         <p class="mypage__user-screen-name">@{{user.screenName}}</p>
         <p class="mypage__user-description" [innerHTML]="stringToLink(user.description)"></p>
         <a [href]="'https://twitter.com/' + user.screenName" class="mypage__twitter-icon">
@@ -45,7 +52,7 @@
     </mat-tab-group>
   </ng-container>
 
-  <ng-container *ngIf="isNotFoundUser">
-    <p class="error">「{{screenName}}」というユーザーは存在しませんでした。</p>
-  </ng-container>
+  <ng-template #notFoundUser>
+    <p class="error" *ngIf="!isLoading">「{{screenName}}」というユーザーは存在しませんでした。</p>
+  </ng-template>
 </div>
