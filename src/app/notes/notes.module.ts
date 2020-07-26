@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { SharedModule } from '../shared/shared.module';
     FroalaEditorModule,
     MatSlideToggleModule,
     MatIconModule,
-    MatMenuModule,
     SharedModule,
   ],
 })

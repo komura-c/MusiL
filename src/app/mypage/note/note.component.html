@@ -1,4 +1,4 @@
-<ng-container *ngIf="article$ | async as article">
+<ng-container *ngIf="article$ | async as article; else notFoundArticle">
   <div class="note">
     <div class="note__left-box">
       <div class="left-actions">
@@ -21,6 +21,11 @@
     </div>
     <div class="note__main-box">
       <div class="note-header">
+        <div *ngIf="(article.isPublic === false)">
+          <div class="note-header__draft">
+            <div class="note-header__draft-text">これは公開前の下書きです</div>
+          </div>
+        </div>
         <div class="note-header__author">
           <a [routerLink]="'/'  + article.author.screenName">
             <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
@@ -34,6 +39,8 @@
           <p class="note-header__updated-date">
             {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
+          <app-note-edit-buttons class="note-header__actions" *ngIf="isAuthor(article.author)" [article]="article">
+          </app-note-edit-buttons>
         </div>
         <h1 class="note-header__title">{{article.title}}
         </h1>
@@ -92,6 +99,6 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="isNotFoundArticle">
-  <p class="error">「{{articleId}}」という記事は存在しませんでした。</p>
-</ng-container>
+<ng-template #notFoundArticle>
+  <p class="error" *ngIf="!isLoading">「{{articleId}}」という記事は存在しませんでした。</p>
+</ng-template>

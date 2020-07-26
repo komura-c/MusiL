@@ -3,7 +3,7 @@
     [matAutocomplete]="search" class="search__input" />
   <mat-autocomplete #search="matAutocomplete">
     <mat-option *ngFor="let option of searchResult?.hits" [value]="option.title">
-      {{option.title}}
+      <div class="search__input-item" (click)="routeSearch(option.title)">{{option.title}}</div>
     </mat-option>
   </mat-autocomplete>
   <button mat-icon-button color="white" aria-label="検索アイコン" class="search__button">

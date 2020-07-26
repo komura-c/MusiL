@@ -87,7 +87,7 @@ export class ArticleService {
           };
           return result;
         });
-      })
+      }),
     );
   }
 }

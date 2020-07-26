@@ -1,5 +1,7 @@
 export {
   createUser,
+  deleteUser,
+  deleteUserArticles,
 } from './user.function';
 export {
   createPost,
