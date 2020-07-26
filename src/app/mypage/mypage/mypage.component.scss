@@ -12,6 +12,10 @@
     padding-left: 32px;
     max-width: 460px;
   }
+  &__user-header {
+    display: flex;
+    align-items: center;
+  }
   &__user-icon {
     width: 120px;
     height: 120px;
@@ -19,7 +23,7 @@
   }
   &__user-name {
     font-weight: bold;
-    padding: 8px;
+    padding: 8px 0;
     margin: 0;
   }
   &__user-screen-name {
@@ -46,6 +50,10 @@
     justify-content: center;
     grid-column-gap: 12px;
   }
+}
+
+.edit-profile {
+  margin-left: auto;
 }
 
 .mat-tab-label {
