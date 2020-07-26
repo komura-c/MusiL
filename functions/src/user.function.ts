@@ -32,7 +32,7 @@ export const deleteUser = functions.region('asia-northeast1').auth.user()
 export const deleteUserArticles = functions.region('asia-northeast1').auth.user()
   .onDelete(async user => {
     const articles = await db.collection('articles')
-      .where('authorId', '==', user.uid).get();
+      .where('uid', '==', user.uid).get();
     const batch = db.batch();
     articles.forEach((doc) => {
       batch.delete(doc.ref);
