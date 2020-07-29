@@ -12,6 +12,7 @@ import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -27,6 +28,7 @@ import { SharedModule } from '../shared/shared.module';
     MatSlideToggleModule,
     MatIconModule,
     SharedModule,
+    MatChipsModule
   ],
 })
 export class NotesModule { }
