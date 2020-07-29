@@ -31,6 +31,8 @@ import 'froala-editor/js/languages/ja.js';
 import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Article } from 'functions/src/interfaces/article';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-create',
@@ -40,7 +42,7 @@ import { Article } from 'functions/src/interfaces/article';
 export class CreateComponent implements OnInit {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
-    tag: [''],
+    tags: [[], [Validators.maxLength(10)]],
     editorContent: [''],
     isPublic: [true],
   });
@@ -49,12 +51,18 @@ export class CreateComponent implements OnInit {
 
   articleId: string;
 
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+
   get titleControl() {
     return this.form.get('title') as FormControl;
   }
 
-  get tagControl() {
-    return this.form.get('tag') as FormControl;
+  get tagsControl() {
+    return this.form.get('tags') as FormControl;
   }
 
   get editorContentControl() {
@@ -68,7 +76,7 @@ export class CreateComponent implements OnInit {
   public options = {
     toolbarSticky: false,
     toolbarInline: false,
-    height: '350',
+    heightMin: '260',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
     attribution: false,
@@ -153,7 +161,7 @@ export class CreateComponent implements OnInit {
           const currentValue = this.form.value;
           this.form.patchValue({
             title: currentValue.title,
-            tag: currentValue.tag,
+            tags: currentValue.tags,
             editorContent: currentValue.editorContent + soundCloudEmbedPlayer,
             isPublic: currentValue.isPublic,
           });
@@ -187,7 +195,7 @@ export class CreateComponent implements OnInit {
         this.articleId = article.articleId;
         this.form.patchValue({
           title: article.title,
-          tag: article.tag,
+          tags: article.tags,
           editorContent: article.text,
           isPublic: article.isPublic,
         });
@@ -196,6 +204,33 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void { }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    const maxLength = 11;
+    if (this.tagsControl.value.length < maxLength) {
+      if ((value || '').trim()) {
+        this.tagsControl.value.push(value);
+        this.tagsControl.updateValueAndValidity();
+      }
+    } else {
+      this.tagsControl.updateValueAndValidity();
+    }
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(tag: string): void {
+    const index = this.tagsControl.value.indexOf(tag);
+
+    if (index >= 0) {
+      this.tagsControl.value.splice(index, 1);
+      this.tagsControl.updateValueAndValidity();
+    }
+  }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -229,7 +264,7 @@ export class CreateComponent implements OnInit {
       uid: this.authService.uid,
       thumbnailURL: firstImageURL,
       title: formData.title,
-      tag: 'DTM',
+      tags: formData.tags,
       text: formData.editorContent,
       isPublic: formData.isPublic
     };

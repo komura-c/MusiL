@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FroalaViewModule } from 'angular-froala-wysiwyg';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [MypageComponent, NoteComponent],
@@ -22,6 +23,7 @@ import { FroalaViewModule } from 'angular-froala-wysiwyg';
     SharedModule,
     MatTabsModule,
     FroalaViewModule,
+    MatChipsModule
   ],
 })
 export class MypageModule { }
