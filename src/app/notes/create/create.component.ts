@@ -45,24 +45,20 @@ import 'froala-editor/js/languages/ja.js';
 export class CreateComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
-    tags: [[], [Validators.maxLength(10)]],
+    tag: [''],
     editorContent: [''],
     isPublic: [true],
   });
-  tagControl: FormControl = new FormControl('');
-  froalaEditor;
-  isComplete: boolean;
 
-  articleId: string;
-
-  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  tags: string[] = [];
   visible = true;
   selectable = true;
   removable = true;
   addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   index = this.searchService.index.item;
-  tags: {
+  allTags: {
     value: string;
     highlighted: string;
     count: number;
@@ -71,14 +67,19 @@ export class CreateComponent implements OnInit, OnDestroy {
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
 
+  froalaEditor;
+
+  isComplete: boolean;
+  articleId: string;
+
   subscription: Subscription;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
   }
 
-  get tagsControl() {
-    return this.form.get('tags') as FormControl;
+  get tagControl() {
+    return this.form.get('tag') as FormControl;
   }
 
   get editorContentControl() {
@@ -212,10 +213,10 @@ export class CreateComponent implements OnInit, OnDestroy {
         this.articleId = article.articleId;
         this.form.patchValue({
           title: article.title,
-          tags: article.tags,
           editorContent: article.text,
           isPublic: article.isPublic,
         });
+        this.tags = article.tags;
       }
     });
   }
@@ -226,7 +227,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       .subscribe((keyword) => {
         const searchTags: string = keyword;
         this.index.searchForFacetValues('tags', searchTags).then((result) => {
-          this.tags = result.facetHits;
+          this.allTags = result.facetHits;
         });
       });
   }
@@ -235,32 +236,26 @@ export class CreateComponent implements OnInit, OnDestroy {
     const input = event.input;
     const value = event.value;
 
-    const maxLength = 11;
-    if (this.tagsControl.value.length < maxLength) {
-      if ((value || '').trim()) {
-        this.tagsControl.value.push(value);
-        this.tagsControl.updateValueAndValidity();
-      }
-    } else {
-      this.tagsControl.updateValueAndValidity();
+    const maxLength = 10;
+    if ((value || '').trim() && this.tags.length < maxLength) {
+      this.tags.push(value);
     }
     if (input) {
       input.value = '';
-      this.tagControl.setValue(null);
     }
+    this.tagControl.setValue(null);
   }
 
   remove(tag: string): void {
-    const index = this.tagsControl.value.indexOf(tag);
+    const index = this.tags.indexOf(tag);
 
     if (index >= 0) {
-      this.tagsControl.value.splice(index, 1);
-      this.tagsControl.updateValueAndValidity();
+      this.tags.splice(index, 1);
     }
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tagsControl.value.push(event.option.viewValue);
+    this.tags.push(event.option.viewValue);
     this.tagInput.nativeElement.value = '';
     this.tagControl.setValue(null);
   }
@@ -297,7 +292,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       uid: this.authService.uid,
       thumbnailURL: firstImageURL,
       title: formData.title,
-      tags: formData.tags,
+      tags: this.tags,
       text: formData.editorContent,
       isPublic: formData.isPublic
     };
