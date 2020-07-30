@@ -13,10 +13,15 @@
             {{tag}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="タグ" matInput autocomplete="off" [matChipInputFor]="chipList"
+          <input placeholder="タグ" matInput [matAutocomplete]="auto" [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
-            (matChipInputTokenEnd)="add($event)" />
+            (matChipInputTokenEnd)="add($event)" #tagInput [formControl]="tagControl" />
         </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let tag of tags" [value]="tag.value">
+            {{tag.value}}
+          </mat-option>
+        </mat-autocomplete>
         <mat-error *ngIf="tagsControl.hasError('maxlength')">タグは10個以内です</mat-error>
       </mat-form-field>
     </div>

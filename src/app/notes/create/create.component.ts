@@ -1,10 +1,18 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { startWith } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Article } from 'functions/src/interfaces/article';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { SearchService } from 'src/app/services/search.service';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
@@ -28,24 +36,20 @@ import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
 import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
-import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Article } from 'functions/src/interfaces/article';
-import { MatChipInputEvent } from '@angular/material/chips';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
     tags: [[], [Validators.maxLength(10)]],
     editorContent: [''],
     isPublic: [true],
   });
+  tagControl: FormControl = new FormControl('');
   froalaEditor;
   isComplete: boolean;
 
@@ -56,6 +60,18 @@ export class CreateComponent implements OnInit {
   selectable = true;
   removable = true;
   addOnBlur = true;
+
+  index = this.searchService.index.item;
+  tags: {
+    value: string;
+    highlighted: string;
+    count: number;
+    selected?: boolean;
+  }[];
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
+  subscription: Subscription;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -184,6 +200,7 @@ export class CreateComponent implements OnInit {
     private ngZone: NgZone,
     private location: Location,
     private route: ActivatedRoute,
+    private searchService: SearchService,
   ) {
     this.route.paramMap.pipe(
       switchMap(map => {
@@ -203,7 +220,16 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.subscription = this.tagControl.valueChanges
+      .pipe(startWith(''))
+      .subscribe((keyword) => {
+        const searchTags: string = keyword;
+        this.index.searchForFacetValues('tags', searchTags).then((result) => {
+          this.tags = result.facetHits;
+        });
+      });
+  }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -220,6 +246,7 @@ export class CreateComponent implements OnInit {
     }
     if (input) {
       input.value = '';
+      this.tagControl.setValue(null);
     }
   }
 
@@ -230,6 +257,12 @@ export class CreateComponent implements OnInit {
       this.tagsControl.value.splice(index, 1);
       this.tagsControl.updateValueAndValidity();
     }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tagsControl.value.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagControl.setValue(null);
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -286,5 +319,9 @@ export class CreateComponent implements OnInit {
         this.snackBar.open(msg, '閉じる', { duration: 5000 });
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

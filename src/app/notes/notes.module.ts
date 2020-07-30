@@ -13,6 +13,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [NotesComponent, CreateComponent],
@@ -28,7 +29,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatSlideToggleModule,
     MatIconModule,
     SharedModule,
-    MatChipsModule
+    MatChipsModule,
+    MatAutocompleteModule
   ],
 })
 export class NotesModule { }
