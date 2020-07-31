@@ -5,7 +5,7 @@ export interface Article {
   uid: string;
   thumbnailURL: string;
   title: string;
-  tag: string;
+  tags: string[];
   text: string;
   isPublic: boolean;
   createdAt: firestore.Timestamp;

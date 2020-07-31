@@ -44,8 +44,13 @@
         </div>
         <h1 class="note-header__title">{{article.title}}
         </h1>
-        <a href="#" class="note-header__tag">DTM</a>
-        <a href="#" class="note-header__tag">Sylenth1</a>
+        <ng-container *ngIf="article.tags">
+          <mat-chip-list aria-label="記事のタグ">
+            <mat-chip *ngFor="let tag of article.tags">
+              {{tag}}
+            </mat-chip>
+          </mat-chip-list>
+        </ng-container>
       </div>
       <div class="note-content" [froalaView]="article.text">
       </div>
