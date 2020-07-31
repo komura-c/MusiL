@@ -1,10 +1,18 @@
-import { Component, OnInit, NgZone, HostListener } from '@angular/core';
+import { Component, OnInit, NgZone, HostListener, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { startWith } from 'rxjs/operators';
+import { of, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import { Article } from 'functions/src/interfaces/article';
+import { MatChipInputEvent } from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { SearchService } from 'src/app/services/search.service';
+import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
@@ -28,26 +36,43 @@ import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
 import 'froala-editor/js/plugins/word_paste.min.js';
 import 'froala-editor/js/languages/ja.js';
-import { of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
-import { Article } from 'functions/src/interfaces/article';
 
 @Component({
   selector: 'app-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent implements OnInit, OnDestroy {
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(255)]],
     tag: [''],
     editorContent: [''],
     isPublic: [true],
   });
-  froalaEditor;
-  isComplete: boolean;
 
+  tags: string[] = [];
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+
+  index = this.searchService.index.item;
+  allTags: {
+    value: string;
+    highlighted: string;
+    count: number;
+    selected?: boolean;
+  }[];
+  @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('auto') matAutocomplete: MatAutocomplete;
+
+  froalaEditor;
+
+  isComplete: boolean;
   articleId: string;
+
+  subscription: Subscription;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
@@ -68,7 +93,7 @@ export class CreateComponent implements OnInit {
   public options = {
     toolbarSticky: false,
     toolbarInline: false,
-    height: '350',
+    heightMin: '260',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
     attribution: false,
@@ -153,7 +178,7 @@ export class CreateComponent implements OnInit {
           const currentValue = this.form.value;
           this.form.patchValue({
             title: currentValue.title,
-            tag: currentValue.tag,
+            tags: currentValue.tags,
             editorContent: currentValue.editorContent + soundCloudEmbedPlayer,
             isPublic: currentValue.isPublic,
           });
@@ -176,6 +201,7 @@ export class CreateComponent implements OnInit {
     private ngZone: NgZone,
     private location: Location,
     private route: ActivatedRoute,
+    private searchService: SearchService,
   ) {
     this.route.paramMap.pipe(
       switchMap(map => {
@@ -187,15 +213,52 @@ export class CreateComponent implements OnInit {
         this.articleId = article.articleId;
         this.form.patchValue({
           title: article.title,
-          tag: article.tag,
           editorContent: article.text,
           isPublic: article.isPublic,
         });
+        this.tags = article.tags;
       }
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.subscription = this.tagControl.valueChanges
+      .pipe(startWith(''))
+      .subscribe((keyword) => {
+        const searchTags: string = keyword;
+        this.index.searchForFacetValues('tags', searchTags).then((result) => {
+          this.allTags = result.facetHits;
+        });
+      });
+  }
+
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    const maxLength = 10;
+    if ((value || '').trim() && this.tags.length < maxLength) {
+      this.tags.push(value);
+    }
+    if (input) {
+      input.value = '';
+    }
+    this.tagControl.setValue(null);
+  }
+
+  remove(tag: string): void {
+    const index = this.tags.indexOf(tag);
+
+    if (index >= 0) {
+      this.tags.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.tags.push(event.option.viewValue);
+    this.tagInput.nativeElement.value = '';
+    this.tagControl.setValue(null);
+  }
 
   @HostListener('window:beforeunload', ['$event'])
   unloadNotification($event: any) {
@@ -229,7 +292,7 @@ export class CreateComponent implements OnInit {
       uid: this.authService.uid,
       thumbnailURL: firstImageURL,
       title: formData.title,
-      tag: 'DTM',
+      tags: this.tags,
       text: formData.editorContent,
       isPublic: formData.isPublic
     };
@@ -251,5 +314,9 @@ export class CreateComponent implements OnInit {
         this.snackBar.open(msg, '閉じる', { duration: 5000 });
       });
     }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }
