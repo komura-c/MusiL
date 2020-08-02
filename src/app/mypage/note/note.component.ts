@@ -80,7 +80,9 @@ export class NoteComponent implements OnInit {
         }),
         tap((article: ArticleWithAuthor) => {
           if (article) {
-            this.likeCount = article.likeCount;
+            if (!this.likeCount) {
+              this.likeCount = article.likeCount;
+            }
             this.likeService.isLiked(article.articleId, this.authService.uid)
               .pipe(take(1))
               .subscribe(result => {
