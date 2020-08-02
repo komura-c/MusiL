@@ -8,6 +8,7 @@ export interface Article {
   tags: string[];
   text: string;
   isPublic: boolean;
+  likeCount: number;
   createdAt: firestore.Timestamp;
   updatedAt: firestore.Timestamp;
 }
