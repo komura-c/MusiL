@@ -8,3 +8,7 @@ export {
   deletePost,
   updatePost,
 } from './article.function';
+export {
+  countUpLiked,
+  countDownLiked,
+} from './like.function';
