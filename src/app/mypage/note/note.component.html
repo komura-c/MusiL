@@ -3,7 +3,8 @@
     <div class="note__left-box">
       <div class="left-actions">
         <button mat-icon-button color="warn" class="left-actions__like" aria-label="いいね" matTooltip="いいね"
-          matTooltipPosition="right" (click)="clickedLike(article.articleId)" [class.--liked]="isLiked">
+          matTooltipPosition="right" (click)="clickedLike(article.articleId)"
+          [class.left-actions__like--liked]="isLiked">
           <ng-container *ngIf="isLiked; else isNotLiked;">
             <mat-icon>favorite</mat-icon>
             <span>{{likeCount}}</span>
@@ -64,7 +65,7 @@
       <div class="note-footer">
         <div class="main-actions">
           <button mat-icon-button color="warn" class="main-actions__like" aria-label="いいね" matTooltip="いいね"
-            (click)="clickedLike(article.articleId)">
+            (click)="clickedLike(article.articleId)" [class.main-actions__like--liked]="isLiked">
             <ng-container *ngIf="isLiked; else isNotLiked;">
               <mat-icon>favorite</mat-icon>
               <span>{{likeCount}}</span>
