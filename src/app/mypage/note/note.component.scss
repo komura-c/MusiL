@@ -46,6 +46,12 @@
 .left-actions {
   display: flex;
   flex-direction: column;
+  &__like {
+    transform-origin: 50% 50%;
+    &--liked {
+      animation: like-anim 0.5s ease-out;
+    }
+  }
   &__twitter {
     .mat-icon {
       width: 44px;
@@ -137,6 +143,12 @@
   padding: 16px 0;
   display: flex;
   justify-content: space-between;
+  &__like {
+    transform-origin: 50% 50%;
+    &--liked {
+      animation: like-anim 0.5s ease-out;
+    }
+  }
   &__share {
     display: flex;
     align-items: center;
@@ -191,5 +203,23 @@
     &__sub-box {
       display: none;
     }
+  }
+}
+
+@keyframes like-anim {
+  0% {
+    transform: scale(0.4, 0.4);
+  }
+  40% {
+    transform: scale(1.2, 1.2);
+  }
+  60% {
+    transform: scale(1, 1);
+  }
+  80% {
+    transform: scale(1.1, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
   }
 }
