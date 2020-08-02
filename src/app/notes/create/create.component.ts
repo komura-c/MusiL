@@ -50,6 +50,8 @@ export class CreateComponent implements OnInit, OnDestroy {
     isPublic: [true],
   });
 
+  likeCount: number;
+
   tags: string[] = [];
   visible = true;
   selectable = true;
@@ -211,12 +213,13 @@ export class CreateComponent implements OnInit, OnDestroy {
     ).subscribe((article: Article) => {
       if (article) {
         this.articleId = article.articleId;
+        this.tags = article.tags;
+        this.likeCount = article.likeCount;
         this.form.patchValue({
           title: article.title,
           editorContent: article.text,
           isPublic: article.isPublic,
         });
-        this.tags = article.tags;
       }
     });
   }
@@ -287,7 +290,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     const formData = this.form.value;
     const html = formData.editorContent;
     const firstImageURL = this.getFirstImageURL(html);
-    const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>
+    const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>
       = {
       uid: this.authService.uid,
       thumbnailURL: firstImageURL,
@@ -304,7 +307,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       msg = '下書きを保存しました！おつかれさまです。';
     }
     if (this.articleId) {
-      this.articleService.updateArticle(this.articleId, sendData).then(() => {
+      this.articleService.updateArticle(this.articleId, this.likeCount, sendData).then(() => {
         this.router.navigateByUrl('/');
         this.snackBar.open(msg, '閉じる', { duration: 5000 });
       });
