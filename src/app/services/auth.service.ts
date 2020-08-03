@@ -61,8 +61,8 @@ export class AuthService {
     }
   }
 
-  logout() {
-    this.afAuth.signOut()
+  async logout(): Promise<void> {
+    return await this.afAuth.signOut()
       .then(() => {
         this.router.navigateByUrl('/');
         this.snackBar.open('ログアウトしました。', '閉じる', { duration: 5000 });
