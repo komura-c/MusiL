@@ -35,25 +35,38 @@ export class ArticleService {
     return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
   }
 
+  getLikedArticles(uid: string): Observable<string[]> {
+    return this.db.collection(`users/${uid}/likedArticles`).valueChanges().pipe(
+      switchMap((articles: Article[]) => {
+        return combineLatest(
+          articles.map((article: Article) => this.db.doc<string>(`articles/${article.articleId}`).valueChanges())
+        );
+      })
+    );
+  }
+
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage.ref(`users/${uid}/images/${time}`).put(file);
     return await result.ref.getDownloadURL();
   }
 
-  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>): Promise<void> {
+  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>): Promise<void> {
     const articleId = this.db.createId();
     return this.db.doc(`articles/${articleId}`).set({
       articleId,
       ...article,
+      likeCount: 0,
       createdAt: firestore.Timestamp.now(),
       updatedAt: firestore.Timestamp.now()
     });
   }
 
-  updateArticle(articleId: string, article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt'>): Promise<void> {
+  updateArticle(articleId: string, likeCount: number, article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>)
+    : Promise<void> {
     return this.db.doc(`articles/${articleId}`).update({
       ...article,
+      likeCount,
       updatedAt: firestore.Timestamp.now()
     });
   }

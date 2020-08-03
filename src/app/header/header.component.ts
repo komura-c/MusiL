@@ -27,6 +27,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
+    this.isProcessing = true;
+    this.authService.logout().finally(() => {
+      this.isProcessing = false;
+    });
   }
 }

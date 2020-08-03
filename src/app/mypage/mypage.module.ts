@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatChipsModule } from '@angular/material/chips';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 @NgModule({
   declarations: [MypageComponent, NoteComponent],
@@ -23,7 +24,8 @@ import { MatChipsModule } from '@angular/material/chips';
     SharedModule,
     MatTabsModule,
     FroalaViewModule,
-    MatChipsModule
+    MatChipsModule,
+    ClipboardModule
   ],
 })
 export class MypageModule { }
