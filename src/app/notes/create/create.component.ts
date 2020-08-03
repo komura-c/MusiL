@@ -56,7 +56,6 @@ export class CreateComponent implements OnInit, OnDestroy {
   visible = true;
   selectable = true;
   removable = true;
-  addOnBlur = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   index = this.searchService.index.item;
@@ -222,18 +221,16 @@ export class CreateComponent implements OnInit, OnDestroy {
         });
       }
     });
-  }
-
-  ngOnInit(): void {
     this.subscription = this.tagControl.valueChanges
       .pipe(startWith(''))
       .subscribe((keyword) => {
-        const searchTags: string = keyword;
-        this.index.searchForFacetValues('tags', searchTags).then((result) => {
+        this.index.searchForFacetValues('tags', keyword).then((result) => {
           this.allTags = result.facetHits;
         });
       });
   }
+
+  ngOnInit(): void { }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -246,7 +243,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     if (input) {
       input.value = '';
     }
-    this.tagControl.setValue(null);
+    this.tagControl.patchValue(null);
   }
 
   remove(tag: string): void {
@@ -258,9 +255,9 @@ export class CreateComponent implements OnInit, OnDestroy {
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.tags.push(event.option.viewValue);
+    this.tags.push(event.option.value);
     this.tagInput.nativeElement.value = '';
-    this.tagControl.setValue(null);
+    this.tagControl.patchValue(null);
   }
 
   @HostListener('window:beforeunload', ['$event'])
