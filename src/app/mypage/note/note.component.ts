@@ -89,6 +89,7 @@ export class NoteComponent implements OnInit {
           if (article) {
             if (!this.likeCount) {
               this.likeCount = article.likeCount;
+              this.getHeading();
             }
             this.likeService.isLiked(article.articleId, this.authService.uid)
               .pipe(take(1))
@@ -97,7 +98,6 @@ export class NoteComponent implements OnInit {
               });
           }
         }),
-        tap(() => this.getHeading()),
         tap(() => {
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
@@ -112,7 +112,7 @@ export class NoteComponent implements OnInit {
     });
   }
 
-  anchorLinkFixed(event) {
+  scrollToHeading(event) {
     const id = event.target.hash.replace('#', '');
     if (id !== '') {
       const rectTop = document.getElementById(id).getBoundingClientRect().top;

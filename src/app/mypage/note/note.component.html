@@ -113,7 +113,7 @@
             <li><a [href]="'/' + article.author.screenName +'/n/' + article.articleId + '#' + headingElement.id"
                 [class.active]="i === activeHeadingIndex" [class.toc-h2]="headingElement.tagName === 'H2'"
                 [class.toc-h3]="headingElement.tagName === 'H3'" [class.toc-h4]="headingElement.tagName === 'H4'"
-                (click)="anchorLinkFixed($event)">{{headingElement.textContent}}</a></li>
+                (click)="scrollToHeading($event)">{{headingElement.textContent}}</a></li>
           </ng-container>
         </ul>
       </div>
