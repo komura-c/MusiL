@@ -15,14 +15,14 @@
           </ng-template>
         </button>
         <a mat-icon-button class="left-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
-          [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
-          target="_blank" matTooltipPosition="right">
+          [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app' + path" target="_blank"
+          matTooltipPosition="right">
           <mat-icon>
             <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
           </mat-icon>
         </a>
         <button mat-icon-button href="#" class="left-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
-          matTooltipPosition="right">
+          matTooltipPosition="right" (click)="copyLink()">
           <mat-icon>link</mat-icon>
         </button>
       </div>
@@ -78,13 +78,13 @@
 
           <div class="main-actions__share">
             <a mat-icon-button class="main-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
-              [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app/' + article.author.screenName + '/n/' + article.articleId + '&text=' + article.title"
-              target="_blank">
+              [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app' + path" target="_blank">
               <mat-icon>
                 <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
               </mat-icon>
             </a>
-            <button mat-icon-button href="#" class="main-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー">
+            <button mat-icon-button href="#" class="main-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
+              (click)="copyLink()">
               <mat-icon>link</mat-icon>
             </button>
           </div>
