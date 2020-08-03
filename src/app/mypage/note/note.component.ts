@@ -11,6 +11,8 @@ import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Location } from '@angular/common';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-note',
@@ -30,6 +32,8 @@ export class NoteComponent implements OnInit {
 
   likeCount: number;
   isLiked: boolean;
+
+  path: string;
 
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
@@ -52,9 +56,12 @@ export class NoteComponent implements OnInit {
     private loadingService: LoadingService,
     private likeService: LikeService,
     private snackBar: MatSnackBar,
+    private location: Location,
+    private clipboard: Clipboard
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
+    this.path = this.location.path();
     this.route.paramMap.subscribe(params => {
       this.articleId = params.get('id');
       const post$ = this.articleService.getArticleOnly(this.articleId);
@@ -162,6 +169,11 @@ export class NoteComponent implements OnInit {
     } else {
       this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる', { duration: 5000 });
     }
+  }
+
+  copyLink(): void {
+    this.clipboard.copy('https://dtmplace-ad671.web.app' + this.path);
+    this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
   ngOnInit(): void {
