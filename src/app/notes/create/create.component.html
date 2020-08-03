@@ -12,13 +12,12 @@
             {{tag}}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="タグ" #tagInput [formControl]="tagControl" [matAutocomplete]="auto"
-            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+          <input placeholder="タグ" #tagInput formControlName="tag" [matAutocomplete]="auto" [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
         <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
           <mat-option *ngFor="let tag of allTags" [value]="tag.value">
-            {{tag.value}}
+            {{tag.value}}({{tag.count}})
           </mat-option>
         </mat-autocomplete>
         <mat-hint>タグは10個以内です</mat-hint>
