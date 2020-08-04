@@ -5,7 +5,7 @@ import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from './user.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, shareReplay } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';
 
 @Injectable({
@@ -22,7 +22,8 @@ export class AuthService {
       } else {
         return of(null);
       }
-    })
+    }),
+    shareReplay(1)
   );
 
   constructor(
