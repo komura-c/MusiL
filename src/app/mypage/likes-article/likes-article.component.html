@@ -1,0 +1,10 @@
+<ng-container *ngIf="articles$ | async as articles">
+  <ng-container *ngIf="articles.length === 0">
+    <div class="no-article">
+      <p>まだ、記事はありません。</p>
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let article of articles">
+    <app-article *ngIf="article" [article]="article"></app-article>
+  </ng-container>
+</ng-container>

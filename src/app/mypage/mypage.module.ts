@@ -12,9 +12,11 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { MyArticleComponent } from './my-article/my-article.component';
+import { LikesArticleComponent } from './likes-article/likes-article.component';
 
 @NgModule({
-  declarations: [MypageComponent, NoteComponent],
+  declarations: [MypageComponent, NoteComponent, MyArticleComponent, LikesArticleComponent],
   imports: [
     CommonModule,
     MypageRoutingModule,
