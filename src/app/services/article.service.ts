@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable, combineLatest, of } from 'rxjs';
 import { firestore } from 'firebase/app';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -75,10 +75,24 @@ export class ArticleService {
     return this.db.doc(`articles/${articleId}`).delete();
   }
 
-  getArticlesWithAuthors(): Observable<ArticleWithAuthor[]> {
+  getPopularArticles(): Observable<ArticleWithAuthor[]> {
+    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
+      return ref.orderBy('likeCount', 'desc').limit(6);
+    });
+    return this.getArticlesWithAuthors(sorted);
+  }
+
+  getLatestArticles(): Observable<ArticleWithAuthor[]> {
+    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
+      return ref.orderBy('updatedAt', 'desc').limit(6);
+    });
+    return this.getArticlesWithAuthors(sorted);
+  }
+
+  getArticlesWithAuthors(sorted: AngularFirestoreCollection<Article>): Observable<ArticleWithAuthor[]> {
     let articles: Article[];
 
-    return this.getAllArticles().pipe(
+    return sorted.valueChanges().pipe(
       switchMap((docs: Article[]) => {
         articles = docs;
 

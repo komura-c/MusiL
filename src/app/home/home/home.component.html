@@ -13,13 +13,13 @@
       </div>
     </ng-container>
     <h3 class="home-main__title">トレンド</h3>
-    <ng-container *ngFor="let article of articles$ | async">
+    <ng-container *ngFor="let article of popularArticles$ | async">
       <app-article *ngIf="article" [article]="article"></app-article>
     </ng-container>
   </div>
   <div class="home-sub">
     <h3 class="home-main__title">最新の記事</h3>
-    <ng-container *ngFor="let article of articles$ | async">
+    <ng-container *ngFor="let article of latestArticles$ | async">
       <app-article *ngIf="article" [article]="article"></app-article>
     </ng-container>
   </div>
