@@ -18,8 +18,6 @@ export class MypageComponent implements OnInit {
 
   isLoading: boolean;
 
-  activeLink = 'myArticle';
-
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
