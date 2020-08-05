@@ -14,7 +14,7 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements OnInit {
-  index = this.searchService.index.item;
+  index = this.searchService.index.popular;
   searchQuery: string;
 
   searchResult: {
