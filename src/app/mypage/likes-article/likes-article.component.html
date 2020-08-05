@@ -8,3 +8,6 @@
     <app-article *ngIf="article" [article]="article"></app-article>
   </ng-container>
 </ng-container>
+<ng-container *ngIf="isLoading">
+  <mat-spinner class="loading-bar" diameter="100" strokeWidth="8"></mat-spinner>
+</ng-container>
