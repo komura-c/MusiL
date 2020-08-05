@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { firestore } from 'firebase/app';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class LikeService {
   ) { }
 
   likeArticle(articleId: string, uid: string): Promise<void> {
-    return this.db.doc(`users/${uid}/likedArticles/${articleId}`).set({ articleId });
+    return this.db.doc(`users/${uid}/likedArticles/${articleId}`).set({ articleId, updatedAt: firestore.Timestamp.now() });
   }
 
   unLikeArticle(articleId: string, uid: string): Promise<void> {
