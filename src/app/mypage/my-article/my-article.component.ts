@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from '@interfaces/user';
-import { Observable, } from 'rxjs';
+import { Observable, of, } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { ArticleService } from 'src/app/services/article.service';
-import { map } from 'rxjs/operators';
+import { map, tap, catchError } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
 import { UserService } from 'src/app/services/user.service';
 
@@ -15,20 +15,30 @@ import { UserService } from 'src/app/services/user.service';
 export class MyArticleComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;
 
+  isLoading: boolean;
+
   constructor(
     private userService: UserService,
     private articleService: ArticleService,
   ) {
-    const user: UserData = this.userService.mypageUser;
-    this.articles$ = this.articleService.getArticles(user.uid).pipe(
+    this.isLoading = true;
+    this.articles$ = this.articleService.getArticles(this.userService.mypageUser.uid).pipe(
       map((articles: Article[]) => {
         return articles.map(article => {
           const result: ArticleWithAuthor = {
             ...article,
-            author: user,
+            author: this.userService.mypageUser,
           };
           return result;
         });
+      }),
+      tap(() => {
+        this.isLoading = false;
+      }),
+      catchError((error) => {
+        console.log(error.message);
+        this.isLoading = false;
+        return of(null);
       })
     );
   }
