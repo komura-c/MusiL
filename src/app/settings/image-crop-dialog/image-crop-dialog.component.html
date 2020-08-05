@@ -1,18 +1,34 @@
-<image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true" [aspectRatio]="1 / 1" format="png"
-  resizeToWidth="300" (imageCropped)="imageCropped($event)" (loadImageFailed)="loadImageFailed()">
+<image-cropper
+  [imageChangedEvent]="imageChangedEvent"
+  [maintainAspectRatio]="true"
+  [aspectRatio]="1 / 1"
+  format="png"
+  resizeToWidth="300"
+  (imageLoaded)="imageLoaded()"
+  (imageCropped)="imageCropped($event)"
+  (loadImageFailed)="loadImageFailed()"
+  *ngIf="!isLoading; else loading"
+>
 </image-cropper>
-<ng-container *ngIf="croppedImage; else loading">
-  <img [src]="croppedImage" class="avatar-image" alt="プロフィール画像">
-</ng-container>
-<ng-template #loading>
+<ng-container #loading>
   <mat-spinner class="loading-bar" diameter="100" strokeWidth="8"></mat-spinner>
-</ng-template>
+</ng-container>
 <div class="actions">
-  <button class="actions__cancel-button" *ngIf="imageChangedEvent" mat-button (click)="resetInput()">
+  <button
+    class="actions__cancel-button"
+    *ngIf="imageChangedEvent"
+    mat-button
+    (click)="resetInput()"
+  >
     キャンセル
   </button>
-  <button class="actions__change-button" [disabled]="!croppedImage" (click)="changeAvatar()" mat-flat-button
-    color="primary">
+  <button
+    class="actions__change-button"
+    [disabled]="!croppedImage"
+    (click)="changeAvatar()"
+    mat-flat-button
+    color="primary"
+  >
     変更する
   </button>
 </div>
