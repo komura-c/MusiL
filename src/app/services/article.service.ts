@@ -19,30 +19,28 @@ export class ArticleService {
     private userService: UserService,
   ) { }
 
-  getAllArticles(): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('isPublic', '==', true)).valueChanges();
+  getArticles(uid: string): Observable<Article[]> {
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true).orderBy('updatedAt', 'desc')).valueChanges();
   }
 
-  getArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true)).valueChanges();
+  getLikedArticles(uid: string): Observable<Article[]> {
+    return this.db.collection(`users/${uid}/likedArticles`, ref => ref.orderBy('updatedAt', 'desc')).valueChanges().pipe(
+      switchMap((articleIdDocs: { articleId: string }[]) => {
+        return combineLatest(
+          articleIdDocs.map((articleIdDoc) => {
+            return this.db.doc<Article>(`articles/${articleIdDoc.articleId}`).valueChanges();
+          })
+        );
+      })
+    );
   }
 
   getMyArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid)).valueChanges();
+    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')).valueChanges();
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
     return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
-  }
-
-  getLikedArticles(uid: string): Observable<string[]> {
-    return this.db.collection(`users/${uid}/likedArticles`).valueChanges().pipe(
-      switchMap((articles: Article[]) => {
-        return combineLatest(
-          articles.map((article: Article) => this.db.doc<string>(`articles/${article.articleId}`).valueChanges())
-        );
-      })
-    );
   }
 
   async uploadImage(uid: string, file: File): Promise<void> {
@@ -77,14 +75,14 @@ export class ArticleService {
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
     const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
-      return ref.orderBy('likeCount', 'desc').limit(6);
+      return ref.orderBy('likeCount', 'desc');
     });
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
     const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
-      return ref.orderBy('updatedAt', 'desc').limit(6);
+      return ref.orderBy('updatedAt', 'desc');
     });
     return this.getArticlesWithAuthors(sorted);
   }
