@@ -12,7 +12,7 @@ import { startWith } from 'rxjs/operators';
 export class SearchInputComponent implements OnInit {
   searchControl: FormControl = new FormControl();
 
-  index = this.searchService.index.item;
+  index = this.searchService.index.popular;
   searchResult: {
     nbHits: number;
     hits: any[];
