@@ -1,0 +1,23 @@
+name: Pretter
+on:
+  push:
+    branches:
+      - master
+
+env:
+  FILE_PATTERN: 'src/**/*.{html,scss,ts}'
+
+jobs:
+  pretter:
+    name: Pretter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - name: Install Dependencies
+        run: npm install
+      - name: Run Prettier
+        run: npx prettier --write ${FILE_PATTERN}
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Apply Prettier Change
