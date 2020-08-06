@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/firestore';
 import { Observable, combineLatest, of } from 'rxjs';
 import { firestore } from 'firebase/app';
 import { AngularFireStorage } from '@angular/fire/storage';
@@ -10,33 +13,51 @@ import { UserData } from '@interfaces/user';
 import { UserService } from './user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ArticleService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage,
-    private userService: UserService,
-  ) { }
+    private userService: UserService
+  ) {}
 
   getArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).where('isPublic', '==', true).orderBy('updatedAt', 'desc')).valueChanges();
+    return this.db
+      .collection<Article>(`articles`, (ref) =>
+        ref
+          .where('uid', '==', uid)
+          .where('isPublic', '==', true)
+          .orderBy('updatedAt', 'desc')
+      )
+      .valueChanges();
   }
 
   getLikedArticles(uid: string): Observable<Article[]> {
-    return this.db.collection(`users/${uid}/likedArticles`, ref => ref.orderBy('updatedAt', 'desc')).valueChanges().pipe(
-      switchMap((articleIdDocs: { articleId: string }[]) => {
-        return combineLatest(
-          articleIdDocs.map((articleIdDoc) => {
-            return this.db.doc<Article>(`articles/${articleIdDoc.articleId}`).valueChanges();
-          })
-        );
-      })
-    );
+    return this.db
+      .collection(`users/${uid}/likedArticles`, (ref) =>
+        ref.orderBy('updatedAt', 'desc')
+      )
+      .valueChanges()
+      .pipe(
+        switchMap((articleIdDocs: { articleId: string }[]) => {
+          return combineLatest(
+            articleIdDocs.map((articleIdDoc) => {
+              return this.db
+                .doc<Article>(`articles/${articleIdDoc.articleId}`)
+                .valueChanges();
+            })
+          );
+        })
+      );
   }
 
   getMyArticles(uid: string): Observable<Article[]> {
-    return this.db.collection<Article>(`articles`, ref => ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')).valueChanges();
+    return this.db
+      .collection<Article>(`articles`, (ref) =>
+        ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')
+      )
+      .valueChanges();
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
@@ -45,27 +66,40 @@ export class ArticleService {
 
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
-    const result = await this.storage.ref(`users/${uid}/images/${time}`).put(file);
+    const result = await this.storage
+      .ref(`users/${uid}/images/${time}`)
+      .put(file);
     return await result.ref.getDownloadURL();
   }
 
-  createArticle(article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>): Promise<void> {
+  createArticle(
+    article: Omit<
+      Article,
+      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
+    >
+  ): Promise<void> {
     const articleId = this.db.createId();
     return this.db.doc(`articles/${articleId}`).set({
       articleId,
       ...article,
       likeCount: 0,
       createdAt: firestore.Timestamp.now(),
-      updatedAt: firestore.Timestamp.now()
+      updatedAt: firestore.Timestamp.now(),
     });
   }
 
-  updateArticle(articleId: string, likeCount: number, article: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>)
-    : Promise<void> {
+  updateArticle(
+    articleId: string,
+    likeCount: number,
+    article: Omit<
+      Article,
+      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
+    >
+  ): Promise<void> {
     return this.db.doc(`articles/${articleId}`).update({
       ...article,
       likeCount,
-      updatedAt: firestore.Timestamp.now()
+      updatedAt: firestore.Timestamp.now(),
     });
   }
 
@@ -74,20 +108,22 @@ export class ArticleService {
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
-      return ref.orderBy('likeCount', 'desc');
+    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, (ref) => {
+      return ref.orderBy('likeCount', 'desc').limit(10);
     });
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, ref => {
-      return ref.orderBy('updatedAt', 'desc');
+    const sorted = this.db.collection<ArticleWithAuthor>(`articles`, (ref) => {
+      return ref.orderBy('updatedAt', 'desc').limit(10);
     });
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getArticlesWithAuthors(sorted: AngularFirestoreCollection<Article>): Observable<ArticleWithAuthor[]> {
+  getArticlesWithAuthors(
+    sorted: AngularFirestoreCollection<Article>
+  ): Observable<ArticleWithAuthor[]> {
     let articles: Article[];
 
     return sorted.valueChanges().pipe(
@@ -95,24 +131,26 @@ export class ArticleService {
         articles = docs;
 
         if (articles.length) {
-          const authorIds: string[] = articles.map(post => post.uid);
+          const authorIds: string[] = articles.map((post) => post.uid);
           const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-          return combineLatest(authorUniqueIds.map(uid => {
-            return this.userService.getUserData(uid);
-          }));
+          return combineLatest(
+            authorUniqueIds.map((uid) => {
+              return this.userService.getUserData(uid);
+            })
+          );
         } else {
           return of([]);
         }
       }),
       map((users: UserData[]) => {
-        return articles.map(article => {
+        return articles.map((article) => {
           const result: ArticleWithAuthor = {
             ...article,
-            author: users.find(user => user.uid === article.uid),
+            author: users.find((user) => user.uid === article.uid),
           };
           return result;
         });
-      }),
+      })
     );
   }
 }
