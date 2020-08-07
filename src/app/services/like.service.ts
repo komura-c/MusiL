@@ -5,16 +5,15 @@ import { map } from 'rxjs/operators';
 import { firestore } from 'firebase/app';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LikeService {
-
-  constructor(
-    private db: AngularFirestore,
-  ) { }
+  constructor(private db: AngularFirestore) {}
 
   likeArticle(articleId: string, uid: string): Promise<void> {
-    return this.db.doc(`users/${uid}/likedArticles/${articleId}`).set({ articleId, updatedAt: firestore.Timestamp.now() });
+    return this.db
+      .doc(`users/${uid}/likedArticles/${articleId}`)
+      .set({ articleId, updatedAt: firestore.Timestamp.now() });
   }
 
   unLikeArticle(articleId: string, uid: string): Promise<void> {
@@ -22,7 +21,9 @@ export class LikeService {
   }
 
   isLiked(articleId: string, uid: string): Observable<boolean> {
-    return this.db.doc(`users/${uid}/likedArticles/${articleId}`).valueChanges()
+    return this.db
+      .doc(`users/${uid}/likedArticles/${articleId}`)
+      .valueChanges()
       .pipe(map((doc) => !!doc));
   }
 }

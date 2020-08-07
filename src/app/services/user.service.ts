@@ -7,7 +7,7 @@ import { UserData } from 'functions/src/interfaces/user';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   mypageUser: UserData;
@@ -15,8 +15,8 @@ export class UserService {
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private storage: AngularFireStorage,
-  ) { }
+    private storage: AngularFireStorage
+  ) {}
 
   getUserData(uid: string): Observable<UserData> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();
@@ -24,10 +24,12 @@ export class UserService {
 
   getUserByScreenName(screenName: string): Observable<UserData> {
     return this.db
-      .collection<UserData>('users', ref => ref.where('screenName', '==', screenName))
+      .collection<UserData>('users', (ref) =>
+        ref.where('screenName', '==', screenName)
+      )
       .valueChanges()
       .pipe(
-        map(users => {
+        map((users) => {
           if (users.length) {
             this.mypageUser = users[0];
             return users[0];
@@ -58,12 +60,17 @@ export class UserService {
 
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
-    const result = await this.storage.ref(`users/${uid}/avatar/${time}`).putString(avatar, 'data_url');
+    const result = await this.storage
+      .ref(`users/${uid}/avatar/${time}`)
+      .putString(avatar, 'data_url');
     const avatarURL = await result.ref.getDownloadURL();
     return this.db.doc<UserData>(`users/${uid}`).update({ avatarURL });
   }
 
-  changeUserData(uid: string, newUserData: Pick<UserData, 'userName' | 'description'>): Promise<void> {
+  changeUserData(
+    uid: string,
+    newUserData: Pick<UserData, 'userName' | 'description'>
+  ): Promise<void> {
     return this.db.doc<UserData>(`users/${uid}`).update(newUserData);
   }
 

@@ -11,8 +11,19 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
-  declarations: [ArticleComponent, DeleteDialogComponent, NoteEditButtonsComponent],
-  imports: [CommonModule, SharedRoutingModule, MatButtonModule, MatDialogModule, MatMenuModule, MatIconModule],
+  declarations: [
+    ArticleComponent,
+    DeleteDialogComponent,
+    NoteEditButtonsComponent,
+  ],
+  imports: [
+    CommonModule,
+    SharedRoutingModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatMenuModule,
+    MatIconModule,
+  ],
   exports: [ArticleComponent, DeleteDialogComponent, NoteEditButtonsComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

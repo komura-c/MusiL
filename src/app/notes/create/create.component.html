@@ -2,39 +2,70 @@
   <form class="editor__form" [formGroup]="form">
     <div class="editor__header">
       <mat-form-field class="editor__title">
-        <input type="text" formControlName="title" matInput placeholder="タイトル*" autocomplete="off" />
-        <mat-error *ngIf="titleControl.hasError('required')">必須項目です</mat-error>
-        <mat-error *ngIf="titleControl.hasError('maxlength')">タイトルは255文字以内です</mat-error>
+        <input
+          type="text"
+          formControlName="title"
+          matInput
+          placeholder="タイトル*"
+          autocomplete="off"
+        />
+        <mat-error *ngIf="titleControl.hasError('required')"
+          >必須項目です</mat-error
+        >
+        <mat-error *ngIf="titleControl.hasError('maxlength')"
+          >タイトルは255文字以内です</mat-error
+        >
       </mat-form-field>
       <mat-form-field class="editor__tags">
         <mat-chip-list #chipList aria-label="タグセレクション">
-          <mat-chip *ngFor="let tag of tags" [selectable]="selectable" [removable]="removable" (removed)="remove(tag)">
-            {{tag}}
+          <mat-chip
+            *ngFor="let tag of tags"
+            [selectable]="selectable"
+            [removable]="removable"
+            (removed)="remove(tag)"
+          >
+            {{ tag }}
             <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
           </mat-chip>
-          <input placeholder="タグ" #tagInput formControlName="tag" [matAutocomplete]="auto" [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes" (matChipInputTokenEnd)="add($event)">
+          <input
+            placeholder="タグ"
+            #tagInput
+            formControlName="tag"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)"
+          />
         </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-autocomplete
+          #auto="matAutocomplete"
+          (optionSelected)="selected($event)"
+        >
           <mat-option *ngFor="let tag of allTags" [value]="tag.value">
-            {{tag.value}}({{tag.count}})
+            {{ tag.value }}({{ tag.count }})
           </mat-option>
         </mat-autocomplete>
         <mat-hint>タグは10個以内です</mat-hint>
       </mat-form-field>
     </div>
     <div class="editor__content">
-      <div [froalaEditor]="options" formControlName="editorContent">
-      </div>
+      <div [froalaEditor]="options" formControlName="editorContent"></div>
     </div>
     <div class="editor__buttons">
-      <mat-slide-toggle class="public-option" formControlName="isPublic">公開設定</mat-slide-toggle>
+      <mat-slide-toggle class="public-option" formControlName="isPublic"
+        >公開設定</mat-slide-toggle
+      >
       <button class="cancel-button" mat-button (click)="cancel()">
         キャンセル
       </button>
-      <button [disabled]="form.invalid || form.pristine" class="post-button" mat-flat-button color="primary"
-        (click)="submit()">
-        {{isPublicControl.value ? '記事を公開' : '下書き保存'}}
+      <button
+        [disabled]="form.invalid || form.pristine"
+        class="post-button"
+        mat-flat-button
+        color="primary"
+        (click)="submit()"
+      >
+        {{ isPublicControl.value ? '記事を公開' : '下書き保存' }}
       </button>
     </div>
   </form>

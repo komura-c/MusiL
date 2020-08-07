@@ -15,13 +15,13 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit, OnDestroy {
   uid = this.authService.uid;
   screenName: string;
   user$: Observable<UserData> = this.authService.user$.pipe(
-    tap((user) => this.screenName = user.screenName),
+    tap((user) => (this.screenName = user.screenName)),
     tap(() => this.loadingService.toggleLoading(false))
   );
 
@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router,
+    private router: Router
   ) {
     this.loadingService.toggleLoading(true);
     this.subscription = this.user$.subscribe((user: UserData) => {
@@ -58,8 +58,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {
@@ -77,7 +76,9 @@ export class SettingsComponent implements OnInit, OnDestroy {
     };
     this.userService.changeUserData(this.uid, newUserData);
     this.router.navigateByUrl('/' + this.screenName);
-    this.snackBar.open('プロフィールが更新されました', '閉じる', { duration: 5000 });
+    this.snackBar.open('プロフィールが更新されました', '閉じる', {
+      duration: 5000,
+    });
   }
 
   openDeleteAccountDialog() {

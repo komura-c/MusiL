@@ -1,4 +1,12 @@
-import { Component, OnInit, NgZone, HostListener, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  HostListener,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -12,7 +20,10 @@ import { Article } from 'functions/src/interfaces/article';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
-import { MatAutocompleteSelectedEvent, MatAutocomplete } from '@angular/material/autocomplete';
+import {
+  MatAutocompleteSelectedEvent,
+  MatAutocomplete,
+} from '@angular/material/autocomplete';
 
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
@@ -102,41 +113,81 @@ export class CreateComponent implements OnInit, OnDestroy {
     embedlyScriptPath: '',
     toolbarButtonsSM: {
       moreText: {
-        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
-        buttonsVisible: 3
+        buttons: [
+          'bold',
+          'italic',
+          'underline',
+          'strikeThrough',
+          'textColor',
+          'clearFormatting',
+        ],
+        buttonsVisible: 3,
       },
       moreParagraph: {
-        buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote'],
-        buttonsVisible: 3
+        buttons: [
+          'formatOL',
+          'formatUL',
+          'paragraphFormat',
+          'paragraphStyle',
+          'quote',
+        ],
+        buttonsVisible: 3,
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
-        buttonsVisible: 3
+        buttons: [
+          'insertLink',
+          'insertImage',
+          'insertVideo',
+          'embedly',
+          'insertTable',
+          'emoticons',
+        ],
+        buttonsVisible: 3,
       },
       moreMisc: {
         buttons: ['undo', 'redo', 'fullscreen'],
         align: 'right',
-        buttonsVisible: 3
-      }
+        buttonsVisible: 3,
+      },
     },
     toolbarButtonsXS: {
       moreText: {
-        buttons: ['bold', 'italic', 'underline', 'strikeThrough', 'textColor', 'clearFormatting'],
-        buttonsVisible: 0
+        buttons: [
+          'bold',
+          'italic',
+          'underline',
+          'strikeThrough',
+          'textColor',
+          'clearFormatting',
+        ],
+        buttonsVisible: 0,
       },
       moreParagraph: {
-        buttons: ['formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'quote'],
-        buttonsVisible: 0
+        buttons: [
+          'formatOL',
+          'formatUL',
+          'paragraphFormat',
+          'paragraphStyle',
+          'quote',
+        ],
+        buttonsVisible: 0,
       },
       moreRich: {
-        buttons: ['insertLink', 'insertImage', 'insertVideo', 'embedly', 'insertTable', 'emoticons'],
-        buttonsVisible: 0
+        buttons: [
+          'insertLink',
+          'insertImage',
+          'insertVideo',
+          'embedly',
+          'insertTable',
+          'emoticons',
+        ],
+        buttonsVisible: 0,
       },
       moreMisc: {
         buttons: ['undo', 'redo', 'fullscreen'],
         align: 'right',
-        buttonsVisible: 3
-      }
+        buttonsVisible: 3,
+      },
     },
     pastePlain: true,
     imageAddNewLine: true,
@@ -149,10 +200,15 @@ export class CreateComponent implements OnInit, OnDestroy {
         const file = images[0];
         const fileSizeLimit = 3000000;
         const uid = this.authService.uid;
-        if ((file.size < fileSizeLimit)) {
+        if (file.size < fileSizeLimit) {
           const downloadURLPromise = this.articleService.uploadImage(uid, file);
           downloadURLPromise.then((downloadURL) => {
-            this.froalaEditor._editor.image.insert(downloadURL, null, null, this.froalaEditor._editor.image.get());
+            this.froalaEditor._editor.image.insert(
+              downloadURL,
+              null,
+              null,
+              this.froalaEditor._editor.image.get()
+            );
           });
           return null;
         } else {
@@ -172,10 +228,16 @@ export class CreateComponent implements OnInit, OnDestroy {
           });
           return false;
         }
-        const soundCloudReg = new RegExp(/^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/);
+        const soundCloudReg = new RegExp(
+          /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/
+        );
         if (soundCloudReg.test(link)) {
           const soundCloudURL = link.match(soundCloudReg);
-          const soundCloudEmbedPlayer = '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' + soundCloudURL[2] + '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' + text;
+          const soundCloudEmbedPlayer =
+            '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' +
+            soundCloudURL[2] +
+            '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' +
+            text;
           const currentValue = this.form.value;
           this.form.patchValue({
             title: currentValue.title,
@@ -189,8 +251,8 @@ export class CreateComponent implements OnInit, OnDestroy {
           });
           return false;
         }
-      }
-    }
+      },
+    },
   };
 
   constructor(
@@ -202,25 +264,27 @@ export class CreateComponent implements OnInit, OnDestroy {
     private ngZone: NgZone,
     private location: Location,
     private route: ActivatedRoute,
-    private searchService: SearchService,
+    private searchService: SearchService
   ) {
-    this.route.paramMap.pipe(
-      switchMap(map => {
-        const id = map.get('id');
-        return id ? this.articleService.getArticleOnly(id) : of(null);
-      })
-    ).subscribe((article: Article) => {
-      if (article) {
-        this.articleId = article.articleId;
-        this.tags = article.tags;
-        this.likeCount = article.likeCount;
-        this.form.patchValue({
-          title: article.title,
-          editorContent: article.text,
-          isPublic: article.isPublic,
-        });
-      }
-    });
+    this.route.paramMap
+      .pipe(
+        switchMap((map) => {
+          const id = map.get('id');
+          return id ? this.articleService.getArticleOnly(id) : of(null);
+        })
+      )
+      .subscribe((article: Article) => {
+        if (article) {
+          this.articleId = article.articleId;
+          this.tags = article.tags;
+          this.likeCount = article.likeCount;
+          this.form.patchValue({
+            title: article.title,
+            editorContent: article.text,
+            isPublic: article.isPublic,
+          });
+        }
+      });
     this.subscription = this.tagControl.valueChanges
       .pipe(startWith(''))
       .subscribe((keyword) => {
@@ -230,7 +294,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -287,14 +351,16 @@ export class CreateComponent implements OnInit, OnDestroy {
     const formData = this.form.value;
     const html = formData.editorContent;
     const firstImageURL = this.getFirstImageURL(html);
-    const sendData: Omit<Article, 'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'>
-      = {
+    const sendData: Omit<
+      Article,
+      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
+    > = {
       uid: this.authService.uid,
       thumbnailURL: firstImageURL,
       title: formData.title,
       tags: this.tags,
       text: formData.editorContent,
-      isPublic: formData.isPublic
+      isPublic: formData.isPublic,
     };
     this.isComplete = true;
     let msg: string;
@@ -304,10 +370,12 @@ export class CreateComponent implements OnInit, OnDestroy {
       msg = '下書きを保存しました！おつかれさまです。';
     }
     if (this.articleId) {
-      this.articleService.updateArticle(this.articleId, this.likeCount, sendData).then(() => {
-        this.router.navigateByUrl('/');
-        this.snackBar.open(msg, '閉じる', { duration: 5000 });
-      });
+      this.articleService
+        .updateArticle(this.articleId, this.likeCount, sendData)
+        .then(() => {
+          this.router.navigateByUrl('/');
+          this.snackBar.open(msg, '閉じる', { duration: 5000 });
+        });
     } else {
       this.articleService.createArticle(sendData).then(() => {
         this.router.navigateByUrl('/');
