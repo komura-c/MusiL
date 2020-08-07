@@ -1,6 +1,6 @@
 export {
   createUser,
-  deleteUser,
+  deleteUserData,
   deleteUserArticles,
 } from './user.function';
 export {

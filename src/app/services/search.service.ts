@@ -12,7 +12,8 @@ const searchClient = algoliasearch(
 })
 export class SearchService {
   index = {
-    item: searchClient.initIndex('dev_articles'),
+    latest: searchClient.initIndex('dev_articles'),
+    popular: searchClient.initIndex('dev_articles_popular')
   };
   constructor() { }
 }

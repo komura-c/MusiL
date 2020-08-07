@@ -16,7 +16,16 @@ export class HomeComponent implements OnInit {
   isProcessing: boolean;
   user$: Observable<UserData> = this.authService.user$;
 
-  articles$: Observable<ArticleWithAuthor[]> = this.articleService.getArticlesWithAuthors().pipe(
+  popularArticles$: Observable<ArticleWithAuthor[]> = this.articleService.getPopularArticles().pipe(
+    tap(() => this.loadingService.toggleLoading(false)),
+    catchError((error) => {
+      console.log(error.message);
+      this.loadingService.toggleLoading(false);
+      return of(null);
+    })
+  );
+
+  latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService.getLatestArticles().pipe(
     tap(() => this.loadingService.toggleLoading(false)),
     catchError((error) => {
       console.log(error.message);

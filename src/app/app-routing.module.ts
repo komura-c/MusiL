@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./settings/settings.module').then((m) => m.SettingsModule),
     canLoad: [AuthGuard],
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'search',
@@ -33,13 +33,13 @@ const routes: Routes = [
   },
   {
     path: 'notes',
-    data: {
-      isNotShowFooter: true,
-    },
     loadChildren: () =>
       import('./notes/notes.module').then((m) => m.NotesModule),
     canLoad: [AuthGuard],
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
+    data: {
+      showFooter: false,
+    },
   },
   {
     path: ':id',
@@ -54,6 +54,10 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
+    data: {
+      showHeader: false,
+      showFooter: false,
+    },
   },
 ];
 
@@ -61,4 +65,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

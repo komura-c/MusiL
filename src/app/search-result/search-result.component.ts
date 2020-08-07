@@ -14,7 +14,7 @@ import { LoadingService } from '../services/loading.service';
   styleUrls: ['./search-result.component.scss']
 })
 export class SearchResultComponent implements OnInit {
-  index = this.searchService.index.item;
+  index = this.searchService.index.popular;
   searchQuery: string;
 
   searchResult: {
@@ -42,7 +42,7 @@ export class SearchResultComponent implements OnInit {
         .then(() => {
           if (this.searchResult.hits) {
             const algoriaItemIds: string[] = this.searchResult.hits.map(algoriaItem => algoriaItem.articleId);
-            this.articles$ = this.articleService.getArticlesWithAuthors().pipe(
+            this.articles$ = this.articleService.getLatestArticles().pipe(
               map((articles: ArticleWithAuthor[]) => {
                 return articles.filter((article: Article) => algoriaItemIds.includes(article.articleId));
               }),
