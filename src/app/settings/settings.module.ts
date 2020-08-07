@@ -16,7 +16,11 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-acc
 import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
-  declarations: [SettingsComponent, ImageCropDialogComponent, DeleteAccountDialogComponent],
+  declarations: [
+    SettingsComponent,
+    ImageCropDialogComponent,
+    DeleteAccountDialogComponent,
+  ],
   imports: [
     CommonModule,
     SettingsRoutingModule,
@@ -29,7 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatButtonModule,
     ImageCropperModule,
     MatProgressSpinnerModule,
-    MatDialogModule
-  ]
+    MatDialogModule,
+  ],
 })
-export class SettingsModule { }
+export class SettingsModule {}

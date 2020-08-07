@@ -7,7 +7,7 @@ import { startWith } from 'rxjs/operators';
 @Component({
   selector: 'app-search-input',
   templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss']
+  styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent implements OnInit {
   searchControl: FormControl = new FormControl();
@@ -20,7 +20,7 @@ export class SearchInputComponent implements OnInit {
   searchOptions = {
     page: 0,
     hitsPerPage: 8,
-    facetFilters: ['isPublic:true']
+    facetFilters: ['isPublic:true'],
   };
 
   isSearchActive: boolean;
@@ -28,7 +28,7 @@ export class SearchInputComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private searchService: SearchService,
+    private searchService: SearchService
   ) {
     this.route.queryParamMap.subscribe((params) => {
       const searchQuery: string = params.get('q');
@@ -58,12 +58,11 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSearchActive = false;
-    this.searchControl.valueChanges
-      .pipe(startWith(''))
-      .subscribe((keyword) => {
-        const searchKeyword: string = keyword;
-        this.index.search(searchKeyword, this.searchOptions)
-          .then((searchResult) => this.searchResult = searchResult);
-      });
+    this.searchControl.valueChanges.pipe(startWith('')).subscribe((keyword) => {
+      const searchKeyword: string = keyword;
+      this.index
+        .search(searchKeyword, this.searchOptions)
+        .then((searchResult) => (this.searchResult = searchResult));
+    });
   }
 }

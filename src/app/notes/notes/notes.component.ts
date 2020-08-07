@@ -10,24 +10,22 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-notes',
   templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss']
+  styleUrls: ['./notes.component.scss'],
 })
 export class NotesComponent implements OnInit {
   uid = this.authService.uid;
   user$: Observable<UserData> = this.authService.user$;
-  articles$: Observable<Article[]> = this.articleService.getMyArticles(this.uid).pipe(
-    tap(() => this.loadingService.toggleLoading(false))
-  );
+  articles$: Observable<Article[]> = this.articleService
+    .getMyArticles(this.uid)
+    .pipe(tap(() => this.loadingService.toggleLoading(false)));
 
   constructor(
     private articleService: ArticleService,
     private authService: AuthService,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

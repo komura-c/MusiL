@@ -17,7 +17,12 @@ import { LikesArticleComponent } from './likes-article/likes-article.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [MypageComponent, NoteComponent, MyArticleComponent, LikesArticleComponent],
+  declarations: [
+    MypageComponent,
+    NoteComponent,
+    MyArticleComponent,
+    LikesArticleComponent,
+  ],
   imports: [
     CommonModule,
     MypageRoutingModule,
@@ -32,4 +37,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
 })
-export class MypageModule { }
+export class MypageModule {}

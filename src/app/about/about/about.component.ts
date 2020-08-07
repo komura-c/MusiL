@@ -4,18 +4,15 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-about',
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
   isProcessing: boolean;
   user$ = this.authService.user$;
 
-  constructor(
-    private authService: AuthService,
-  ) { }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
     this.isProcessing = true;

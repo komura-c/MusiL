@@ -16,14 +16,14 @@ const routes: Routes = [
     children: [
       {
         path: 'likes',
-        component: LikesArticleComponent
+        component: LikesArticleComponent,
       },
       {
         path: '',
         pathMatch: 'full',
-        component: MyArticleComponent
-      }
-    ]
+        component: MyArticleComponent,
+      },
+    ],
   },
 ];
 
@@ -31,4 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MypageRoutingModule { }
+export class MypageRoutingModule {}

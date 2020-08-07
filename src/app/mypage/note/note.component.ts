@@ -17,9 +17,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 @Component({
   selector: 'app-note',
   templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss']
+  styleUrls: ['./note.component.scss'],
 })
-
 export class NoteComponent implements OnInit {
   article$: Observable<ArticleWithAuthor>;
   articleId: string;
@@ -62,7 +61,7 @@ export class NoteComponent implements OnInit {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
     this.path = this.location.path();
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.articleId = params.get('id');
       const post$ = this.articleService.getArticleOnly(this.articleId);
       let articleData: Article;
@@ -75,7 +74,10 @@ export class NoteComponent implements OnInit {
           return this.userService.getUserData(uid);
         }),
         map((author: UserData) => {
-          if ((author) && (articleData.isPublic) || (this.authService.uid === author.uid)) {
+          if (
+            (author && articleData.isPublic) ||
+            this.authService.uid === author.uid
+          ) {
             const result: ArticleWithAuthor = {
               ...articleData,
               author,
@@ -91,9 +93,10 @@ export class NoteComponent implements OnInit {
               this.likeCount = article.likeCount;
               this.getHeading();
             }
-            this.likeService.isLiked(article.articleId, this.authService.uid)
+            this.likeService
+              .isLiked(article.articleId, this.authService.uid)
               .pipe(take(1))
-              .subscribe(result => {
+              .subscribe((result) => {
                 this.isLiked = result;
               });
           }
@@ -121,7 +124,7 @@ export class NoteComponent implements OnInit {
       const top = rectTop + position - buffer;
       window.scrollTo({
         top,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
     return false;
@@ -129,19 +132,25 @@ export class NoteComponent implements OnInit {
 
   getHeading() {
     setTimeout(() => {
-      const headingTagElements = document.querySelectorAll('.note-content h1, .note-content h2, .note-content h3, .note-content h4');
+      const headingTagElements = document.querySelectorAll(
+        '.note-content h1, .note-content h2, .note-content h3, .note-content h4'
+      );
       headingTagElements.forEach((headingTagElement, index) => {
         headingTagElement.id = 'chapter-' + index;
         this.headingElements.push(headingTagElement);
-        this.headingPositions.push(headingTagElement.getBoundingClientRect().top);
+        this.headingPositions.push(
+          headingTagElement.getBoundingClientRect().top
+        );
       });
     }, 100);
   }
 
   stringToLink(description: string): string {
-    const linkReg = new RegExp(/(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi);
+    const linkReg = new RegExp(
+      /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
+    );
     if (linkReg.test(description)) {
-      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+      const toATag = "<a href='$1' target='_blank'>$1</a>";
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -167,7 +176,9 @@ export class NoteComponent implements OnInit {
       this.likeCount--;
       this.isLiked = false;
     } else {
-      this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる', { duration: 5000 });
+      this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる', {
+        duration: 5000,
+      });
     }
   }
 
@@ -176,7 +187,5 @@ export class NoteComponent implements OnInit {
     this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
