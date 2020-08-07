@@ -58,7 +58,7 @@ export class CreateComponent implements OnInit, OnDestroy {
   removable = true;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-  index = this.searchService.index.item;
+  index = this.searchService.index.latest;
   allTags: {
     value: string;
     highlighted: string;

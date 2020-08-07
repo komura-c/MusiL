@@ -1,10 +1,12 @@
-<app-header></app-header>
+<app-header *ngIf="showHeader"></app-header>
 <div class="container">
   <router-outlet></router-outlet>
   <div *ngIf="loading$ | async">
-    <mat-spinner class="loading-bar" diameter="100" strokeWidth="8"></mat-spinner>
+    <mat-spinner
+      class="loading-bar"
+      diameter="100"
+      strokeWidth="8"
+    ></mat-spinner>
   </div>
 </div>
-<ng-container *ngIf="activatedRouteData | async as data">
-  <app-footer *ngIf="!data.isNotShowFooter"></app-footer>
-</ng-container>
+<app-footer *ngIf="showFooter"></app-footer>

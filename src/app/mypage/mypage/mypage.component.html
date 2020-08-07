@@ -20,36 +20,21 @@
         </a>
       </div>
     </div>
-    <mat-tab-group mat-stretch-tabs class="mypage__menu">
-      <mat-tab label="記事">
-        <div class="mypage__body">
-          <ng-container *ngIf="articles$ | async as articles">
-            <ng-container *ngIf="articles.length === 0">
-              <div class="no-article">
-                <p>まだ、記事はありません。</p>
-              </div>
-            </ng-container>
-            <ng-container *ngFor="let article of articles">
-              <app-article *ngIf="article" [article]="article"></app-article>
-            </ng-container>
-          </ng-container>
-        </div>
-      </mat-tab>
-      <mat-tab label="いいね">
-        <div class="mypage__body">
-          <ng-container *ngIf="articles$ | async as articles">
-            <ng-container *ngIf="articles.length === 0">
-              <div class="no-article">
-                <p>まだ、記事はありません。</p>
-              </div>
-            </ng-container>
-            <ng-container *ngFor="let article of articles">
-              <app-article *ngIf="article" [article]="article"></app-article>
-            </ng-container>
-          </ng-container>
-        </div>
-      </mat-tab>
-    </mat-tab-group>
+
+    <nav mat-tab-nav-bar mat-stretch-tabs class="mypage__menu">
+      <a mat-tab-link [routerLink]="'/' + screenName" routerLinkActive [routerLinkActiveOptions]="{exact:
+        true}" #rla1="routerLinkActive" [active]="rla1.isActive">
+        記事
+      </a>
+      <a mat-tab-link [routerLink]="'/' + screenName + '/likes'" routerLinkActive #rla2="routerLinkActive"
+        [active]="rla2.isActive">
+        いいね
+      </a>
+    </nav>
+
+    <div class="mypage__body">
+      <router-outlet></router-outlet>
+    </div>
   </ng-container>
 
   <ng-template #notFoundUser>

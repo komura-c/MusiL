@@ -4,13 +4,13 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { UserData } from 'functions/src/interfaces/user';
-import { auth } from 'firebase/app';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  mypageUser: UserData;
 
   constructor(
     private db: AngularFirestore,
@@ -29,6 +29,7 @@ export class UserService {
       .pipe(
         map(users => {
           if (users.length) {
+            this.mypageUser = users[0];
             return users[0];
           } else {
             return null;
@@ -37,30 +38,22 @@ export class UserService {
       );
   }
 
-  async createUser(): Promise<void> {
-    const provider = new auth.TwitterAuthProvider();
-    const userCredential = await this.afAuth.signInWithPopup(provider);
-    const { user, additionalUserInfo } = userCredential;
-    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
+  async createUser(uid: string, userProfObj: any): Promise<void> {
     const userData: UserData = {
-      uid: user.uid,
+      uid,
       userName: userProfObj.name,
       avatarURL: userProfObj.profile_image_url_https.replace('_normal', ''),
       screenName: userProfObj.screen_name,
       description: userProfObj.description,
     };
-    return this.db.doc<UserData>(`users/${user.uid}`).set(userData);
+    return this.db.doc<UserData>(`users/${uid}`).set(userData);
   }
 
-  async updateUser(): Promise<void> {
-    const provider = new auth.TwitterAuthProvider();
-    const userCredential = await this.afAuth.signInWithPopup(provider);
-    const { user, additionalUserInfo } = userCredential;
-    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
+  async updateUser(uid: string, userProfObj: any): Promise<void> {
     const userData: Pick<UserData, 'screenName'> = {
       screenName: userProfObj.screen_name,
     };
-    return this.db.doc<UserData>(`users/${user.uid}`).update(userData);
+    return this.db.doc<UserData>(`users/${uid}`).update(userData);
   }
 
   async uploadAvatar(uid: string, avatar: string): Promise<void> {

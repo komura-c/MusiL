@@ -2,11 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { Observable, of } from 'rxjs';
-import { ArticleService } from 'src/app/services/article.service';
-import { map, switchMap, tap, catchError } from 'rxjs/operators';
+import { tap, catchError } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';
-import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { Article } from 'functions/src/interfaces/article';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -18,7 +15,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
   screenName: string;
-  articles$: Observable<ArticleWithAuthor[]>;
 
   isLoading: boolean;
 
@@ -26,7 +22,6 @@ export class MypageComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthService,
-    private articleService: ArticleService,
     private loadingService: LoadingService,
   ) {
     this.loadingService.toggleLoading(true);
@@ -43,25 +38,6 @@ export class MypageComponent implements OnInit {
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
           return of(null);
-        })
-      );
-      let author: UserData;
-      this.articles$ = this.user$.pipe(
-        map((user: UserData) => {
-          author = user;
-          return user.uid;
-        }),
-        switchMap((uid) => {
-          return this.articleService.getArticles(uid);
-        }),
-        map((articles: Article[]) => {
-          return articles.map(article => {
-            const result: ArticleWithAuthor = {
-              ...article,
-              author,
-            };
-            return result;
-          });
         })
       );
     });

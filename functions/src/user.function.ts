@@ -19,14 +19,19 @@ export const createUser = functions.region('asia-northeast1').auth.user().onCrea
   }
 });
 
-export const deleteUser = functions.region('asia-northeast1').auth.user()
-  .onDelete(async user => {
-    const deleteFromFireStore = db.doc(`users/${user.uid}`).delete();
-    const deleteFromStorage = storage.deleteFiles({ directory: `users/${user.uid}` });
-    return Promise.all([
-      deleteFromFireStore,
-      deleteFromStorage,
-    ]);
+export const deleteUserData = functions.region('asia-northeast1')
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB'
+  }).auth.user().onDelete(async user => {
+    const firebase_tools = require('firebase-tools');
+    await firebase_tools.firestore.delete(`users/${user.uid}`, {
+      project: process.env.GCLOUD_PROJECT,
+      recursive: true,
+      yes: true,
+      token: functions.config().fb.token
+    });
+    await storage.deleteFiles({ directory: `users/${user.uid}` });
   });
 
 export const deleteUserArticles = functions.region('asia-northeast1').auth.user()
