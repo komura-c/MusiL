@@ -5,19 +5,16 @@ import { tap } from 'rxjs/operators';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  user$ = this.authService.user$.pipe(tap(() => this.isUser = true));
+  user$ = this.authService.user$.pipe(tap(() => (this.isUser = true)));
   isProcessing: boolean;
   isUser: boolean;
 
-  constructor(
-    private authService: AuthService,
-  ) { }
+  constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login() {
     this.isProcessing = true;

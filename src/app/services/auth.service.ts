@@ -9,7 +9,7 @@ import { switchMap, shareReplay, take } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   afUser$: Observable<User> = this.afAuth.user;
@@ -30,8 +30,8 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private router: Router,
     private snackBar: MatSnackBar,
-    private userService: UserService,
-  ) { }
+    private userService: UserService
+  ) {}
 
   async login(): Promise<void> {
     if (this.afUser$) {
@@ -41,45 +41,67 @@ export class AuthService {
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
     const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
-    this.userService.getUserData(user.uid).pipe(take(1)).subscribe(
-      async (data: UserData) => {
-        if ((!data) || (data.screenName === undefined)) {
-          return await this.userService.createUser(user.uid, userProfObj)
+    this.userService
+      .getUserData(user.uid)
+      .pipe(take(1))
+      .subscribe(async (data: UserData) => {
+        if (!data || data.screenName === undefined) {
+          return await this.userService
+            .createUser(user.uid, userProfObj)
             .then(() => {
               this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', { duration: 5000 });
+              this.snackBar.open('ログインしました。', '閉じる', {
+                duration: 5000,
+              });
             })
             .catch((error) => {
               this.router.navigateByUrl('/');
               console.log(error.message);
-              this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
+              this.snackBar.open(
+                'ログインエラーです。数秒後にもう一度お試しください。',
+                '閉じる',
+                { duration: 5000 }
+              );
             });
         } else {
-          return await this.userService.updateUser(user.uid, userProfObj)
+          return await this.userService
+            .updateUser(user.uid, userProfObj)
             .then(() => {
               this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', { duration: 5000 });
+              this.snackBar.open('ログインしました。', '閉じる', {
+                duration: 5000,
+              });
             })
             .catch((error) => {
               this.router.navigateByUrl('/');
               console.log(error.message);
-              this.snackBar.open('ログインエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
+              this.snackBar.open(
+                'ログインエラーです。数秒後にもう一度お試しください。',
+                '閉じる',
+                { duration: 5000 }
+              );
             });
         }
-      }
-    );
+      });
   }
 
   async logout(): Promise<void> {
-    return await this.afAuth.signOut()
+    return await this.afAuth
+      .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
-        this.snackBar.open('ログアウトしました。', '閉じる', { duration: 5000 });
+        this.snackBar.open('ログアウトしました。', '閉じる', {
+          duration: 5000,
+        });
       })
       .catch((error) => {
         this.router.navigateByUrl('/');
         console.log(error.message);
-        this.snackBar.open('ログアウトエラーです。数秒後にもう一度お試しください。', '閉じる', { duration: 5000 });
+        this.snackBar.open(
+          'ログアウトエラーです。数秒後にもう一度お試しください。',
+          '閉じる',
+          { duration: 5000 }
+        );
       });
   }
 }

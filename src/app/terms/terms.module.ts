@@ -4,12 +4,8 @@ import { CommonModule } from '@angular/common';
 import { TermsRoutingModule } from './terms-routing.module';
 import { TermsComponent } from './terms/terms.component';
 
-
 @NgModule({
   declarations: [TermsComponent],
-  imports: [
-    CommonModule,
-    TermsRoutingModule
-  ]
+  imports: [CommonModule, TermsRoutingModule],
 })
-export class TermsModule { }
+export class TermsModule {}

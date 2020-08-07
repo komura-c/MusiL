@@ -9,7 +9,7 @@ import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author'
 export class ArticleComponent implements OnInit {
   @Input() article: ArticleWithAuthor;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

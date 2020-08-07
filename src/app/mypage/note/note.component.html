@@ -2,104 +2,190 @@
   <div class="note">
     <div class="note__left-box">
       <div class="left-actions">
-        <button mat-icon-button color="warn" class="left-actions__like" aria-label="いいね" matTooltip="いいね"
-          matTooltipPosition="right" (click)="clickedLike(article.articleId)"
-          [class.left-actions__like--liked]="isLiked">
-          <ng-container *ngIf="isLiked; else isNotLiked;">
+        <button
+          mat-icon-button
+          color="warn"
+          class="left-actions__like"
+          aria-label="いいね"
+          matTooltip="いいね"
+          matTooltipPosition="right"
+          (click)="clickedLike(article.articleId)"
+          [class.left-actions__like--liked]="isLiked"
+        >
+          <ng-container *ngIf="isLiked; else isNotLiked">
             <mat-icon>favorite</mat-icon>
-            <span>{{likeCount}}</span>
+            <span>{{ likeCount }}</span>
           </ng-container>
           <ng-template #isNotLiked>
             <mat-icon>favorite_border</mat-icon>
-            <span>{{likeCount}}</span>
+            <span>{{ likeCount }}</span>
           </ng-template>
         </button>
-        <a mat-icon-button class="left-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
-          [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app' + path + '&text=' + article.title"
-          target="_blank" matTooltipPosition="right">
+        <a
+          mat-icon-button
+          class="left-actions__twitter"
+          aria-label="Twitterでシェア"
+          matTooltip="Twitterでシェア"
+          [href]="
+            'https://twitter.com/share?url=https://dtmplace-ad671.web.app' +
+            path +
+            '&text=' +
+            article.title
+          "
+          target="_blank"
+          matTooltipPosition="right"
+        >
           <mat-icon>
-            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ" />
           </mat-icon>
         </a>
-        <button mat-icon-button href="#" class="left-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
-          matTooltipPosition="right" (click)="copyLink()">
+        <button
+          mat-icon-button
+          href="#"
+          class="left-actions__link"
+          aria-label="リンクをコピー"
+          matTooltip="リンクをコピー"
+          matTooltipPosition="right"
+          (click)="copyLink()"
+        >
           <mat-icon>link</mat-icon>
         </button>
       </div>
     </div>
     <div class="note__main-box">
       <div class="note-header">
-        <div *ngIf="(article.isPublic === false)">
+        <div *ngIf="article.isPublic === false">
           <div class="note-header__draft">
             <div class="note-header__draft-text">これは公開前の下書きです</div>
           </div>
         </div>
         <div class="note-header__author">
-          <a [routerLink]="'/'  + article.author.screenName">
-            <img class="note-header__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
-          <a class="note-header__user-name"
-            [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
-          <a class="note-header__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
+          <a [routerLink]="'/' + article.author.screenName">
+            <img
+              class="note-header__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+          /></a>
+
+          <a
+            class="note-header__user-name"
+            [routerLink]="'/' + article.author.screenName"
+            >{{ article.author.userName }}</a
+          >
+          <a
+            class="note-header__twitter"
+            [href]="'https://twitter.com/' + article.author.screenName"
+            target="_blank"
+          >
             <mat-icon>
-              <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+              <img
+                src="/assets/icons/twitter-logo_blue.png"
+                alt="Twitterロゴ"
+              />
             </mat-icon>
           </a>
           <p class="note-header__updated-date">
             {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
-          <app-note-edit-buttons class="note-header__actions" *ngIf="isAuthor(article.author)" [article]="article">
+          <app-note-edit-buttons
+            class="note-header__actions"
+            *ngIf="isAuthor(article.author)"
+            [article]="article"
+          >
           </app-note-edit-buttons>
         </div>
-        <h1 class="note-header__title">{{article.title}}
-        </h1>
+        <h1 class="note-header__title">{{ article.title }}</h1>
         <ng-container *ngIf="article.tags">
           <mat-chip-list aria-label="記事のタグ">
             <mat-chip *ngFor="let tag of article.tags">
-              {{tag}}
+              {{ tag }}
             </mat-chip>
           </mat-chip-list>
         </ng-container>
       </div>
-      <div class="note-content" [froalaView]="article.text">
-      </div>
+      <div class="note-content" [froalaView]="article.text"></div>
       <div class="note-footer">
         <div class="main-actions">
-          <button mat-icon-button color="warn" class="main-actions__like" aria-label="いいね" matTooltip="いいね"
-            (click)="clickedLike(article.articleId)" [class.main-actions__like--liked]="isLiked">
-            <ng-container *ngIf="isLiked; else isNotLiked;">
+          <button
+            mat-icon-button
+            color="warn"
+            class="main-actions__like"
+            aria-label="いいね"
+            matTooltip="いいね"
+            (click)="clickedLike(article.articleId)"
+            [class.main-actions__like--liked]="isLiked"
+          >
+            <ng-container *ngIf="isLiked; else isNotLiked">
               <mat-icon>favorite</mat-icon>
-              <span>{{likeCount}}</span>
+              <span>{{ likeCount }}</span>
             </ng-container>
             <ng-template #isNotLiked>
               <mat-icon>favorite_border</mat-icon>
-              <span>{{likeCount}}</span>
+              <span>{{ likeCount }}</span>
             </ng-template>
           </button>
 
           <div class="main-actions__share">
-            <a mat-icon-button class="main-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア"
-              [href]="'https://twitter.com/share?url=https://dtmplace-ad671.web.app' + path + '&text=' + article.title"
-              target="_blank">
+            <a
+              mat-icon-button
+              class="main-actions__twitter"
+              aria-label="Twitterでシェア"
+              matTooltip="Twitterでシェア"
+              [href]="
+                'https://twitter.com/share?url=https://dtmplace-ad671.web.app' +
+                path +
+                '&text=' +
+                article.title
+              "
+              target="_blank"
+            >
               <mat-icon>
-                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+                <img
+                  src="/assets/icons/twitter-logo_blue.png"
+                  alt="Twitterロゴ"
+                />
               </mat-icon>
             </a>
-            <button mat-icon-button href="#" class="main-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
-              (click)="copyLink()">
+            <button
+              mat-icon-button
+              href="#"
+              class="main-actions__link"
+              aria-label="リンクをコピー"
+              matTooltip="リンクをコピー"
+              (click)="copyLink()"
+            >
               <mat-icon>link</mat-icon>
             </button>
           </div>
         </div>
         <div class="note-footer__author">
-          <a [routerLink]="'/'  + article.author.screenName">
-            <img class="note-footer__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"></a>
+          <a [routerLink]="'/' + article.author.screenName">
+            <img
+              class="note-footer__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+          /></a>
+
           <div class="note-footer__user-profile">
-            <a class="note-footer__user-name"
-              [routerLink]="'/' + article.author.screenName">{{article.author.userName}}</a>
-            <p class="note-footer__user-description" [innerHTML]="stringToLink(article.author.description)"></p>
-            <a class="note-footer__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank">
+            <a
+              class="note-footer__user-name"
+              [routerLink]="'/' + article.author.screenName"
+              >{{ article.author.userName }}</a
+            >
+            <p
+              class="note-footer__user-description"
+              [innerHTML]="stringToLink(article.author.description)"
+            ></p>
+            <a
+              class="note-footer__twitter"
+              [href]="'https://twitter.com/' + article.author.screenName"
+              target="_blank"
+            >
               <mat-icon>
-                <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ">
+                <img
+                  src="/assets/icons/twitter-logo_blue.png"
+                  alt="Twitterロゴ"
+                />
               </mat-icon>
             </a>
           </div>
@@ -110,11 +196,27 @@
       <div class="note__sub-box">
         <p class="note__sub-box-title">目次</p>
         <ul class="note__sub-box-toc">
-          <ng-container *ngFor="let headingElement of headingElements; index as i">
-            <li><a [href]="'/' + article.author.screenName +'/n/' + article.articleId + '#' + headingElement.id"
-                [class.active]="i === activeHeadingIndex" [class.toc-h2]="headingElement.tagName === 'H2'"
-                [class.toc-h3]="headingElement.tagName === 'H3'" [class.toc-h4]="headingElement.tagName === 'H4'"
-                (click)="scrollToHeading($event)">{{headingElement.textContent}}</a></li>
+          <ng-container
+            *ngFor="let headingElement of headingElements; index as i"
+          >
+            <li>
+              <a
+                [href]="
+                  '/' +
+                  article.author.screenName +
+                  '/n/' +
+                  article.articleId +
+                  '#' +
+                  headingElement.id
+                "
+                [class.active]="i === activeHeadingIndex"
+                [class.toc-h2]="headingElement.tagName === 'H2'"
+                [class.toc-h3]="headingElement.tagName === 'H3'"
+                [class.toc-h4]="headingElement.tagName === 'H4'"
+                (click)="scrollToHeading($event)"
+                >{{ headingElement.textContent }}</a
+              >
+            </li>
           </ng-container>
         </ul>
       </div>
@@ -123,5 +225,7 @@
 </ng-container>
 
 <ng-template #notFoundArticle>
-  <p class="error" *ngIf="!isLoading">「{{articleId}}」という記事は存在しませんでした。</p>
+  <p class="error" *ngIf="!isLoading">
+    「{{ articleId }}」という記事は存在しませんでした。
+  </p>
 </ng-template>

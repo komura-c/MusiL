@@ -1,28 +1,49 @@
 <mat-toolbar class="header">
   <mat-toolbar-row class="header__container">
     <a routerLink="/">
-      <img src="/assets/icons/musil_logo.png" class="logo" alt="MusiLロゴ"></a>
+      <img src="/assets/icons/musil_logo.png" class="logo" alt="MusiLロゴ"
+    /></a>
 
     <app-search-input class="search"></app-search-input>
 
     <ng-template #default>
-      <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium class="login-button"
-        *ngIf="isUser">
-        <mat-icon><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"></mat-icon>
-        <span>{{isProcessing ? 'ログイン中' : 'ログイン'}}</span>
+      <button
+        [disabled]="isProcessing"
+        (click)="login()"
+        mat-flat-button
+        color="primary"
+        medium
+        class="login-button"
+        *ngIf="isUser"
+      >
+        <mat-icon
+          ><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"
+        /></mat-icon>
+        <span>{{ isProcessing ? 'ログイン中' : 'ログイン' }}</span>
       </button>
     </ng-template>
 
     <ng-container *ngIf="user$ | async as user; else default">
       <div class="header__nav">
-        <button mat-flat-button color="primary" medium class="post-button" routerLink="/notes/create">
+        <button
+          mat-flat-button
+          color="primary"
+          medium
+          class="post-button"
+          routerLink="/notes/create"
+        >
           <mat-icon>post_add</mat-icon>
           <span>投稿</span>
         </button>
 
-        <button mat-icon-button medium [matMenuTriggerFor]="menu" aria-label="マイメニュー"
-          [style.background-image]="'url(' + user.avatarURL + ')'" class="my-menu">
-        </button>
+        <button
+          mat-icon-button
+          medium
+          [matMenuTriggerFor]="menu"
+          aria-label="マイメニュー"
+          [style.background-image]="'url(' + user.avatarURL + ')'"
+          class="my-menu"
+        ></button>
 
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="['/', user.screenName]">

@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-mypage',
   templateUrl: './mypage.component.html',
-  styleUrls: ['./mypage.component.scss']
+  styleUrls: ['./mypage.component.scss'],
 })
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
@@ -22,11 +22,11 @@ export class MypageComponent implements OnInit {
     private route: ActivatedRoute,
     private userService: UserService,
     private authService: AuthService,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe((params) => {
       this.screenName = params.get('id');
       this.user$ = this.userService.getUserByScreenName(this.screenName).pipe(
         tap(() => {
@@ -44,8 +44,10 @@ export class MypageComponent implements OnInit {
   }
 
   stringToLink(description: string): string {
-    const linkReg = new RegExp(/(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi);
-    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+    const linkReg = new RegExp(
+      /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
+    );
+    const toATag = "<a href='$1' target='_blank'>$1</a>";
     const link = description.replace(linkReg, toATag);
     return link;
   }
@@ -58,6 +60,5 @@ export class MypageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }

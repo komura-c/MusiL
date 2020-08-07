@@ -6,14 +6,8 @@ import { AboutComponent } from './about/about.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-
 @NgModule({
   declarations: [AboutComponent],
-  imports: [
-    CommonModule,
-    AboutRoutingModule,
-    MatIconModule,
-    MatButtonModule,
-  ]
+  imports: [CommonModule, AboutRoutingModule, MatIconModule, MatButtonModule],
 })
-export class AboutModule { }
+export class AboutModule {}

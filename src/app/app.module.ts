@@ -29,7 +29,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent, NotFoundComponent, SearchResultComponent, SearchInputComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    NotFoundComponent,
+    SearchResultComponent,
+    SearchInputComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -58,4 +65,4 @@ import { MatDividerModule } from '@angular/material/divider';
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

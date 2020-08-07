@@ -30,7 +30,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatIconModule,
     SharedModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
   ],
 })
-export class NotesModule { }
+export class NotesModule {}
