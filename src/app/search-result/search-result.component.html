@@ -1,7 +1,9 @@
 <div class="search-result">
   <div class="search-result__header">
     <h2>キーワード： {{ searchQuery }}</h2>
-    <h2 class="search-result__hits">結果： {{searchResult?.nbHits}} 件見つかりました</h2>
+    <h2 class="search-result__hits">
+      結果： {{ searchResult?.nbHits }} 件見つかりました
+    </h2>
   </div>
   <div class="search-result__body">
     <ng-container *ngFor="let article of articles$ | async">

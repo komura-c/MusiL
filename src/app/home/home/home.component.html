@@ -3,13 +3,27 @@
     <ng-container *ngIf="!(user$ | async)">
       <div class="welcome">
         <h1 class="welcome__title">音楽に関する知識を共有しよう</h1>
-        <h2 class="welcome__sub-title">MusiLは、DTMや作曲に関する知識を記録・共有するためのサービスです。</h2>
-        <p><a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
-          <button [disabled]="isProcessing" (click)="login()" mat-flat-button color="primary" medium
-            class="login-button">
-            <mat-icon><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"></mat-icon>
-            <span>{{isProcessing ? 'ログイン中' : 'Twitterでログイン'}}</span>
-          </button></p>
+        <h2 class="welcome__sub-title">
+          MusiLは、DTMや作曲に関する知識を記録・共有するためのサービスです。
+        </h2>
+        <p>
+          <a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
+          <button
+            [disabled]="isProcessing"
+            (click)="login()"
+            mat-flat-button
+            color="primary"
+            medium
+            class="login-button"
+          >
+            <mat-icon
+              ><img
+                src="/assets/icons/twitter_logo_white.png"
+                alt="Twitterロゴ"
+            /></mat-icon>
+            <span>{{ isProcessing ? 'ログイン中' : 'Twitterでログイン' }}</span>
+          </button>
+        </p>
       </div>
     </ng-container>
     <h3 class="home-main__title">トレンド</h3>

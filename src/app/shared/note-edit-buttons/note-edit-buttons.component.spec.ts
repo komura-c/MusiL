@@ -8,9 +8,8 @@ describe('NoteEditButtonsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NoteEditButtonsComponent ]
-    })
-    .compileComponents();
+      declarations: [NoteEditButtonsComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

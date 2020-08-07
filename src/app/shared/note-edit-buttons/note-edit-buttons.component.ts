@@ -7,17 +7,14 @@ import { Article } from '@interfaces/article';
 @Component({
   selector: 'app-note-edit-buttons',
   templateUrl: './note-edit-buttons.component.html',
-  styleUrls: ['./note-edit-buttons.component.scss']
+  styleUrls: ['./note-edit-buttons.component.scss'],
 })
 export class NoteEditButtonsComponent implements OnInit {
   @Input() article: Article | ArticleWithAuthor;
 
-  constructor(
-    private dialog: MatDialog,
-  ) { }
+  constructor(private dialog: MatDialog) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {

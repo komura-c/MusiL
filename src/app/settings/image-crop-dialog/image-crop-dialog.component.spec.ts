@@ -8,9 +8,8 @@ describe('ImageCropDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ImageCropDialogComponent ]
-    })
-    .compileComponents();
+      declarations: [ImageCropDialogComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

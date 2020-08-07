@@ -16,7 +16,9 @@ export class HomeComponent implements OnInit {
   isProcessing: boolean;
   user$: Observable<UserData> = this.authService.user$;
 
-  popularArticles$: Observable<ArticleWithAuthor[]> = this.articleService.getPopularArticles().pipe(
+  popularArticles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getPopularArticles().pipe(
     tap(() => this.loadingService.toggleLoading(false)),
     catchError((error) => {
       console.log(error.message);
@@ -25,7 +27,9 @@ export class HomeComponent implements OnInit {
     })
   );
 
-  latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService.getLatestArticles().pipe(
+  latestArticles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getLatestArticles().pipe(
     tap(() => this.loadingService.toggleLoading(false)),
     catchError((error) => {
       console.log(error.message);
@@ -37,7 +41,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private loadingService: LoadingService,
-    private authService: AuthService,
+    private authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
   }
@@ -49,5 +53,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
