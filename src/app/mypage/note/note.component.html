@@ -98,7 +98,7 @@
         <ng-container *ngIf="article.tags">
           <mat-chip-list aria-label="記事のタグ">
             <mat-chip *ngFor="let tag of article.tags">
-              {{ tag }}
+              <a [routerLink]="'/tags/' + tag">{{ tag }}</a>
             </mat-chip>
           </mat-chip-list>
         </ng-container>
