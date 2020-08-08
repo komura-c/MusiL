@@ -1,0 +1,13 @@
+<div class="tag-result">
+  <div class="tag-result__header">
+    <h2>タグ： {{ searchTag }}</h2>
+    <h2 class="tag-result__hits">
+      結果： {{ searchResult?.nbHits }} 件見つかりました
+    </h2>
+  </div>
+  <div class="tag-result__body">
+    <ng-container *ngFor="let article of articles$ | async">
+      <app-article *ngIf="article" [article]="article"></app-article>
+    </ng-container>
+  </div>
+</div>

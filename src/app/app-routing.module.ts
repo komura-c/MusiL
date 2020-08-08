@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { TagResultComponent } from './tag-result/tag-result.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,10 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchResultComponent,
+  },
+  {
+    path: 'tags/:id',
+    component: TagResultComponent,
   },
   {
     path: 'legal',
@@ -65,4 +70,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

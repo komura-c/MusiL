@@ -27,6 +27,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from './shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
+import { TagResultComponent } from './tag-result/tag-result.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { MatDividerModule } from '@angular/material/divider';
     NotFoundComponent,
     SearchResultComponent,
     SearchInputComponent,
+    TagResultComponent,
   ],
   imports: [
     BrowserModule,
