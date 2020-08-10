@@ -22,9 +22,9 @@ const routes: Routes = [
     component: TagResultComponent,
   },
   {
-    path: 'legal',
+    path: 'privacy',
     loadChildren: () =>
-      import('./legal/legal.module').then((m) => m.LegalModule),
+      import('./privacy/privacy.module').then((m) => m.PrivacyModule),
   },
   {
     path: 'terms',
