@@ -177,16 +177,21 @@
               [innerHTML]="stringToLink(article.author.description)"
             ></p>
             <a
+              mat-flat-button
+              color="primary"
+              [href]="
+                'https://twitter.com/intent/follow?screen_name=' +
+                article.author.screenName
+              "
               class="note-footer__twitter"
-              [href]="'https://twitter.com/' + article.author.screenName"
               target="_blank"
             >
-              <mat-icon>
-                <img
-                  src="/assets/icons/twitter-logo_blue.png"
+              <mat-icon
+                ><img
+                  src="/assets/icons/twitter_logo_white.png"
                   alt="Twitterロゴ"
-                />
-              </mat-icon>
+              /></mat-icon>
+              <span>Twitterでフォロー</span>
             </a>
           </div>
         </div>

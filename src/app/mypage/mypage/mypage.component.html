@@ -27,12 +27,18 @@
           [innerHTML]="stringToLink(user.description)"
         ></p>
         <a
-          [href]="'https://twitter.com/' + user.screenName"
-          class="mypage__twitter-icon"
+          mat-flat-button
+          color="primary"
+          [href]="
+            'https://twitter.com/intent/follow?screen_name=' + user.screenName
+          "
+          class="mypage__twitter"
+          target="_blank"
         >
-          <mat-icon>
-            <img src="/assets/icons/twitter-logo_blue.png" alt="Twitterロゴ" />
-          </mat-icon>
+          <mat-icon
+            ><img src="/assets/icons/twitter_logo_white.png" alt="Twitterロゴ"
+          /></mat-icon>
+          <span>Twitterでフォロー</span>
         </a>
       </div>
     </div>

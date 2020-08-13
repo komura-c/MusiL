@@ -31,14 +31,10 @@
   }
   &__user-description {
     margin: 0 0 8px 0;
-    a {
-      color: #1da1f2;
-    }
   }
-  &__twitter-icon {
-    .mat-icon {
-      width: 44px;
-    }
+  &__twitter {
+    text-decoration: none;
+    background-color: #1da1f2;
   }
   &__menu {
     max-width: 600px;

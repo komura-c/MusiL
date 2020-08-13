@@ -135,7 +135,14 @@
     margin: 0 0 8px 0;
   }
   &__twitter {
-    margin-left: -6px;
+    .mat-icon {
+      font-size: 24px;
+      img {
+        width: 24px;
+      }
+    }
+    text-decoration: none;
+    background-color: #1da1f2;
   }
 }
 
