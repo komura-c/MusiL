@@ -1,16 +1,17 @@
 .footer {
   background-color: inherit;
-  padding: 16px;
+  padding: 16px 0 32px;
   &__nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     a {
-      margin-right: 16px;
+      margin: 0 8px 8px;
       text-align: center;
     }
   }
 }
 .copyright {
   text-align: center;
+  margin: 8px 0px;
 }
