@@ -43,7 +43,12 @@
       </div>
     </div>
 
-    <nav mat-tab-nav-bar mat-stretch-tabs class="mypage__menu">
+    <nav
+      mat-tab-nav-bar
+      mat-stretch-tabs
+      disablePagination="true"
+      class="mypage__menu"
+    >
       <a
         mat-tab-link
         [routerLink]="'/' + user.screenName"
@@ -52,7 +57,7 @@
         #rla1="routerLinkActive"
         [active]="rla1.isActive"
       >
-        記事
+        投稿
       </a>
       <a
         mat-tab-link
