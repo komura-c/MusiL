@@ -10,7 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FooterComponent } from './footer/footer.component';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -34,7 +33,6 @@ import { TagResultComponent } from './tag-result/tag-result.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    NotFoundComponent,
     SearchResultComponent,
     SearchInputComponent,
     TagResultComponent,
@@ -67,4 +65,4 @@ import { TagResultComponent } from './tag-result/tag-result.component';
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

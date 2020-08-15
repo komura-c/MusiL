@@ -1,6 +1,6 @@
 .note {
   background-color: #fff;
-  margin: auto;
+  margin: 12px auto;
   max-width: 910px;
   display: grid;
   grid-template-columns: 80px calc(100% - 160px - 80px) 160px;
@@ -181,11 +181,6 @@
 .mat-icon {
   font-size: 32px;
   width: 32px;
-}
-
-.error {
-  margin: 30px auto;
-  text-align: center;
 }
 
 .toc-h2 {

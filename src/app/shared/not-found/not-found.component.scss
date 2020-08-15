@@ -1,9 +1,10 @@
 .not-found {
-  margin: 24px auto;
+  margin: 12px auto;
   max-width: 810px;
   text-align: center;
   &__img {
     display: block;
+    width: 100%;
     max-width: 350px;
     margin: 0px auto;
   }

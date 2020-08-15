@@ -14,7 +14,6 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class MypageComponent implements OnInit {
   user$: Observable<UserData>;
-  screenName: string;
 
   isLoading: boolean;
 
@@ -27,8 +26,8 @@ export class MypageComponent implements OnInit {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
     this.route.paramMap.subscribe((params) => {
-      this.screenName = params.get('id');
-      this.user$ = this.userService.getUserByScreenName(this.screenName).pipe(
+      const screenName = params.get('id');
+      this.user$ = this.userService.getUserByScreenName(screenName).pipe(
         tap(() => {
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
@@ -60,5 +59,5 @@ export class MypageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

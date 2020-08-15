@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { TagResultComponent } from './tag-result/tag-result.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -59,9 +59,6 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
-    data: {
-      showFooter: false,
-    },
   },
 ];
 
