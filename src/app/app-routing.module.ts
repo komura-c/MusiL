@@ -60,7 +60,6 @@ const routes: Routes = [
     path: '**',
     component: NotFoundComponent,
     data: {
-      showHeader: false,
       showFooter: false,
     },
   },
