@@ -1,7 +1,6 @@
 .mypage {
   background-color: #fff;
-  padding: 12px;
-  margin: 0 auto;
+  margin: 12px auto;
   max-width: 800px;
   &__author {
     display: flex;
@@ -55,8 +54,4 @@
 .mat-tab-link {
   font-size: 16px;
   text-decoration: none;
-}
-
-.error {
-  text-align: center;
 }

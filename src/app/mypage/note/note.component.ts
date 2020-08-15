@@ -21,7 +21,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class NoteComponent implements OnInit {
   article$: Observable<ArticleWithAuthor>;
-  articleId: string;
 
   activeHeadingIndex: number;
   headingPositions: number[] = [];
@@ -62,8 +61,8 @@ export class NoteComponent implements OnInit {
     this.isLoading = true;
     this.path = this.location.path();
     this.route.paramMap.subscribe((params) => {
-      this.articleId = params.get('id');
-      const post$ = this.articleService.getArticleOnly(this.articleId);
+      const articleId = params.get('id');
+      const post$ = this.articleService.getArticleOnly(articleId);
       let articleData: Article;
       this.article$ = post$.pipe(
         map((article: Article) => {
@@ -150,7 +149,7 @@ export class NoteComponent implements OnInit {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = "<a href='$1' target='_blank'>$1</a>";
+      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -187,5 +186,5 @@ export class NoteComponent implements OnInit {
     this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

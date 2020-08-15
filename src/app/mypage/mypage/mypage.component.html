@@ -1,5 +1,5 @@
-<div class="mypage">
-  <ng-container *ngIf="user$ | async as user; else notFoundUser">
+<ng-container *ngIf="user$ | async as user; else notFoundUser">
+  <div class="mypage">
     <div class="mypage__author">
       <img
         [src]="user.avatarURL"
@@ -46,7 +46,7 @@
     <nav mat-tab-nav-bar mat-stretch-tabs class="mypage__menu">
       <a
         mat-tab-link
-        [routerLink]="'/' + screenName"
+        [routerLink]="'/' + user.screenName"
         routerLinkActive
         [routerLinkActiveOptions]="{ exact: true }"
         #rla1="routerLinkActive"
@@ -56,7 +56,7 @@
       </a>
       <a
         mat-tab-link
-        [routerLink]="'/' + screenName + '/likes'"
+        [routerLink]="'/' + user.screenName + '/likes'"
         routerLinkActive
         #rla2="routerLinkActive"
         [active]="rla2.isActive"
@@ -68,11 +68,9 @@
     <div class="mypage__body">
       <router-outlet></router-outlet>
     </div>
-  </ng-container>
+  </div>
+</ng-container>
 
-  <ng-template #notFoundUser>
-    <p class="error" *ngIf="!isLoading">
-      「{{ screenName }}」というユーザーは存在しませんでした。
-    </p>
-  </ng-template>
-</div>
+<ng-template #notFoundUser>
+  <app-not-found *ngIf="!isLoading"></app-not-found>
+</ng-template>

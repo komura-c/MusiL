@@ -230,7 +230,5 @@
 </ng-container>
 
 <ng-template #notFoundArticle>
-  <p class="error" *ngIf="!isLoading">
-    「{{ articleId }}」という記事は存在しませんでした。
-  </p>
+  <app-not-found *ngIf="!isLoading"></app-not-found>
 </ng-template>
