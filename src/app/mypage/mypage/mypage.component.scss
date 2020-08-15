@@ -1,6 +1,6 @@
 .mypage {
   background-color: #fff;
-  margin: 12px auto;
+  margin: 0 auto;
   max-width: 800px;
   &__author {
     display: flex;
@@ -8,7 +8,7 @@
     justify-content: center;
   }
   &__user-profile {
-    padding-left: 32px;
+    margin: 16px;
     max-width: 460px;
   }
   &__user-header {
@@ -19,17 +19,17 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    margin: 16px 0px;
   }
   &__user-name {
     font-weight: bold;
-    padding: 8px 0;
-    margin: 0;
+    margin: 0 0 8px;
   }
   &__user-screen-name {
-    margin: 0 0 8px 0;
+    margin: 0 0 8px;
   }
   &__user-description {
-    margin: 0 0 8px 0;
+    margin: 0 0 16px;
   }
   &__twitter {
     text-decoration: none;
