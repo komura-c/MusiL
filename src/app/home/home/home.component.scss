@@ -51,8 +51,6 @@
     font-size: 12px;
     letter-spacing: 1.5px;
   }
-  @media screen and (max-width: 896px) {
-  }
 }
 
 .home-page {
@@ -75,6 +73,16 @@
       margin-right: 8px;
     }
   }
+  &__body {
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
+  }
+  &__card {
+    border-bottom: solid 1px #e0e0e0;
+    &:last-of-type {
+      border: none;
+    }
+  }
   @media screen and (max-width: 896px) {
     flex: none;
     width: 100%;
@@ -93,6 +101,16 @@
     border-bottom: 1px solid #e0e0e0;
     .mat-icon {
       margin-right: 8px;
+    }
+  }
+  &__body {
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
+  }
+  &__card {
+    border-bottom: solid 1px #e0e0e0;
+    &:last-of-type {
+      border: none;
     }
   }
   @media screen and (max-width: 896px) {
