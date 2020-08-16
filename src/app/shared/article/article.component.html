@@ -3,33 +3,25 @@
     [routerLink]="'/' + article.author.screenName + '/n/' + article.articleId"
     class="card__inner"
   >
-    <ng-container
-      *ngIf="article.thumbnailURL && article.thumbnailURL != 'null'"
+    <a
+      (click)="$event.stopPropagation()"
+      [routerLink]="'/' + article.author.screenName"
     >
       <img
-        class="card__thumbnail-image"
-        [src]="article.thumbnailURL"
-        alt="サムネイル画像"
-      />
-    </ng-container>
-    <h3
-      class="card__title"
-      (click)="$event.stopPropagation(); $event.preventDefault()"
-      [routerLink]="'/' + article.author.screenName + '/n/' + article.articleId"
-    >
-      {{ article.title }}
-    </h3>
-    <div class="card__author">
-      <a
-        (click)="$event.stopPropagation()"
-        [routerLink]="'/' + article.author.screenName"
+        class="card__user-icon"
+        [src]="article.author.avatarURL"
+        alt="プロフィール画像"
+    /></a>
+    <div class="card__body">
+      <h3
+        class="card__title"
+        (click)="$event.stopPropagation(); $event.preventDefault()"
+        [routerLink]="
+          '/' + article.author.screenName + '/n/' + article.articleId
+        "
       >
-        <img
-          class="card__user-icon"
-          [src]="article.author.avatarURL"
-          alt="プロフィール画像"
-      /></a>
-
+        {{ article.title }}
+      </h3>
       <div class="card__author-name">
         <a
           class="card__user-name"
@@ -41,8 +33,18 @@
           class="card__screen-name"
           (click)="$event.stopPropagation()"
           [routerLink]="'/' + article.author.screenName"
-          >@{{ article.author.screenName }}</a
+          >(@{{ article.author.screenName }})</a
         >
+      </div>
+      <div class="card__meta">
+        <div class="card__like-count">
+          <mat-icon>favorite_border</mat-icon>
+          <span>{{ article.likeCount }}</span>
+        </div>
+        <div class="card__updated-date">
+          <mat-icon>update</mat-icon>
+          <span>{{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}</span>
+        </div>
       </div>
     </div>
   </a>
