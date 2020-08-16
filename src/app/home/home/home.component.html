@@ -1,19 +1,22 @@
-<div class="home-page">
-  <div class="home-main">
-    <ng-container *ngIf="!(user$ | async)">
-      <div class="welcome">
-        <h1 class="welcome__title">音楽に関する知識を共有しよう</h1>
+<ng-container *ngIf="!(user$ | async)">
+  <div class="welcome" *ngIf="!isLoading">
+    <div
+      class="welcome__bg"
+      [style.background-image]="'url(/assets/icons/hero.jpg)'"
+    ></div>
+    <div class="welcome__wrapper">
+      <div class="welcome__main">
+        <h1 class="welcome__title">音楽に関する知識を共有しよう！</h1>
         <h2 class="welcome__sub-title">
           MusiLは、DTMや作曲に関する知識を記録・共有するためのサービスです。
         </h2>
-        <p>
+        <p class="welcome__agree">
           <a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
           <button
             [disabled]="isProcessing"
             (click)="login()"
             mat-flat-button
             color="primary"
-            medium
             class="login-button"
           >
             <mat-icon
@@ -24,15 +27,28 @@
             <span>{{ isProcessing ? 'ログイン中' : 'Twitterでログイン' }}</span>
           </button>
         </p>
+        <p class="welcome__notice">
+          ※読み取り専用です。許可なくツイート等は行いません。
+        </p>
       </div>
-    </ng-container>
-    <h3 class="home-main__title">トレンド</h3>
+    </div>
+  </div>
+</ng-container>
+<div class="home-page">
+  <div class="home-main">
+    <h3 class="home-main__title">
+      <mat-icon>trending_up</mat-icon>
+      <span>トレンド</span>
+    </h3>
     <ng-container *ngFor="let article of popularArticles$ | async">
       <app-article *ngIf="article" [article]="article"></app-article>
     </ng-container>
   </div>
   <div class="home-sub">
-    <h3 class="home-main__title">最新の記事</h3>
+    <h3 class="home-sub__title">
+      <mat-icon>library_books</mat-icon>
+      <span>最新の記事</span>
+    </h3>
     <ng-container *ngFor="let article of latestArticles$ | async">
       <app-article *ngIf="article" [article]="article"></app-article>
     </ng-container>
