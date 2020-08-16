@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { startWith } from 'rxjs/operators';
+import { startWith, debounceTime } from 'rxjs/operators';
 import { of, Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Article } from 'functions/src/interfaces/article';
@@ -62,6 +62,8 @@ export class CreateComponent implements OnInit, OnDestroy {
   });
 
   likeCount: number;
+
+  isTagWordOver: boolean;
 
   tags: string[] = [];
   visible = true;
@@ -286,7 +288,7 @@ export class CreateComponent implements OnInit, OnDestroy {
         }
       });
     this.subscription = this.tagControl.valueChanges
-      .pipe(startWith(''))
+      .pipe(startWith(''), debounceTime(500))
       .subscribe((keyword) => {
         this.index.searchForFacetValues('tags', keyword).then((result) => {
           this.allTags = result.facetHits;
@@ -294,14 +296,20 @@ export class CreateComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-
+    const maxWordCount = 50;
     const maxLength = 10;
-    if ((value || '').trim() && this.tags.length < maxLength) {
+    if (value.length > maxWordCount) {
+      this.isTagWordOver = true;
+      input.value = '';
+      this.tagControl.patchValue(null);
+      return;
+    } else if ((value || '').trim() && this.tags.length < maxLength) {
+      this.isTagWordOver = false;
       this.tags.push(value);
     }
     if (input) {
