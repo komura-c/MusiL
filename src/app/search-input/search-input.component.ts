@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { SearchService } from '../services/search.service';
-import { startWith } from 'rxjs/operators';
+import { startWith, debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-input',
@@ -58,7 +58,7 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSearchActive = false;
-    this.searchControl.valueChanges.pipe(startWith('')).subscribe((keyword) => {
+    this.searchControl.valueChanges.pipe(startWith(''), debounceTime(500)).subscribe((keyword) => {
       const searchKeyword: string = keyword;
       this.index
         .search(searchKeyword, this.searchOptions)
