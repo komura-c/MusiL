@@ -62,10 +62,13 @@
     font-size: 12px;
     font-weight: bold;
   }
-  &__updated-date {
-    padding-left: 20px;
+  &__created-date {
     font-size: 12px;
-    margin: 0;
+    margin: 0 0 0 8px;
+  }
+  &__updated-date {
+    font-size: 12px;
+    margin: 0 0 0 8px;
   }
 }
 
