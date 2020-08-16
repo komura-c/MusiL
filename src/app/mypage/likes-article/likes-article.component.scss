@@ -1,0 +1,12 @@
+.likes-article {
+  max-width: 610px;
+  margin: 0 auto;
+  border: solid 1px #e0e0e0;
+  border-radius: 4px;
+  &__card {
+    border-bottom: solid 1px #e0e0e0;
+    &:last-of-type {
+      border: none;
+    }
+  }
+}
