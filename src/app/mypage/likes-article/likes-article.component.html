@@ -1,12 +1,14 @@
 <ng-container *ngIf="articles$ | async as articles">
-  <ng-container *ngIf="articles.length === 0">
-    <div class="no-article">
-      <p>まだ、記事はありません。</p>
-    </div>
-  </ng-container>
-  <ng-container *ngFor="let article of articles">
-    <app-article *ngIf="article" [article]="article"></app-article>
-  </ng-container>
+  <div class="likes-article">
+    <ng-container *ngIf="articles.length === 0">
+      <p class="no-article">まだ、記事はありません。</p>
+    </ng-container>
+    <ng-container *ngFor="let article of articles">
+      <div class="likes-article__card">
+        <app-article *ngIf="article" [article]="article"></app-article>
+      </div>
+    </ng-container>
+  </div>
 </ng-container>
 <ng-container *ngIf="isLoading">
   <mat-spinner class="loading-bar" diameter="100" strokeWidth="8"></mat-spinner>

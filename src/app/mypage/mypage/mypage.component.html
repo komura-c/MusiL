@@ -10,15 +10,13 @@
         <div class="mypage__user-header">
           <h2 class="mypage__user-name">{{ user.userName }}</h2>
           <ng-container *ngIf="isAuthor(user.uid)">
-            <div class="edit-profile">
-              <button
-                mat-stroked-button
-                class="edit-profile"
-                routerLink="/settings"
-              >
-                編集
-              </button>
-            </div>
+            <button
+              mat-stroked-button
+              class="edit-profile"
+              routerLink="/settings"
+            >
+              編集
+            </button>
           </ng-container>
         </div>
         <p class="mypage__user-screen-name">@{{ user.screenName }}</p>
