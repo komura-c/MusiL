@@ -26,7 +26,11 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatMenuModule,
     MatIconModule,
   ],
-  exports: [ArticleComponent, DeleteDialogComponent, NoteEditButtonsComponent,
-    NotFoundComponent],
+  exports: [
+    ArticleComponent,
+    DeleteDialogComponent,
+    NoteEditButtonsComponent,
+    NotFoundComponent,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}

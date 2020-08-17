@@ -65,4 +65,4 @@ import { TagResultComponent } from './tag-result/tag-result.component';
   providers: [{ provide: REGION, useValue: 'asia-northeast1' }],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

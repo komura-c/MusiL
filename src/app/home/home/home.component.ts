@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   isLoading: boolean;
   isProcessing: boolean;
   user$: Observable<UserData> = this.authService.user$.pipe(
-    tap(() => this.isLoading = false)
+    tap(() => (this.isLoading = false))
   );
 
   popularArticles$: Observable<
@@ -57,5 +57,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
