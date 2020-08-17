@@ -59,5 +59,5 @@ export class MypageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
