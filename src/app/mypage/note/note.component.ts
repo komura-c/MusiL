@@ -149,7 +149,7 @@ export class NoteComponent implements OnInit {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+      const toATag = "<a href='$1' target='_blank'>$1</a>";
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -186,5 +186,5 @@ export class NoteComponent implements OnInit {
     this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

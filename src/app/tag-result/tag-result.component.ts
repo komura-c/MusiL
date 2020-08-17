@@ -11,7 +11,7 @@ import { LoadingService } from '../services/loading.service';
 @Component({
   selector: 'app-tag-result',
   templateUrl: './tag-result.component.html',
-  styleUrls: ['./tag-result.component.scss']
+  styleUrls: ['./tag-result.component.scss'],
 })
 export class TagResultComponent implements OnInit {
   index = this.searchService.index.popular;
@@ -33,7 +33,7 @@ export class TagResultComponent implements OnInit {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private articleService: ArticleService,
-    private loadingService: LoadingService,
+    private loadingService: LoadingService
   ) {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe((params) => {
@@ -65,7 +65,5 @@ export class TagResultComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

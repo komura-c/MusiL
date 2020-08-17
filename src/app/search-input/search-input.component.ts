@@ -58,11 +58,13 @@ export class SearchInputComponent implements OnInit {
 
   ngOnInit(): void {
     this.isSearchActive = false;
-    this.searchControl.valueChanges.pipe(startWith(''), debounceTime(500)).subscribe((keyword) => {
-      const searchKeyword: string = keyword;
-      this.index
-        .search(searchKeyword, this.searchOptions)
-        .then((searchResult) => (this.searchResult = searchResult));
-    });
+    this.searchControl.valueChanges
+      .pipe(startWith(''), debounceTime(500))
+      .subscribe((keyword) => {
+        const searchKeyword: string = keyword;
+        this.index
+          .search(searchKeyword, this.searchOptions)
+          .then((searchResult) => (this.searchResult = searchResult));
+      });
   }
 }
