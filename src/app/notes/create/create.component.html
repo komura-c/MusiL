@@ -6,9 +6,11 @@
           type="text"
           formControlName="title"
           matInput
+          #titleInput
           placeholder="タイトル*"
           autocomplete="off"
         />
+        <mat-hint align="end">{{ titleInput.value?.length || 0 }}/255</mat-hint>
         <mat-error *ngIf="titleControl.hasError('required')"
           >必須項目です</mat-error
         >
@@ -45,7 +47,10 @@
             {{ tag.value }}({{ tag.count }})
           </mat-option>
         </mat-autocomplete>
-        <mat-hint>タグは10個以内です</mat-hint>
+        <mat-hint align="end">{{ tags?.length || 0 }}/10</mat-hint>
+        <mat-hint *ngIf="isTagWordOver" class="tag-error"
+          >タグは50文字以内です</mat-hint
+        >
       </mat-form-field>
     </div>
     <div class="editor__content">

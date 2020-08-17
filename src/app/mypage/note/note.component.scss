@@ -1,6 +1,6 @@
 .note {
   background-color: #fff;
-  margin: auto;
+  margin: 12px auto;
   max-width: 910px;
   display: grid;
   grid-template-columns: 80px calc(100% - 160px - 80px) 160px;
@@ -47,6 +47,7 @@
   display: flex;
   flex-direction: column;
   &__like {
+    margin-left: 2px;
     transform-origin: 50% 50%;
     &--liked {
       animation: like-anim 0.5s ease-out;
@@ -135,7 +136,14 @@
     margin: 0 0 8px 0;
   }
   &__twitter {
-    margin-left: -6px;
+    .mat-icon {
+      font-size: 24px;
+      img {
+        width: 24px;
+      }
+    }
+    text-decoration: none;
+    background-color: #1da1f2;
   }
 }
 
@@ -173,11 +181,6 @@
 .mat-icon {
   font-size: 32px;
   width: 32px;
-}
-
-.error {
-  margin: 30px auto;
-  text-align: center;
 }
 
 .toc-h2 {

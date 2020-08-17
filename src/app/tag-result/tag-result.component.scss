@@ -1,0 +1,14 @@
+.tag-result {
+  max-width: 910px;
+  margin: 0 auto;
+  &__header {
+    text-align: center;
+  }
+  &__hits {
+    font-size: 20px;
+  }
+  &__body {
+    max-width: 610px;
+    margin: 0 auto;
+  }
+}

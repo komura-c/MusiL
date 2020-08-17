@@ -21,7 +21,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 })
 export class NoteComponent implements OnInit {
   article$: Observable<ArticleWithAuthor>;
-  articleId: string;
 
   activeHeadingIndex: number;
   headingPositions: number[] = [];
@@ -62,8 +61,8 @@ export class NoteComponent implements OnInit {
     this.isLoading = true;
     this.path = this.location.path();
     this.route.paramMap.subscribe((params) => {
-      this.articleId = params.get('id');
-      const post$ = this.articleService.getArticleOnly(this.articleId);
+      const articleId = params.get('id');
+      const post$ = this.articleService.getArticleOnly(articleId);
       let articleData: Article;
       this.article$ = post$.pipe(
         map((article: Article) => {

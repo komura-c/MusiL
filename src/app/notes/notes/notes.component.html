@@ -27,10 +27,12 @@
                   {{ article.isPublic ? '公開済み' : '下書き　' }}
                 </p>
               </div>
+              <p class="list-item__created-date">
+                {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日 HH:mm' }}
+                作成
+              </p>
               <p class="list-item__updated-date">
-                {{
-                  article.createdAt.toDate() | date: 'yyyy年MM月dd日 HH:mm'
-                }}
+                {{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日 HH:mm' }}
                 更新
               </p>
             </div>

@@ -6,7 +6,8 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: 'Noto Sans JP', sans-serif;
+  color: #424242;
 }
 a {
   color: inherit;
@@ -20,7 +21,7 @@ img {
   max-width: 100%;
 }
 .container {
-  padding: 76px 16px 16px 16px;
+  padding: 86px 16px 16px 16px;
   background-color: #ffffff;
 }
 .loading-bar {
@@ -32,6 +33,11 @@ img {
 }
 .note-footer__user-description a {
   color: #ff5500;
+}
+
+.mat-chip {
+  word-break: break-word;
+  line-height: 100%;
 }
 
 //  froala-editor
