@@ -296,7 +296,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
