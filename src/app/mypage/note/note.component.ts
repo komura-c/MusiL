@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable, of } from 'rxjs';
@@ -19,7 +19,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
   templateUrl: './note.component.html',
   styleUrls: ['./note.component.scss'],
 })
-export class NoteComponent implements OnInit {
+export class NoteComponent implements OnInit, OnDestroy {
   article$: Observable<ArticleWithAuthor>;
 
   activeHeadingIndex: number;
@@ -103,6 +103,7 @@ export class NoteComponent implements OnInit {
         tap(() => {
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
+          this.restoreScrollPosition();
         }),
         catchError((error) => {
           console.log(error.message);
@@ -149,7 +150,7 @@ export class NoteComponent implements OnInit {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = "<a href='$1' target='_blank'>$1</a>";
+      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -186,5 +187,18 @@ export class NoteComponent implements OnInit {
     this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
-  ngOnInit(): void {}
+  restoreScrollPosition(): void {
+    const scrollY = localStorage.getItem('scrollPosition');
+    const scrollYInt = parseInt(scrollY, 10);
+    setTimeout(() => {
+      window.scrollTo(0, scrollYInt);
+    }, 100);
+    localStorage.removeItem('scrollPosition');
+  }
+
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    localStorage.setItem('scrollPosition', window.pageYOffset.toString());
+  }
 }
