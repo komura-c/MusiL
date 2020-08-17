@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchResultComponent } from './search-result/search-result.component';
+import { TagResultComponent } from './tag-result/tag-result.component';
+import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -17,9 +18,13 @@ const routes: Routes = [
     component: SearchResultComponent,
   },
   {
-    path: 'legal',
+    path: 'tags/:id',
+    component: TagResultComponent,
+  },
+  {
+    path: 'privacy',
     loadChildren: () =>
-      import('./legal/legal.module').then((m) => m.LegalModule),
+      import('./privacy/privacy.module').then((m) => m.PrivacyModule),
   },
   {
     path: 'terms',
@@ -54,15 +59,13 @@ const routes: Routes = [
   {
     path: '**',
     component: NotFoundComponent,
-    data: {
-      showHeader: false,
-      showFooter: false,
-    },
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

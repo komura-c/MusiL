@@ -85,7 +85,7 @@
             </mat-icon>
           </a>
           <p class="note-header__updated-date">
-            {{ article.createdAt.toDate() | date: 'yyyy年MM月dd日' }}更新
+            {{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
           <app-note-edit-buttons
             class="note-header__actions"
@@ -98,7 +98,7 @@
         <ng-container *ngIf="article.tags">
           <mat-chip-list aria-label="記事のタグ">
             <mat-chip *ngFor="let tag of article.tags">
-              {{ tag }}
+              <a [routerLink]="'/tags/' + tag">{{ tag }}</a>
             </mat-chip>
           </mat-chip-list>
         </ng-container>
@@ -177,16 +177,21 @@
               [innerHTML]="stringToLink(article.author.description)"
             ></p>
             <a
+              mat-flat-button
+              color="primary"
+              [href]="
+                'https://twitter.com/intent/follow?screen_name=' +
+                article.author.screenName
+              "
               class="note-footer__twitter"
-              [href]="'https://twitter.com/' + article.author.screenName"
               target="_blank"
             >
-              <mat-icon>
-                <img
-                  src="/assets/icons/twitter-logo_blue.png"
+              <mat-icon
+                ><img
+                  src="/assets/icons/twitter_logo_white.png"
                   alt="Twitterロゴ"
-                />
-              </mat-icon>
+              /></mat-icon>
+              <span>Twitterでフォロー</span>
             </a>
           </div>
         </div>
@@ -225,7 +230,5 @@
 </ng-container>
 
 <ng-template #notFoundArticle>
-  <p class="error" *ngIf="!isLoading">
-    「{{ articleId }}」という記事は存在しませんでした。
-  </p>
+  <app-not-found *ngIf="!isLoading"></app-not-found>
 </ng-template>

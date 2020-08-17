@@ -13,8 +13,11 @@ import { UserData } from '@interfaces/user';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  isLoading: boolean;
   isProcessing: boolean;
-  user$: Observable<UserData> = this.authService.user$;
+  user$: Observable<UserData> = this.authService.user$.pipe(
+    tap(() => (this.isLoading = false))
+  );
 
   popularArticles$: Observable<
     ArticleWithAuthor[]
@@ -44,6 +47,7 @@ export class HomeComponent implements OnInit {
     private authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
+    this.isLoading = true;
   }
 
   login() {

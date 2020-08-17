@@ -1,6 +1,5 @@
 .mypage {
   background-color: #fff;
-  padding: 12px;
   margin: 0 auto;
   max-width: 800px;
   &__author {
@@ -9,7 +8,7 @@
     justify-content: center;
   }
   &__user-profile {
-    padding-left: 32px;
+    margin: 16px;
     max-width: 460px;
   }
   &__user-header {
@@ -20,25 +19,24 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    margin: 16px 0px;
   }
   &__user-name {
+    font-size: 20px;
     font-weight: bold;
-    padding: 8px 0;
-    margin: 0;
+    margin: 0 0 8px;
   }
   &__user-screen-name {
-    margin: 0 0 8px 0;
+    font-size: 16px;
+    margin: 0 0 8px;
   }
   &__user-description {
-    margin: 0 0 8px 0;
-    a {
-      color: #1da1f2;
-    }
+    font-size: 16px;
+    margin: 0 0 16px;
   }
-  &__twitter-icon {
-    .mat-icon {
-      width: 44px;
-    }
+  &__twitter {
+    text-decoration: none;
+    background-color: #1da1f2;
   }
   &__menu {
     max-width: 600px;
@@ -47,8 +45,8 @@
   &__body {
     padding: 12px 0;
     display: grid;
+    grid-template-columns: 1fr;
     justify-content: center;
-    grid-column-gap: 12px;
   }
 }
 
@@ -59,8 +57,4 @@
 .mat-tab-link {
   font-size: 16px;
   text-decoration: none;
-}
-
-.error {
-  text-align: center;
 }

@@ -1,0 +1,22 @@
+.not-found {
+  margin: 12px auto;
+  max-width: 810px;
+  text-align: center;
+  &__img {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    margin: 0px auto;
+  }
+  &__title {
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin: 16px auto 4px;
+  }
+  &__text {
+    margin: 24px auto;
+  }
+  &__button {
+    background-color: #ff5500;
+  }
+}
