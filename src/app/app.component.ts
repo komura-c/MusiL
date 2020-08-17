@@ -21,7 +21,6 @@ export class AppComponent {
   ) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
         this.showHeader =
           this.route.snapshot.firstChild.data.showHeader !== false;
         this.showFooter =
