@@ -35,6 +35,11 @@ img {
   color: #ff5500;
 }
 
+.mat-chip {
+  word-break: break-word;
+  line-height: 100%;
+}
+
 //  froala-editor
 .fr-element.fr-view p {
   font-size: 16px;
