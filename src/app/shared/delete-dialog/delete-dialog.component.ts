@@ -17,15 +17,15 @@ export class DeleteDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   deleteArticle() {
     this.dialogRef.close();
     this.articleService.deleteArticle(this.data.articleId).then(() => {
       this.router.navigateByUrl('/');
-      this.snackBar.open('削除しました。', '閉じる', { duration: 5000 });
+      this.snackBar.open('削除しました。', '閉じる');
     });
   }
 }

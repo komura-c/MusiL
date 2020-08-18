@@ -179,15 +179,13 @@ export class NoteComponent implements OnInit, OnDestroy {
       this.likeCount--;
       this.isLiked = false;
     } else {
-      this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる', {
-        duration: 5000,
-      });
+      this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる');
     }
   }
 
   copyLink(): void {
     this.clipboard.copy('https://dtmplace-ad671.web.app' + this.path);
-    this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
+    this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
   ngOnInit(): void { }
