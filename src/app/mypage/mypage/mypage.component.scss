@@ -44,9 +44,7 @@
   }
   &__body {
     padding: 12px 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    justify-content: center;
+    margin: 0 auto;
   }
 }
 
