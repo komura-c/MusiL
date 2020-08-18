@@ -40,7 +40,7 @@ export class AuthService {
     const provider = new auth.TwitterAuthProvider();
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
-    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
+    const userProfObj = Object.assign({}, additionalUserInfo.profile);
     this.userService
       .getUserData(user.uid)
       .pipe(take(1))
