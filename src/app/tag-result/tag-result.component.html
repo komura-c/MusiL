@@ -1,13 +1,15 @@
 <div class="tag-result">
   <div class="tag-result__header">
-    <h2>タグ： {{ searchTag }}</h2>
-    <h2 class="tag-result__hits">
-      結果： {{ searchResult?.nbHits }} 件見つかりました
+    <h2 class="tag-result__title">
+      <span class="tag-result__keyword">「{{ searchTag }}」に関する記事</span>
+      <span class="tag-result__hits">{{ searchResult?.nbHits }} 件</span>
     </h2>
   </div>
-  <div class="tag-result__body">
-    <ng-container *ngFor="let article of articles$ | async">
-      <app-article *ngIf="article" [article]="article"></app-article>
+  <div class="tag-result__body" *ngIf="articles$ | async as articles">
+    <ng-container *ngFor="let article of articles">
+      <div class="tag-result__card">
+        <app-article *ngIf="article" [article]="article"></app-article>
+      </div>
     </ng-container>
   </div>
 </div>

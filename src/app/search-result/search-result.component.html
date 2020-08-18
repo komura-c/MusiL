@@ -1,13 +1,17 @@
 <div class="search-result">
   <div class="search-result__header">
-    <h2>キーワード： {{ searchQuery }}</h2>
-    <h2 class="search-result__hits">
-      結果： {{ searchResult?.nbHits }} 件見つかりました
+    <h2 class="search-result__title">
+      <span class="search-result__keyword">{{
+        searchQuery ? '「' + searchQuery + '」の検索結果' : '最新の記事一覧'
+      }}</span>
+      <span class="search-result__hits">{{ searchResult?.nbHits }} 件</span>
     </h2>
   </div>
-  <div class="search-result__body">
-    <ng-container *ngFor="let article of articles$ | async">
-      <app-article *ngIf="article" [article]="article"></app-article>
+  <div class="search-result__body" *ngIf="articles$ | async as articles">
+    <ng-container *ngFor="let article of articles">
+      <div class="search-result__card">
+        <app-article *ngIf="article" [article]="article"></app-article>
+      </div>
     </ng-container>
   </div>
 </div>
