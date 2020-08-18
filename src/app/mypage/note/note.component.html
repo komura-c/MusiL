@@ -41,7 +41,6 @@
         </a>
         <button
           mat-icon-button
-          href="#"
           class="left-actions__link"
           aria-label="リンクをコピー"
           matTooltip="リンクをコピー"
@@ -91,6 +90,7 @@
             class="note-header__actions"
             *ngIf="isAuthor(article.author)"
             [article]="article"
+            [screenName]="article.author.screenName"
           >
           </app-note-edit-buttons>
         </div>
@@ -148,7 +148,6 @@
             </a>
             <button
               mat-icon-button
-              href="#"
               class="main-actions__link"
               aria-label="リンクをコピー"
               matTooltip="リンクをコピー"

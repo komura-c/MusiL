@@ -15,9 +15,9 @@
 </button>
 
 <mat-menu #noteAction="matMenu">
-  <button mat-menu-item>
+  <button mat-menu-item (click)="copyLink()">
     <mat-icon>link</mat-icon>
-    <span>共有リンクを取得</span>
+    <span>共有リンク</span>
   </button>
   <button mat-menu-item class="delete" (click)="openDeleteDialog(article)">
     <mat-icon>delete_forever</mat-icon>
