@@ -20,7 +20,7 @@ export class ArticleService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService
-  ) {}
+  ) { }
 
   getArticles(uid: string): Observable<Article[]> {
     return this.db
@@ -109,14 +109,14 @@ export class ArticleService {
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
     const sorted = this.db.collection<ArticleWithAuthor>(`articles`, (ref) => {
-      return ref.orderBy('likeCount', 'desc').limit(10);
+      return ref.orderBy('likeCount', 'desc').limit(20);
     });
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
     const sorted = this.db.collection<ArticleWithAuthor>(`articles`, (ref) => {
-      return ref.orderBy('updatedAt', 'desc').limit(10);
+      return ref.orderBy('updatedAt', 'desc').limit(20);
     });
     return this.getArticlesWithAuthors(sorted);
   }
