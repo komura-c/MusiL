@@ -39,9 +39,9 @@ export class NoteComponent implements OnInit, OnDestroy {
   getTableOfContents() {
     if (this.headingPositions.length) {
       const headerHeight = 70;
-      const positon = window.pageYOffset + headerHeight;
+      const position = window.pageYOffset + headerHeight;
       this.headingPositions.forEach((headingPositon, index) => {
-        if (headingPositon < positon) {
+        if (headingPositon < position) {
           this.activeHeadingIndex = index;
         }
       });
