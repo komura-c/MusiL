@@ -13,6 +13,7 @@ import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { ScrollService } from 'src/app/services/scroll.service';
 
 @Component({
   selector: 'app-note',
@@ -20,6 +21,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
   styleUrls: ['./note.component.scss'],
 })
 export class NoteComponent implements OnInit, OnDestroy {
+  articleId: string;
   article$: Observable<ArticleWithAuthor>;
 
   activeHeadingIndex: number;
@@ -55,14 +57,15 @@ export class NoteComponent implements OnInit, OnDestroy {
     private likeService: LikeService,
     private snackBar: MatSnackBar,
     private location: Location,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private scrollService: ScrollService,
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
     this.path = this.location.path();
     this.route.paramMap.subscribe((params) => {
-      const articleId = params.get('id');
-      const post$ = this.articleService.getArticleOnly(articleId);
+      this.articleId = params.get('id');
+      const post$ = this.articleService.getArticleOnly(this.articleId);
       let articleData: Article;
       this.article$ = post$.pipe(
         map((article: Article) => {
@@ -103,7 +106,7 @@ export class NoteComponent implements OnInit, OnDestroy {
         tap(() => {
           this.loadingService.toggleLoading(false);
           this.isLoading = false;
-          this.restoreScrollPosition();
+          this.scrollService.restoreScrollPosition(this.articleId);
         }),
         catchError((error) => {
           console.log(error.message);
@@ -187,18 +190,9 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる', { duration: 5000 });
   }
 
-  restoreScrollPosition(): void {
-    const scrollY = localStorage.getItem('scrollPosition');
-    const scrollYInt = parseInt(scrollY, 10);
-    setTimeout(() => {
-      window.scrollTo(0, scrollYInt);
-    }, 100);
-    localStorage.removeItem('scrollPosition');
-  }
-
   ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    localStorage.setItem('scrollPosition', window.pageYOffset.toString());
+    this.scrollService.saveScrollPosition(this.articleId);
   }
 }
