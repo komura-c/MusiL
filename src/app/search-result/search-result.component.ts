@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -7,13 +7,14 @@ import { ArticleService } from '../services/article.service';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
 import { LoadingService } from '../services/loading.service';
+import { ScrollService } from '../services/scroll.service';
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.scss'],
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit, OnDestroy {
   index = this.searchService.index.popular;
   searchQuery: string;
 
@@ -33,7 +34,8 @@ export class SearchResultComponent implements OnInit {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private articleService: ArticleService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private scrollService: ScrollService,
   ) {
     this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
@@ -52,7 +54,10 @@ export class SearchResultComponent implements OnInit {
                   algoriaItemIds.includes(article.articleId)
                 );
               }),
-              tap(() => this.loadingService.toggleLoading(false)),
+              tap(() => {
+                this.loadingService.toggleLoading(false);
+                this.scrollService.restoreScrollPosition(this.searchQuery);
+              }),
               catchError((error) => {
                 console.log(error.message);
                 this.loadingService.toggleLoading(false);
@@ -64,5 +69,9 @@ export class SearchResultComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
+
+  ngOnDestroy(): void {
+    this.scrollService.saveScrollPosition(this.searchQuery);
+  }
 }

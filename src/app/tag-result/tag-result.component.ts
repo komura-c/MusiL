@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, tap, catchError } from 'rxjs/operators';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
@@ -7,13 +7,14 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../services/search.service';
 import { ArticleService } from '../services/article.service';
 import { LoadingService } from '../services/loading.service';
+import { ScrollService } from '../services/scroll.service';
 
 @Component({
   selector: 'app-tag-result',
   templateUrl: './tag-result.component.html',
   styleUrls: ['./tag-result.component.scss'],
 })
-export class TagResultComponent implements OnInit {
+export class TagResultComponent implements OnInit, OnDestroy {
   index = this.searchService.index.popular;
   searchTag: string;
 
@@ -33,7 +34,8 @@ export class TagResultComponent implements OnInit {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private articleService: ArticleService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private scrollService: ScrollService,
   ) {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe((params) => {
@@ -53,7 +55,10 @@ export class TagResultComponent implements OnInit {
                   algoriaItemIds.includes(article.articleId)
                 );
               }),
-              tap(() => this.loadingService.toggleLoading(false)),
+              tap(() => {
+                this.loadingService.toggleLoading(false);
+                this.scrollService.restoreScrollPosition(this.searchTag);
+              }),
               catchError((error) => {
                 console.log(error.message);
                 this.loadingService.toggleLoading(false);
@@ -65,5 +70,9 @@ export class TagResultComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.scrollService.saveScrollPosition(this.searchTag);
+  }
 }
