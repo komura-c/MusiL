@@ -31,7 +31,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) {}
+  ) { }
 
   async login(): Promise<void> {
     if (this.afUser$) {
@@ -50,17 +50,14 @@ export class AuthService {
             .createUser(user.uid, userProfObj)
             .then(() => {
               this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', {
-                duration: 5000,
-              });
+              this.snackBar.open('ログインしました。', '閉じる');
             })
             .catch((error) => {
               this.router.navigateByUrl('/');
               console.log(error.message);
               this.snackBar.open(
                 'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる',
-                { duration: 5000 }
+                '閉じる'
               );
             });
         } else {
@@ -68,17 +65,14 @@ export class AuthService {
             .updateUser(user.uid, userProfObj)
             .then(() => {
               this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', {
-                duration: 5000,
-              });
+              this.snackBar.open('ログインしました。', '閉じる');
             })
             .catch((error) => {
               this.router.navigateByUrl('/');
               console.log(error.message);
               this.snackBar.open(
                 'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる',
-                { duration: 5000 }
+                '閉じる'
               );
             });
         }
@@ -90,17 +84,14 @@ export class AuthService {
       .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
-        this.snackBar.open('ログアウトしました。', '閉じる', {
-          duration: 5000,
-        });
+        this.snackBar.open('ログアウトしました。', '閉じる');
       })
       .catch((error) => {
         this.router.navigateByUrl('/');
         console.log(error.message);
         this.snackBar.open(
           'ログアウトエラーです。数秒後にもう一度お試しください。',
-          '閉じる',
-          { duration: 5000 }
+          '閉じる'
         );
       });
   }

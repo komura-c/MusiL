@@ -29,7 +29,7 @@ export class ImageCropDialogComponent implements OnInit {
     this.imageSelecter = this.data.imageSelecter;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
@@ -41,9 +41,7 @@ export class ImageCropDialogComponent implements OnInit {
 
   loadImageFailed() {
     this.dialogRef.close();
-    this.snackBar.open('画像の読み込みに失敗しました', '閉じる', {
-      duration: 5000,
-    });
+    this.snackBar.open('画像の読み込みに失敗しました', '閉じる');
   }
 
   resetInput() {
@@ -60,9 +58,7 @@ export class ImageCropDialogComponent implements OnInit {
         .then(() => {
           this.imageChangedEvent = '';
           this.imageSelecter.value = '';
-          this.snackBar.open('画像を変更しました。', '閉じる', {
-            duration: 5000,
-          });
+          this.snackBar.open('画像を変更しました。', '閉じる');
         });
     }
   }

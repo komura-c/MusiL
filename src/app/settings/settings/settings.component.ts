@@ -58,7 +58,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {
@@ -76,9 +76,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
     };
     this.userService.changeUserData(this.uid, newUserData);
     this.router.navigateByUrl('/' + this.screenName);
-    this.snackBar.open('プロフィールが更新されました', '閉じる', {
-      duration: 5000,
-    });
+    this.snackBar.open('プロフィールが更新されました', '閉じる');
   }
 
   openDeleteAccountDialog() {

@@ -216,7 +216,7 @@ export class CreateComponent implements OnInit, OnDestroy {
         } else {
           this.ngZone.run(() => {
             const msg = '３メガバイト未満の画像を利用してください';
-            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+            this.snackBar.open(msg, '閉じる');
           });
           return false;
         }
@@ -226,7 +226,7 @@ export class CreateComponent implements OnInit, OnDestroy {
         if (!httpReg.test(link)) {
           this.ngZone.run(() => {
             const msg = '正しいURLではありません';
-            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+            this.snackBar.open(msg, '閉じる');
           });
           return false;
         }
@@ -249,7 +249,7 @@ export class CreateComponent implements OnInit, OnDestroy {
           });
           this.ngZone.run(() => {
             const msg = 'SoundCloudの埋め込みが完了しました';
-            this.snackBar.open(msg, '閉じる', { duration: 5000 });
+            this.snackBar.open(msg, '閉じる');
           });
           return false;
         }
@@ -386,12 +386,12 @@ export class CreateComponent implements OnInit, OnDestroy {
         .updateArticle(this.articleId, this.likeCount, sendData)
         .then(() => {
           this.router.navigateByUrl('/');
-          this.snackBar.open(msg, '閉じる', { duration: 5000 });
+          this.snackBar.open(msg, '閉じる');
         });
     } else {
       this.articleService.createArticle(sendData).then(() => {
         this.router.navigateByUrl('/');
-        this.snackBar.open(msg, '閉じる', { duration: 5000 });
+        this.snackBar.open(msg, '閉じる');
       });
     }
   }

@@ -17,9 +17,9 @@ export class DeleteAccountDialogComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   deleteAccount() {
     this.dialogRef.close();
@@ -29,15 +29,13 @@ export class DeleteAccountDialogComponent implements OnInit {
         this.router.navigateByUrl('/');
         this.snackBar.open(
           'アカウントが削除されました。ご利用ありがとうございました。',
-          '閉じる',
-          { duration: 5000 }
+          '閉じる'
         );
       })
       .catch(() => {
         this.snackBar.open(
           '削除に失敗しました。再度ログインしてお試しください。',
-          '閉じる',
-          { duration: 5000 }
+          '閉じる'
         );
       });
   }
