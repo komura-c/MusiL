@@ -285,6 +285,10 @@ export class CreateComponent implements OnInit, OnDestroy {
             editorContent: article.text,
             isPublic: article.isPublic,
           });
+        } else {
+          this.form.patchValue({
+            editorContent: null,
+          });
         }
       });
     this.subscription = this.tagControl.valueChanges
@@ -296,7 +300,7 @@ export class CreateComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;

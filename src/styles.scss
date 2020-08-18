@@ -41,7 +41,15 @@ img {
 }
 
 //  froala-editor
-.fr-element.fr-view p {
+.fr-wrapper > div:first-child {
+  height: 0;
+  visibility: hidden;
+}
+.fr-wrapper > .fr-element.fr-view {
+  height: 100%;
+  visibility: visible;
+}
+.fr-box.fr-basic .fr-element.fr-view {
   font-size: 16px;
 }
 .fr-view a {
