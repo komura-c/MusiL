@@ -27,6 +27,7 @@ export class NoteComponent implements OnInit, OnDestroy {
   activeHeadingIndex: number;
   headingPositions: number[] = [];
   headingElements: Element[] = [];
+  headerHeight = 70;
 
   isLoading: boolean;
 
@@ -38,10 +39,10 @@ export class NoteComponent implements OnInit, OnDestroy {
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
     if (this.headingPositions.length) {
-      const headerHeight = 70;
-      const position = window.pageYOffset + headerHeight;
-      this.headingPositions.forEach((headingPositon, index) => {
-        if (headingPositon < position) {
+      const buffer = 20;
+      const position = window.pageYOffset + this.headerHeight + buffer;
+      this.headingPositions.forEach((headingPosition, index) => {
+        if (headingPosition < position) {
           this.activeHeadingIndex = index;
         }
       });
@@ -123,8 +124,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     if (id !== '') {
       const rectTop = document.getElementById(id).getBoundingClientRect().top;
       const position = window.pageYOffset;
-      const buffer = 70;
-      const top = rectTop + position - buffer;
+      const top = rectTop + position - this.headerHeight;
       window.scrollTo({
         top,
         behavior: 'smooth',
