@@ -35,7 +35,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private title: Title,
+    private title: Title
   ) {
     this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
@@ -69,7 +69,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchQuery);

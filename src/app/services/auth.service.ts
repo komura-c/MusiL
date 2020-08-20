@@ -32,7 +32,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) { }
+  ) {}
 
   async login(): Promise<void> {
     const provider = new auth.TwitterAuthProvider();
@@ -41,7 +41,8 @@ export class AuthService {
     const twitterProfile = additionalUserInfo.profile as any;
     const userDoc: UserData = await this.userService
       .getUserData(user.uid)
-      .pipe(take(1)).toPromise();
+      .pipe(take(1))
+      .toPromise();
 
     let task: Promise<void>;
 
@@ -51,10 +52,11 @@ export class AuthService {
       task = this.userService.createUser(user.uid, twitterProfile);
     }
 
-    task.then(() => {
-      this.router.navigateByUrl('/');
-      this.snackBar.open('ログインしました。', '閉じる');
-    })
+    task
+      .then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open('ログインしました。', '閉じる');
+      })
       .catch((error) => {
         console.error(error.message);
         this.snackBar.open(

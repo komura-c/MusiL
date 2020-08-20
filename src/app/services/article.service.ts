@@ -17,7 +17,7 @@ export class ArticleService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService
-  ) { }
+  ) {}
   snapArticleId: string;
 
   getMyArticlesPublic(uid: string): Observable<ArticleWithAuthor[]> {
@@ -28,7 +28,8 @@ export class ArticleService {
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
       )
-      .valueChanges().pipe(
+      .valueChanges()
+      .pipe(
         map((articles: Article[]) => {
           if (articles?.length) {
             return articles.map((article) => {
@@ -125,20 +126,26 @@ export class ArticleService {
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted: Observable<Article[]> = this.db.collection<Article>(`articles`, (ref) => {
-      return ref.orderBy('likeCount', 'desc').limit(20);
-    }).valueChanges();
+    const sorted: Observable<Article[]> = this.db
+      .collection<Article>(`articles`, (ref) => {
+        return ref.orderBy('likeCount', 'desc').limit(20);
+      })
+      .valueChanges();
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted: Observable<Article[]> = this.db.collection<Article>(`articles`, (ref) => {
-      return ref.orderBy('updatedAt', 'desc').limit(20);
-    }).valueChanges();
+    const sorted: Observable<Article[]> = this.db
+      .collection<Article>(`articles`, (ref) => {
+        return ref.orderBy('updatedAt', 'desc').limit(20);
+      })
+      .valueChanges();
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getArticlesWithAuthors(sorted: Observable<Article[]>): Observable<ArticleWithAuthor[]> {
+  getArticlesWithAuthors(
+    sorted: Observable<Article[]>
+  ): Observable<ArticleWithAuthor[]> {
     let articles: Article[];
     return sorted.pipe(
       switchMap((docs: Article[]) => {
@@ -146,9 +153,11 @@ export class ArticleService {
           articles = docs;
           const authorIds: string[] = docs.map((post) => post.uid);
           const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-          return combineLatest(authorUniqueIds.map((userId) => {
-            return this.userService.getUserData(userId);
-          }));
+          return combineLatest(
+            authorUniqueIds.map((userId) => {
+              return this.userService.getUserData(userId);
+            })
+          );
         } else {
           return of([]);
         }
@@ -165,7 +174,7 @@ export class ArticleService {
         } else {
           return null;
         }
-      }),
+      })
     );
   }
 }

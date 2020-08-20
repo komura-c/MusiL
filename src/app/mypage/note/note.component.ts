@@ -33,8 +33,10 @@ export class NoteComponent implements OnInit, OnDestroy {
       return this.articleService.getArticleOnly(articleId);
     }),
     switchMap((article: Article) => {
-      return combineLatest([of(article), this.userService.getUserData(article.uid)]
-      );
+      return combineLatest([
+        of(article),
+        this.userService.getUserData(article.uid),
+      ]);
     }),
     map(([article, author]) => {
       if (
@@ -58,7 +60,8 @@ export class NoteComponent implements OnInit, OnDestroy {
       this.likeService
         .isLiked(article?.articleId, this.authService.uid)
         .pipe(take(1))
-        .toPromise().then((result) => {
+        .toPromise()
+        .then((result) => {
           this.isLiked = result;
         });
       this.title.setTitle(`${article.title} | MusiL`);
@@ -106,7 +109,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private scrollService: ScrollService,
     private title: Title,
-    public authService: AuthService,
+    public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
@@ -146,7 +149,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+      const toATag = "<a href='$1' target='_blank'>$1</a>";
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -173,7 +176,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

@@ -33,7 +33,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private searchService: SearchService,
-    private userService: UserService,
+    private userService: UserService
   ) {
     this.route.queryParamMap.subscribe((params) => {
       const searchQuery: string = params.get('q');
@@ -54,14 +54,20 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   selectedTitle(option): void {
-    this.userService.getUserData(option.uid).pipe(take(1)).toPromise().then((user: UserData) => {
-      this.router.navigateByUrl('/' + user.screenName + '/n/' + option.articleId);
-    });
+    this.userService
+      .getUserData(option.uid)
+      .pipe(take(1))
+      .toPromise()
+      .then((user: UserData) => {
+        this.router.navigateByUrl(
+          '/' + user.screenName + '/n/' + option.articleId
+        );
+      });
   }
 
   ngOnInit(): void {
-    this.subscription = this.searchControl.valueChanges.pipe(
-      startWith(''), debounceTime(500))
+    this.subscription = this.searchControl.valueChanges
+      .pipe(startWith(''), debounceTime(500))
       .subscribe((keyword: string) => {
         this.index
           .search(keyword, this.searchOptions)

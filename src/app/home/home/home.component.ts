@@ -31,9 +31,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   latestArticles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService.getLatestArticles().pipe(
-    tap(() => this.loadingService.toggleLoading(false)),
-  );
+  > = this.articleService
+    .getLatestArticles()
+    .pipe(tap(() => this.loadingService.toggleLoading(false)));
 
   constructor(
     private articleService: ArticleService,
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition('top-page');

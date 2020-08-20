@@ -53,24 +53,27 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private title: Title,
+    private title: Title
   ) {
     this.title.setTitle('記事の編集 | MusiL');
-    this.article$.pipe(take(1)).toPromise().then((article: Article) => {
-      if (article) {
-        this.articleId = article.articleId;
-        this.tags = article.tags;
-        this.form.patchValue({
-          title: article.title,
-          editorContent: article.text,
-          isPublic: article.isPublic,
-        });
-      } else {
-        this.form.patchValue({
-          editorContent: null,
-        });
-      }
-    });
+    this.article$
+      .pipe(take(1))
+      .toPromise()
+      .then((article: Article) => {
+        if (article) {
+          this.articleId = article.articleId;
+          this.tags = article.tags;
+          this.form.patchValue({
+            title: article.title,
+            editorContent: article.text,
+            isPublic: article.isPublic,
+          });
+        } else {
+          this.form.patchValue({
+            editorContent: null,
+          });
+        }
+      });
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -100,7 +103,9 @@ export class CreateComponent implements OnInit {
     };
     this.isComplete = true;
 
-    const msg = formData.isPublic ? '記事を投稿しました！おめでとうございます。' : '下書きを保存しました！おつかれさまです。';
+    const msg = formData.isPublic
+      ? '記事を投稿しました！おめでとうございます。'
+      : '下書きを保存しました！おつかれさまです。';
 
     let task: Promise<void>;
     if (this.articleId) {
@@ -109,17 +114,21 @@ export class CreateComponent implements OnInit {
       task = this.articleService.createArticle(sendData);
     }
 
-    task.then(() => {
-      this.router.navigateByUrl('/' + this.authService.uid + '/n/' + this.articleService.snapArticleId);
-      this.snackBar.open(msg, '閉じる');
-    }).catch((error) => {
-      console.error(error.message);
-      this.snackBar.open(
-        'すみません、投稿エラーです。数秒後にもう一度お試しください。',
-        '閉じる'
-      );
-    });
+    task
+      .then(() => {
+        this.router.navigateByUrl(
+          '/' + this.authService.uid + '/n/' + this.articleService.snapArticleId
+        );
+        this.snackBar.open(msg, '閉じる');
+      })
+      .catch((error) => {
+        console.error(error.message);
+        this.snackBar.open(
+          'すみません、投稿エラーです。数秒後にもう一度お試しください。',
+          '閉じる'
+        );
+      });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

@@ -29,7 +29,7 @@ import 'froala-editor/js/languages/ja.js';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss']
+  styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: FormGroup;
@@ -73,7 +73,14 @@ export class EditorComponent implements OnInit {
     },
   };
 
-  froalaEditor: { _editor: { image: { insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void; get: () => any; }; }; };
+  froalaEditor: {
+    _editor: {
+      image: {
+        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
+        get: () => any;
+      };
+    };
+  };
   options = {
     toolbarSticky: false,
     toolbarInline: false,
@@ -112,7 +119,10 @@ export class EditorComponent implements OnInit {
         const file = images[0];
         const fileSizeLimit = 3000000;
         if (file.size < fileSizeLimit) {
-          const downloadURLPromise = this.articleService.uploadImage(this.authService.uid, file);
+          const downloadURLPromise = this.articleService.uploadImage(
+            this.authService.uid,
+            file
+          );
           downloadURLPromise.then((downloadURL) => {
             this.froalaEditor._editor.image.insert(
               downloadURL,
@@ -174,9 +184,8 @@ export class EditorComponent implements OnInit {
     private ngZone: NgZone,
     private authService: AuthService,
     private articleService: ArticleService,
-    private snackBar: MatSnackBar,
-  ) { }
+    private snackBar: MatSnackBar
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
