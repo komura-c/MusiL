@@ -23,7 +23,7 @@ export class ArticleService {
   ) { }
   snapArticleId: string;
 
-  getArticles(uid: string): Observable<Article[]> {
+  getMyArticlessPublic(uid: string): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref
@@ -31,10 +31,24 @@ export class ArticleService {
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
       )
-      .valueChanges();
+      .valueChanges().pipe(
+        map((articles: Article[]) => {
+          if (articles?.length) {
+            return articles.map((article) => {
+              const result: ArticleWithAuthor = {
+                ...article,
+                author: this.userService.mypageUser,
+              };
+              return result;
+            });
+          } else {
+            return null;
+          }
+        })
+      );
   }
 
-  getLikedArticles(uid: string): Observable<Article[]> {
+  getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
     return this.db
       .collection(`users/${uid}/likedArticles`, (ref) =>
         ref.orderBy('updatedAt', 'desc')
@@ -42,18 +56,48 @@ export class ArticleService {
       .valueChanges()
       .pipe(
         switchMap((articleIdDocs: { articleId: string }[]) => {
-          return combineLatest(
-            articleIdDocs.map((articleIdDoc) => {
-              return this.db
-                .doc<Article>(`articles/${articleIdDoc.articleId}`)
-                .valueChanges();
-            })
-          );
-        })
+          if (articleIdDocs?.length) {
+            return combineLatest(
+              articleIdDocs.map((articleIdDoc) => {
+                return this.db
+                  .doc<Article>(`articles/${articleIdDoc.articleId}`)
+                  .valueChanges();
+              })
+            );
+          } else {
+            return of([]);
+          }
+        }),
+        switchMap((docs: Article[]) => {
+          if (docs?.length) {
+            const authorIds: string[] = docs.map((post) => post.uid);
+            const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+            return combineLatest([of(docs),
+            authorUniqueIds.map((userId) => {
+              return this.userService.getUserData(userId);
+            })]
+            );
+          } else {
+            return of([]);
+          }
+        }),
+        map(([articles, users]) => {
+          if (articles?.length) {
+            return articles.map((article: Article) => {
+              const result: ArticleWithAuthor = {
+                ...article,
+                author: users.find((user: UserData) => user.uid === article.uid),
+              };
+              return result;
+            });
+          } else {
+            return null;
+          }
+        }),
       );
   }
 
-  getMyArticles(uid: string): Observable<Article[]> {
+  getMyArticlessAll(uid: string): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')
