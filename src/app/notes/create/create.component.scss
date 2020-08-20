@@ -7,7 +7,6 @@
   &__header {
     width: 100%;
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
     padding: 8px 0;
@@ -25,7 +24,6 @@
   &__buttons {
     width: 100%;
     display: flex;
-    flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -42,8 +40,4 @@ button {
   font-weight: bold;
   padding: 8px 32px;
   margin: 8px;
-}
-
-.tag-error {
-  color: #f44336;
 }
