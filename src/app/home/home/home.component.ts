@@ -15,7 +15,6 @@ import { ScrollService } from 'src/app/services/scroll.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   isLoading = true;
-  isProcessing: boolean;
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => (this.isLoading = false))
   );
@@ -38,16 +37,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private articleService: ArticleService,
     private loadingService: LoadingService,
-    private authService: AuthService,
-    private scrollService: ScrollService
+    private scrollService: ScrollService,
+    public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
   }
 
   login() {
-    this.isProcessing = true;
+    this.authService.loginProcessing = true;
     this.authService.login().finally(() => {
-      this.isProcessing = false;
+      this.authService.loginProcessing = false;
     });
   }
 
