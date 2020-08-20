@@ -2,8 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { SearchService } from '../services/search.service';
-import { startWith, debounceTime } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { startWith, debounceTime, take } from 'rxjs/operators';
+import { Subscription, pipe } from 'rxjs';
+import { ArticleWithAuthor } from '@interfaces/article-with-author';
+import { UserService } from '../services/user.service';
+import { UserData } from '@interfaces/user';
 
 @Component({
   selector: 'app-search-input',
@@ -29,7 +32,8 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private userService: UserService,
   ) {
     this.route.queryParamMap.subscribe((params) => {
       const searchQuery: string = params.get('q');
@@ -39,13 +43,19 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     });
   }
 
-  routeSearch(keyword: string) {
+  routeSearch(keyword: string): void {
     if (keyword === null) {
       keyword = '';
     }
     this.router.navigate(['/search'], {
       queryParamsHandling: 'merge',
       queryParams: { q: keyword },
+    });
+  }
+
+  selectedTitle(option): void {
+    this.userService.getUserData(option.uid).pipe(take(1)).toPromise().then((user: UserData) => {
+      this.router.navigateByUrl('/' + user.screenName + '/n/' + option.articleId);
     });
   }
 
