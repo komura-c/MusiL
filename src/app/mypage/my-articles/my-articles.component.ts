@@ -12,7 +12,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class MyArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]> = this.articleService
-    .getMyArticlessPublic(this.userService.mypageUser.uid)
+    .getMyArticlesPublic(this.userService.mypageUser.uid)
     .pipe(
       tap(() => {
         this.isLoading = false;

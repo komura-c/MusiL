@@ -16,7 +16,7 @@ export class NotesComponent implements OnInit {
   uid = this.authService.uid;
   user$: Observable<UserData> = this.authService.user$;
   articles$: Observable<Article[]> = this.articleService
-    .getMyArticles(this.uid)
+    .getMyArticlesAll(this.uid)
     .pipe(tap(() => this.loadingService.toggleLoading(false)));
 
   constructor(
