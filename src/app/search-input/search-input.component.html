@@ -33,7 +33,7 @@
     color="white"
     aria-label="検索アイコン"
     class="smart-search__button"
-    (click)="searchActive()"
+    (click)="isSearchActive = !isSearchActive"
   >
     <mat-icon>search</mat-icon>
   </button>
@@ -42,7 +42,7 @@
 <form
   class="smart-search-box"
   (ngSubmit)="routeSearch(searchControl.value)"
-  [class.active]="isSearchActive == true"
+  [class.active]="isSearchActive === true"
 >
   <input
     type="text"

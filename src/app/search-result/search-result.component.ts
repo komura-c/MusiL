@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SearchService } from '../services/search.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { ArticleService } from '../services/article.service';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
@@ -15,19 +15,17 @@ import { ScrollService } from '../services/scroll.service';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
-  index = this.searchService.index.popular;
-  searchQuery: string;
-
-  searchResult: {
-    nbHits: number;
-    hits: any[];
-  };
-  searchOptions = {
+  private index = this.searchService.index.popular;
+  private searchOptions = {
     page: 0,
     hitsPerPage: 20,
     facetFilters: ['isPublic:true'],
   };
-
+  searchQuery: string;
+  searchResult: {
+    nbHits: number;
+    hits: any[];
+  };
   articles$: Observable<ArticleWithAuthor[]>;
 
   constructor(
@@ -42,8 +40,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.searchQuery = params.get('q');
       this.index
         .search(this.searchQuery, this.searchOptions)
-        .then((searchResult) => (this.searchResult = searchResult))
-        .then(() => {
+        .then((searchResult) => {
+          this.searchResult = searchResult;
           if (this.searchResult.hits) {
             const algoriaItemIds: string[] = this.searchResult.hits.map(
               (algoriaItem) => algoriaItem.articleId
@@ -57,11 +55,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
               tap(() => {
                 this.loadingService.toggleLoading(false);
                 this.scrollService.restoreScrollPosition(this.searchQuery);
-              }),
-              catchError((error) => {
-                console.log(error.message);
-                this.loadingService.toggleLoading(false);
-                return of(null);
               })
             );
           }
