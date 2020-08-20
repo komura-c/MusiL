@@ -7,6 +7,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
@@ -38,9 +39,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    public authService: AuthService
+    public authService: AuthService,
+    private title: Title
   ) {
     this.loadingService.toggleLoading(true);
+    this.title.setTitle('MusiL | DTMや作曲の知識記録プラットフォーム');
   }
 
   login() {

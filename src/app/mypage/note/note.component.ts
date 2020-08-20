@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-note',
@@ -60,6 +61,7 @@ export class NoteComponent implements OnInit, OnDestroy {
         .toPromise().then((result) => {
           this.isLiked = result;
         });
+      this.title.setTitle(`${article.title} | MusiL`);
     }),
     tap(() => {
       this.loadingService.toggleLoading(false);
@@ -103,6 +105,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     private location: Location,
     private clipboard: Clipboard,
     private scrollService: ScrollService,
+    private title: Title,
     public authService: AuthService,
   ) {
     this.loadingService.toggleLoading(true);

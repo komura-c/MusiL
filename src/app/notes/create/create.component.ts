@@ -8,6 +8,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-create',
@@ -52,7 +53,9 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
+    private title: Title,
   ) {
+    this.title.setTitle('記事の編集 | MusiL');
     this.article$.pipe(take(1)).toPromise().then((article: Article) => {
       if (article) {
         this.articleId = article.articleId;

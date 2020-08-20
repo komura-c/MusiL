@@ -8,6 +8,7 @@ import { SearchService } from '../services/search.service';
 import { ArticleService } from '../services/article.service';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-tag-result',
@@ -36,10 +37,12 @@ export class TagResultComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
+    private title: Title,
   ) {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe((params) => {
       this.searchTag = params.get('id');
+      this.title.setTitle(`${this.searchTag}に関する記事 | MusiL`);
       this.searchOptions.facetFilters.push('tags:' + this.searchTag);
       this.index
         .search('', this.searchOptions)
@@ -58,11 +61,6 @@ export class TagResultComponent implements OnInit, OnDestroy {
               tap(() => {
                 this.loadingService.toggleLoading(false);
                 this.scrollService.restoreScrollPosition(this.searchTag);
-              }),
-              catchError((error) => {
-                console.log(error.message);
-                this.loadingService.toggleLoading(false);
-                return of(null);
               })
             );
           }
