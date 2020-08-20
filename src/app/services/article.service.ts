@@ -23,7 +23,7 @@ export class ArticleService {
   ) { }
   snapArticleId: string;
 
-  getMyArticlesPublic(uid: string): Observable<Article[]> {
+  getMyArticlesPublic(uid: string): Observable<ArticleWithAuthor[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref
