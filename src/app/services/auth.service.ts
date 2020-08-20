@@ -25,6 +25,7 @@ export class AuthService {
     }),
     shareReplay(1)
   );
+  loginProcessing = false;
 
   constructor(
     private afAuth: AngularFireAuth,

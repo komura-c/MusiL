@@ -13,7 +13,7 @@
         <p class="welcome__agree">
           <a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
           <button
-            [disabled]="isProcessing"
+            [disabled]="authService.loginProcessing"
             (click)="login()"
             mat-flat-button
             color="primary"
@@ -24,7 +24,9 @@
                 src="/assets/icons/twitter_logo_white.png"
                 alt="Twitterロゴ"
             /></mat-icon>
-            <span>{{ isProcessing ? 'ログイン中' : 'Twitterでログイン' }}</span>
+            <span>{{
+              authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
+            }}</span>
           </button>
         </p>
         <p class="welcome__notice">
