@@ -12,16 +12,16 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import { MyArticleComponent } from './my-article/my-article.component';
-import { LikesArticleComponent } from './likes-article/likes-article.component';
+import { MyArticlesComponent } from './my-articles/my-articles.component';
+import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [
     MypageComponent,
     NoteComponent,
-    MyArticleComponent,
-    LikesArticleComponent,
+    MyArticlesComponent,
+    LikedArticlesComponent,
   ],
   imports: [
     CommonModule,
@@ -37,4 +37,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
 })
-export class MypageModule {}
+export class MypageModule { }
