@@ -82,30 +82,17 @@ export class CreateComponent implements OnInit {
     this.location.back();
   }
 
-  getFirstImageURL(html: string): string {
-    const imgTagReg = new RegExp(/<img(?: .+?)?>.*?/i);
-    if (imgTagReg.test(html)) {
-      const firstImgTag = html.match(imgTagReg);
-      const srcReg = new RegExp(/src=["|'](.*?)["|']+/i);
-      return firstImgTag[0].match(srcReg)[1].replace(/&amp;/, '&');
-    } else {
-      return 'null';
-    }
-  }
-
   submit() {
     const formData = this.form.value;
-    const html: string = formData.editorContent;
-    const firstImageURL = this.getFirstImageURL(html);
     const sendData: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     > = {
       uid: this.authService.uid,
-      thumbnailURL: firstImageURL,
+      thumbnailURL: 'null',
       title: formData.title,
       tags: this.tags,
-      text: html,
+      text: formData.editorContent,
       isPublic: formData.isPublic,
     };
     this.isComplete = true;
