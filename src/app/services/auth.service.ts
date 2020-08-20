@@ -56,7 +56,6 @@ export class AuthService {
       this.snackBar.open('ログインしました。', '閉じる');
     })
       .catch((error) => {
-        this.router.navigateByUrl('/');
         console.error(error.message);
         this.snackBar.open(
           'ログインエラーです。数秒後にもう一度お試しください。',
@@ -73,7 +72,6 @@ export class AuthService {
         this.snackBar.open('ログアウトしました。', '閉じる');
       })
       .catch((error) => {
-        this.router.navigateByUrl('/');
         console.error(error.message);
         this.snackBar.open(
           'ログアウトエラーです。数秒後にもう一度お試しください。',
