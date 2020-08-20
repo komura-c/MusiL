@@ -88,7 +88,7 @@
           </p>
           <app-note-edit-buttons
             class="note-header__actions"
-            *ngIf="isAuthor(article.author)"
+            *ngIf="article.author.uid === authService.uid"
             [article]="article"
             [screenName]="article.author.screenName"
           >

@@ -1,13 +1,12 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable, of } from 'rxjs';
-import { map, switchMap, tap, catchError, take } from 'rxjs/operators';
+import { Observable, of, combineLatest } from 'rxjs';
+import { map, switchMap, tap, take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { Article } from 'functions/src/interfaces/article';
-import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -21,20 +20,65 @@ import { ScrollService } from 'src/app/services/scroll.service';
   styleUrls: ['./note.component.scss'],
 })
 export class NoteComponent implements OnInit, OnDestroy {
+  private articleId$: Observable<string> = this.route.paramMap.pipe(
+    map((params) => {
+      this.articleId = params.get('id');
+      return params.get('id');
+    })
+  );
   articleId: string;
-  article$: Observable<ArticleWithAuthor>;
+  article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
+    switchMap((articleId: string) => {
+      return this.articleService.getArticleOnly(articleId);
+    }),
+    switchMap((article: Article) => {
+      return combineLatest([of(article), this.userService.getUserData(article.uid)]
+      );
+    }),
+    map(([article, author]) => {
+      if (
+        (author && article.isPublic) ||
+        this.authService.uid === author?.uid
+      ) {
+        const result: ArticleWithAuthor = {
+          ...article,
+          author,
+        };
+        return result;
+      } else {
+        return null;
+      }
+    }),
+    tap((article: ArticleWithAuthor) => {
+      if (!this.likeCount) {
+        this.likeCount = article?.likeCount;
+        this.getHeading();
+      }
+      this.likeService
+        .isLiked(article?.articleId, this.authService.uid)
+        .pipe(take(1))
+        .toPromise().then((result) => {
+          this.isLiked = result;
+        });
+    }),
+    tap(() => {
+      this.loadingService.toggleLoading(false);
+      this.isLoading = false;
+      this.scrollService.restoreScrollPosition(this.articleId);
+    })
+  );
 
   activeHeadingIndex: number;
   headingPositions: number[] = [];
   headingElements: Element[] = [];
   headerHeight = 70;
 
-  isLoading: boolean;
+  isLoading = true;
 
   likeCount: number;
   isLiked: boolean;
 
-  path: string;
+  path: string = this.location.path();
 
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
@@ -53,70 +97,16 @@ export class NoteComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private articleService: ArticleService,
     private userService: UserService,
-    private authService: AuthService,
     private loadingService: LoadingService,
     private likeService: LikeService,
     private snackBar: MatSnackBar,
     private location: Location,
     private clipboard: Clipboard,
     private scrollService: ScrollService,
+    public authService: AuthService,
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
-    this.path = this.location.path();
-    this.route.paramMap.subscribe((params) => {
-      this.articleId = params.get('id');
-      const post$ = this.articleService.getArticleOnly(this.articleId);
-      let articleData: Article;
-      this.article$ = post$.pipe(
-        map((article: Article) => {
-          articleData = article;
-          return article?.uid;
-        }),
-        switchMap((uid: string) => {
-          return this.userService.getUserData(uid);
-        }),
-        map((author: UserData) => {
-          if (
-            (author && articleData.isPublic) ||
-            this.authService.uid === author?.uid
-          ) {
-            const result: ArticleWithAuthor = {
-              ...articleData,
-              author,
-            };
-            return result;
-          } else {
-            return null;
-          }
-        }),
-        tap((article: ArticleWithAuthor) => {
-          if (article) {
-            if (!this.likeCount) {
-              this.likeCount = article.likeCount;
-              this.getHeading();
-            }
-            this.likeService
-              .isLiked(article.articleId, this.authService.uid)
-              .pipe(take(1))
-              .subscribe((result) => {
-                this.isLiked = result;
-              });
-          }
-        }),
-        tap(() => {
-          this.loadingService.toggleLoading(false);
-          this.isLoading = false;
-          this.scrollService.restoreScrollPosition(this.articleId);
-        }),
-        catchError((error) => {
-          console.log(error.message);
-          this.loadingService.toggleLoading(false);
-          this.isLoading = false;
-          return of(null);
-        })
-      );
-    });
   }
 
   scrollToHeading(event) {
@@ -158,14 +148,6 @@ export class NoteComponent implements OnInit, OnDestroy {
       return link;
     } else {
       return description;
-    }
-  }
-
-  isAuthor(author: UserData) {
-    if (author.uid === this.authService.uid) {
-      return true;
-    } else {
-      return false;
     }
   }
 
