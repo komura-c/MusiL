@@ -41,11 +41,9 @@
       <span>トレンド</span>
     </h3>
     <div class="home-main__body">
-      <ng-container *ngFor="let article of popularArticles">
-        <div class="home-main__card">
-          <app-article *ngIf="article" [article]="article"></app-article>
-        </div>
-      </ng-container>
+      <div class="home-main__card" *ngFor="let article of popularArticles">
+        <app-article [article]="article"></app-article>
+      </div>
     </div>
   </div>
   <div class="home-sub" *ngIf="latestArticles$ | async as latestArticles">
@@ -54,11 +52,9 @@
       <span>最新の記事</span>
     </h3>
     <div class="home-sub__body">
-      <ng-container *ngFor="let article of latestArticles">
-        <div class="home-sub__card">
-          <app-article *ngIf="article" [article]="article"></app-article>
-        </div>
-      </ng-container>
+      <div class="home-sub__card" *ngFor="let article of latestArticles">
+        <app-article [article]="article"></app-article>
+      </div>
     </div>
   </div>
 </div>
