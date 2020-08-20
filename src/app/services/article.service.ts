@@ -23,7 +23,7 @@ export class ArticleService {
   ) { }
   snapArticleId: string;
 
-  getMyArticlessPublic(uid: string): Observable<Article[]> {
+  getMyArticlesPublic(uid: string): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref
@@ -97,7 +97,7 @@ export class ArticleService {
       );
   }
 
-  getMyArticlessAll(uid: string): Observable<Article[]> {
+  getMyArticlesAll(uid: string): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')
