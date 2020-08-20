@@ -21,6 +21,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService
   ) { }
+  snapArticleId: string;
 
   getArticles(uid: string): Observable<Article[]> {
     return this.db
@@ -79,6 +80,7 @@ export class ArticleService {
     >
   ): Promise<void> {
     const articleId = this.db.createId();
+    this.snapArticleId = articleId;
     return this.db.doc(`articles/${articleId}`).set({
       articleId,
       ...article,

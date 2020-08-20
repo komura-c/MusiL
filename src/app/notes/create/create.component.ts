@@ -108,6 +108,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     toolbarSticky: false,
     toolbarInline: false,
     heightMin: '260',
+    heightMax: '260',
     placeholderText: '作曲やDTMに関する知識を共有しよう',
     charCounterCount: true,
     attribution: false,
@@ -194,6 +195,7 @@ export class CreateComponent implements OnInit, OnDestroy {
     pastePlain: true,
     imageAddNewLine: true,
     videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
+    quickInsertTags: [],
     events: {
       initialized: (editor) => {
         this.froalaEditor = editor;
@@ -385,12 +387,12 @@ export class CreateComponent implements OnInit, OnDestroy {
       this.articleService
         .updateArticle(this.articleId, this.likeCount, sendData)
         .then(() => {
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/' + this.authService.uid + '/n/' + this.articleId);
           this.snackBar.open(msg, '閉じる');
         });
     } else {
       this.articleService.createArticle(sendData).then(() => {
-        this.router.navigateByUrl('/');
+        this.router.navigateByUrl('/' + this.authService.uid + '/n/' + this.articleService.snapArticleId);
         this.snackBar.open(msg, '閉じる');
       });
     }
