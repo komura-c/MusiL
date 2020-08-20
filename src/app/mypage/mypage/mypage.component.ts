@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mypage',
@@ -25,10 +26,13 @@ export class MypageComponent implements OnInit, OnDestroy {
     switchMap((screenName) => {
       return this.userService.getUserByScreenName(screenName);
     }),
+    tap((user) => {
+      this.title.setTitle(`${user.userName}(${user.screenName}) | MusiL`);
+    }),
     tap(() => {
       this.loadingService.toggleLoading(false);
       this.isLoading = false;
-    })
+    }),
   );
 
   isLoading = true;
@@ -38,6 +42,7 @@ export class MypageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
+    private title: Title,
     public authService: AuthService,
   ) {
     this.loadingService.toggleLoading(true);

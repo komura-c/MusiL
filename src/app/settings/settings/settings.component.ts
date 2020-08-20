@@ -11,6 +11,7 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-settings',
@@ -46,8 +47,10 @@ export class SettingsComponent implements OnInit {
     private fb: FormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private title: Title,
   ) {
+    this.title.setTitle('アカウント設定 | MusiL');
     this.loadingService.toggleLoading(true);
     this.user$.pipe(take(1)).toPromise().then((user: UserData) => {
       this.form.patchValue({
