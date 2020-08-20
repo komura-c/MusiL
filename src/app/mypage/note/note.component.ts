@@ -71,7 +71,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       this.article$ = post$.pipe(
         map((article: Article) => {
           articleData = article;
-          return article.uid;
+          return article?.uid;
         }),
         switchMap((uid: string) => {
           return this.userService.getUserData(uid);
@@ -79,7 +79,7 @@ export class NoteComponent implements OnInit, OnDestroy {
         map((author: UserData) => {
           if (
             (author && articleData.isPublic) ||
-            this.authService.uid === author.uid
+            this.authService.uid === author?.uid
           ) {
             const result: ArticleWithAuthor = {
               ...articleData,
