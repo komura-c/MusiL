@@ -7,11 +7,9 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./privacy.component.scss'],
 })
 export class PrivacyComponent implements OnInit {
-  constructor(
-    private title: Title,
-  ) {
+  constructor(private title: Title) {
     this.title.setTitle('プライバシーポリシー | MusiL');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

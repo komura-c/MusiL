@@ -29,7 +29,7 @@ export class ImageCropDialogComponent implements OnInit {
     this.imageSelecter = this.data.imageSelecter;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;

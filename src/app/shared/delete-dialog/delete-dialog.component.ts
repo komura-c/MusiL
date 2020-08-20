@@ -17,9 +17,9 @@ export class DeleteDialogComponent implements OnInit {
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   deleteArticle() {
     this.dialogRef.close();

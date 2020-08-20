@@ -18,7 +18,12 @@ import { EditorComponent } from './editor/editor.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 
 @NgModule({
-  declarations: [NotesComponent, CreateComponent, EditorComponent, TagFormComponent],
+  declarations: [
+    NotesComponent,
+    CreateComponent,
+    EditorComponent,
+    TagFormComponent,
+  ],
   imports: [
     CommonModule,
     NotesRoutingModule,

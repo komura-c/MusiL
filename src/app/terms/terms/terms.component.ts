@@ -7,11 +7,9 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./terms.component.scss'],
 })
 export class TermsComponent implements OnInit {
-  constructor(
-    private title: Title,
-  ) {
+  constructor(private title: Title) {
     this.title.setTitle('利用規約 | MusiL');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

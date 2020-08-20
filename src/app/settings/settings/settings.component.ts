@@ -48,19 +48,22 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private title: Title,
+    private title: Title
   ) {
     this.title.setTitle('アカウント設定 | MusiL');
     this.loadingService.toggleLoading(true);
-    this.user$.pipe(take(1)).toPromise().then((user: UserData) => {
-      this.form.patchValue({
-        userName: user.userName,
-        description: user.description,
+    this.user$
+      .pipe(take(1))
+      .toPromise()
+      .then((user: UserData) => {
+        this.form.patchValue({
+          userName: user.userName,
+          description: user.description,
+        });
       });
-    });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {

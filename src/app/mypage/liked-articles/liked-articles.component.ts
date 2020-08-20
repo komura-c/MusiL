@@ -11,20 +11,18 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./liked-articles.component.scss'],
 })
 export class LikedArticlesComponent implements OnInit {
-  articles$: Observable<ArticleWithAuthor[]> = this.articleService
+  articles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService
     .getMyLikedArticles(this.userService.mypageUser.uid)
-    .pipe(
-      tap(() =>
-        this.isLoading = false
-      )
-    );
+    .pipe(tap(() => (this.isLoading = false)));
 
   isLoading = true;
 
   constructor(
     private userService: UserService,
     private articleService: ArticleService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

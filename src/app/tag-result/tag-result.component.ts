@@ -37,7 +37,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private title: Title,
+    private title: Title
   ) {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe((params) => {
@@ -68,7 +68,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchTag);

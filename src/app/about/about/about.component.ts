@@ -11,14 +11,11 @@ export class AboutComponent implements OnInit {
   isProcessing: boolean;
   user$ = this.authService.user$;
 
-  constructor(
-    private authService: AuthService,
-    private title: Title
-  ) {
+  constructor(private authService: AuthService, private title: Title) {
     this.title.setTitle('MusiLについて | MusiL');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.isProcessing = true;

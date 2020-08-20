@@ -24,11 +24,11 @@ export class NotesComponent implements OnInit {
     private articleService: ArticleService,
     private authService: AuthService,
     private loadingService: LoadingService,
-    private title: Title,
+    private title: Title
   ) {
     this.title.setTitle('記事の管理 | MusiL');
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

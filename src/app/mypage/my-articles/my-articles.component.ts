@@ -11,7 +11,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./my-articles.component.scss'],
 })
 export class MyArticlesComponent implements OnInit {
-  articles$: Observable<ArticleWithAuthor[]> = this.articleService
+  articles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService
     .getMyArticlesPublic(this.userService.mypageUser.uid)
     .pipe(
       tap(() => {
@@ -24,7 +26,7 @@ export class MyArticlesComponent implements OnInit {
   constructor(
     private userService: UserService,
     private articleService: ArticleService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

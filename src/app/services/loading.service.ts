@@ -8,7 +8,7 @@ export class LoadingService {
   loadingSource = new Subject();
   loading$ = this.loadingSource.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   toggleLoading(status: boolean) {
     this.loadingSource.next(status);

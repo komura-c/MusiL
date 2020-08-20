@@ -18,10 +18,10 @@ export class NoteEditButtonsComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private clipboard: Clipboard,
-  ) { }
+    private clipboard: Clipboard
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {
@@ -33,7 +33,12 @@ export class NoteEditButtonsComponent implements OnInit {
 
   copyLink(): void {
     if (this.screenName) {
-      this.clipboard.copy('https://dtmplace-ad671.web.app/' + this.screenName + '/n/' + this.article.articleId);
+      this.clipboard.copy(
+        'https://dtmplace-ad671.web.app/' +
+          this.screenName +
+          '/n/' +
+          this.article.articleId
+      );
       this.snackBar.open('URLがコピーされました！', '閉じる');
     } else {
       this.snackBar.open('URLのコピーに失敗しました。', '閉じる');

@@ -32,7 +32,7 @@ export class MypageComponent implements OnInit, OnDestroy {
     tap(() => {
       this.loadingService.toggleLoading(false);
       this.isLoading = false;
-    }),
+    })
   );
 
   isLoading = true;
@@ -43,7 +43,7 @@ export class MypageComponent implements OnInit, OnDestroy {
     private loadingService: LoadingService,
     private scrollService: ScrollService,
     private title: Title,
-    public authService: AuthService,
+    public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
   }
@@ -52,12 +52,12 @@ export class MypageComponent implements OnInit, OnDestroy {
     const linkReg = new RegExp(
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
-    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+    const toATag = "<a href='$1' target='_blank'>$1</a>";
     const link = description.replace(linkReg, toATag);
     return link;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.screenName$.toPromise().then((screenName) => {
