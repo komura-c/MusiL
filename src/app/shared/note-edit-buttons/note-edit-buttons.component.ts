@@ -3,6 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/shared/delete-dialog/delete-dialog.component';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-note-edit-buttons',
@@ -11,8 +13,13 @@ import { Article } from '@interfaces/article';
 })
 export class NoteEditButtonsComponent implements OnInit {
   @Input() article: Article | ArticleWithAuthor;
+  @Input() screenName: string;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar,
+    private clipboard: Clipboard
+  ) {}
 
   ngOnInit(): void {}
 
@@ -22,5 +29,19 @@ export class NoteEditButtonsComponent implements OnInit {
       restoreFocus: false,
       data: article,
     });
+  }
+
+  copyLink(): void {
+    if (this.screenName) {
+      this.clipboard.copy(
+        'https://dtmplace-ad671.web.app/' +
+          this.screenName +
+          '/n/' +
+          this.article.articleId
+      );
+      this.snackBar.open('URLがコピーされました！', '閉じる');
+    } else {
+      this.snackBar.open('URLのコピーに失敗しました。', '閉じる');
+    }
   }
 }

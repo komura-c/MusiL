@@ -14,9 +14,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from '../shared/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { EditorComponent } from './editor/editor.component';
+import { TagFormComponent } from './tag-form/tag-form.component';
 
 @NgModule({
-  declarations: [NotesComponent, CreateComponent],
+  declarations: [
+    NotesComponent,
+    CreateComponent,
+    EditorComponent,
+    TagFormComponent,
+  ],
   imports: [
     CommonModule,
     NotesRoutingModule,

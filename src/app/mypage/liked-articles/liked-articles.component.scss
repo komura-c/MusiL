@@ -1,4 +1,4 @@
-.my-article {
+.liked-articles {
   max-width: 610px;
   margin: 0 auto;
   border: solid 1px #e0e0e0;
@@ -9,4 +9,7 @@
       border: none;
     }
   }
+}
+.no-article {
+  text-align: center;
 }

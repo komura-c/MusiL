@@ -8,7 +8,6 @@ import { LoadingService } from './services/loading.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'dtmplace';
   showHeader: boolean;
   showFooter: boolean;
 
@@ -21,7 +20,6 @@ export class AppComponent {
   ) {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        window.scrollTo(0, 0);
         this.showHeader =
           this.route.snapshot.firstChild.data.showHeader !== false;
         this.showFooter =

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-about',
@@ -10,7 +11,9 @@ export class AboutComponent implements OnInit {
   isProcessing: boolean;
   user$ = this.authService.user$;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private title: Title) {
+    this.title.setTitle('MusiLについて | MusiL');
+  }
 
   ngOnInit(): void {}
 
