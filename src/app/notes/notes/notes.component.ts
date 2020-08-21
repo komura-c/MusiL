@@ -6,6 +6,7 @@ import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
 import { tap } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-notes',
@@ -16,14 +17,16 @@ export class NotesComponent implements OnInit {
   uid = this.authService.uid;
   user$: Observable<UserData> = this.authService.user$;
   articles$: Observable<Article[]> = this.articleService
-    .getMyArticles(this.uid)
+    .getMyArticlesAll(this.uid)
     .pipe(tap(() => this.loadingService.toggleLoading(false)));
 
   constructor(
     private articleService: ArticleService,
     private authService: AuthService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private title: Title
   ) {
+    this.title.setTitle('記事の管理 | MusiL');
     this.loadingService.toggleLoading(true);
   }
 

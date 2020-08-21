@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyArticleComponent } from './my-article.component';
+import { LikedArticlesComponent } from './liked-articles.component';
 
-describe('MyArticleComponent', () => {
-  let component: MyArticleComponent;
-  let fixture: ComponentFixture<MyArticleComponent>;
+describe('LikedArticlesComponent', () => {
+  let component: LikedArticlesComponent;
+  let fixture: ComponentFixture<LikedArticlesComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [MyArticleComponent],
+      declarations: [LikedArticlesComponent],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyArticleComponent);
+    fixture = TestBed.createComponent(LikedArticlesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

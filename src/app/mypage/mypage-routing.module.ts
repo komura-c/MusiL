@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MypageComponent } from './mypage/mypage.component';
 import { NoteComponent } from './note/note.component';
-import { MyArticleComponent } from './my-article/my-article.component';
-import { LikesArticleComponent } from './likes-article/likes-article.component';
+import { MyArticlesComponent } from './my-articles/my-articles.component';
+import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 
 const routes: Routes = [
   {
@@ -16,12 +16,12 @@ const routes: Routes = [
     children: [
       {
         path: 'likes',
-        component: LikesArticleComponent,
+        component: LikedArticlesComponent,
       },
       {
         path: '',
         pathMatch: 'full',
-        component: MyArticleComponent,
+        component: MyArticlesComponent,
       },
     ],
   },

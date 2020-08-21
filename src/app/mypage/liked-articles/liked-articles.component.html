@@ -1,10 +1,7 @@
-<ng-container *ngIf="articles$ | async as articles">
-  <div class="likes-article">
-    <ng-container *ngIf="articles.length === 0">
-      <p class="no-article">まだ、記事はありません。</p>
-    </ng-container>
+<ng-container *ngIf="articles$ | async as articles; else notFound">
+  <div class="liked-articles">
     <ng-container *ngFor="let article of articles">
-      <div class="likes-article__card">
+      <div class="liked-articles__card">
         <app-article *ngIf="article" [article]="article"></app-article>
       </div>
     </ng-container>
@@ -13,3 +10,6 @@
 <ng-container *ngIf="isLoading">
   <mat-spinner class="loading-bar" diameter="100" strokeWidth="8"></mat-spinner>
 </ng-container>
+<ng-template #notFound>
+  <p class="no-article" *ngIf="!isLoading">まだ、記事はありません。</p>
+</ng-template>

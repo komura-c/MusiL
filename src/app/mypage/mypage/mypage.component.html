@@ -9,7 +9,7 @@
       <div class="mypage__user-profile">
         <div class="mypage__user-header">
           <h2 class="mypage__user-name">{{ user.userName }}</h2>
-          <ng-container *ngIf="isAuthor(user.uid)">
+          <ng-container *ngIf="user.uid === authService.uid">
             <button
               mat-stroked-button
               class="edit-profile"

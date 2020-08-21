@@ -1,45 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from 'src/app/services/user.service';
-import { Observable, of } from 'rxjs';
-import { tap, catchError } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';
-import { LoadingService } from 'src/app/services/loading.service';
+import { Observable } from 'rxjs';
+import { map, switchMap, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { LoadingService } from 'src/app/services/loading.service';
+import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from 'src/app/services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-mypage',
   templateUrl: './mypage.component.html',
   styleUrls: ['./mypage.component.scss'],
 })
-export class MypageComponent implements OnInit {
-  user$: Observable<UserData>;
+export class MypageComponent implements OnInit, OnDestroy {
+  screenName$: Observable<string> = this.route.paramMap.pipe(
+    map((params) => params.get('id'))
+  );
 
-  isLoading: boolean;
+  user$: Observable<UserData> = this.screenName$.pipe(
+    tap((screenName) => {
+      this.scrollService.restoreScrollPosition(screenName);
+    }),
+    switchMap((screenName) => {
+      return this.userService.getUserByScreenName(screenName);
+    }),
+    tap((user) => {
+      this.title.setTitle(`${user.userName}(${user.screenName}) | MusiL`);
+    }),
+    tap(() => {
+      this.loadingService.toggleLoading(false);
+      this.isLoading = false;
+    })
+  );
+
+  isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
-    private authService: AuthService,
-    private loadingService: LoadingService
+    private loadingService: LoadingService,
+    private scrollService: ScrollService,
+    private title: Title,
+    public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
-    this.isLoading = true;
-    this.route.paramMap.subscribe((params) => {
-      const screenName = params.get('id');
-      this.user$ = this.userService.getUserByScreenName(screenName).pipe(
-        tap(() => {
-          this.loadingService.toggleLoading(false);
-          this.isLoading = false;
-        }),
-        catchError((error) => {
-          console.log(error.message);
-          this.loadingService.toggleLoading(false);
-          this.isLoading = false;
-          return of(null);
-        })
-      );
-    });
   }
 
   stringToLink(description: string): string {
@@ -51,13 +57,11 @@ export class MypageComponent implements OnInit {
     return link;
   }
 
-  isAuthor(uid: string) {
-    if (uid === this.authService.uid) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.screenName$.toPromise().then((screenName) => {
+      this.scrollService.saveScrollPosition(screenName);
+    });
+  }
 }

@@ -1,14 +1,27 @@
 .tag-result {
-  max-width: 910px;
+  max-width: 610px;
   margin: 0 auto;
   &__header {
     text-align: center;
   }
+  &__title {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  &__keyword {
+    word-break: break-word;
+  }
   &__hits {
-    font-size: 20px;
+    margin-left: 16px;
   }
   &__body {
-    max-width: 610px;
-    margin: 0 auto;
+    border: solid 1px #e0e0e0;
+    border-radius: 4px;
+  }
+  &__card {
+    border-bottom: solid 1px #e0e0e0;
+    &:last-of-type {
+      border: none;
+    }
   }
 }

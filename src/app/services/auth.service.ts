@@ -25,6 +25,7 @@ export class AuthService {
     }),
     shareReplay(1)
   );
+  loginProcessing = false;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -34,54 +35,34 @@ export class AuthService {
   ) {}
 
   async login(): Promise<void> {
-    if (this.afUser$) {
-      await this.afAuth.signOut();
-    }
     const provider = new auth.TwitterAuthProvider();
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
-    const userProfObj = JSON.parse(JSON.stringify(additionalUserInfo.profile));
-    this.userService
+    const twitterProfile = additionalUserInfo.profile as any;
+    const userDoc: UserData = await this.userService
       .getUserData(user.uid)
       .pipe(take(1))
-      .subscribe(async (data: UserData) => {
-        if (!data || data.screenName === undefined) {
-          return await this.userService
-            .createUser(user.uid, userProfObj)
-            .then(() => {
-              this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', {
-                duration: 5000,
-              });
-            })
-            .catch((error) => {
-              this.router.navigateByUrl('/');
-              console.log(error.message);
-              this.snackBar.open(
-                'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる',
-                { duration: 5000 }
-              );
-            });
-        } else {
-          return await this.userService
-            .updateUser(user.uid, userProfObj)
-            .then(() => {
-              this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる', {
-                duration: 5000,
-              });
-            })
-            .catch((error) => {
-              this.router.navigateByUrl('/');
-              console.log(error.message);
-              this.snackBar.open(
-                'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる',
-                { duration: 5000 }
-              );
-            });
-        }
+      .toPromise();
+
+    let task: Promise<void>;
+
+    if (userDoc.screenName) {
+      task = this.userService.updateUser(user.uid, twitterProfile);
+    } else {
+      task = this.userService.createUser(user.uid, twitterProfile);
+    }
+
+    task
+      .then(() => {
+        this.router.navigateByUrl('/');
+        this.snackBar.open('ログインしました。', '閉じる');
+      })
+      .catch((error) => {
+        console.error(error.message);
+        this.snackBar.open(
+          'ログインエラーです。数秒後にもう一度お試しください。',
+          '閉じる'
+        );
       });
   }
 
@@ -90,17 +71,13 @@ export class AuthService {
       .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
-        this.snackBar.open('ログアウトしました。', '閉じる', {
-          duration: 5000,
-        });
+        this.snackBar.open('ログアウトしました。', '閉じる');
       })
       .catch((error) => {
-        this.router.navigateByUrl('/');
-        console.log(error.message);
+        console.error(error.message);
         this.snackBar.open(
           'ログアウトエラーです。数秒後にもう一度お試しください。',
-          '閉じる',
-          { duration: 5000 }
+          '閉じる'
         );
       });
   }

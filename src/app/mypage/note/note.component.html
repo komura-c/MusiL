@@ -41,7 +41,6 @@
         </a>
         <button
           mat-icon-button
-          href="#"
           class="left-actions__link"
           aria-label="リンクをコピー"
           matTooltip="リンクをコピー"
@@ -89,8 +88,9 @@
           </p>
           <app-note-edit-buttons
             class="note-header__actions"
-            *ngIf="isAuthor(article.author)"
+            *ngIf="article.author.uid === authService.uid"
             [article]="article"
+            [screenName]="article.author.screenName"
           >
           </app-note-edit-buttons>
         </div>
@@ -148,7 +148,6 @@
             </a>
             <button
               mat-icon-button
-              href="#"
               class="main-actions__link"
               aria-label="リンクをコピー"
               matTooltip="リンクをコピー"
@@ -201,28 +200,24 @@
       <div class="note__sub-box">
         <p class="note__sub-box-title">目次</p>
         <ul class="note__sub-box-toc">
-          <ng-container
-            *ngFor="let headingElement of headingElements; index as i"
-          >
-            <li>
-              <a
-                [href]="
-                  '/' +
-                  article.author.screenName +
-                  '/n/' +
-                  article.articleId +
-                  '#' +
-                  headingElement.id
-                "
-                [class.active]="i === activeHeadingIndex"
-                [class.toc-h2]="headingElement.tagName === 'H2'"
-                [class.toc-h3]="headingElement.tagName === 'H3'"
-                [class.toc-h4]="headingElement.tagName === 'H4'"
-                (click)="scrollToHeading($event)"
-                >{{ headingElement.textContent }}</a
-              >
-            </li>
-          </ng-container>
+          <li *ngFor="let headingElement of headingElements; index as i">
+            <a
+              [href]="
+                '/' +
+                article.author.screenName +
+                '/n/' +
+                article.articleId +
+                '#' +
+                headingElement.id
+              "
+              [class.active]="i === activeHeadingIndex"
+              [class.toc-h2]="headingElement.tagName === 'H2'"
+              [class.toc-h3]="headingElement.tagName === 'H3'"
+              [class.toc-h4]="headingElement.tagName === 'H4'"
+              (click)="scrollToHeading($event)"
+              >{{ headingElement.textContent }}</a
+            >
+          </li>
         </ul>
       </div>
     </ng-container>
