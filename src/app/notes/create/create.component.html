@@ -10,12 +10,14 @@
           placeholder="タイトル*"
           autocomplete="off"
         />
-        <mat-hint align="end">{{ titleInput.value?.length || 0 }}/255</mat-hint>
+        <mat-hint align="end"
+          >{{ titleInput.value?.length || 0 }}/{{ titleMaxLength }}</mat-hint
+        >
         <mat-error *ngIf="titleControl.hasError('required')"
           >必須項目です</mat-error
         >
         <mat-error *ngIf="titleControl.hasError('maxlength')"
-          >タイトルは255文字以内です</mat-error
+          >タイトルは{{ titleMaxLength }}文字以内です</mat-error
         >
       </mat-form-field>
       <app-tag-form
