@@ -27,10 +27,11 @@ export class CreateComponent implements OnInit {
     })
   );
   private articleId: string;
+  readonly titleMaxLength = 255;
 
   tags: string[] = [];
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(255)]],
+    title: ['', [Validators.required, Validators.maxLength(this.titleMaxLength)]],
     tag: [''],
     editorContent: [''],
     isPublic: [true],
@@ -130,5 +131,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
