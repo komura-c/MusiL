@@ -1,19 +1,17 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable, of, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
-import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { Article } from 'functions/src/interfaces/article';
 import { LoadingService } from 'src/app/services/loading.service';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-note',
@@ -30,41 +28,39 @@ export class NoteComponent implements OnInit, OnDestroy {
   articleId: string;
   article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
     switchMap((articleId: string) => {
-      return this.articleService.getArticleOnly(articleId);
+      return this.articleService.getArticleWithAuthorOnly(articleId).pipe(take(1));
     }),
-    switchMap((article: Article) => {
-      return combineLatest([
-        of(article),
-        this.userService.getUserData(article.uid),
-      ]);
-    }),
-    map(([article, author]) => {
-      if (
-        (author && article.isPublic) ||
-        this.authService.uid === author?.uid
-      ) {
-        const result: ArticleWithAuthor = {
-          ...article,
-          author,
-        };
-        return result;
+    map((article: ArticleWithAuthor) => {
+      if ((article?.isPublic) || (this.authService.uid === article?.author.uid)) {
+        return article;
       } else {
         return null;
       }
     }),
     tap((article: ArticleWithAuthor) => {
-      if (!this.likeCount) {
-        this.likeCount = article?.likeCount;
-        this.getHeading();
+      if (article) {
+        if (!this.likeCount) {
+          this.likeCount = article?.likeCount;
+        }
+        this.likeService
+          .isLiked(article.articleId, this.authService.uid)
+          .pipe(take(1))
+          .toPromise()
+          .then((result) => {
+            this.isLiked = result;
+          });
+        const html2textReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
+        const descriptionMaxLength = 120;
+        const description = article.text.replace(html2textReg, '').slice(0, descriptionMaxLength) + '…';
+        const metaTags = {
+          title: `${article.title} | MusiL`,
+          description,
+          ogType: 'article',
+          ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
+          twitterCard: 'summary_large_image',
+        };
+        this.seoService.setTitleAndMeta(metaTags);
       }
-      this.likeService
-        .isLiked(article?.articleId, this.authService.uid)
-        .pipe(take(1))
-        .toPromise()
-        .then((result) => {
-          this.isLiked = result;
-        });
-      this.title.setTitle(`${article.title} | MusiL`);
     }),
     tap(() => {
       this.loadingService.toggleLoading(false);
@@ -101,14 +97,13 @@ export class NoteComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private userService: UserService,
     private loadingService: LoadingService,
     private likeService: LikeService,
     private snackBar: MatSnackBar,
     private location: Location,
     private clipboard: Clipboard,
+    private seoService: SeoService,
     private scrollService: ScrollService,
-    private title: Title,
     public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
@@ -149,7 +144,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = "<a href='$1' target='_blank'>$1</a>";
+      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -176,7 +171,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

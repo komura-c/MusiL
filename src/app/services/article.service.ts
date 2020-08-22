@@ -6,7 +6,7 @@ import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ArticleService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService
-  ) {}
+  ) { }
   snapArticleId: string;
 
   getMyArticlesPublic(uid: string): Observable<ArticleWithAuthor[]> {
@@ -172,6 +172,29 @@ export class ArticleService {
             return result;
           });
         } else {
+          return null;
+        }
+      })
+    );
+  }
+
+  getArticleWithAuthorOnly(articleId: string): Observable<ArticleWithAuthor> {
+    return this.getArticleOnly(articleId).pipe(
+      switchMap((article: Article) => {
+        return combineLatest([
+          of(article),
+          this.userService.getUserData(article?.uid),
+        ]);
+      }),
+      map(([article, author]) => {
+        if (article && author) {
+          const result: ArticleWithAuthor = {
+            ...article,
+            author,
+          };
+          return result;
+        }
+        else {
           return null;
         }
       })
