@@ -9,8 +9,7 @@
     }
   },
   "projects": {
-    “dev”: "dtmplace-ad671”,
-    “prod”: "dtmplace-ad671”,
-    "default": "dtmplace-ad671"
+    "default": "dtmplace-ad671",
+    "dev": "dtmplace-ad671"
   }
 }
