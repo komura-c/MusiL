@@ -55,8 +55,8 @@ img {
 .fr-view a {
   color: #ff5500;
 }
-.fr-view p {
-  opacity: 1 !important;
+.fr-view p[data-f-id='pbf'] {
+  display: none !important;
 }
 .fr-embedly {
   width: 100%;
