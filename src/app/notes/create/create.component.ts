@@ -29,6 +29,8 @@ export class CreateComponent implements OnInit {
   private articleId: string;
   readonly titleMaxLength = 255;
 
+  // NOTE: Guardで使用している
+  public isComplete = false;
   tags: string[] = [];
   form = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(this.titleMaxLength)]],
@@ -36,7 +38,6 @@ export class CreateComponent implements OnInit {
     editorContent: [''],
     isPublic: [true],
   });
-  isComplete = false;
 
   get titleControl() {
     return this.form.get('title') as FormControl;
