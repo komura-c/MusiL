@@ -27,9 +27,11 @@ export class SettingsComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => this.loadingService.toggleLoading(false))
   );
+  userNameMaxLength = 50;
+  descriptionMaxLength = 160;
   form = this.fb.group({
-    userName: ['', [Validators.required, Validators.maxLength(50)]],
-    description: ['', [Validators.maxLength(160)]],
+    userName: ['', [Validators.required, Validators.maxLength(this.userNameMaxLength)]],
+    description: ['', [Validators.maxLength(this.descriptionMaxLength)]],
   });
 
   get userNameControl() {
@@ -63,7 +65,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {
