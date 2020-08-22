@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -18,7 +18,10 @@ export class NotesComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;
   articles$: Observable<Article[]> = this.articleService
     .getMyArticlesAll(this.uid)
-    .pipe(tap(() => this.loadingService.toggleLoading(false)));
+    .pipe(
+      take(1),
+      tap(() => this.loadingService.toggleLoading(false))
+    );
 
   constructor(
     private articleService: ArticleService,

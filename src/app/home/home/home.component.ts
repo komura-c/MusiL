@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { tap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
@@ -22,18 +22,22 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   popularArticles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService.getPopularArticles().pipe(
-    tap(() => {
-      this.loadingService.toggleLoading(false);
-      this.scrollService.restoreScrollPosition('top-page');
-    })
-  );
+  > = this.articleService
+    .getPopularArticles().pipe(
+      take(1),
+      tap(() => {
+        this.loadingService.toggleLoading(false);
+        this.scrollService.restoreScrollPosition('top-page');
+      })
+    );
 
   latestArticles$: Observable<
     ArticleWithAuthor[]
   > = this.articleService
-    .getLatestArticles()
-    .pipe(tap(() => this.loadingService.toggleLoading(false)));
+    .getLatestArticles().pipe(
+      take(1),
+      tap(() => this.loadingService.toggleLoading(false))
+    );
 
   constructor(
     private articleService: ArticleService,
