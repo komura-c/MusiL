@@ -49,13 +49,13 @@ export class TagResultComponent implements OnInit, OnDestroy {
         .then((searchResult) => (this.searchResult = searchResult))
         .then(() => {
           if (this.searchResult.hits) {
-            const algoriaItemIds: string[] = this.searchResult.hits.map(
-              (algoriaItem) => algoriaItem.articleId
+            const algoliaItemIds: string[] = this.searchResult.hits.map(
+              (algoliaItem) => algoliaItem.articleId
             );
             this.articles$ = this.articleService.getLatestArticles().pipe(
               map((articles: ArticleWithAuthor[]) => {
                 return articles.filter((article: Article) =>
-                  algoriaItemIds.includes(article.articleId)
+                  algoliaItemIds.includes(article.articleId)
                 );
               }),
               tap(() => {
@@ -68,7 +68,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchTag);
