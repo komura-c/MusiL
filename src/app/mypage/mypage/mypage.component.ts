@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-mypage',
@@ -27,7 +27,18 @@ export class MypageComponent implements OnInit, OnDestroy {
       return this.userService.getUserByScreenName(screenName);
     }),
     tap((user) => {
-      this.title.setTitle(`${user.userName}(${user.screenName}) | MusiL`);
+      if (user) {
+        const descriptionMaxLength = 120;
+        const description = user.description.slice(0, descriptionMaxLength) + '…';
+        const metaTags = {
+          title: `${user.userName}(${user.screenName}) | MusiL`,
+          description,
+          ogType: null,
+          ogImage: null,
+          twitterCard: null,
+        };
+        this.seoService.setTitleAndMeta(metaTags);
+      }
     }),
     tap(() => {
       this.loadingService.toggleLoading(false);
@@ -42,7 +53,7 @@ export class MypageComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private title: Title,
+    private seoService: SeoService,
     public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
@@ -52,12 +63,12 @@ export class MypageComponent implements OnInit, OnDestroy {
     const linkReg = new RegExp(
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
-    const toATag = "<a href='$1' target='_blank'>$1</a>";
+    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
     const link = description.replace(linkReg, toATag);
     return link;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.screenName$.toPromise().then((screenName) => {

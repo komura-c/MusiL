@@ -11,7 +11,7 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-settings',
@@ -50,9 +50,16 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private title: Title
+    private seoService: SeoService,
   ) {
-    this.title.setTitle('アカウント設定 | MusiL');
+    const metaTags = {
+      title: 'アカウント設定 | MusiL',
+      description: 'アカウント設定のページです',
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
     this.loadingService.toggleLoading(true);
     this.user$
       .pipe(take(1))

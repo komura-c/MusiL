@@ -5,8 +5,8 @@ import { Meta, Title } from '@angular/platform-browser';
   providedIn: 'root'
 })
 export class SeoService {
-  notFoundMetas = {
-    title: `ページが見つかりません | MusiL`,
+  readonly notFoundMetas = {
+    title: 'ページが見つかりません | MusiL',
     description: 'お探しのページは、削除されたかURLが変更された可能性があります。',
     ogType: 'article',
     ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
@@ -24,7 +24,7 @@ export class SeoService {
       { property: 'og:type', content: metaTags.ogType ? metaTags.title : this.notFoundMetas.ogType },
       { property: 'og:url', content: location.href },
       { property: 'og:image', content: metaTags.ogImage ? metaTags.title : this.notFoundMetas.ogImage },
-      { name: 'twitter:card', content: metaTags.twitterCard ? metaTags.title : this.notFoundMetas.ogImage },
+      { name: 'twitter:card', content: metaTags.twitterCard ? metaTags.title : this.notFoundMetas.twitterCard },
     ]);
   }
 }
