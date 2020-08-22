@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  algoria: {
+  algolia: {
     appId: '80GEBX53JJ',
     searchKey: '82e0769948e05598431bc29d2e801f57',
   },
