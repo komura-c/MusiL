@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { ArticleService } from '../services/article.service';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
@@ -68,6 +68,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
               (algoliaItem) => algoliaItem.articleId
             );
             this.articles$ = this.articleService.getLatestArticles().pipe(
+              take(1),
               map((articles: ArticleWithAuthor[]) => {
                 return articles.filter((article: Article) =>
                   algoliaItemIds.includes(article.articleId)

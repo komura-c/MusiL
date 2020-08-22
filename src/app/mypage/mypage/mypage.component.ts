@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserData } from 'functions/src/interfaces/user';
 import { Observable } from 'rxjs';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { ScrollService } from 'src/app/services/scroll.service';
@@ -24,7 +24,7 @@ export class MypageComponent implements OnInit, OnDestroy {
       this.scrollService.restoreScrollPosition(screenName);
     }),
     switchMap((screenName) => {
-      return this.userService.getUserByScreenName(screenName);
+      return this.userService.getUserByScreenName(screenName).pipe(take(1));
     }),
     tap((user) => {
       if (user) {

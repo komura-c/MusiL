@@ -40,7 +40,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     tap((article: ArticleWithAuthor) => {
       if (article) {
         if (!this.likeCount) {
-          this.likeCount = article?.likeCount;
+          this.likeCount = article.likeCount;
         }
         this.likeService
           .isLiked(article.articleId, this.authService.uid)
@@ -63,6 +63,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       }
     }),
     tap(() => {
+      this.getHeading();
       this.loadingService.toggleLoading(false);
       this.isLoading = false;
       this.scrollService.restoreScrollPosition(this.articleId);

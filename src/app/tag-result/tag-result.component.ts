@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
 import { Observable } from 'rxjs';
@@ -60,6 +60,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
               (algoliaItem) => algoliaItem.articleId
             );
             this.articles$ = this.articleService.getLatestArticles().pipe(
+              take(1),
               map((articles: ArticleWithAuthor[]) => {
                 return articles.filter((article: Article) =>
                   algoliaItemIds.includes(article.articleId)
