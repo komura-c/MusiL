@@ -1,5 +1,5 @@
 <div class="settings">
-  <h1 class="settings__title">設定</h1>
+  <h1 class="settings__title">アカウント設定</h1>
   <ng-container *ngIf="user$ | async as user">
     <h2 class="settings__heading">プロフィール</h2>
     <form class="settings__profile-form" [formGroup]="form">
@@ -27,14 +27,20 @@
           type="text"
           formControlName="userName"
           matInput
+          #userNameInput
           placeholder="ユーザー名*"
           autocomplete="off"
         />
+        <mat-hint align="end"
+          >{{ userNameInput.value?.length || 0 }}/{{
+            userNameMaxLength
+          }}</mat-hint
+        >
         <mat-error *ngIf="userNameControl.hasError('required')"
           >必須項目です</mat-error
         >
         <mat-error *ngIf="userNameControl.hasError('maxlength')"
-          >50文字以内にしてください</mat-error
+          >ユーザー名は{{ userNameMaxLength }}文字以内です</mat-error
         >
       </mat-form-field>
       <div class="settings__screen-name">
@@ -49,12 +55,18 @@
           type="text"
           formControlName="description"
           matInput
+          #descriptionInput
           placeholder="自己紹介"
           autocomplete="off"
           class="settings__description-text"
         ></textarea>
+        <mat-hint align="end"
+          >{{ descriptionInput.value?.length || 0 }}/{{
+            descriptionMaxLength
+          }}</mat-hint
+        >
         <mat-error *ngIf="descriptionControl.hasError('maxlength')"
-          >160文字以内にしてください</mat-error
+          >自己紹介は{{ descriptionMaxLength }}文字以内です</mat-error
         >
       </mat-form-field>
       <button
