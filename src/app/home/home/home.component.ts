@@ -7,7 +7,7 @@ import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
 import { ScrollService } from 'src/app/services/scroll.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -39,11 +39,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
+    private seoService: SeoService,
     public authService: AuthService,
-    private title: Title
   ) {
+    const metaTags = {
+      title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
+      description: 'DTMや作曲の知識を記録しよう',
+      ogType: 'article',
+      ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
+      twitterCard: 'summary_large_image',
+    };
+    this.seoService.setTitleAndMeta(metaTags);
     this.loadingService.toggleLoading(true);
-    this.title.setTitle('MusiL | DTMや作曲の知識記録プラットフォーム');
   }
 
   login() {
@@ -53,7 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition('top-page');

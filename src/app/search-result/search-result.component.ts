@@ -8,7 +8,7 @@ import { map, tap } from 'rxjs/operators';
 import { Article } from '@interfaces/article';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../services/seo.service';
 
 @Component({
   selector: 'app-search-result',
@@ -35,15 +35,29 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private title: Title
+    private seoService: SeoService,
   ) {
     this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
       this.searchQuery = params.get('q');
       if (this.searchQuery) {
-        this.title.setTitle(`「${this.searchQuery}」の検索結果 | MusiL`);
+        const metaTags = {
+          title: `「${this.searchQuery}」の検索結果 | MusiL`,
+          description: '検索結果を表示するページです',
+          ogType: null,
+          ogImage: null,
+          twitterCard: null,
+        };
+        this.seoService.setTitleAndMeta(metaTags);
       } else {
-        this.title.setTitle('最新の記事一覧 | MusiL');
+        const metaTags = {
+          title: `最新の記事一覧 | MusiL`,
+          description: '最新の記事一覧を表示するページです',
+          ogType: null,
+          ogImage: null,
+          twitterCard: null,
+        };
+        this.seoService.setTitleAndMeta(metaTags);
       }
       this.index
         .search(this.searchQuery, this.searchOptions)

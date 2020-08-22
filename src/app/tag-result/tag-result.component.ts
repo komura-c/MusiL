@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../services/search.service';
 import { ArticleService } from '../services/article.service';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from '../services/seo.service';
 
 @Component({
   selector: 'app-tag-result',
@@ -37,12 +37,19 @@ export class TagResultComponent implements OnInit, OnDestroy {
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private title: Title
+    private seoService: SeoService
   ) {
     this.loadingService.toggleLoading(true);
     this.route.paramMap.subscribe((params) => {
       this.searchTag = params.get('id');
-      this.title.setTitle(`${this.searchTag}に関する記事 | MusiL`);
+      const metaTags = {
+        title: `${this.searchTag}に関する記事 | MusiL`,
+        description: 'タグの関連記事を表示するページです',
+        ogType: null,
+        ogImage: null,
+        twitterCard: null,
+      };
+      this.seoService.setTitleAndMeta(metaTags);
       this.searchOptions.facetFilters.push('tags:' + this.searchTag);
       this.index
         .search('', this.searchOptions)

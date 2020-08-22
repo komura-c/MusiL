@@ -6,7 +6,7 @@ import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
 import { tap } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-notes',
@@ -24,11 +24,18 @@ export class NotesComponent implements OnInit {
     private articleService: ArticleService,
     private authService: AuthService,
     private loadingService: LoadingService,
-    private title: Title
+    private seoService: SeoService
   ) {
-    this.title.setTitle('記事の管理 | MusiL');
+    const metaTags = {
+      title: `記事の管理 | MusiL`,
+      description: `自分の記事を管理するページです`,
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-create',
@@ -55,9 +55,16 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private title: Title
+    private seoService: SeoService,
   ) {
-    this.title.setTitle('記事の編集 | MusiL');
+    const metaTags = {
+      title: `記事の編集 | MusiL`,
+      description: `記事を投稿・編集するページです`,
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
     this.article$
       .pipe(take(1))
       .toPromise()
