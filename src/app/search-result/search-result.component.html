@@ -8,10 +8,11 @@
     </h2>
   </div>
   <div class="search-result__body" *ngIf="articles$ | async as articles">
-    <ng-container *ngFor="let article of articles">
-      <div class="search-result__card">
-        <app-article *ngIf="article" [article]="article"></app-article>
-      </div>
-    </ng-container>
+    <div class="search-result__card" *ngFor="let article of articles">
+      <app-article [article]="article"></app-article>
+    </div>
+    <p class="no-article" *ngIf="articles.length === 0">
+      「{{ searchQuery }}」に一致する記事は見つかりませんでした。
+    </p>
   </div>
 </div>
