@@ -15,3 +15,6 @@ export {
   countUpLiked,
   countDownLiked,
 } from './like.function';
+export {
+  render
+} from './render.function';
