@@ -31,7 +31,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       return this.articleService.getArticleWithAuthorOnly(articleId).pipe(take(1));
     }),
     map((article: ArticleWithAuthor) => {
-      if ((article?.isPublic) || (this.authService.uid === article?.author.uid)) {
+      if ((article?.isPublic) || (this.authService.uid === article?.author?.uid)) {
         return article;
       } else {
         return null;
@@ -51,7 +51,7 @@ export class NoteComponent implements OnInit, OnDestroy {
           });
         const html2textReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
         const descriptionMaxLength = 120;
-        const description = article.text.replace(html2textReg, '').slice(0, descriptionMaxLength) + '…';
+        const description = article.text?.replace(html2textReg, '').slice(0, descriptionMaxLength) + '…';
         const metaTags = {
           title: `${article.title} | MusiL`,
           description,
