@@ -32,6 +32,8 @@ jobs:
         with:
           name: dist
           path: dist
+      - name: Copy index.html
+        run: cp dist/dtm-place/index.html functions/lib/
       - name: Install Dependencies
         run: cd functions && npm install
       - name: Deploy to Firebase
