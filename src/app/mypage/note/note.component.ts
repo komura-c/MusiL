@@ -56,8 +56,8 @@ export class NoteComponent implements OnInit, OnDestroy {
           title: `${article.title} | MusiL`,
           description,
           ogType: 'article',
-          ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
-          twitterCard: 'summary_large_image',
+          ogImage: null,
+          twitterCard: null,
         };
         this.seoService.setTitleAndMeta(metaTags);
       }
