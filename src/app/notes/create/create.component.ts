@@ -104,7 +104,7 @@ export class CreateComponent implements OnInit {
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     > = {
       uid: this.authService.uid,
-      thumbnailURL: 'null',
+      thumbnailURL: null,
       title: formData.title,
       tags: this.tags,
       text: formData.editorContent,
