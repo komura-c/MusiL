@@ -49,9 +49,9 @@ export class HomeComponent implements OnInit, OnDestroy {
     const metaTags = {
       title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
       description: 'DTMや作曲の知識を記録しよう',
-      ogType: 'article',
-      ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
-      twitterCard: 'summary_large_image',
+      ogType: 'website',
+      ogImage: null,
+      twitterCard: null,
     };
     this.seoService.setTitleAndMeta(metaTags);
     this.loadingService.toggleLoading(true);
