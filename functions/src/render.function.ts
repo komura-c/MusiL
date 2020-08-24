@@ -20,14 +20,14 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const ogURL = xss('https://dtmplace-ad671.web.app/' + articleAndScreenName.screenName + '/n/' + articleAndScreenName.articleId);
   const ogImage = xss(articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png');
   return file
-    .replace(/\<title>.*<\/title>/g, '<title>' + title + '</title>')
+    .replace(/\<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
     .replace(
       /<meta name="description" content="[^>]*>/g,
       '<meta name="description" content="' + description + '" />'
     )
     .replace(
       /<meta property="og:title" content="[^>]*>/g,
-      '<meta property="og:title" content="' + title + '" />'
+      '<meta property="og:title" content="' + title + ' | MusiL" />'
     )
     .replace(
       /<meta property="og:description" content="[^>]*>/g,
