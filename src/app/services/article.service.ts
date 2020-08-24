@@ -67,6 +67,7 @@ export class ArticleService {
   }
 
   deleteArticle(articleId: string): Promise<void> {
+    this.ogpService.deleteOgp(articleId);
     return this.db.doc(`articles/${articleId}`).delete();
   }
 
