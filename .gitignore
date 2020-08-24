@@ -46,6 +46,5 @@ testem.log
 Thumbs.db
 .vscode
 
-functions/lib
 .runtimeconfig.json
 .firebase
