@@ -3,8 +3,8 @@ import * as express from 'express';
 import * as useragent from 'express-useragent';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import xss from 'xss';
 import * as admin from 'firebase-admin'
+const xss = require("xss");
 
 const db = admin.firestore();
 // コピーされたindex.htmlの中身を取得
