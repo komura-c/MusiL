@@ -78,11 +78,14 @@ export class OgpService {
   }
 
   async uploadOgp(articleId: string, ogpImage: string): Promise<string> {
-    const time: number = new Date().getTime();
     const result = await this.storage
-      .ref(`articles/${articleId}/ogp/${time}`)
+      .ref(`articles/${articleId}`)
       .putString(ogpImage, 'data_url');
     return await result.ref.getDownloadURL();
+  }
+
+  async deleteOgp(articleId: string) {
+    return this.storage.ref(`articles/${articleId}`).delete();
   }
 }
 
