@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
@@ -6,7 +6,6 @@ import { tap, take } from 'rxjs/operators';
 import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
-import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -14,7 +13,7 @@ import { SeoService } from 'src/app/services/seo.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   isLoading = true;
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => (this.isLoading = false))
@@ -27,7 +26,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       take(1),
       tap(() => {
         this.loadingService.toggleLoading(false);
-        this.scrollService.restoreScrollPosition('top-page');
       })
     );
 
@@ -42,7 +40,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private articleService: ArticleService,
     private loadingService: LoadingService,
-    private scrollService: ScrollService,
     private seoService: SeoService,
     public authService: AuthService,
   ) {
@@ -65,8 +62,4 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void { }
-
-  ngOnDestroy(): void {
-    this.scrollService.saveScrollPosition('top-page');
-  }
 }
