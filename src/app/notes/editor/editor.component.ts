@@ -159,13 +159,10 @@ export class EditorComponent implements OnInit {
             soundCloudURL[2] +
             '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' +
             text;
-          const currentValue = this.parentForm.value;
-          this.parentForm.patchValue({
-            title: currentValue.title,
-            tags: currentValue.tags,
-            editorContent: currentValue.editorContent + soundCloudEmbedPlayer,
-            isPublic: currentValue.isPublic,
-          });
+          const currentValue = this.editorContentControl.value;
+          this.editorContentControl.patchValue(
+            currentValue + soundCloudEmbedPlayer
+          );
           this.ngZone.run(() => {
             const msg = 'SoundCloudの埋め込みが完了しました';
             this.snackBar.open(msg, '閉じる');

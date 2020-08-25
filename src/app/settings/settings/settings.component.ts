@@ -11,7 +11,7 @@ import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-settings',
@@ -27,9 +27,14 @@ export class SettingsComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => this.loadingService.toggleLoading(false))
   );
+  userNameMaxLength = 50;
+  descriptionMaxLength = 160;
   form = this.fb.group({
-    userName: ['', [Validators.required, Validators.maxLength(50)]],
-    description: ['', [Validators.maxLength(160)]],
+    userName: [
+      '',
+      [Validators.required, Validators.maxLength(this.userNameMaxLength)],
+    ],
+    description: ['', [Validators.maxLength(this.descriptionMaxLength)]],
   });
 
   get userNameControl() {
@@ -48,9 +53,16 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private title: Title
+    private seoService: SeoService
   ) {
-    this.title.setTitle('アカウント設定 | MusiL');
+    const metaTags = {
+      title: 'アカウント設定 | MusiL',
+      description: 'アカウント設定のページです',
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
     this.loadingService.toggleLoading(true);
     this.user$
       .pipe(take(1))

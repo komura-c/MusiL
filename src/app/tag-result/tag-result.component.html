@@ -6,10 +6,19 @@
     </h2>
   </div>
   <div class="tag-result__body" *ngIf="articles$ | async as articles">
-    <ng-container *ngFor="let article of articles">
-      <div class="tag-result__card">
-        <app-article *ngIf="article" [article]="article"></app-article>
-      </div>
-    </ng-container>
+    <div class="tag-result__card" *ngFor="let article of articles">
+      <app-article [article]="article"></app-article>
+    </div>
   </div>
+  <mat-paginator
+    *ngIf="searchResult?.nbHits > defaultPageSize"
+    [length]="searchResult?.nbHits"
+    [pageSize]="defaultPageSize"
+    [pageIndex]="pageIndex"
+    (page)="routeSearch($event)"
+  >
+  </mat-paginator>
+  <p class="no-article" *ngIf="searchResult?.nbHits === 0">
+    「{{ searchTag }}」に関する記事は見つかりませんでした。
+  </p>
 </div>

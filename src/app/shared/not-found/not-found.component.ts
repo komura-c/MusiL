@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-not-found',
@@ -7,8 +7,15 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./not-found.component.scss'],
 })
 export class NotFoundComponent implements OnInit {
-  constructor(private title: Title) {
-    this.title.setTitle('ページが見つかりません | MusiL');
+  constructor(private seoService: SeoService) {
+    const metaTags = {
+      title: null,
+      description: null,
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
   }
 
   ngOnInit(): void {}
