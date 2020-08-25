@@ -59,7 +59,7 @@
   }
   &__screen-name-text {
     font-weight: bold;
-    padding: 12px;
+    padding-left: 12px;
   }
   &__description {
     width: 100%;
@@ -82,10 +82,4 @@
   display: block;
   margin-left: auto;
   margin-bottom: 12px;
-}
-
-:host {
-  .mat-form-field {
-    margin-bottom: -10px;
-  }
 }

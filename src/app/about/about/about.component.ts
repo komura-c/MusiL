@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
-import { Title } from '@angular/platform-browser';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-about',
@@ -11,8 +11,18 @@ export class AboutComponent implements OnInit {
   isProcessing: boolean;
   user$ = this.authService.user$;
 
-  constructor(private authService: AuthService, private title: Title) {
-    this.title.setTitle('MusiLについて | MusiL');
+  constructor(
+    private authService: AuthService,
+    private seoService: SeoService
+  ) {
+    const metaTags = {
+      title: 'MusiLについて | MusiL',
+      description: 'MusiLについて説明するページです',
+      ogType: null,
+      ogImage: null,
+      twitterCard: null,
+    };
+    this.seoService.setTitleAndMeta(metaTags);
   }
 
   ngOnInit(): void {}

@@ -3,8 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { SearchService } from '../services/search.service';
 import { startWith, debounceTime, take } from 'rxjs/operators';
-import { Subscription, pipe } from 'rxjs';
-import { ArticleWithAuthor } from '@interfaces/article-with-author';
+import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { UserData } from '@interfaces/user';
 

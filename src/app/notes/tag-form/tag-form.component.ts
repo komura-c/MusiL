@@ -57,10 +57,10 @@ export class TagFormComponent implements OnInit, OnDestroy {
     } else if ((value || '').trim() && this.tags.length < maxLength) {
       this.isTagWordOver = false;
       this.tags.push(value);
+      if (input) {
+        input.value = '';
+      }
       this.tagControl.patchValue(null);
-    }
-    if (input) {
-      input.value = '';
     }
   }
 

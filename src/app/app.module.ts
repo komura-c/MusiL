@@ -30,6 +30,11 @@ import { SharedModule } from './shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { TagResultComponent } from './tag-result/tag-result.component';
+import {
+  MatPaginatorModule,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
+import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
 
 @NgModule({
   declarations: [
@@ -64,10 +69,12 @@ import { TagResultComponent } from './tag-result/tag-result.component';
     SharedModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    MatPaginatorModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 } },
+    { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
   ],
   bootstrap: [AppComponent],
 })

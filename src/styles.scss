@@ -27,6 +27,9 @@ img {
 .loading-bar {
   margin: 40px auto;
 }
+.no-article {
+  text-align: center;
+}
 
 .mypage__user-description a {
   color: #ff5500;
@@ -45,7 +48,7 @@ img {
   height: 0;
   visibility: hidden;
 }
-.fr-wrapper > .fr-element.fr-view {
+.fr-wrapper .fr-element.fr-view {
   height: 100%;
   visibility: visible;
 }
@@ -55,8 +58,11 @@ img {
 .fr-view a {
   color: #ff5500;
 }
-.fr-view p {
-  opacity: 1 !important;
+.fr-view p[data-f-id='pbf'] {
+  visibility: hidden;
+}
+.second-toolbar a#logo {
+  visibility: hidden;
 }
 .fr-embedly {
   width: 100%;
