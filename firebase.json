@@ -5,7 +5,8 @@
     "rewrites": [
       {
         "source": "/**/n/**",
-        "function": "render"
+        "function": "render",
+        "region": "asia-northeast1"
       },
       {
         "source": "**",
