@@ -11,8 +11,8 @@
     <div class="search-result__card" *ngFor="let article of articles">
       <app-article [article]="article"></app-article>
     </div>
-    <p class="no-article" *ngIf="articles.length === 0">
-      「{{ searchQuery }}」に一致する記事は見つかりませんでした。
-    </p>
   </div>
+  <p class="no-article" *ngIf="searchResult?.nbHits === 0">
+    「{{ searchQuery }}」に一致する記事は見つかりませんでした。
+  </p>
 </div>

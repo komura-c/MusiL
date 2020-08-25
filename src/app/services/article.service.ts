@@ -136,7 +136,7 @@ export class ArticleService {
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>(`articles`, (ref) => {
-        return ref.orderBy('likeCount', 'desc').limit(20);
+        return ref.orderBy('likeCount', 'desc').orderBy('updatedAt', 'desc').limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);

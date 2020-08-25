@@ -1,14 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { map, tap, take } from 'rxjs/operators';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
-import { Article } from '@interfaces/article';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '../services/search.service';
-import { ArticleService } from '../services/article.service';
 import { LoadingService } from '../services/loading.service';
 import { ScrollService } from '../services/scroll.service';
 import { SeoService } from '../services/seo.service';
+import { UserService } from '../services/user.service';
+import { UserData } from '@interfaces/user';
+import { firestore } from 'firebase/app';
 
 @Component({
   selector: 'app-tag-result',
@@ -34,7 +35,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private searchService: SearchService,
-    private articleService: ArticleService,
+    private userService: UserService,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
     private seoService: SeoService
@@ -55,22 +56,42 @@ export class TagResultComponent implements OnInit, OnDestroy {
         .search('', this.searchOptions)
         .then((searchResult) => (this.searchResult = searchResult))
         .then(() => {
-          if (this.searchResult.hits) {
-            const algoliaItemIds: string[] = this.searchResult.hits.map(
-              (algoliaItem) => algoliaItem.articleId
+          if (this.searchResult?.hits) {
+            const algoliaArticles = this.searchResult.hits;
+            const authorIds: string[] = this.searchResult.hits?.map(
+              (algoliaItem) => algoliaItem.uid
             );
-            this.articles$ = this.articleService.getLatestArticles().pipe(
+            const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+            this.articles$ = combineLatest(
+              authorUniqueIds?.map((userId) => {
+                return this.userService.getUserData(userId);
+              })
+            ).pipe(
               take(1),
-              map((articles: ArticleWithAuthor[]) => {
-                return articles.filter((article: Article) =>
-                  algoliaItemIds.includes(article.articleId)
-                );
+              map((users) => {
+                if (algoliaArticles?.length) {
+                  return algoliaArticles.map((article) => {
+                    const createdAtDate = new Date(article.createdAt);
+                    const updatedAtDate = new Date(article.updatedAt);
+                    const result: ArticleWithAuthor = {
+                      ...article,
+                      createdAt: firestore.Timestamp.fromDate(createdAtDate),
+                      updatedAt: firestore.Timestamp.fromDate(updatedAtDate),
+                      author: users?.find((user: UserData) => user.uid === article.uid),
+                    };
+                    return result;
+                  });
+                } else {
+                  return null;
+                }
               }),
               tap(() => {
                 this.loadingService.toggleLoading(false);
                 this.scrollService.restoreScrollPosition(this.searchTag);
               })
             );
+          } else {
+            this.loadingService.toggleLoading(false);
           }
         });
     });
