@@ -4,7 +4,6 @@ import * as useragent from 'express-useragent';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as admin from 'firebase-admin'
-const xss = require("xss");
 
 const db = admin.firestore();
 // コピーされたindex.htmlの中身を取得
@@ -14,11 +13,11 @@ const file = readFileSync(resolve(__dirname, '../lib/index.html'), {
 
 // 置換関数
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
-  const title = xss(articleAndScreenName.title);
+  const title = articleAndScreenName.title;
   const htmlToTextReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
-  const description = xss(articleAndScreenName.text?.replace(htmlToTextReg, '').substr(0, 200));
-  const ogURL = xss('https://dtmplace-ad671.web.app/' + articleAndScreenName.screenName + '/n/' + articleAndScreenName.articleId);
-  const ogImage = xss(articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png');
+  const description = articleAndScreenName.text?.replace(htmlToTextReg, '').substr(0, 200);
+  const ogURL = 'https://dtmplace-ad671.web.app/' + articleAndScreenName.screenName + '/n/' + articleAndScreenName.articleId;
+  const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png';
   return file
     .replace(/\<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
     .replace(
@@ -49,7 +48,6 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 
 // expressアプリ初期化
 const app = express();
-
 // ユーザーエージェント判定ヘルパーを導入
 app.use(useragent.express());
 
