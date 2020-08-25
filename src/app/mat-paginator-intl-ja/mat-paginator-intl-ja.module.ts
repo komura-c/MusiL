@@ -4,9 +4,7 @@ import { MatPaginatorIntl } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports: [CommonModule],
 })
 export class MatPaginatorIntlJaModule extends MatPaginatorIntl {
   itemsPerPageLabel = '1 ページの記事数： ';
@@ -26,5 +24,5 @@ export class MatPaginatorIntlJaModule extends MatPaginatorIntl {
         ? Math.min(startIndex + pageSize, length)
         : startIndex + pageSize;
     return `${startIndex + 1} ～ ${endIndex} / 合計 ${length}`;
-  }
+  };
 }

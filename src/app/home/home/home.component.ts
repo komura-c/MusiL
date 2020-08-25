@@ -21,27 +21,25 @@ export class HomeComponent implements OnInit {
 
   popularArticles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService
-    .getPopularArticles().pipe(
-      take(1),
-      tap(() => {
-        this.loadingService.toggleLoading(false);
-      })
-    );
+  > = this.articleService.getPopularArticles().pipe(
+    take(1),
+    tap(() => {
+      this.loadingService.toggleLoading(false);
+    })
+  );
 
   latestArticles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService
-    .getLatestArticles().pipe(
-      take(1),
-      tap(() => this.loadingService.toggleLoading(false))
-    );
+  > = this.articleService.getLatestArticles().pipe(
+    take(1),
+    tap(() => this.loadingService.toggleLoading(false))
+  );
 
   constructor(
     private articleService: ArticleService,
     private loadingService: LoadingService,
     private seoService: SeoService,
-    public authService: AuthService,
+    public authService: AuthService
   ) {
     const metaTags = {
       title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
@@ -61,5 +59,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

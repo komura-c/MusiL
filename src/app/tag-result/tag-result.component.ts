@@ -78,7 +78,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
     };
     this.index
       .search(this.searchTag, searchOptions)
-      .then((searchResult: { nbHits: number; hits: any[]; }) => {
+      .then((searchResult: { nbHits: number; hits: any[] }) => {
         this.searchResult = searchResult;
         if (this.searchResult?.hits?.length) {
           const algoliaArticles = this.searchResult.hits;
@@ -101,7 +101,9 @@ export class TagResultComponent implements OnInit, OnDestroy {
                     ...article,
                     createdAt: firestore.Timestamp.fromDate(createdAtDate),
                     updatedAt: firestore.Timestamp.fromDate(updatedAtDate),
-                    author: users?.find((user: UserData) => user.uid === article.uid),
+                    author: users?.find(
+                      (user: UserData) => user.uid === article.uid
+                    ),
                   };
                   return result;
                 });
@@ -120,7 +122,7 @@ export class TagResultComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchTag);

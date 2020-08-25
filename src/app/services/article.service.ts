@@ -18,8 +18,8 @@ export class ArticleService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService,
-    private ogpService: OgpService,
-  ) { }
+    private ogpService: OgpService
+  ) {}
   snapArticleId: string;
 
   async uploadImage(uid: string, file: File): Promise<void> {
@@ -136,7 +136,10 @@ export class ArticleService {
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>(`articles`, (ref) => {
-        return ref.orderBy('likeCount', 'desc').orderBy('updatedAt', 'desc').limit(20);
+        return ref
+          .orderBy('likeCount', 'desc')
+          .orderBy('updatedAt', 'desc')
+          .limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);
@@ -201,8 +204,7 @@ export class ArticleService {
             author,
           };
           return result;
-        }
-        else {
+        } else {
           return null;
         }
       })

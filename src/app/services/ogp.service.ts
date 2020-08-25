@@ -4,7 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class OgpService {
   canvasWidth = 1200;
@@ -20,13 +20,17 @@ export class OgpService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) { }
+  ) {}
 
-  async createOgpImageAndUpload(article: Omit<Article, 'createdAt' | 'likeCount'>) {
+  async createOgpImageAndUpload(
+    article: Omit<Article, 'createdAt' | 'likeCount'>
+  ) {
     if (article.title && article.articleId) {
       const ogpImage = await this.createOgp(article.title);
       const thumbnailURL = await this.uploadOgp(article.articleId, ogpImage);
-      return this.db.doc<Article>(`articles/${article.articleId}`).update({ thumbnailURL });
+      return this.db
+        .doc<Article>(`articles/${article.articleId}`)
+        .update({ thumbnailURL });
     }
     return;
   }
@@ -39,13 +43,25 @@ export class OgpService {
 
     // 背景画像の描画
     const backgroundImage: any = await this.loadImage(this.backgroundImagePath);
-    context.drawImage(backgroundImage, 0, 0, this.canvasWidth, this.canvasHeight);
+    context.drawImage(
+      backgroundImage,
+      0,
+      0,
+      this.canvasWidth,
+      this.canvasHeight
+    );
 
     // 文字の描画
     context.font = this.titleSize + 'px ' + this.fontFamily;
     context.fillStyle = this.titleColor;
-    const titleLines: string[] = this.splitByMeasureWidth(title, this.canvasWidth - this.titleMarginX, context);
-    let lineY: number = this.textAreaHeight / 2 - (this.titleSize + this.titleLineMargin) / 2 * (titleLines.length - 1);
+    const titleLines: string[] = this.splitByMeasureWidth(
+      title,
+      this.canvasWidth - this.titleMarginX,
+      context
+    );
+    let lineY: number =
+      this.textAreaHeight / 2 -
+      ((this.titleSize + this.titleLineMargin) / 2) * (titleLines.length - 1);
     titleLines.forEach((line: string) => {
       const textWidth: number = context.measureText(line).width;
       context.fillText(line, (this.canvasWidth - textWidth) / 2, lineY);
@@ -63,7 +79,11 @@ export class OgpService {
     });
   }
 
-  splitByMeasureWidth(str: string, maxWidth: number, context: CanvasRenderingContext2D): string[] {
+  splitByMeasureWidth(
+    str: string,
+    maxWidth: number,
+    context: CanvasRenderingContext2D
+  ): string[] {
     const lines: string[] = [];
     let line = '';
     str.split('').forEach((char) => {
@@ -88,4 +108,3 @@ export class OgpService {
     return this.storage.ref(`articles/${articleId}`).delete();
   }
 }
-

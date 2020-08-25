@@ -40,5 +40,5 @@ export class NotesComponent implements OnInit {
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

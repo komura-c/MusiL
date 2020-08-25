@@ -30,7 +30,10 @@ export class SettingsComponent implements OnInit {
   userNameMaxLength = 50;
   descriptionMaxLength = 160;
   form = this.fb.group({
-    userName: ['', [Validators.required, Validators.maxLength(this.userNameMaxLength)]],
+    userName: [
+      '',
+      [Validators.required, Validators.maxLength(this.userNameMaxLength)],
+    ],
     description: ['', [Validators.maxLength(this.descriptionMaxLength)]],
   });
 
@@ -50,7 +53,7 @@ export class SettingsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
-    private seoService: SeoService,
+    private seoService: SeoService
   ) {
     const metaTags = {
       title: 'アカウント設定 | MusiL',
@@ -72,7 +75,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {

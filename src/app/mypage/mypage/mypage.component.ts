@@ -29,7 +29,8 @@ export class MypageComponent implements OnInit, OnDestroy {
     tap((user) => {
       if (user) {
         const descriptionMaxLength = 120;
-        const description = user.description.slice(0, descriptionMaxLength) + '…';
+        const description =
+          user.description.slice(0, descriptionMaxLength) + '…';
         const metaTags = {
           title: `${user.userName}(${user.screenName}) | MusiL`,
           description,
@@ -63,12 +64,12 @@ export class MypageComponent implements OnInit, OnDestroy {
     const linkReg = new RegExp(
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
-    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+    const toATag = "<a href='$1' target='_blank'>$1</a>";
     const link = description.replace(linkReg, toATag);
     return link;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.screenName$.toPromise().then((screenName) => {

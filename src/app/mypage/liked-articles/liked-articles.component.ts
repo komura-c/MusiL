@@ -27,7 +27,7 @@ export class LikedArticlesComponent implements OnInit {
   constructor(
     private userService: UserService,
     private articleService: ArticleService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

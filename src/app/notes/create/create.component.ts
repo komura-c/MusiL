@@ -33,7 +33,10 @@ export class CreateComponent implements OnInit {
   public isComplete = false;
   tags: string[] = [];
   form = this.fb.group({
-    title: ['', [Validators.required, Validators.maxLength(this.titleMaxLength)]],
+    title: [
+      '',
+      [Validators.required, Validators.maxLength(this.titleMaxLength)],
+    ],
     tag: [''],
     editorContent: [''],
     isPublic: [true],
@@ -55,7 +58,7 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private seoService: SeoService,
+    private seoService: SeoService
   ) {
     const metaTags = {
       title: `記事の編集 | MusiL`,
@@ -139,5 +142,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
