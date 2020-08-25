@@ -10,6 +10,14 @@
       <app-article [article]="article"></app-article>
     </div>
   </div>
+  <mat-paginator
+    *ngIf="searchResult?.nbHits > defaultPageSize"
+    [length]="searchResult?.nbHits"
+    [pageSize]="defaultPageSize"
+    [pageIndex]="pageIndex"
+    (page)="routeSearch($event)"
+  >
+  </mat-paginator>
   <p class="no-article" *ngIf="searchResult?.nbHits === 0">
     「{{ searchTag }}」に関する記事は見つかりませんでした。
   </p>
