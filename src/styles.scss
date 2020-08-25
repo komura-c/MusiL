@@ -48,7 +48,7 @@ img {
   height: 0;
   visibility: hidden;
 }
-.fr-wrapper > .fr-element.fr-view {
+.fr-wrapper .fr-element.fr-view {
   height: 100%;
   visibility: visible;
 }
@@ -59,7 +59,10 @@ img {
   color: #ff5500;
 }
 .fr-view p[data-f-id='pbf'] {
-  display: none !important;
+  visibility: hidden;
+}
+.second-toolbar a#logo {
+  visibility: hidden;
 }
 .fr-embedly {
   width: 100%;
