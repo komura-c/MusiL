@@ -45,7 +45,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
     return this.parentForm.get('tag') as FormControl;
   }
 
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService) {}
 
   add(event: MatChipInputEvent): void {
     const input = event.input;

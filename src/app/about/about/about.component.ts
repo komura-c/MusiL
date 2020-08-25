@@ -13,7 +13,7 @@ export class AboutComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private seoService: SeoService,
+    private seoService: SeoService
   ) {
     const metaTags = {
       title: 'MusiLについて | MusiL',
@@ -25,7 +25,7 @@ export class AboutComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.isProcessing = true;

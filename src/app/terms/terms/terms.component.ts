@@ -18,5 +18,5 @@ export class TermsComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

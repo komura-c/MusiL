@@ -28,10 +28,12 @@ export class NoteComponent implements OnInit, OnDestroy {
   articleId: string;
   article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
     switchMap((articleId: string) => {
-      return this.articleService.getArticleWithAuthorOnly(articleId).pipe(take(1));
+      return this.articleService
+        .getArticleWithAuthorOnly(articleId)
+        .pipe(take(1));
     }),
     map((article: ArticleWithAuthor) => {
-      if ((article?.isPublic) || (this.authService.uid === article?.author?.uid)) {
+      if (article?.isPublic || this.authService.uid === article?.author?.uid) {
         return article;
       } else {
         return null;
@@ -51,7 +53,10 @@ export class NoteComponent implements OnInit, OnDestroy {
           });
         const html2textReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
         const descriptionMaxLength = 120;
-        const description = article.text?.replace(html2textReg, '').slice(0, descriptionMaxLength) + '…';
+        const description =
+          article.text
+            ?.replace(html2textReg, '')
+            .slice(0, descriptionMaxLength) + '…';
         const metaTags = {
           title: `${article.title} | MusiL`,
           description,
@@ -145,7 +150,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
     if (linkReg.test(description)) {
-      const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
+      const toATag = "<a href='$1' target='_blank'>$1</a>";
       const link = description.replace(linkReg, toATag);
       return link;
     } else {
@@ -172,7 +177,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

@@ -30,7 +30,10 @@ import { SharedModule } from './shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { TagResultComponent } from './tag-result/tag-result.component';
-import { MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
+import {
+  MatPaginatorModule,
+  MatPaginatorIntl,
+} from '@angular/material/paginator';
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
 
 @NgModule({
@@ -75,4 +78,4 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

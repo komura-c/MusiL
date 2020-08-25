@@ -160,7 +160,9 @@ export class EditorComponent implements OnInit {
             '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' +
             text;
           const currentValue = this.editorContentControl.value;
-          this.editorContentControl.patchValue(currentValue + soundCloudEmbedPlayer);
+          this.editorContentControl.patchValue(
+            currentValue + soundCloudEmbedPlayer
+          );
           this.ngZone.run(() => {
             const msg = 'SoundCloudの埋め込みが完了しました';
             this.snackBar.open(msg, '閉じる');
@@ -180,7 +182,7 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

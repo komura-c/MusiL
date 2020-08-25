@@ -18,5 +18,5 @@ export class NotFoundComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

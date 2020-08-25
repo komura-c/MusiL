@@ -37,7 +37,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private router: Router,
     private loadingService: LoadingService,
     private scrollService: ScrollService,
-    private seoService: SeoService,
+    private seoService: SeoService
   ) {
     this.loadingService.toggleLoading(true);
     this.route.queryParamMap.subscribe((params) => {
@@ -74,7 +74,10 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   routeSearch(event?: PageEvent): void {
     this.router.navigate(['/search'], {
       queryParamsHandling: 'merge',
-      queryParams: { q: this.searchQuery, page: event ? event.pageIndex : this.defaultPageIndex },
+      queryParams: {
+        q: this.searchQuery,
+        page: event ? event.pageIndex : this.defaultPageIndex,
+      },
     });
   }
 
@@ -86,7 +89,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     };
     this.index
       .search(this.searchQuery, searchOptions)
-      .then((searchResult: { nbHits: number; hits: any[]; }) => {
+      .then((searchResult: { nbHits: number; hits: any[] }) => {
         this.searchResult = searchResult;
         if (this.searchResult?.hits?.length) {
           const algoliaArticles = this.searchResult.hits;
@@ -109,7 +112,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
                     ...article,
                     createdAt: firestore.Timestamp.fromDate(createdAtDate),
                     updatedAt: firestore.Timestamp.fromDate(updatedAtDate),
-                    author: users?.find((user: UserData) => user.uid === article.uid),
+                    author: users?.find(
+                      (user: UserData) => user.uid === article.uid
+                    ),
                   };
                   return result;
                 });
@@ -128,7 +133,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchQuery);

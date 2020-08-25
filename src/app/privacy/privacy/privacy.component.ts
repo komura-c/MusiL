@@ -7,9 +7,7 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./privacy.component.scss'],
 })
 export class PrivacyComponent implements OnInit {
-  constructor(
-    private seoService: SeoService,
-  ) {
+  constructor(private seoService: SeoService) {
     const metaTags = {
       title: 'プライバシーポリシー | MusiL',
       description: 'サービスのプライバシーポリシーページです',
@@ -20,5 +18,5 @@ export class PrivacyComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
