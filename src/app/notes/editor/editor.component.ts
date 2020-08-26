@@ -48,7 +48,7 @@ export class EditorComponent implements OnInit {
     toolbarInline: false,
     heightMin: '260',
     heightMax: '260',
-    placeholderText: '音楽に関する知識を記録しよう！例：今日は〇〇の曲を自分なりに分析してみました',
+    placeholderText: '音楽に関する知識を記録してみましょう！例：今日は〇〇の曲を自分なりに分析してみました',
     charCounterCount: true,
     attribution: false,
     language: 'ja',
