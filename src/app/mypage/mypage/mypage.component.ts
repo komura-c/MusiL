@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserData } from 'functions/src/interfaces/user';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
-import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { SeoService } from 'src/app/services/seo.service';
 
@@ -14,15 +13,12 @@ import { SeoService } from 'src/app/services/seo.service';
   templateUrl: './mypage.component.html',
   styleUrls: ['./mypage.component.scss'],
 })
-export class MypageComponent implements OnInit, OnDestroy {
+export class MypageComponent implements OnInit {
   screenName$: Observable<string> = this.route.paramMap.pipe(
     map((params) => params.get('id'))
   );
 
   user$: Observable<UserData> = this.screenName$.pipe(
-    tap((screenName) => {
-      this.scrollService.restoreScrollPosition(screenName);
-    }),
     switchMap((screenName) => {
       return this.userService.getUserByScreenName(screenName).pipe(take(1));
     }),
@@ -53,7 +49,6 @@ export class MypageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private userService: UserService,
     private loadingService: LoadingService,
-    private scrollService: ScrollService,
     private seoService: SeoService,
     public authService: AuthService
   ) {
@@ -64,16 +59,10 @@ export class MypageComponent implements OnInit, OnDestroy {
     const linkReg = new RegExp(
       /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
     );
-    const toATag = "<a href='$1' target='_blank'>$1</a>";
+    const toATag = '<a href=\'$1\' target=\'_blank\'>$1</a>';
     const link = description.replace(linkReg, toATag);
     return link;
   }
 
-  ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.screenName$.toPromise().then((screenName) => {
-      this.scrollService.saveScrollPosition(screenName);
-    });
-  }
+  ngOnInit(): void { }
 }
