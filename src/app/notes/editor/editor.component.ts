@@ -5,18 +5,14 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
 import FroalaEditor from 'froala-editor';
 import 'froala-editor/js/plugins/char_counter.min.js';
-import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
 import 'froala-editor/js/third_party/embedly.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
-import 'froala-editor/js/plugins/font_size.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
 import 'froala-editor/js/plugins/image.min.js';
 import 'froala-editor/js/plugins/image_manager.min.js';
-import 'froala-editor/js/plugins/inline_style.min.js';
 import 'froala-editor/js/plugins/line_breaker.min.js';
 import 'froala-editor/js/plugins/link.min.js';
-import 'froala-editor/js/plugins/lists.min.js';
 import 'froala-editor/js/plugins/paragraph_format.min.js';
 import 'froala-editor/js/plugins/quote.min.js';
 import 'froala-editor/js/plugins/url.min.js';
@@ -67,8 +63,11 @@ export class EditorComponent implements OnInit {
       N: '本文',
     },
     linkInsertButtons: ['linkBack'],
-    imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
-    videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
+    linkEditButtons: ['linkEdit', 'linkRemove'],
+    imageEditButtons: ['imageSize', 'imageAlign', 'imageCaption', 'imageLink', 'linkRemove', 'imageRemove'],
+    imageInsertButtons: ['imageBack', '|', 'imageUpload'],
+    videoEditButtons: ['videoSize', 'videoAlign', 'videoRemove'],
+    videoInsertButtons: ['videoBack', '|', 'videoByURL'],
     toolbarButtons: this.toolbar,
     events: {
       initialized: (editor: any) => {
@@ -100,14 +99,6 @@ export class EditorComponent implements OnInit {
         }
       },
       'link.beforeInsert': (link: string, text: string) => {
-        const httpReg = new RegExp(/^(https|http):\/\//);
-        if (!httpReg.test(link)) {
-          this.ngZone.run(() => {
-            const msg = '正しいURLではありません';
-            this.snackBar.open(msg, '閉じる');
-          });
-          return false;
-        }
         const soundCloudReg = new RegExp(
           /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/
         );
