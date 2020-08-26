@@ -80,10 +80,6 @@ export class CreateComponent implements OnInit {
             editorContent: article.text,
             isPublic: article.isPublic,
           });
-        } else {
-          this.form.patchValue({
-            editorContent: null,
-          });
         }
       });
   }
@@ -142,5 +138,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

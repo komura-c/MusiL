@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
+import FroalaEditor from 'froala-editor';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/colors.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
@@ -16,11 +17,8 @@ import 'froala-editor/js/plugins/inline_style.min.js';
 import 'froala-editor/js/plugins/line_breaker.min.js';
 import 'froala-editor/js/plugins/link.min.js';
 import 'froala-editor/js/plugins/lists.min.js';
-import 'froala-editor/js/plugins/paragraph_style.min.js';
 import 'froala-editor/js/plugins/paragraph_format.min.js';
-import 'froala-editor/js/plugins/quick_insert.min.js';
 import 'froala-editor/js/plugins/quote.min.js';
-import 'froala-editor/js/plugins/table.min.js';
 import 'froala-editor/js/plugins/url.min.js';
 import 'froala-editor/js/plugins/video.min.js';
 import 'froala-editor/js/plugins/word_paste.min.js';
@@ -33,60 +31,28 @@ import 'froala-editor/js/languages/ja.js';
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: FormGroup;
-  private toolbar = {
-    moreText: {
-      buttons: [
-        'bold',
-        'italic',
-        'underline',
-        'strikeThrough',
-        'textColor',
-        'clearFormatting',
-      ],
-      buttonsVisible: 3,
-    },
-    moreParagraph: {
-      buttons: [
-        'formatOL',
-        'formatUL',
-        'paragraphFormat',
-        'paragraphStyle',
-        'quote',
-      ],
-      buttonsVisible: 3,
-    },
-    moreRich: {
-      buttons: [
-        'insertLink',
-        'insertImage',
-        'insertVideo',
-        'embedly',
-        'insertTable',
-        'emoticons',
-      ],
-      buttonsVisible: 3,
-    },
-    moreMisc: {
-      buttons: ['undo', 'redo', 'fullscreen'],
-      align: 'right',
-      buttonsVisible: 3,
-    },
-  };
+  private toolbar = [
+    'paragraphFormat',
+    'bold',
+    'italic',
+    'underline',
+    'strikeThrough',
+    'quote',
+    'insertLink',
+    'insertImage',
+    'insertVideo',
+    'embedly',
+    'emoticons',
+    'undo', 'redo', 'fullscreen'
+  ];
 
-  froalaEditor: {
-    _editor: {
-      image: {
-        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
-        get: () => any;
-      };
-    };
-  };
+  froalaEditor: { _editor: { image: { insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void; get: () => any; }; }; };
   options = {
     toolbarSticky: false,
     toolbarInline: false,
     heightMin: '260',
     heightMax: '260',
-    placeholderText: '作曲やDTMに関する知識を共有しよう',
+    placeholderText: '音楽に関する知識を記録しよう！例：今日は〇〇の曲を自分なりに分析してみました',
     charCounterCount: true,
     attribution: false,
     language: 'ja',
@@ -94,23 +60,16 @@ export class EditorComponent implements OnInit {
     pastePlain: true,
     imageAddNewLine: true,
     quickInsertTags: [],
-    videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
-    toolbarButtonsSM: this.toolbar,
-    toolbarButtonsXS: {
-      moreText: {
-        buttons: this.toolbar.moreText.buttons,
-        buttonsVisible: 0,
-      },
-      moreParagraph: {
-        buttons: this.toolbar.moreParagraph.buttons,
-        buttonsVisible: 0,
-      },
-      moreRich: {
-        buttons: this.toolbar.moreRich.buttons,
-        buttonsVisible: 0,
-      },
-      moreMisc: this.toolbar.moreMisc,
+    paragraphFormat: {
+      H2: '大見出し',
+      H3: '中見出し',
+      H4: '小見出し',
+      N: '本文',
     },
+    linkInsertButtons: ['linkBack'],
+    imageInsertButtons: ['imageBack', '|', 'imageUpload', 'imageByURL'],
+    videoInsertButtons: ['videoBack', '|', 'videoByURL', 'videoEmbed'],
+    toolbarButtons: this.toolbar,
     events: {
       initialized: (editor: any) => {
         this.froalaEditor = editor;
@@ -131,7 +90,7 @@ export class EditorComponent implements OnInit {
               this.froalaEditor._editor.image.get()
             );
           });
-          return null;
+          return;
         } else {
           this.ngZone.run(() => {
             const msg = '３メガバイト未満の画像を利用してください';
@@ -182,7 +141,9 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    FroalaEditor.DefineIcon('paragraphFormat', { NAME: '見出し', template: 'text' });
+  }
 }
