@@ -72,4 +72,4 @@ app.get('/:screenName/n/:articleId', async (req: any, res: any) => {
 });
 
 // 関数を定義
-export const render = functions.region('asia-northeast1').https.onRequest(app);
+export const render = functions.https.onRequest(app);
