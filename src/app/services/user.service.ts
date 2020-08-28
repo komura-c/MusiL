@@ -16,7 +16,7 @@ export class UserService {
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   getUserData(uid: string): Observable<UserData> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();
@@ -61,7 +61,7 @@ export class UserService {
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
-      .ref(`users/${uid}/avatar/${time}`)
+      .ref(`users/${uid}/avatar/${time}.png`)
       .putString(avatar, 'data_url');
     const avatarURL = await result.ref.getDownloadURL();
     return this.db.doc<UserData>(`users/${uid}`).update({ avatarURL });
