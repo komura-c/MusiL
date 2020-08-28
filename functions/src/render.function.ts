@@ -7,7 +7,7 @@ import * as admin from 'firebase-admin'
 
 const db = admin.firestore();
 // コピーされたindex.htmlの中身を取得
-const file = readFileSync(resolve(__dirname, '../lib/index.html'), {
+const file = readFileSync(resolve(__dirname, 'index.html'), {
   encoding: 'utf-8',
 });
 
