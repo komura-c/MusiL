@@ -20,6 +20,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png';
   return file
     .replace(/\n/g, '')
+    .replace(/ {2,}/g, ' ')
     .replace(/\<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
     .replace(
       /<meta name="description" content="[^>]*>/g,
