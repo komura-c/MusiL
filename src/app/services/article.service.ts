@@ -19,13 +19,13 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) {}
+  ) { }
   snapArticleId: string;
 
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
-      .ref(`users/${uid}/images/${time}`)
+      .ref(`users/${uid}/images/${time}_${file.name}`)
       .put(file);
     return await result.ref.getDownloadURL();
   }
@@ -34,7 +34,8 @@ export class ArticleService {
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-    >
+    >,
+    user: UserData
   ): Promise<void> {
     const articleId = this.db.createId();
     this.snapArticleId = articleId;
@@ -45,7 +46,7 @@ export class ArticleService {
       createdAt: firestore.Timestamp.now(),
       updatedAt: firestore.Timestamp.now(),
     };
-    this.ogpService.createOgpImageAndUpload(resultArticle);
+    this.ogpService.createOgpImageAndUpload(resultArticle, user);
     return this.db.doc(`articles/${articleId}`).set(resultArticle);
   }
 
@@ -54,7 +55,8 @@ export class ArticleService {
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-    >
+    >,
+    user: UserData
   ): Promise<void> {
     this.snapArticleId = articleId;
     const resultArticle = {
@@ -62,7 +64,7 @@ export class ArticleService {
       ...article,
       updatedAt: firestore.Timestamp.now(),
     };
-    this.ogpService.createOgpImageAndUpload(resultArticle);
+    this.ogpService.createOgpImageAndUpload(resultArticle, user);
     return this.db.doc(`articles/${articleId}`).update(resultArticle);
   }
 
