@@ -1,6 +1,6 @@
 {
-  "name": "dtm-place",
-  "version": "0.0.0",
+  "name": "musil",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
