@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/dtm-place",
+    "public": "dist/musil",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
