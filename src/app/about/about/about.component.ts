@@ -8,12 +8,11 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  isProcessing: boolean;
   user$ = this.authService.user$;
 
   constructor(
-    private authService: AuthService,
-    private seoService: SeoService
+    private seoService: SeoService,
+    public authService: AuthService
   ) {
     const metaTags = {
       title: 'MusiLについて | MusiL',
@@ -25,12 +24,12 @@ export class AboutComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login() {
-    this.isProcessing = true;
+    this.authService.loginProcessing = true;
     this.authService.login().finally(() => {
-      this.isProcessing = false;
+      this.authService.loginProcessing = false;
     });
   }
 }
