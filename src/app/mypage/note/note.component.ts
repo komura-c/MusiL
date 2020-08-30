@@ -179,7 +179,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

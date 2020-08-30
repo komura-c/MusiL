@@ -13,7 +13,9 @@ const searchClient = algoliasearch(
 export class SearchService {
   index = {
     latest: searchClient.initIndex(environment.algolia.index_name),
-    popular: searchClient.initIndex(environment.algolia.index_name + '_popular'),
+    popular: searchClient.initIndex(
+      environment.algolia.index_name + '_popular'
+    ),
   };
-  constructor() { }
+  constructor() {}
 }

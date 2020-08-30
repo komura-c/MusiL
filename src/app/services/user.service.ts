@@ -16,7 +16,7 @@ export class UserService {
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage
-  ) { }
+  ) {}
 
   getUserData(uid: string): Observable<UserData> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();

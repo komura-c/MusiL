@@ -87,7 +87,7 @@ export class CreateComponent implements OnInit {
     this.authService.user$
       .pipe(take(1))
       .toPromise()
-      .then((user) => this.user = user);
+      .then((user) => (this.user = user));
   }
 
   getArticleAndPatchValue() {
@@ -132,7 +132,11 @@ export class CreateComponent implements OnInit {
 
     let task: Promise<void>;
     if (this.articleId) {
-      task = this.articleService.updateArticle(this.articleId, sendData, this.user);
+      task = this.articleService.updateArticle(
+        this.articleId,
+        sendData,
+        this.user
+      );
     } else {
       task = this.articleService.createArticle(sendData, this.user);
     }
@@ -153,5 +157,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

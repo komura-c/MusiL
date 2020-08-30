@@ -39,16 +39,26 @@ export class EditorComponent implements OnInit {
     'insertVideo',
     'embedly',
     'emoticons',
-    'undo', 'redo', 'fullscreen'
+    'undo',
+    'redo',
+    'fullscreen',
   ];
 
-  froalaEditor: { _editor: { image: { insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void; get: () => any; }; }; };
+  froalaEditor: {
+    _editor: {
+      image: {
+        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
+        get: () => any;
+      };
+    };
+  };
   options = {
     toolbarSticky: false,
     toolbarInline: false,
     heightMin: '260',
     heightMax: '260',
-    placeholderText: '音楽に関する知識を記録してみましょう！例：今日は〇〇の曲を自分なりに分析してみました',
+    placeholderText:
+      '音楽に関する知識を記録してみましょう！例：今日は〇〇の曲を自分なりに分析してみました',
     charCounterCount: true,
     attribution: false,
     language: 'ja',
@@ -64,7 +74,14 @@ export class EditorComponent implements OnInit {
     },
     linkInsertButtons: ['linkBack'],
     linkEditButtons: ['linkEdit', 'linkRemove'],
-    imageEditButtons: ['imageSize', 'imageAlign', 'imageCaption', 'imageLink', 'linkRemove', 'imageRemove'],
+    imageEditButtons: [
+      'imageSize',
+      'imageAlign',
+      'imageCaption',
+      'imageLink',
+      'linkRemove',
+      'imageRemove',
+    ],
     imageInsertButtons: ['imageBack', '|', 'imageUpload'],
     videoEditButtons: ['videoSize', 'videoAlign', 'videoRemove'],
     videoInsertButtons: ['videoBack', '|', 'videoByURL'],
@@ -135,9 +152,12 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    FroalaEditor.DefineIcon('paragraphFormat', { NAME: '見出し', template: 'text' });
+    FroalaEditor.DefineIcon('paragraphFormat', {
+      NAME: '見出し',
+      template: 'text',
+    });
   }
 }
