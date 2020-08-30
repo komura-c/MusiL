@@ -109,13 +109,13 @@ export class EditorComponent implements OnInit {
               this.froalaEditor._editor.image.get()
             );
           });
-          return;
+          return null;
         } else {
           this.ngZone.run(() => {
             const msg = '３メガバイト未満の画像を利用してください';
             this.snackBar.open(msg, '閉じる');
           });
-          return false;
+          return null;
         }
       },
       'link.beforeInsert': (link: string, text: string) => {
@@ -137,7 +137,7 @@ export class EditorComponent implements OnInit {
             const msg = 'SoundCloudの埋め込みが完了しました';
             this.snackBar.open(msg, '閉じる');
           });
-          return false;
+          return null;
         }
       },
     },
@@ -152,7 +152,7 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     FroalaEditor.DefineIcon('paragraphFormat', {

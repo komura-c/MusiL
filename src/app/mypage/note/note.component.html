@@ -34,6 +34,7 @@
             article.title
           "
           target="_blank"
+          rel="noopener noreferrer"
           matTooltipPosition="right"
         >
           <mat-icon>
@@ -76,6 +77,7 @@
             class="note-header__twitter"
             [href]="'https://twitter.com/' + article.author.screenName"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <mat-icon>
               <img
@@ -140,6 +142,7 @@
                 article.title
               "
               target="_blank"
+              rel="noopener noreferrer"
             >
               <mat-icon>
                 <img
@@ -186,6 +189,7 @@
               "
               class="note-footer__twitter"
               target="_blank"
+              rel="noopener noreferrer"
             >
               <mat-icon
                 ><img
@@ -204,6 +208,8 @@
         <ul class="note__sub-box-toc">
           <li *ngFor="let headingElement of headingElements; index as i">
             <a
+              target="_blank"
+              rel="noopener noreferrer"
               [href]="
                 '/' +
                 article.author.screenName +
