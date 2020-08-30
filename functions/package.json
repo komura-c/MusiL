@@ -21,8 +21,7 @@
     "firebase": "^7.16.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.11.0",
-    "firebase-tools": "^8.6.0",
-    "xss": "^1.0.8"
+    "firebase-tools": "^8.6.0"
   },
   "devDependencies": {
     "@types/express-useragent": "^1.0.0",
