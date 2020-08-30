@@ -26,7 +26,7 @@ export class OgpService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) { }
+  ) {}
 
   async createOgpImageAndUpload(
     article: Omit<Article, 'createdAt' | 'likeCount'>,
@@ -69,7 +69,7 @@ export class OgpService {
     let userNamelineY =
       this.userNameHeight / 2 -
       ((this.userNameSize + this.userNameLineMargin) / 2) *
-      (userNameLines.length - 1);
+        (userNameLines.length - 1);
     userNameLines.forEach((line) => {
       const textWidth = context.measureText(line).width;
       context.fillText(line, (this.canvasWidth - textWidth) / 2, userNamelineY);
@@ -77,7 +77,8 @@ export class OgpService {
     });
 
     // タイトル文字の描画
-    context.font = this.titleWeight + ' ' + this.titleSize + 'px ' + this.fontFamily;
+    context.font =
+      this.titleWeight + ' ' + this.titleSize + 'px ' + this.fontFamily;
     context.fillStyle = this.titleColor;
     const titleLines = this.splitByMeasureWidth(
       title,

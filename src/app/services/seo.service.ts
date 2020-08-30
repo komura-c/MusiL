@@ -16,7 +16,7 @@ export class SeoService {
     twitterCard: 'summary_large_image',
   };
 
-  constructor(private meta: Meta, private title: Title) { }
+  constructor(private meta: Meta, private title: Title) {}
 
   setTitleAndMeta(metaTags: {
     title: string;

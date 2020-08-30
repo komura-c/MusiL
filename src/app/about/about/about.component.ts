@@ -10,10 +10,7 @@ import { SeoService } from 'src/app/services/seo.service';
 export class AboutComponent implements OnInit {
   user$ = this.authService.user$;
 
-  constructor(
-    private seoService: SeoService,
-    public authService: AuthService
-  ) {
+  constructor(private seoService: SeoService, public authService: AuthService) {
     const metaTags = {
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
@@ -24,7 +21,7 @@ export class AboutComponent implements OnInit {
     this.seoService.setTitleAndMeta(metaTags);
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.authService.loginProcessing = true;
