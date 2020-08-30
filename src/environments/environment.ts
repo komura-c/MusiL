@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   algolia: {
+    index_name: 'dev_articles',
     appId: '80GEBX53JJ',
     searchKey: '82e0769948e05598431bc29d2e801f57',
   },
