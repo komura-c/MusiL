@@ -152,7 +152,7 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     FroalaEditor.DefineIcon('paragraphFormat', {
