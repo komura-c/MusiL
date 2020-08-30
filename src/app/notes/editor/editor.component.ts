@@ -72,6 +72,9 @@ export class EditorComponent implements OnInit {
     events: {
       initialized: (editor: any) => {
         this.froalaEditor = editor;
+        this.parentForm.patchValue({
+          editorContent: ' ',
+        });
       },
       'image.beforeUpload': (images: any[]) => {
         const file = images[0];
