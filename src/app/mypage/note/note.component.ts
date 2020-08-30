@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-note',
@@ -85,6 +86,7 @@ export class NoteComponent implements OnInit, OnDestroy {
   likeCount: number;
   isLiked: boolean;
 
+  projectURL = environment.hostingURL;
   path: string = this.location.path();
 
   @HostListener('window:scroll', ['$event'])
@@ -173,11 +175,11 @@ export class NoteComponent implements OnInit, OnDestroy {
   }
 
   copyLink(): void {
-    this.clipboard.copy('https://dtmplace-ad671.web.app' + this.path);
+    this.clipboard.copy(this.projectURL + this.path);
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);
