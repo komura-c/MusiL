@@ -1,16 +1,18 @@
 import * as functions from 'firebase-functions';
 
+const config = functions.config();
+
 const firestore = require('@google-cloud/firestore');
 const client = new firestore.v1.FirestoreAdminClient();
 
-const bucket = 'gs://dtm-place-dev-bucket';
+const bucket = 'gs://' + config.project.project_id + '-backup';
 
 export const backup = functions
   .region('asia-northeast1')
   .pubsub.schedule('schedule: 1,15,27 of month 09:00')
   .onRun((_) => {
     const databaseName = client.databasePath(
-      'dtmplace-ad671',
+      config.project.project_id,
       '(default)'
     );
 
