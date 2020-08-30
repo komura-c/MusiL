@@ -117,7 +117,7 @@ export class CreateComponent implements OnInit {
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     > = {
-      uid: this.authService.uid,
+      uid: this.user.uid,
       thumbnailURL: null,
       title: formData.title,
       tags: this.tags,
@@ -144,7 +144,7 @@ export class CreateComponent implements OnInit {
     task
       .then(() => {
         this.router.navigateByUrl(
-          '/' + this.authService.uid + '/n/' + this.articleService.snapArticleId
+          '/' + this.user.screenName + '/n/' + this.articleService.snapArticleId
         );
         this.snackBar.open(msg, '閉じる');
       })
@@ -157,5 +157,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
