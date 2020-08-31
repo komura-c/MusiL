@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) {}
+  ) { }
   snapArticleId: string;
 
   async uploadImage(uid: string, file: File): Promise<void> {
@@ -139,6 +139,7 @@ export class ArticleService {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>(`articles`, (ref) => {
         return ref
+          .where('isPublic', '==', true)
           .orderBy('likeCount', 'desc')
           .orderBy('updatedAt', 'desc')
           .limit(20);
@@ -150,7 +151,9 @@ export class ArticleService {
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>(`articles`, (ref) => {
-        return ref.orderBy('updatedAt', 'desc').limit(20);
+        return ref
+          .where('isPublic', '==', true)
+          .orderBy('updatedAt', 'desc').limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);
