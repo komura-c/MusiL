@@ -2,7 +2,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   build:
@@ -14,7 +14,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: ng build --prod
+        run: npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
@@ -41,5 +41,5 @@ jobs:
         with:
           args: deploy
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: prod
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_DEV }}
+          PROJECT_ID: dev
