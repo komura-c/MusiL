@@ -9,6 +9,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
+import { UserData } from '@interfaces/user';
 
 @Component({
   selector: 'app-create',
@@ -27,7 +28,9 @@ export class CreateComponent implements OnInit {
     })
   );
   private articleId: string;
-  readonly titleMaxLength = 255;
+  private user: UserData;
+
+  readonly titleMaxLength = 60;
 
   // NOTE: Guardで使用している
   public isComplete = false;
@@ -68,6 +71,26 @@ export class CreateComponent implements OnInit {
       twitterCard: null,
     };
     this.seoService.setTitleAndMeta(metaTags);
+    this.getUserData();
+    this.getArticleAndPatchValue();
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.form.dirty) {
+      $event.preventDefault();
+      $event.returnValue = '作業中の内容が失われますが、よろしいですか？';
+    }
+  }
+
+  getUserData() {
+    this.authService.user$
+      .pipe(take(1))
+      .toPromise()
+      .then((user) => (this.user = user));
+  }
+
+  getArticleAndPatchValue() {
     this.article$
       .pipe(take(1))
       .toPromise()
@@ -80,20 +103,8 @@ export class CreateComponent implements OnInit {
             editorContent: article.text,
             isPublic: article.isPublic,
           });
-        } else {
-          this.form.patchValue({
-            editorContent: null,
-          });
         }
       });
-  }
-
-  @HostListener('window:beforeunload', ['$event'])
-  unloadNotification($event: any) {
-    if (this.form.dirty) {
-      $event.preventDefault();
-      $event.returnValue = '作業中の内容が失われますが、よろしいですか？';
-    }
   }
 
   cancel() {
@@ -106,7 +117,7 @@ export class CreateComponent implements OnInit {
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     > = {
-      uid: this.authService.uid,
+      uid: this.user.uid,
       thumbnailURL: null,
       title: formData.title,
       tags: this.tags,
@@ -121,15 +132,19 @@ export class CreateComponent implements OnInit {
 
     let task: Promise<void>;
     if (this.articleId) {
-      task = this.articleService.updateArticle(this.articleId, sendData);
+      task = this.articleService.updateArticle(
+        this.articleId,
+        sendData,
+        this.user
+      );
     } else {
-      task = this.articleService.createArticle(sendData);
+      task = this.articleService.createArticle(sendData, this.user);
     }
 
     task
       .then(() => {
         this.router.navigateByUrl(
-          '/' + this.authService.uid + '/n/' + this.articleService.snapArticleId
+          '/' + this.user.screenName + '/n/' + this.articleService.snapArticleId
         );
         this.snackBar.open(msg, '閉じる');
       })

@@ -14,7 +14,7 @@ jobs:
       - name: Install Dependencies
         run: npm install
       - name: Build
-        run: npm run build --prod
+        run: ng build --prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
@@ -33,7 +33,7 @@ jobs:
           name: dist
           path: dist
       - name: Copy index.html
-        run: cp dist/dtm-place/index.html functions/lib/
+        run: cp dist/musil/index.html functions/lib/
       - name: Install Dependencies
         run: cd functions && npm install
       - name: Deploy to Firebase
@@ -42,4 +42,4 @@ jobs:
           args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          PROJECT_ID: dev
+          PROJECT_ID: prod

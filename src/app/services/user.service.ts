@@ -61,7 +61,7 @@ export class UserService {
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
-      .ref(`users/${uid}/avatar/${time}`)
+      .ref(`users/${uid}/avatar/${time}.png`)
       .putString(avatar, 'data_url');
     const avatarURL = await result.ref.getDownloadURL();
     return this.db.doc<UserData>(`users/${uid}`).update({ avatarURL });

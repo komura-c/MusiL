@@ -46,7 +46,7 @@ export class AuthService {
 
     let task: Promise<void>;
 
-    if (userDoc.screenName) {
+    if (userDoc?.screenName) {
       task = this.userService.updateUser(user.uid, twitterProfile);
     } else {
       task = this.userService.createUser(user.uid, twitterProfile);

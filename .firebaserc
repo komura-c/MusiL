@@ -1,15 +1,7 @@
 {
-  "targets": {
-    "dtmplace-ad671": {
-      "hosting": {
-        "dtmplace": [
-          "dtmplace-ad671"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "dtmplace-ad671",
-    "dev": "dtmplace-ad671"
+    "dev": "dtmplace-ad671",
+    "prod": "musil-prod"
   }
 }

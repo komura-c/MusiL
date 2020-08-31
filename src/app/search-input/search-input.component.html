@@ -1,4 +1,8 @@
-<form class="search" (ngSubmit)="routeSearch(searchControl.value)">
+<form
+  class="search"
+  (ngSubmit)="routeSearch(searchControl.value)"
+  [class.active]="isSearchActive === true"
+>
   <input
     type="text"
     placeholder="キーワードを入力"
@@ -9,12 +13,12 @@
     [matAutocomplete]="search"
     class="search__input"
   />
-  <mat-autocomplete #search="matAutocomplete">
-    <mat-option
-      *ngFor="let option of searchResult?.hits"
-      [value]="option.title"
-    >
-      <div (click)="selectedTitle(option)">{{ option.title }}</div>
+  <mat-autocomplete
+    #search="matAutocomplete"
+    (optionSelected)="selected($event)"
+  >
+    <mat-option *ngFor="let option of searchResult?.hits" [value]="option">
+      {{ option.title }}
     </mat-option>
   </mat-autocomplete>
   <button
@@ -38,36 +42,3 @@
     <mat-icon>search</mat-icon>
   </button>
 </div>
-
-<form
-  class="smart-search-box"
-  (ngSubmit)="routeSearch(searchControl.value)"
-  [class.active]="isSearchActive === true"
->
-  <input
-    type="text"
-    placeholder="キーワードを入力"
-    aria-label="キーワード"
-    autocomplete="off"
-    matInput
-    [formControl]="searchControl"
-    [matAutocomplete]="search"
-    class="smart-search-box__input"
-  />
-  <mat-autocomplete #search="matAutocomplete">
-    <mat-option
-      *ngFor="let option of searchResult?.hits"
-      [value]="option.title"
-    >
-      <div (click)="routeSearch(option.title)">{{ option.title }}</div>
-    </mat-option>
-  </mat-autocomplete>
-  <button
-    mat-icon-button
-    color="white"
-    aria-label="検索アイコン"
-    class="smart-search-box__button"
-  >
-    <mat-icon>search</mat-icon>
-  </button>
-</form>

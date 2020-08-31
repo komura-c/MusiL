@@ -21,24 +21,16 @@
 .smart-search {
   display: none;
 }
-.smart-search-box {
-  display: none;
-}
 
 @media screen and (max-width: 480px) {
   .search {
     display: none;
-  }
-  .smart-search {
-    display: block;
-  }
-  .smart-search-box {
     position: fixed;
     top: 65px;
-    right: 60px;
+    right: 0;
     left: 0;
     z-index: 20;
-    width: calc(100% - 70px);
+    width: calc(100% - 20px);
     margin: 0 auto;
     &__input {
       appearance: none;
@@ -60,6 +52,12 @@
       right: -50px;
       top: 4px;
     }
+  }
+  .search__button {
+    display: none;
+  }
+  .smart-search {
+    display: block;
   }
   .active {
     display: block;
