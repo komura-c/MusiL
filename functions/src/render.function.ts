@@ -15,8 +15,10 @@ const file = readFileSync(resolve(__dirname, 'index.html'), {
 // 置換関数
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
-  const htmlToTextReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
-  const description = articleAndScreenName.text?.replace(htmlToTextReg, '').substr(0, 200);
+  const tmp = document.createElement('div');
+  tmp.innerHTML = articleAndScreenName.text;
+  const descriptionText = tmp.textContent || tmp.innerText || '';
+  const description = descriptionText.substr(0, 200);
   const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/n/' + articleAndScreenName.articleId;
   const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : config.project.hosting_url + 'assets/images/ogp-cover.png';
   return file
