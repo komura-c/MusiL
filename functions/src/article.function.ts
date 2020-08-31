@@ -13,9 +13,6 @@ export const createPost = functions
     data.text = htmlToText.fromString(data.text ? data.text : '', {
       wordwrap: 200
     });
-    const tmp = document.createElement('div');
-    tmp.innerHTML = data.text;
-    data.text = tmp.textContent || tmp.innerText || '';
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
