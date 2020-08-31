@@ -1,4 +1,23 @@
-<ng-container *ngIf="!(user$ | async)">
+<ng-container *ngIf="user$ | async; else welcome">
+  <div class="recommend-post" *ngIf="!isLoading">
+    <div class="recommend-post__main">
+      <h1 class="recommend-post__title">ようこそMusiLへ</h1>
+      <div class="recommend-post__text">
+        <p>学んだことを身につけるために、記事を投稿してみましょう。</p>
+        <button
+          mat-flat-button
+          color="primary"
+          class="post-button"
+          routerLink="/notes/create"
+        >
+          <mat-icon>post_add</mat-icon>
+          <span>投稿</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+<ng-template #welcome>
   <div class="welcome" *ngIf="!isLoading">
     <div
       class="welcome__bg"
@@ -35,7 +54,7 @@
       </div>
     </div>
   </div>
-</ng-container>
+</ng-template>
 <div class="home-page">
   <div class="home-main" *ngIf="popularArticles$ | async as popularArticles">
     <h3 class="home-main__title">

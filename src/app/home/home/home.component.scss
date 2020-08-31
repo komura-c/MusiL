@@ -1,3 +1,27 @@
+.recommend-post {
+  height: 100%;
+  text-align: center;
+  &__main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    font-size: 24px;
+    letter-spacing: 1.5px;
+  }
+  &__sub-title {
+    font-size: 20px;
+    letter-spacing: 1.5px;
+  }
+  &__text {
+    font-size: 16px;
+    letter-spacing: 1.5px;
+  }
+}
+.post-button {
+  background-color: #ff5500;
+}
 .welcome {
   position: relative;
   height: 400px;
