@@ -208,16 +208,7 @@
         <ul class="note__sub-box-toc">
           <li *ngFor="let headingElement of headingElements; index as i">
             <a
-              target="_blank"
-              rel="noopener noreferrer"
-              [href]="
-                '/' +
-                article.author.screenName +
-                '/n/' +
-                article.articleId +
-                '#' +
-                headingElement.id
-              "
+              [href]="'#' + headingElement.id"
               [class.active]="i === activeHeadingIndex"
               [class.toc-h2]="headingElement.tagName === 'H2'"
               [class.toc-h3]="headingElement.tagName === 'H3'"
