@@ -5,6 +5,7 @@ import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-note-edit-buttons',
@@ -14,6 +15,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 export class NoteEditButtonsComponent implements OnInit {
   @Input() article: Article | ArticleWithAuthor;
   @Input() screenName: string;
+  projectURL = environment.hostingURL;
 
   constructor(
     private dialog: MatDialog,
@@ -34,10 +36,7 @@ export class NoteEditButtonsComponent implements OnInit {
   copyLink(): void {
     if (this.screenName) {
       this.clipboard.copy(
-        'https://dtmplace-ad671.web.app/' +
-          this.screenName +
-          '/n/' +
-          this.article.articleId
+        this.projectURL + '/' + this.screenName + '/n/' + this.article.articleId
       );
       this.snackBar.open('URLがコピーされました！', '閉じる');
     } else {

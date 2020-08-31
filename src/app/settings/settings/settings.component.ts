@@ -92,9 +92,12 @@ export class SettingsComponent implements OnInit {
       description: formData.description,
     };
     this.userService.changeUserData(this.uid, newUserData);
-    this.screenName$.toPromise().then((screenName) => {
-      this.router.navigateByUrl('/' + screenName);
-    });
+    this.screenName$
+      .pipe(take(1))
+      .toPromise()
+      .then((screenName) => {
+        this.router.navigateByUrl('/' + screenName);
+      });
     this.snackBar.open('プロフィールが更新されました', '閉じる');
   }
 

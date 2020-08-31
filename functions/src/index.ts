@@ -18,3 +18,6 @@ export {
 export {
   render
 } from './render.function';
+export {
+  backup
+} from './backup.function';

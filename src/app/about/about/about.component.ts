@@ -8,13 +8,9 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  isProcessing: boolean;
   user$ = this.authService.user$;
 
-  constructor(
-    private authService: AuthService,
-    private seoService: SeoService
-  ) {
+  constructor(private seoService: SeoService, public authService: AuthService) {
     const metaTags = {
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
@@ -28,9 +24,9 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.isProcessing = true;
+    this.authService.loginProcessing = true;
     this.authService.login().finally(() => {
-      this.isProcessing = false;
+      this.authService.loginProcessing = false;
     });
   }
 }

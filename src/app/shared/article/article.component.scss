@@ -37,6 +37,7 @@
   &__author-name {
     margin: 8px 0;
     display: flex;
+    flex-wrap: wrap;
     font-size: 12px;
   }
   &__user-name {

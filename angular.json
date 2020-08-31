@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "dtm-place": {
+    "musil": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/dtm-place",
+            "outputPath": "dist/musil",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "dtm-place:build"
+            "browserTarget": "musil:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "dtm-place:build:production"
+              "browserTarget": "musil:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "dtm-place:build"
+            "browserTarget": "musil:build"
           }
         },
         "test": {
@@ -110,11 +110,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "dtm-place:serve"
+            "devServerTarget": "musil:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "dtm-place:serve:production"
+              "devServerTarget": "musil:serve:production"
             }
           }
         },
@@ -125,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "dtm-place"
+  "defaultProject": "musil"
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class SeoService {
     description:
       'お探しのページは、削除されたかURLが変更された可能性があります。',
     ogType: 'article',
-    ogImage: 'https://dtmplace-ad671.web.app/assets/images/ogp-cover.png',
+    ogImage: environment.hostingURL + '/assets/images/ogp-cover.png',
     twitterCard: 'summary_large_image',
   };
 

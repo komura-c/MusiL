@@ -6,6 +6,7 @@ import { startWith, debounceTime, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { UserData } from '@interfaces/user';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 @Component({
   selector: 'app-search-input',
@@ -52,16 +53,20 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     });
   }
 
-  selectedTitle(option): void {
-    this.userService
-      .getUserData(option.uid)
-      .pipe(take(1))
-      .toPromise()
-      .then((user: UserData) => {
-        this.router.navigateByUrl(
-          '/' + user.screenName + '/n/' + option.articleId
-        );
-      });
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.searchControl.patchValue(null);
+    const article: any = event.option.value;
+    if (article?.uid) {
+      this.userService
+        .getUserData(article.uid)
+        .pipe(take(1))
+        .toPromise()
+        .then((user: UserData) => {
+          this.router.navigateByUrl(
+            '/' + user?.screenName + '/n/' + article?.articleId
+          );
+        });
+    }
   }
 
   ngOnInit(): void {

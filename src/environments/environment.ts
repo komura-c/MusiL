@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   algolia: {
+    index_name: 'dev_articles',
     appId: '80GEBX53JJ',
     searchKey: '82e0769948e05598431bc29d2e801f57',
   },
@@ -18,6 +19,7 @@ export const environment = {
     appId: '1:494642326978:web:8346d7171b833f396bfa5b',
     measurementId: 'G-E2YGGKZFEX',
   },
+  hostingURL: 'https://dtmplace-ad671.web.app',
 };
 
 /*
