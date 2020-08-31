@@ -9,8 +9,9 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate((snap) => {
     const data = snap.data();
-    const htmlToTextReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
-    data.text = data.text?.replace(htmlToTextReg, ' ');
+    const tmp = document.createElement('div');
+    tmp.innerHTML = data.text;
+    data.text = tmp.textContent || tmp.innerText || '';
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
