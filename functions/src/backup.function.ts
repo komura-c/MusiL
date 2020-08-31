@@ -9,7 +9,7 @@ const bucket = 'gs://' + config.project.project_id + '-backup';
 
 export const backup = functions
   .region('asia-northeast1')
-  .pubsub.schedule('schedule: 1,15,27 of month 09:00')
+  .pubsub.schedule('1,15,27 of month 09:00')
   .onRun((_) => {
     const databaseName = client.databasePath(
       config.project.project_id,
