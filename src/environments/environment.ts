@@ -19,7 +19,7 @@ export const environment = {
     appId: '1:494642326978:web:8346d7171b833f396bfa5b',
     measurementId: 'G-E2YGGKZFEX',
   },
-  hostingURL: 'https://dtmplace-ad671.web.app/',
+  hostingURL: 'https://dtmplace-ad671.web.app',
 };
 
 /*

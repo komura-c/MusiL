@@ -6,17 +6,16 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class SeoService {
-  projectURL = environment.hostingURL;
   readonly notFoundMetas = {
     title: 'ページが見つかりません | MusiL',
     description:
       'お探しのページは、削除されたかURLが変更された可能性があります。',
     ogType: 'article',
-    ogImage: environment.hostingURL + 'assets/images/ogp-cover.png',
+    ogImage: environment.hostingURL + '/assets/images/ogp-cover.png',
     twitterCard: 'summary_large_image',
   };
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(private meta: Meta, private title: Title) { }
 
   setTitleAndMeta(metaTags: {
     title: string;
