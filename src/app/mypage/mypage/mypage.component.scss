@@ -1,5 +1,6 @@
+@import 'mixins';
+
 .mypage {
-  background-color: #fff;
   margin: 0 auto;
   max-width: 800px;
   &__author {
@@ -36,7 +37,7 @@
   }
   &__twitter {
     text-decoration: none;
-    background-color: #1da1f2;
+    background-color: $color-twitter;
   }
   &__menu {
     max-width: 600px;

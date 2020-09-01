@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .recommend-post {
   height: 100%;
   text-align: center;
@@ -85,7 +87,7 @@
   max-width: 910px;
   margin: 0 auto;
   display: flex;
-  @media screen and (max-width: 896px) {
+  @include tab {
     flex-wrap: wrap;
   }
 }
@@ -111,7 +113,7 @@
       border: none;
     }
   }
-  @media screen and (max-width: 896px) {
+  @include tab {
     flex: none;
     width: 100%;
     max-width: 610px;
@@ -141,7 +143,7 @@
       border: none;
     }
   }
-  @media screen and (max-width: 896px) {
+  @include tab {
     width: 100%;
     max-width: 610px;
     margin: 0 auto;
@@ -149,7 +151,7 @@
 }
 
 .login-button {
-  background-color: #1da1f2;
+  background-color: $color-twitter;
 }
 
 .terms-link {

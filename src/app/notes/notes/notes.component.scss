@@ -1,5 +1,6 @@
+@import 'mixins';
+
 .notes {
-  background-color: #fff;
   margin: 30px auto;
   max-width: 910px;
   &__title {
@@ -55,7 +56,7 @@
     height: 8px;
     margin-right: 4px;
     line-height: 1;
-    border: 1px solid #ff5500;
+    border: 1px solid $color-primary;
     border-radius: 50%;
   }
   &__status-label {
@@ -69,5 +70,5 @@
 }
 
 .public {
-  background-color: #ff5500;
+  background-color: $color-primary;
 }
