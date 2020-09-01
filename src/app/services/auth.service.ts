@@ -32,10 +32,11 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) {}
+  ) { }
 
   async login(): Promise<void> {
     const provider = new auth.TwitterAuthProvider();
+    provider.setCustomParameters({ prompt: 'select_account' });
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
     const twitterProfile = additionalUserInfo.profile as any;
