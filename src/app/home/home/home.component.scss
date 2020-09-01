@@ -59,6 +59,7 @@
   &__main {
     color: white;
     text-align: center;
+    margin: 0 16px;
   }
   &__title {
     font-size: 28px;
@@ -67,6 +68,12 @@
   &__sub-title {
     font-size: 16px;
     letter-spacing: 1.5px;
+  }
+  &__text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
   &__agree {
     letter-spacing: 1.5px;
