@@ -8,6 +8,7 @@
 
     <ng-template #default>
       <button
+        *ngIf="!isLoading"
         [disabled]="authService.loginProcessing"
         (click)="login()"
         mat-flat-button
@@ -23,7 +24,7 @@
       </button>
     </ng-template>
 
-    <ng-container *ngIf="authService.user$ | async as user; else default">
+    <ng-container *ngIf="user$ | async as user; else default">
       <div class="header__nav">
         <button
           mat-flat-button
