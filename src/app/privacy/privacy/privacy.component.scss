@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .privacy {
   max-width: 800px;
   margin: 0 auto;
@@ -11,7 +13,7 @@ p {
 }
 
 a {
-  color: #ff5500;
+  color: $color-primary;
   &:hover {
     text-decoration: underline;
   }

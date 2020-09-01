@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .header {
   background-color: #ffffff;
   position: fixed;
@@ -24,6 +26,9 @@
   position: relative;
   flex: 1;
   padding: 0 24px;
+  @include sp {
+    padding: 0 4px;
+  }
 }
 
 .logo {
@@ -32,26 +37,20 @@
 }
 
 .login-button {
-  background-color: #1da1f2;
+  background-color: $color-twitter;
 }
 
 .post-button {
   margin-right: 24px;
-}
-
-.my-menu {
-  background-size: cover;
-}
-
-@media screen and (max-width: 480px) {
-  .search {
-    padding: 0 4px;
-  }
-  .post-button {
+  @include sp {
     min-width: 52px;
     margin-right: 12px;
     span {
       display: none;
     }
   }
+}
+
+.my-menu {
+  background-size: cover;
 }
