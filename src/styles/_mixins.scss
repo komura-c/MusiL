@@ -1,0 +1,17 @@
+$color-primary: #ff5722;
+$color-grey: #e0e0e0;
+$color-twitter: #1da1f2;
+
+$sp: 480px;
+$tab: 896px;
+
+@mixin sp {
+  @media (max-width: ($sp)) {
+    @content;
+  }
+}
+@mixin tab {
+  @media (max-width: ($tab)) {
+    @content;
+  }
+}

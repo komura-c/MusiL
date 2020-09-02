@@ -34,6 +34,8 @@ export class CreateComponent implements OnInit {
 
   // NOTE: Guardで使用している
   public isComplete = false;
+
+  inProgress = false;
   tags: string[] = [];
   form = this.fb.group({
     title: [
@@ -112,6 +114,7 @@ export class CreateComponent implements OnInit {
   }
 
   submit() {
+    this.inProgress = true;
     const formData = this.form.value;
     const sendData: Omit<
       Article,

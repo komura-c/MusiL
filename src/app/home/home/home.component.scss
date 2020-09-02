@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .recommend-post {
   height: 100%;
   text-align: center;
@@ -18,9 +20,6 @@
     font-size: 16px;
     letter-spacing: 1.5px;
   }
-}
-.post-button {
-  background-color: #ff5500;
 }
 .welcome {
   position: relative;
@@ -59,6 +58,7 @@
   &__main {
     color: white;
     text-align: center;
+    margin: 0 16px;
   }
   &__title {
     font-size: 28px;
@@ -67,6 +67,12 @@
   &__sub-title {
     font-size: 16px;
     letter-spacing: 1.5px;
+  }
+  &__text {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
   &__agree {
     letter-spacing: 1.5px;
@@ -81,7 +87,7 @@
   max-width: 910px;
   margin: 0 auto;
   display: flex;
-  @media screen and (max-width: 896px) {
+  @include tab {
     flex-wrap: wrap;
   }
 }
@@ -107,7 +113,7 @@
       border: none;
     }
   }
-  @media screen and (max-width: 896px) {
+  @include tab {
     flex: none;
     width: 100%;
     max-width: 610px;
@@ -137,7 +143,7 @@
       border: none;
     }
   }
-  @media screen and (max-width: 896px) {
+  @include tab {
     width: 100%;
     max-width: 610px;
     margin: 0 auto;
@@ -145,7 +151,7 @@
 }
 
 .login-button {
-  background-color: #1da1f2;
+  background-color: $color-twitter;
 }
 
 .terms-link {
