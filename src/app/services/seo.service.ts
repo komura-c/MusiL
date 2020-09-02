@@ -31,7 +31,7 @@ export class SeoService {
       {
         name: 'description',
         content: metaTags.description
-          ? metaTags.title
+          ? metaTags.description
           : this.notFoundMetas.description,
       },
       {
@@ -41,22 +41,24 @@ export class SeoService {
       {
         property: 'og:description',
         content: metaTags.description
-          ? metaTags.title
+          ? metaTags.description
           : this.notFoundMetas.description,
       },
       {
         property: 'og:type',
-        content: metaTags.ogType ? metaTags.title : this.notFoundMetas.ogType,
+        content: metaTags.ogType ? metaTags.ogType : this.notFoundMetas.ogType,
       },
       { property: 'og:url', content: location.href },
       {
         property: 'og:image',
-        content: metaTags.ogImage ? metaTags.title : this.notFoundMetas.ogImage,
+        content: metaTags.ogImage
+          ? metaTags.ogImage
+          : this.notFoundMetas.ogImage,
       },
       {
         name: 'twitter:card',
         content: metaTags.twitterCard
-          ? metaTags.title
+          ? metaTags.twitterCard
           : this.notFoundMetas.twitterCard,
       },
     ]);

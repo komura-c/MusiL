@@ -1,6 +1,6 @@
 <div class="about">
   <div class="about__hero">
-    <h1>音楽をもっと知り、もっと自由に</h1>
+    <h1>DTMや作曲の知識を記録しよう</h1>
     <h2>MusiLは、DTMや作曲の知識を記録・共有するためのサービスです。</h2>
     <ng-container *ngIf="!(user$ | async)">
       <button
@@ -8,7 +8,6 @@
         (click)="login()"
         mat-flat-button
         color="primary"
-        medium
         class="login-button"
       >
         <mat-icon
@@ -23,14 +22,12 @@
   <div class="about__features">
     <div class="about__features-left">
       <h2>MusiLの特徴</h2>
-      <div class="about__features-text">
-        <p>・自分が音楽に関して学んだ知見を気軽にアウトプットできる</p>
-        <p>・アウトプットを発信することで知識が身になる</p>
-        <p>
-          ・DTMや作曲で詰まり、学んで解決した内容をアウトプットすることで同じような人を助けられる
-        </p>
-        <p>・DTMや作曲に関しての情報を広められる</p>
-      </div>
+      <ul class="about__features-text">
+        <li>自分が音楽に関して学んだ知見を気軽にアウトプットできる</li>
+        <li>アウトプットすることで知識が身になり、見返しやすい</li>
+        <li>DTMや作曲で詰まり、解決した内容を記録することで他の人にも役立つ</li>
+        <li>DTMや作曲に関しての情報を蓄積できる</li>
+      </ul>
     </div>
     <div class="about__features-right">
       <img src="/assets/images/about-image.png" alt="サービスイメージ画像" />

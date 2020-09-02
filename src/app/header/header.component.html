@@ -8,11 +8,11 @@
 
     <ng-template #default>
       <button
+        *ngIf="!isLoading"
         [disabled]="authService.loginProcessing"
         (click)="login()"
         mat-flat-button
         color="primary"
-        medium
         class="login-button"
       >
         <mat-icon
@@ -24,12 +24,11 @@
       </button>
     </ng-template>
 
-    <ng-container *ngIf="authService.user$ | async as user; else default">
+    <ng-container *ngIf="user$ | async as user; else default">
       <div class="header__nav">
         <button
           mat-flat-button
           color="primary"
-          medium
           class="post-button"
           routerLink="/notes/create"
         >
@@ -39,7 +38,6 @@
 
         <button
           mat-icon-button
-          medium
           [matMenuTriggerFor]="menu"
           aria-label="マイメニュー"
           [style.background-image]="'url(' + user.avatarURL + ')'"

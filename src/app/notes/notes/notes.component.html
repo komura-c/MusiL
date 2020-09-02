@@ -44,12 +44,7 @@
     <ng-container *ngIf="articles.length === 0">
       <div class="no-article">
         <p>まだ、記事がありません。記事を投稿してみましょう。</p>
-        <button
-          mat-flat-button
-          color="primary"
-          class="post-button"
-          routerLink="/notes/create"
-        >
+        <button mat-flat-button color="primary" routerLink="/notes/create">
           <mat-icon>post_add</mat-icon>
           <span>投稿</span>
         </button>

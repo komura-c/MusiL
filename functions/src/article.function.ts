@@ -1,5 +1,6 @@
 import { Algolia } from './utils/algolia.function';
 import * as functions from 'firebase-functions';
+const htmlToText = require('html-to-text');
 
 const config = functions.config();
 const algolia = new Algolia();
@@ -9,9 +10,9 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate((snap) => {
     const data = snap.data();
-    const tmp = document.createElement('div');
-    tmp.innerHTML = data.text;
-    data.text = tmp.textContent || tmp.innerText || '';
+    data.text = htmlToText.fromString(data.text ? data.text : '', {
+      wordwrap: 200
+    });
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',

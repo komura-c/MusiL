@@ -1,4 +1,16 @@
+@import 'mixins';
+
 .search {
+  @include sp {
+    display: none;
+    position: fixed;
+    top: 65px;
+    right: 0;
+    left: 0;
+    z-index: 20;
+    width: calc(100% - 20px);
+    margin: 0 auto;
+  }
   &__input {
     box-sizing: border-box;
     appearance: none;
@@ -10,29 +22,7 @@
     margin: 0;
     outline: none;
     border: solid 1px #e0e0e0;
-  }
-  &__button {
-    position: absolute;
-    color: #757575;
-    right: 24px;
-  }
-}
-
-.smart-search {
-  display: none;
-}
-
-@media screen and (max-width: 480px) {
-  .search {
-    display: none;
-    position: fixed;
-    top: 65px;
-    right: 0;
-    left: 0;
-    z-index: 20;
-    width: calc(100% - 20px);
-    margin: 0 auto;
-    &__input {
+    @include sp {
       appearance: none;
       width: 100%;
       line-height: 36px;
@@ -41,25 +31,29 @@
       outline: none;
       border: solid 1px #e0e0e0;
       height: 44px;
-      background-color: #fff;
       box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
       padding: 0 42px 0 16px;
     }
-    &__button {
-      background-color: #fff;
-      position: absolute;
-      color: #757575;
-      right: -50px;
-      top: 4px;
+  }
+  &__button {
+    position: absolute;
+    color: #757575;
+    right: 24px;
+    @include sp {
+      display: none;
     }
   }
-  .search__button {
-    display: none;
-  }
-  .smart-search {
+}
+
+.smart-search {
+  display: none;
+  @include sp {
     display: block;
   }
-  .active {
+}
+
+.active {
+  @include sp {
     display: block;
   }
 }
