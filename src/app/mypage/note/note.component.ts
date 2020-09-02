@@ -147,20 +147,6 @@ export class NoteComponent implements OnInit, OnDestroy {
     }, 100);
   }
 
-  stringToLink(description: string): string {
-    const linkReg = new RegExp(
-      /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
-    );
-    if (linkReg.test(description)) {
-      const toATag =
-        "<a href='$1' target='_blank' rel='noopener noreferrer'>$1</a>";
-      const link = description.replace(linkReg, toATag);
-      return link;
-    } else {
-      return description;
-    }
-  }
-
   clickedLike(articleId: string) {
     if (this.authService.uid && !this.isLiked) {
       this.likeService.likeArticle(articleId, this.authService.uid);
@@ -180,7 +166,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

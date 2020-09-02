@@ -55,15 +55,5 @@ export class MypageComponent implements OnInit {
     this.loadingService.toggleLoading(true);
   }
 
-  stringToLink(description: string): string {
-    const linkReg = new RegExp(
-      /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
-    );
-    const toATag =
-      "<a href='$1' target='_blank' rel='noopener noreferrer'>$1</a>";
-    const link = description.replace(linkReg, toATag);
-    return link;
-  }
-
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

@@ -178,7 +178,7 @@
             >
             <p
               class="note-footer__user-description"
-              [innerHTML]="stringToLink(article.author.description)"
+              [innerHTML]="article.author.description | stringToLink"
             ></p>
             <a
               mat-flat-button
