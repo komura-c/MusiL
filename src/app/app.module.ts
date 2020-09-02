@@ -81,7 +81,7 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     },
     {
       provide: FIRESTORE_SETTINGS,
-      useFactory: () => !environment.production ? { host: 'localhost:8080', ssl: false } : {}
+      useFactory: () => environment.production ? {} : { host: 'localhost:8080', ssl: false }
     }
   ],
   bootstrap: [AppComponent],
