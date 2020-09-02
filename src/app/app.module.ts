@@ -15,9 +15,9 @@ import {
 import { FooterComponent } from './footer/footer.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestoreModule, SETTINGS as FIRESTORE_SETTINGS } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
+import { AngularFireFunctionsModule, REGION, ORIGIN } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
@@ -75,7 +75,15 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     { provide: REGION, useValue: 'asia-northeast1' },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 } },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
+    {
+      provide: ORIGIN,
+      useValue: environment.production ? undefined : 'http://localhost:5001',
+    },
+    {
+      provide: FIRESTORE_SETTINGS,
+      useFactory: () => !environment.production ? { host: 'localhost:8080', ssl: false } : {}
+    }
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
