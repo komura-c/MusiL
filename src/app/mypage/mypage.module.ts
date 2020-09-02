@@ -15,6 +15,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { StringToLinkPipe } from '../pipes/string-to-link.pipe';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     NoteComponent,
     MyArticlesComponent,
     LikedArticlesComponent,
+    StringToLinkPipe,
   ],
   imports: [
     CommonModule,
@@ -37,4 +39,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
 })
-export class MypageModule {}
+export class MypageModule { }

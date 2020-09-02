@@ -22,7 +22,7 @@
         <p class="mypage__user-screen-name">@{{ user.screenName }}</p>
         <p
           class="mypage__user-description"
-          [innerHTML]="stringToLink(user.description)"
+          [innerHTML]="user.description | stringToLink"
         ></p>
         <a
           mat-flat-button
