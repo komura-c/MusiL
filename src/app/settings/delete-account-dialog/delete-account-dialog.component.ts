@@ -15,9 +15,9 @@ export class DeleteAccountDialogComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   deleteAccount() {
     this.dialogRef.close();
