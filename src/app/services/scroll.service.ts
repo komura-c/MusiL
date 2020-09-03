@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ScrollService {
   scrollPosYs: { [key: string]: number } = {};
 
-  constructor() {}
+  constructor() { }
 
   saveScrollPosition(id: string): void {
     if (id) {
@@ -17,7 +17,10 @@ export class ScrollService {
   restoreScrollPosition(id: string): void {
     if (id) {
       setTimeout(() => {
-        window.scrollTo(0, this.scrollPosYs[id]);
+        window.scroll({
+          top: this.scrollPosYs[id],
+          behavior: 'smooth',
+        });
       }, 100);
     }
   }

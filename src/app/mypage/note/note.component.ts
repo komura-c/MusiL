@@ -124,7 +124,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       const rectTop = document.getElementById(id).getBoundingClientRect().top;
       const position = window.pageYOffset;
       const top = rectTop + position - this.headerHeight;
-      window.scrollTo({
+      window.scroll({
         top,
         behavior: 'smooth',
       });
