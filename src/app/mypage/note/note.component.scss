@@ -139,15 +139,25 @@
     height: 80px;
     border-radius: 50%;
     max-width: 80px;
+    @include sp {
+      width: 60px;
+      height: 60px;
+    }
   }
   &__user-name {
     display: block;
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 8px;
+    @include sp {
+      font-size: 16px;
+    }
   }
   &__user-description {
     margin: 0 0 8px 0;
+    @include sp {
+      font-size: 14px;
+    }
   }
   &__twitter {
     .mat-icon {
