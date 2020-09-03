@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .footer {
   background-color: inherit;
   padding: 16px 0 32px;
@@ -8,6 +10,9 @@
     a {
       margin: 0 8px 8px;
       text-align: center;
+      @include sp {
+        font-size: 14px;
+      }
     }
   }
 }
@@ -17,4 +22,7 @@ mat-icon {
 .copyright {
   text-align: center;
   margin: 8px 0px;
+  @include sp {
+    font-size: 14px;
+  }
 }
