@@ -21,23 +21,39 @@
     height: 120px;
     border-radius: 50%;
     margin: 16px 0px;
+    @include sp {
+      width: 100px;
+      height: 100px;
+    }
   }
   &__user-name {
     font-size: 20px;
     font-weight: bold;
     margin: 0 0 8px;
+    @include sp {
+      font-size: 18px;
+    }
   }
   &__user-screen-name {
     font-size: 16px;
     margin: 0 0 8px;
+    @include sp {
+      font-size: 14px;
+    }
   }
   &__user-description {
     font-size: 16px;
     margin: 0 0 16px;
+    @include sp {
+      font-size: 14px;
+    }
   }
   &__twitter {
     text-decoration: none;
     background-color: $color-twitter;
+    @include sp {
+      font-size: 14px;
+    }
   }
   &__menu {
     max-width: 600px;
@@ -51,9 +67,15 @@
 
 .edit-profile {
   margin-left: auto;
+  @include sp {
+    font-size: 14px;
+  }
 }
 
 .mat-tab-link {
   font-size: 16px;
   text-decoration: none;
+  @include sp {
+    font-size: 14px;
+  }
 }
