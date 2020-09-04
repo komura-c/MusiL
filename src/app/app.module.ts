@@ -93,4 +93,4 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
