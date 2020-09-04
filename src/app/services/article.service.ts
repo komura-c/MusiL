@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) { }
+  ) {}
   snapArticleId: string;
 
   async uploadImage(uid: string, file: File): Promise<void> {

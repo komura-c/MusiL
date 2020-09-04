@@ -15,15 +15,13 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
   private uid = this.userService.mypageUser?.uid;
   articles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService
-    .getMyArticlesPublic(this.uid)
-    .pipe(
-      take(1),
-      tap(() => {
-        this.scrollService.restoreScrollPosition(this.uid);
-        this.isLoading = false;
-      })
-    );
+  > = this.articleService.getMyArticlesPublic(this.uid).pipe(
+    take(1),
+    tap(() => {
+      this.scrollService.restoreScrollPosition(this.uid);
+      this.isLoading = false;
+    })
+  );
 
   isLoading = true;
 
@@ -31,9 +29,9 @@ export class MyArticlesComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private articleService: ArticleService,
     private scrollService: ScrollService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.uid);
