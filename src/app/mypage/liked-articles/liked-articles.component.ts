@@ -31,9 +31,9 @@ export class LikedArticlesComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private articleService: ArticleService,
     private scrollService: ScrollService
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.uid);

@@ -39,4 +39,4 @@ import { StringToLinkPipe } from '../pipes/string-to-link.pipe';
     MatProgressSpinnerModule,
   ],
 })
-export class MypageModule { }
+export class MypageModule {}

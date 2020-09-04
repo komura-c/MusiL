@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 export class ScrollService {
   scrollPosYs: { [key: string]: number } = {};
 
-  constructor() { }
+  constructor() {}
 
   saveScrollPosition(id: string): void {
     if (id) {
