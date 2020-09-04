@@ -82,16 +82,15 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     { provide: REGION, useValue: 'asia-northeast1' },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 } },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
-    {
-      provide: ORIGIN,
-      useValue: environment.production ? undefined : 'http://localhost:5001',
-    },
-    {
-      provide: FIRESTORE_SETTINGS,
-      useFactory: () =>
-        environment.production ? {} : { host: 'localhost:8080', ssl: false },
-    },
+    // {
+    //   provide: ORIGIN,
+    //   useValue: environment.production ? undefined : 'http://localhost:5001',
+    // },
+    // {
+    //   provide: FIRESTORE_SETTINGS,
+    //   useValue: environment.production ? {} : { host: 'localhost:8080', ssl: false },
+    // },
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
