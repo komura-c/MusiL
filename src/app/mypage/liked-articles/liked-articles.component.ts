@@ -20,6 +20,7 @@ export class LikedArticlesComponent implements OnInit, OnDestroy {
     .pipe(
       take(1),
       tap(() => {
+        this.scrollService.restoreScrollPosition(this.uid);
         this.isLoading = false;
       })
     );
@@ -30,9 +31,7 @@ export class LikedArticlesComponent implements OnInit, OnDestroy {
     private userService: UserService,
     private articleService: ArticleService,
     private scrollService: ScrollService
-  ) {
-    this.scrollService.restoreScrollPosition(this.uid);
-  }
+  ) { }
 
   ngOnInit(): void { }
 
