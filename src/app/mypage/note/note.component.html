@@ -190,6 +190,7 @@
               class="note-footer__twitter"
               target="_blank"
               rel="noopener noreferrer"
+              *ngIf="article.author.uid !== authService.uid"
             >
               <mat-icon
                 ><img
