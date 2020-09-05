@@ -22,7 +22,7 @@
         <p class="mypage__user-screen-name">@{{ user.screenName }}</p>
         <p
           class="mypage__user-description"
-          [innerHTML]="stringToLink(user.description)"
+          [innerHTML]="user.description | stringToLink"
         ></p>
         <a
           mat-flat-button
@@ -33,6 +33,7 @@
           class="mypage__twitter"
           target="_blank"
           rel="noopener noreferrer"
+          *ngIf="user.uid !== authService.uid"
         >
           <mat-icon
             ><img src="/assets/icons/twitter-logo-white.png" alt="Twitterロゴ"

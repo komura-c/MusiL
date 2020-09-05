@@ -124,7 +124,7 @@ export class NoteComponent implements OnInit, OnDestroy {
       const rectTop = document.getElementById(id).getBoundingClientRect().top;
       const position = window.pageYOffset;
       const top = rectTop + position - this.headerHeight;
-      window.scrollTo({
+      window.scroll({
         top,
         behavior: 'smooth',
       });
@@ -145,20 +145,6 @@ export class NoteComponent implements OnInit, OnDestroy {
         );
       });
     }, 100);
-  }
-
-  stringToLink(description: string): string {
-    const linkReg = new RegExp(
-      /(http(s)?:\/\/[a-zA-Z0-9-.!'()*;/?:@&=+$,%#]+)/gi
-    );
-    if (linkReg.test(description)) {
-      const toATag =
-        "<a href='$1' target='_blank' rel='noopener noreferrer'>$1</a>";
-      const link = description.replace(linkReg, toATag);
-      return link;
-    } else {
-      return description;
-    }
   }
 
   clickedLike(articleId: string) {

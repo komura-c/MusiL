@@ -80,6 +80,7 @@ export class ArticleService {
           .where('uid', '==', uid)
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
+          .limit(20)
       )
       .valueChanges()
       .pipe(
@@ -102,7 +103,7 @@ export class ArticleService {
   getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
     const sorted = this.db
       .collection(`users/${uid}/likedArticles`, (ref) =>
-        ref.orderBy('updatedAt', 'desc')
+        ref.orderBy('updatedAt', 'desc').limit(20)
       )
       .valueChanges()
       .pipe(
@@ -126,7 +127,7 @@ export class ArticleService {
   getMyArticlesAll(uid: string): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
-        ref.where('uid', '==', uid).orderBy('updatedAt', 'desc')
+        ref.where('uid', '==', uid).orderBy('updatedAt', 'desc').limit(20)
       )
       .valueChanges();
   }
