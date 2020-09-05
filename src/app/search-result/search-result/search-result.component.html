@@ -1,9 +1,9 @@
 <div class="search-result">
   <div class="search-result__header">
     <h2 class="search-result__title">
-      <span class="search-result__keyword">{{
-        searchQuery ? '「' + searchQuery + '」の検索結果' : '最新の記事一覧'
-      }}</span>
+      <span class="search-result__keyword"
+        >「{{ searchQuery }}」の検索結果</span
+      >
       <span class="search-result__hits">{{ searchResult?.nbHits }} 件</span>
     </h2>
   </div>
@@ -21,6 +21,6 @@
   >
   </mat-paginator>
   <p class="no-article" *ngIf="searchResult?.nbHits === 0">
-    「{{ searchQuery }}」に一致する記事は見つかりませんでした。
+    「{{ searchQuery }}」に関する記事は見つかりませんでした。
   </p>
 </div>
