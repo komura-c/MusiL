@@ -1,26 +1,35 @@
 <div class="search-result">
   <div class="search-result__header">
     <h2 class="search-result__title">
-      <span class="search-result__keyword"
+      <span class="search-result__keyword" *ngIf="searchQuery"
         >「{{ searchQuery }}」の検索結果</span
+      >
+      <span class="search-result__keyword" *ngIf="searchTag"
+        >「{{ searchTag }}」に関する記事</span
       >
       <span class="search-result__hits">{{ searchResult?.nbHits }} 件</span>
     </h2>
   </div>
-  <div class="search-result__body" *ngIf="articles$ | async as articles">
-    <div class="search-result__card" *ngFor="let article of articles">
-      <app-article-card [article]="article"></app-article-card>
+  <ng-container *ngIf="searchResult?.nbHits; else blank">
+    <div class="search-result__body" *ngIf="articles$ | async as articles">
+      <div class="search-result__card" *ngFor="let article of articles">
+        <app-article-card [article]="article"></app-article-card>
+      </div>
     </div>
-  </div>
-  <mat-paginator
-    *ngIf="searchResult?.nbHits > defaultPageSize"
-    [length]="searchResult?.nbHits"
-    [pageSize]="defaultPageSize"
-    [pageIndex]="pageIndex"
-    (page)="routeSearch($event)"
-  >
-  </mat-paginator>
-  <p class="no-article" *ngIf="searchResult?.nbHits === 0">
-    「{{ searchQuery }}」に関する記事は見つかりませんでした。
-  </p>
+    <mat-paginator
+      *ngIf="searchResult?.nbHits > defaultPageSize"
+      [length]="searchResult?.nbHits"
+      [pageSize]="defaultPageSize"
+      [pageIndex]="pageIndex"
+      (page)="routeSearch($event)"
+    >
+    </mat-paginator>
+  </ng-container>
+  <ng-template #blank>
+    <p class="no-article">
+      「{{
+        searchQuery ? searchQuery : searchTag
+      }}」に関する記事は見つかりませんでした。
+    </p>
+  </ng-template>
 </div>
