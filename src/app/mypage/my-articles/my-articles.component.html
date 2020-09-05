@@ -2,7 +2,10 @@
   <div class="my-articles">
     <ng-container *ngFor="let article of articles">
       <div class="my-articles__card">
-        <app-article *ngIf="article" [article]="article"></app-article>
+        <app-article-card
+          *ngIf="article"
+          [article]="article"
+        ></app-article-card>
       </div>
     </ng-container>
   </div>

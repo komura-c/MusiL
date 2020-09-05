@@ -7,7 +7,7 @@
   </div>
   <div class="tag-result__body" *ngIf="articles$ | async as articles">
     <div class="tag-result__card" *ngFor="let article of articles">
-      <app-article [article]="article"></app-article>
+      <app-article-card [article]="article"></app-article-card>
     </div>
   </div>
   <mat-paginator
