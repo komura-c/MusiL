@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { SearchResultComponent } from './search-result/search-result.component';
-import { TagResultComponent } from './tag-result/tag-result.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 
 const routes: Routes = [
@@ -15,11 +13,13 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchResultComponent,
+    loadChildren: () =>
+      import('./search-result/search-result.module').then((m) => m.SearchResultModule),
   },
   {
     path: 'tags/:id',
-    component: TagResultComponent,
+    loadChildren: () =>
+      import('./search-result/search-result.module').then((m) => m.SearchResultModule),
   },
   {
     path: 'privacy',

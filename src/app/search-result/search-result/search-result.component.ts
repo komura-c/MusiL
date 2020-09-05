@@ -1,16 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { SearchService } from '../services/search.service';
+import { SearchService } from 'src/app/services/search.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { map, tap, take } from 'rxjs/operators';
-import { LoadingService } from '../services/loading.service';
-import { ScrollService } from '../services/scroll.service';
-import { SeoService } from '../services/seo.service';
-import { UserService } from '../services/user.service';
+import { LoadingService } from 'src/app/services/loading.service';
+import { ScrollService } from 'src/app/services/scroll.service';
+import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { PageEvent } from '@angular/material/paginator';
+import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
   selector: 'app-search-result',
@@ -133,7 +133,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.searchQuery);
