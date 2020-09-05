@@ -1,6 +1,6 @@
 <div class="card">
   <a
-    [routerLink]="'/' + article.author.screenName + '/n/' + article.articleId"
+    [routerLink]="'/' + article.author.screenName + '/a/' + article.articleId"
     class="card__inner"
   >
     <a
@@ -17,7 +17,7 @@
         class="card__title"
         (click)="$event.stopPropagation(); $event.preventDefault()"
         [routerLink]="
-          '/' + article.author.screenName + '/n/' + article.articleId
+          '/' + article.author.screenName + '/a/' + article.articleId
         "
       >
         {{ article.title }}

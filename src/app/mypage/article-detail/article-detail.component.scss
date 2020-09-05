@@ -1,6 +1,6 @@
 @import 'mixins';
 
-.note {
+.article {
   margin: 12px auto;
   max-width: 910px;
   display: grid;
@@ -80,7 +80,7 @@
   }
 }
 
-.note-header {
+.article-header {
   padding: 0 4px;
   &__draft {
     background-color: #f0f0f0;
@@ -120,12 +120,12 @@
   }
 }
 
-.note-content {
+.article-content {
   padding: 20px 8px;
   border-bottom: solid 1px #b6b6b6;
 }
 
-.note-footer {
+.article-footer {
   padding: 12px 4px 0 4px;
   &__author {
     padding: 4px;

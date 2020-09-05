@@ -63,7 +63,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
         .toPromise()
         .then((user: UserData) => {
           this.router.navigateByUrl(
-            '/' + user?.screenName + '/n/' + article?.articleId
+            '/' + user?.screenName + '/a/' + article?.articleId
           );
         });
     }

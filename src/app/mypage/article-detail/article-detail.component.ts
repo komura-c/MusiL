@@ -15,11 +15,11 @@ import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-note',
-  templateUrl: './note.component.html',
-  styleUrls: ['./note.component.scss'],
+  selector: 'app-article-detail',
+  templateUrl: './article-detail.component.html',
+  styleUrls: ['./article-detail.component.scss'],
 })
-export class NoteComponent implements OnInit, OnDestroy {
+export class ArticleDetailComponent implements OnInit, OnDestroy {
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       this.articleId = params.get('id');
@@ -135,7 +135,7 @@ export class NoteComponent implements OnInit, OnDestroy {
   getHeading() {
     setTimeout(() => {
       const headingTagElements = document.querySelectorAll(
-        '.note-content h1, .note-content h2, .note-content h3, .note-content h4'
+        '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
       );
       headingTagElements.forEach((headingTagElement, index) => {
         headingTagElement.id = 'chapter-' + index;
@@ -166,7 +166,7 @@ export class NoteComponent implements OnInit, OnDestroy {
     this.snackBar.open('URLがコピーされました！', '閉じる');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

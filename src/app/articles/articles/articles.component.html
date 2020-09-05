@@ -1,20 +1,20 @@
-<div class="notes">
-  <h1 class="notes__title">記事一覧</h1>
+<div class="articles">
+  <h1 class="articles__title">記事一覧</h1>
   <ng-container *ngIf="articles$ | async as articles">
-    <div class="notes__list-header">
+    <div class="articles__list-header">
       <div class="list-header__num">{{ articles.length }} 記事</div>
     </div>
     <ng-container *ngIf="user$ | async as user">
-      <div class="notes__list-body">
-        <div class="notes__list-item" *ngFor="let article of articles">
+      <div class="articles__list-body">
+        <div class="articles__list-item" *ngFor="let article of articles">
           <a
-            [routerLink]="'/' + user.screenName + '/n/' + article.articleId"
+            [routerLink]="'/' + user.screenName + '/a/' + article.articleId"
             class="list-item__body"
           >
             <a
               class="list-item__title"
               (click)="$event.stopPropagation(); $event.preventDefault()"
-              [routerLink]="'/' + user.screenName + '/n/' + article.articleId"
+              [routerLink]="'/' + user.screenName + '/a/' + article.articleId"
               >{{ article.title }}</a
             >
             <div class="list-item__description">
@@ -33,18 +33,18 @@
               </p>
             </div>
           </a>
-          <app-note-edit-buttons
+          <app-article-edit-buttons
             *ngIf="article"
             [article]="article"
             [screenName]="user.screenName"
-          ></app-note-edit-buttons>
+          ></app-article-edit-buttons>
         </div>
       </div>
     </ng-container>
     <ng-container *ngIf="articles.length === 0">
       <div class="no-article">
         <p>まだ、記事がありません。記事を投稿してみましょう。</p>
-        <button mat-flat-button color="primary" routerLink="/notes/create">
+        <button mat-flat-button color="primary" routerLink="/articles/create">
           <mat-icon>post_add</mat-icon>
           <span>投稿</span>
         </button>

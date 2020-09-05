@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotesComponent } from './notes/notes.component';
+import { ArticlesComponent } from './articles/articles.component';
 import { CreateComponent } from './create/create.component';
 import { FormGuard } from '../guards/form.guard';
 
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: NotesComponent,
+    component: ArticlesComponent,
   },
 ];
 
@@ -26,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class NotesRoutingModule {}
+export class ArticlesRoutingModule { }

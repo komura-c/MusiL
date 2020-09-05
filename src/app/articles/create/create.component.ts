@@ -147,7 +147,7 @@ export class CreateComponent implements OnInit {
     task
       .then(() => {
         this.router.navigateByUrl(
-          '/' + this.user.screenName + '/n/' + this.articleService.snapArticleId
+          '/' + this.user.screenName + '/a/' + this.articleService.snapArticleId
         );
         this.snackBar.open(msg, '閉じる');
       })
@@ -160,5 +160,5 @@ export class CreateComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
