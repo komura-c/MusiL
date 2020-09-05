@@ -20,10 +20,12 @@ import { SeoService } from 'src/app/services/seo.service';
 export class SearchResultComponent implements OnInit, OnDestroy {
   private index = this.searchService.index.popular;
 
+  searchQuery: string;
+  searchTag: string;
+
   defaultPageIndex = 0;
   pageIndex: number;
   defaultPageSize = 20;
-  searchQuery: string;
   searchResult: {
     nbHits: number;
     hits: any[];
@@ -40,45 +42,51 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private seoService: SeoService
   ) {
     this.loadingService.toggleLoading(true);
+    this.route.paramMap.subscribe((params) => {
+      this.searchTag = params.get('id');
+      if (this.searchTag) {
+        this.seoService.setTitleAndMeta({
+          title: `${this.searchTag}に関する記事 | MusiL`,
+          description: 'タグの関連記事を表示するページです',
+          ogType: null,
+          ogImage: null,
+          twitterCard: null,
+        });
+      }
+    });
     this.route.queryParamMap.subscribe((params) => {
       this.searchQuery = params.get('q');
       if (this.searchQuery) {
-        const metaTags = {
+        this.seoService.setTitleAndMeta({
           title: `「${this.searchQuery}」の検索結果 | MusiL`,
           description: '検索結果を表示するページです',
           ogType: null,
           ogImage: null,
           twitterCard: null,
-        };
-        this.seoService.setTitleAndMeta(metaTags);
-      } else {
-        const metaTags = {
-          title: `最新の記事一覧 | MusiL`,
-          description: '最新の記事一覧を表示するページです',
-          ogType: null,
-          ogImage: null,
-          twitterCard: null,
-        };
-        this.seoService.setTitleAndMeta(metaTags);
+        });
       }
       const pageIndexParam = params.get('page');
-      this.pageIndex = Number(pageIndexParam);
-      if (this.pageIndex) {
-        this.search(this.pageIndex);
-        return;
-      }
-      this.search();
+      this.pageIndex = +pageIndexParam;
+      this.search(this.pageIndex || null);
     });
   }
 
   routeSearch(event?: PageEvent): void {
-    this.router.navigate(['/search'], {
-      queryParamsHandling: 'merge',
-      queryParams: {
-        q: this.searchQuery,
-        page: event ? event.pageIndex : this.defaultPageIndex,
-      },
-    });
+    if (this.searchQuery) {
+      this.router.navigate(['/search'], {
+        queryParamsHandling: 'merge',
+        queryParams: {
+          q: this.searchQuery,
+          page: event ? event.pageIndex : this.defaultPageIndex,
+        },
+      });
+    }
+    if (this.searchTag) {
+      this.router.navigate(['/tags', this.searchTag], {
+        queryParamsHandling: 'merge',
+        queryParams: { page: event ? event.pageIndex : this.defaultPageIndex },
+      });
+    }
   }
 
   search(pageIndex?: number) {
@@ -87,55 +95,66 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       hitsPerPage: this.defaultPageSize,
       facetFilters: ['isPublic:true'],
     };
-    this.index
-      .search(this.searchQuery, searchOptions)
-      .then((searchResult: { nbHits: number; hits: any[] }) => {
-        this.searchResult = searchResult;
-        if (this.searchResult?.hits?.length) {
-          const algoliaArticles = this.searchResult.hits;
-          const authorIds: string[] = this.searchResult.hits.map(
-            (algoliaItem) => algoliaItem.uid
-          );
-          const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-          this.articles$ = combineLatest(
-            authorUniqueIds.map((userId) => {
-              return this.userService.getUserData(userId);
-            })
-          ).pipe(
-            take(1),
-            map((users) => {
-              if (algoliaArticles?.length) {
-                return algoliaArticles.map((article) => {
-                  const createdAtDate = new Date(article.createdAt);
-                  const updatedAtDate = new Date(article.updatedAt);
-                  const result: ArticleWithAuthor = {
-                    ...article,
-                    createdAt: firestore.Timestamp.fromDate(createdAtDate),
-                    updatedAt: firestore.Timestamp.fromDate(updatedAtDate),
-                    author: users?.find(
-                      (user: UserData) => user.uid === article.uid
-                    ),
-                  };
-                  return result;
-                });
-              } else {
-                return null;
-              }
-            }),
-            tap(() => {
-              this.loadingService.toggleLoading(false);
-              this.scrollService.restoreScrollPosition(this.searchQuery);
-            })
-          );
-        } else {
-          this.loadingService.toggleLoading(false);
-        }
-      });
+
+    let task: Promise<{ nbHits: number; hits: any[] }>;
+    if (this.searchQuery) {
+      task = this.index.search(this.searchQuery, searchOptions);
+    }
+    if (this.searchTag) {
+      searchOptions.facetFilters.push('tags:' + this.searchTag);
+      task = this.index.search('', searchOptions);
+    }
+
+    task.then((searchResult: { nbHits: number; hits: any[] }) => {
+      this.searchResult = searchResult;
+      if (this.searchResult?.hits?.length) {
+        const algoliaArticles = this.searchResult.hits;
+        const authorIds: string[] = this.searchResult.hits.map(
+          (algoliaItem) => algoliaItem.uid
+        );
+        const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+        const users$ = combineLatest(
+          authorUniqueIds.map((userId) => {
+            return this.userService.getUserData(userId);
+          })
+        );
+        this.articles$ = users$.pipe(take(1),
+          map((users) => {
+            if (algoliaArticles?.length) {
+              return algoliaArticles.map((article) => {
+                const result: ArticleWithAuthor = {
+                  ...article,
+                  createdAt: firestore.Timestamp.fromMillis(article.createdAt),
+                  updatedAt: firestore.Timestamp.fromMillis(article.updatedAt),
+                  author: users?.find(
+                    (user: UserData) => user.uid === article.uid
+                  ),
+                };
+                return result;
+              });
+            } else {
+              return null;
+            }
+          }),
+          tap(() => {
+            this.loadingService.toggleLoading(false);
+            this.scrollService.restoreScrollPosition(this.searchQuery);
+          })
+        );
+      } else {
+        this.loadingService.toggleLoading(false);
+      }
+    });
   }
 
   ngOnInit() { }
 
   ngOnDestroy(): void {
-    this.scrollService.saveScrollPosition(this.searchQuery);
+    if (this.searchQuery) {
+      this.scrollService.saveScrollPosition(this.searchQuery);
+    }
+    if (this.searchTag) {
+      this.scrollService.saveScrollPosition(this.searchTag);
+    }
   }
 }
