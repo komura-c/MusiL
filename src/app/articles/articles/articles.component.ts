@@ -9,11 +9,11 @@ import { tap, take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
-  selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.scss'],
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrls: ['./articles.component.scss'],
 })
-export class NotesComponent implements OnInit {
+export class ArticlesComponent implements OnInit {
   uid = this.authService.uid;
   user$: Observable<UserData> = this.authService.user$;
   articles$: Observable<Article[]> = this.articleService
@@ -40,5 +40,5 @@ export class NotesComponent implements OnInit {
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

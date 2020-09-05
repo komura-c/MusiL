@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MypageComponent } from './mypage/mypage.component';
-import { NoteComponent } from './note/note.component';
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 
 const routes: Routes = [
   {
-    path: 'n/:id',
-    component: NoteComponent,
+    path: 'a/:id',
+    component: ArticleDetailComponent,
   },
   {
     path: '',
@@ -31,4 +31,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MypageRoutingModule {}
+export class MypageRoutingModule { }

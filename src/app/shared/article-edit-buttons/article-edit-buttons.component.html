@@ -1,20 +1,20 @@
 <button
   mat-stroked-button
   class="edit"
-  [routerLink]="'/notes/' + article.articleId + '/edit'"
+  [routerLink]="'/articles/' + article.articleId + '/edit'"
 >
   編集
 </button>
 <button
   mat-icon-button
-  [matMenuTriggerFor]="noteAction"
+  [matMenuTriggerFor]="articleAction"
   aria-label="ノートのアクション"
   class="others"
 >
   <mat-icon>more_horiz</mat-icon>
 </button>
 
-<mat-menu #noteAction="matMenu">
+<mat-menu #articleAction="matMenu">
   <button mat-menu-item (click)="copyLink()">
     <mat-icon>link</mat-icon>
     <span>共有リンク</span>

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { NotesRoutingModule } from './notes-routing.module';
-import { NotesComponent } from './notes/notes.component';
+import { ArticlesRoutingModule } from './articles-routing.module';
+import { ArticlesComponent } from './articles/articles.component';
 import { CreateComponent } from './create/create.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -19,14 +19,14 @@ import { TagFormComponent } from './tag-form/tag-form.component';
 
 @NgModule({
   declarations: [
-    NotesComponent,
+    ArticlesComponent,
     CreateComponent,
     EditorComponent,
     TagFormComponent,
   ],
   imports: [
     CommonModule,
-    NotesRoutingModule,
+    ArticlesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
     MatInputModule,
@@ -40,4 +40,4 @@ import { TagFormComponent } from './tag-form/tag-form.component';
     MatAutocompleteModule,
   ],
 })
-export class NotesModule {}
+export class ArticlesModule { }

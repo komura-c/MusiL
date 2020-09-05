@@ -6,7 +6,7 @@ import { ArticleCardComponent } from './article-card/article-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
-import { NoteEditButtonsComponent } from './note-edit-buttons/note-edit-buttons.component';
+import { ArticleEditButtonsComponent } from './article-edit-buttons/article-edit-buttons.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -15,7 +15,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   declarations: [
     ArticleCardComponent,
     DeleteDialogComponent,
-    NoteEditButtonsComponent,
+    ArticleEditButtonsComponent,
     NotFoundComponent,
   ],
   imports: [
@@ -29,7 +29,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
   exports: [
     ArticleCardComponent,
     DeleteDialogComponent,
-    NoteEditButtonsComponent,
+    ArticleEditButtonsComponent,
     NotFoundComponent,
   ],
 })

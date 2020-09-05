@@ -8,11 +8,11 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-note-edit-buttons',
-  templateUrl: './note-edit-buttons.component.html',
-  styleUrls: ['./note-edit-buttons.component.scss'],
+  selector: 'app-article-edit-buttons',
+  templateUrl: './article-edit-buttons.component.html',
+  styleUrls: ['./article-edit-buttons.component.scss'],
 })
-export class NoteEditButtonsComponent implements OnInit {
+export class ArticleEditButtonsComponent implements OnInit {
   @Input() article: Article | ArticleWithAuthor;
   @Input() screenName: string;
   projectURL = environment.hostingURL;
@@ -21,9 +21,9 @@ export class NoteEditButtonsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private clipboard: Clipboard
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {
@@ -36,7 +36,7 @@ export class NoteEditButtonsComponent implements OnInit {
   copyLink(): void {
     if (this.screenName) {
       this.clipboard.copy(
-        this.projectURL + '/' + this.screenName + '/n/' + this.article.articleId
+        this.projectURL + '/' + this.screenName + '/a/' + this.article.articleId
       );
       this.snackBar.open('URLがコピーされました！', '閉じる');
     } else {

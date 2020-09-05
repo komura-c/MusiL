@@ -1,6 +1,6 @@
 <ng-container *ngIf="article$ | async as article; else notFoundArticle">
-  <div class="note">
-    <div class="note__left-box">
+  <div class="article">
+    <div class="article__left-box">
       <div class="left-actions">
         <button
           mat-icon-button
@@ -53,28 +53,30 @@
         </button>
       </div>
     </div>
-    <div class="note__main-box">
-      <div class="note-header">
+    <div class="article__main-box">
+      <div class="article-header">
         <div *ngIf="article.isPublic === false">
-          <div class="note-header__draft">
-            <div class="note-header__draft-text">これは公開前の下書きです</div>
+          <div class="article-header__draft">
+            <div class="article-header__draft-text">
+              これは公開前の下書きです
+            </div>
           </div>
         </div>
-        <div class="note-header__author">
+        <div class="article-header__author">
           <a [routerLink]="'/' + article.author.screenName">
             <img
-              class="note-header__user-icon"
+              class="article-header__user-icon"
               [src]="article.author.avatarURL"
               alt="プロフィール画像"
           /></a>
 
           <a
-            class="note-header__user-name"
+            class="article-header__user-name"
             [routerLink]="'/' + article.author.screenName"
             >{{ article.author.userName }}</a
           >
           <a
-            class="note-header__twitter"
+            class="article-header__twitter"
             [href]="'https://twitter.com/' + article.author.screenName"
             target="_blank"
             rel="noopener noreferrer"
@@ -86,18 +88,18 @@
               />
             </mat-icon>
           </a>
-          <p class="note-header__updated-date">
+          <p class="article-header__updated-date">
             {{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}更新
           </p>
-          <app-note-edit-buttons
-            class="note-header__actions"
+          <app-article-edit-buttons
+            class="article-header__actions"
             *ngIf="article.author.uid === authService.uid"
             [article]="article"
             [screenName]="article.author.screenName"
           >
-          </app-note-edit-buttons>
+          </app-article-edit-buttons>
         </div>
-        <h1 class="note-header__title">{{ article.title }}</h1>
+        <h1 class="article-header__title">{{ article.title }}</h1>
         <ng-container *ngIf="article.tags">
           <mat-chip-list aria-label="記事のタグ">
             <mat-chip *ngFor="let tag of article.tags">
@@ -106,8 +108,8 @@
           </mat-chip-list>
         </ng-container>
       </div>
-      <div class="note-content" [froalaView]="article.text"></div>
-      <div class="note-footer">
+      <div class="article-content" [froalaView]="article.text"></div>
+      <div class="article-footer">
         <div class="main-actions">
           <button
             mat-icon-button
@@ -162,22 +164,22 @@
             </button>
           </div>
         </div>
-        <div class="note-footer__author">
+        <div class="article-footer__author">
           <a [routerLink]="'/' + article.author.screenName">
             <img
-              class="note-footer__user-icon"
+              class="article-footer__user-icon"
               [src]="article.author.avatarURL"
               alt="プロフィール画像"
           /></a>
 
-          <div class="note-footer__user-profile">
+          <div class="article-footer__user-profile">
             <a
-              class="note-footer__user-name"
+              class="article-footer__user-name"
               [routerLink]="'/' + article.author.screenName"
               >{{ article.author.userName }}</a
             >
             <p
-              class="note-footer__user-description"
+              class="article-footer__user-description"
               [innerHTML]="article.author.description | stringToLink"
             ></p>
             <a
@@ -187,7 +189,7 @@
                 'https://twitter.com/intent/follow?screen_name=' +
                 article.author.screenName
               "
-              class="note-footer__twitter"
+              class="article-footer__twitter"
               target="_blank"
               rel="noopener noreferrer"
               *ngIf="article.author.uid !== authService.uid"
@@ -204,9 +206,9 @@
       </div>
     </div>
     <ng-container *ngIf="headingPositions.length">
-      <div class="note__sub-box">
-        <p class="note__sub-box-title">目次</p>
-        <ul class="note__sub-box-toc">
+      <div class="article__sub-box">
+        <p class="article__sub-box-title">目次</p>
+        <ul class="article__sub-box-toc">
           <li *ngFor="let headingElement of headingElements; index as i">
             <a
               [href]="'#' + headingElement.id"

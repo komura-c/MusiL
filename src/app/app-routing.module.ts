@@ -37,9 +37,9 @@ const routes: Routes = [
       import('./about/about.module').then((m) => m.AboutModule),
   },
   {
-    path: 'notes',
+    path: 'articles',
     loadChildren: () =>
-      import('./notes/notes.module').then((m) => m.NotesModule),
+      import('./articles/articles.module').then((m) => m.ArticlesModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
     data: {
