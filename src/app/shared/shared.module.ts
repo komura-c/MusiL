@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SharedRoutingModule } from './shared-routing.module';
 
-import { ArticleComponent } from './article/article.component';
+import { ArticleCardComponent } from './article-card/article-card.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
@@ -13,7 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    ArticleComponent,
+    ArticleCardComponent,
     DeleteDialogComponent,
     NoteEditButtonsComponent,
     NotFoundComponent,
@@ -27,10 +27,10 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatIconModule,
   ],
   exports: [
-    ArticleComponent,
+    ArticleCardComponent,
     DeleteDialogComponent,
     NoteEditButtonsComponent,
     NotFoundComponent,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }
