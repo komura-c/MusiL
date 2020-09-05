@@ -1,5 +1,4 @@
 .settings {
-  padding: 12px;
   margin: 0 auto;
   max-width: 600px;
   &__title {
@@ -46,20 +45,13 @@
     display: none;
   }
   &__user-name {
-    font-weight: bold;
     width: 100%;
   }
   &__screen-name {
-    margin-bottom: 16px;
-    width: 100%;
+    margin: 12px;
   }
   &__screen-name-label {
     font-size: 12px;
-    padding-left: 12px;
-  }
-  &__screen-name-text {
-    font-weight: bold;
-    padding-left: 12px;
   }
   &__description {
     width: 100%;
@@ -70,15 +62,7 @@
   }
 }
 
-.save-button {
+.settings-button {
   display: block;
-  margin-left: auto;
-  margin-bottom: 12px;
-  font-weight: bold;
-}
-
-.delete-account-button {
-  display: block;
-  margin-left: auto;
-  margin-bottom: 12px;
+  margin: 12px 0 12px auto;
 }

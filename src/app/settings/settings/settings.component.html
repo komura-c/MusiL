@@ -2,27 +2,31 @@
   <h1 class="settings__title">アカウント設定</h1>
   <ng-container *ngIf="user$ | async as user">
     <h2 class="settings__heading">プロフィール</h2>
+    <label
+      for="avatarFile"
+      [style.background-image]="'url(' + user.avatarURL + ')'"
+      class="settings__avatar-image"
+      alt="プロフィール画像"
+    >
+      <div class="settings__avatar-icon-wrap">
+        <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
+      </div>
+    </label>
+    <input
+      id="avatarFile"
+      type="file"
+      accept="image/*"
+      class="settings__avatar-input"
+      (change)="openImageCropDialog($event, imageSelecter)"
+      #imageSelecter
+    />
     <form class="settings__profile-form" [formGroup]="form">
-      <label
-        for="avatarFile"
-        [style.background-image]="'url(' + user.avatarURL + ')'"
-        class="settings__avatar-image"
-        alt="プロフィール画像"
+      <mat-form-field
+        class="settings__user-name"
+        appearance="outline"
+        color="accent"
       >
-        <div class="settings__avatar-icon-wrap">
-          <mat-icon class="settings__avatar-icon">add_a_photo</mat-icon>
-        </div>
-      </label>
-      <input
-        id="avatarFile"
-        type="file"
-        accept="image/*"
-        class="settings__avatar-input"
-        (change)="openImageCropDialog($event, imageSelecter)"
-        #imageSelecter
-      />
-      <mat-form-field class="settings__user-name" appearance="outline">
-        <mat-label>ユーザー名*</mat-label>
+        <mat-label>ユーザー名</mat-label>
         <input
           type="text"
           formControlName="userName"
@@ -30,6 +34,7 @@
           #userNameInput
           placeholder="ユーザー名*"
           autocomplete="off"
+          required
         />
         <mat-hint align="end"
           >{{ userNameInput.value?.length || 0 }}/{{
@@ -44,12 +49,16 @@
         >
       </mat-form-field>
       <div class="settings__screen-name">
-        <span class="settings__screen-name-label"
-          >スクリーンネーム(Twitterアカウントに紐付いています)</span
-        >
+        <div class="settings__screen-name-label">
+          スクリーンネーム(Twitterアカウントから更新)
+        </div>
         <div class="settings__screen-name-text">@{{ user.screenName }}</div>
       </div>
-      <mat-form-field class="settings__description" appearance="outline">
+      <mat-form-field
+        class="settings__description"
+        appearance="outline"
+        color="accent"
+      >
         <mat-label>自己紹介</mat-label>
         <textarea
           type="text"
@@ -72,7 +81,7 @@
       <button
         type="button"
         [disabled]="form.invalid || form.pristine"
-        class="save-button"
+        class="settings-button"
         mat-flat-button
         color="primary"
         (click)="changeProfile()"
@@ -84,7 +93,7 @@
     <h2 class="settings__heading">退会</h2>
     <p>退会するとすべてのデータが削除され、復元できません。</p>
     <button
-      class="delete-account-button"
+      class="settings-button"
       mat-flat-button
       color="warn"
       (click)="openDeleteAccountDialog()"

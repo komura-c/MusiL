@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class ScrollService {
   scrollPosYs: { [key: string]: number } = {};
+  maxAttemptCount = 5;
 
   constructor() {}
 
@@ -15,10 +16,15 @@ export class ScrollService {
   }
 
   restoreScrollPosition(id: string): void {
-    if (id) {
+    for (
+      let attemptCount = 0;
+      attemptCount < this.maxAttemptCount;
+      attemptCount++
+    ) {
+      const position = this.scrollPosYs[id] ? this.scrollPosYs[id] : 0;
       setTimeout(() => {
-        window.scrollTo(0, this.scrollPosYs[id]);
-      }, 100);
+        window.scroll(0, position);
+      }, 30);
     }
   }
 }

@@ -14,7 +14,7 @@ export class MyArticlesComponent implements OnInit {
   articles$: Observable<
     ArticleWithAuthor[]
   > = this.articleService
-    .getMyArticlesPublic(this.userService.mypageUser.uid)
+    .getMyArticlesPublic(this.userService.mypageUser?.uid)
     .pipe(
       take(1),
       tap(() => {

@@ -1,7 +1,7 @@
 <div class="editor">
   <form class="editor__form" [formGroup]="form">
     <div class="editor__header">
-      <mat-form-field class="editor__title">
+      <mat-form-field class="editor__title" color="accent">
         <input
           type="text"
           formControlName="title"
@@ -30,7 +30,10 @@
       <app-editor [parentForm]="form"></app-editor>
     </div>
     <div class="editor__buttons">
-      <mat-slide-toggle class="public-option" formControlName="isPublic"
+      <mat-slide-toggle
+        class="public-option"
+        formControlName="isPublic"
+        color="primary"
         >公開</mat-slide-toggle
       >
       <button type="button" class="cancel-button" mat-button (click)="cancel()">

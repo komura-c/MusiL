@@ -14,7 +14,7 @@ export class LikedArticlesComponent implements OnInit {
   articles$: Observable<
     ArticleWithAuthor[]
   > = this.articleService
-    .getMyLikedArticles(this.userService.mypageUser.uid)
+    .getMyLikedArticles(this.userService.mypageUser?.uid)
     .pipe(
       take(1),
       tap(() => {

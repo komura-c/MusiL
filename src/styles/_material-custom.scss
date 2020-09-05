@@ -2,7 +2,7 @@
 @include mat-core();
 
 $musil-primary: mat-palette($mat-deep-orange);
-$musil-accent: mat-palette($mat-pink, A200, A100, A400);
+$musil-accent: mat-palette($mat-indigo);
 $musil-warn: mat-palette($mat-red);
 
 $musil-theme: mat-light-theme($musil-primary, $musil-accent, $musil-warn);
