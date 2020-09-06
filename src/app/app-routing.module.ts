@@ -57,7 +57,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./top/top.module').then((m) => m.TopModule),
   },
   {
     path: '**',

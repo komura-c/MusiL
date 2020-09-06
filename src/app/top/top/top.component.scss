@@ -83,7 +83,7 @@
   }
 }
 
-.home-page {
+.top-page {
   max-width: 910px;
   margin: 0 auto;
   display: flex;
@@ -91,7 +91,7 @@
     flex-wrap: wrap;
   }
 }
-.home-main {
+.top-main {
   flex: 1;
   &__title {
     display: flex;
@@ -120,7 +120,7 @@
     margin: 0 auto;
   }
 }
-.home-sub {
+.top-sub {
   max-width: 300px;
   margin-left: 24px;
   &__title {
