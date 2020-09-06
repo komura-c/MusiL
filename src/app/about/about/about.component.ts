@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
-import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-about',
@@ -9,22 +8,16 @@ import { tap } from 'rxjs/operators';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  user$ = this.authService.user$.pipe(tap((user) => {
-    if (user) {
-      this.isLoggedIn = true;
-    }
-  }));
-  isLoggedIn = false;
+  user$ = this.authService.user$;
 
   constructor(private seoService: SeoService, public authService: AuthService) {
-    const metaTags = {
+    this.seoService.setTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
       ogType: null,
       ogImage: null,
       twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
+    });
   }
 
   ngOnInit(): void { }
