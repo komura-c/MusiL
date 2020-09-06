@@ -105,7 +105,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       task = this.index.search('', searchOptions);
     }
 
-    task.then((searchResult: { nbHits: number; hits: any[] }) => {
+    task?.then((searchResult: { nbHits: number; hits: any[] }) => {
       this.searchResult = searchResult;
       if (this.searchResult?.hits?.length) {
         const algoliaArticles = this.searchResult.hits;
