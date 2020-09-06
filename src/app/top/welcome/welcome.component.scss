@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .welcome {
   position: relative;
   height: 400px;
@@ -39,7 +41,7 @@
   }
   &__title {
     font-size: 28px;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
   }
   &__sub-title {
     font-size: 16px;
@@ -58,4 +60,12 @@
     font-size: 12px;
     letter-spacing: 1.5px;
   }
+}
+
+.login-button {
+  background-color: $color-twitter;
+}
+
+.terms-link {
+  text-decoration: underline;
 }
