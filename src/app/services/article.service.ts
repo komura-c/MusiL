@@ -139,12 +139,25 @@ export class ArticleService {
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getMyArticlesAll(uid: string): Observable<Article[]> {
-    return this.db
-      .collection<Article>(`articles`, (ref) =>
-        ref.where('uid', '==', uid).orderBy('updatedAt', 'desc').limit(20)
-      )
-      .valueChanges();
+  getMyArticles(uid: string, lastArticle?: Article): Observable<{
+    articles: Article[];
+    lastArticle: Article;
+  }> {
+    const articles$ = this.db.collection<Article>('articles', ref => {
+      let query = ref.where('uid', '==', uid).orderBy('updatedAt', 'desc').limit(20);
+      if (lastArticle) {
+        query = query.startAfter(lastArticle.updatedAt);
+      }
+      return query;
+    }).valueChanges();
+    return articles$.pipe(
+      map(articles => {
+        return {
+          articles,
+          lastArticle: articles[articles.length - 1]
+        };
+      })
+    );
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
