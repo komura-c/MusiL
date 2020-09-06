@@ -19,7 +19,6 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  private uid = this.authService.uid;
   private screenName$: Observable<string> = this.authService.user$.pipe(
     map((user) => user.screenName)
   );
@@ -75,7 +74,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   openImageCropDialog(event: any, imageSelecter: any) {
     this.dialog.open(ImageCropDialogComponent, {
@@ -91,7 +90,7 @@ export class SettingsComponent implements OnInit {
       userName: formData.userName,
       description: formData.description,
     };
-    this.userService.changeUserData(this.uid, newUserData);
+    this.userService.changeUserData(this.authService.uid, newUserData);
     this.screenName$
       .pipe(take(1))
       .toPromise()
