@@ -42,7 +42,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private seoService: SeoService
   ) {
     this.loadingService.toggleLoading(true);
-    this.route.paramMap.subscribe((params) => {
+    this.route.paramMap.forEach((params) => {
       this.searchTag = params.get('id');
       if (this.searchTag) {
         this.seoService.setTitleAndMeta({
@@ -54,7 +54,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         });
       }
     });
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.forEach((params) => {
       this.searchQuery = params.get('q');
       if (this.searchQuery) {
         this.seoService.setTitleAndMeta({
