@@ -1,22 +1,22 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HomeRoutingModule } from './home-routing.module';
-import { HomeComponent } from './home/home.component';
+import { TopRoutingModule } from './top-routing.module';
+import { TopComponent } from './top/top.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [TopComponent],
   imports: [
     CommonModule,
-    HomeRoutingModule,
+    TopRoutingModule,
     MatTabsModule,
     SharedModule,
     MatIconModule,
     MatButtonModule,
   ],
 })
-export class HomeModule {}
+export class TopModule { }

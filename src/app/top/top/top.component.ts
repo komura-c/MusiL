@@ -9,11 +9,11 @@ import { UserData } from '@interfaces/user';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-top',
+  templateUrl: './top.component.html',
+  styleUrls: ['./top.component.scss'],
 })
-export class HomeComponent implements OnInit {
+export class TopComponent implements OnInit {
   isLoading = true;
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => (this.isLoading = false))
@@ -59,5 +59,5 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
