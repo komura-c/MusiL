@@ -23,13 +23,8 @@
     outline: none;
     border: solid 1px #e0e0e0;
     @include sp {
-      appearance: none;
-      width: 100%;
-      line-height: 36px;
       border-radius: 4px;
-      font-size: 12px;
       outline: none;
-      border: solid 1px #e0e0e0;
       height: 44px;
       box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.4);
       padding: 0 42px 0 16px;
