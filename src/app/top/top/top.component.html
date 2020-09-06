@@ -2,7 +2,7 @@
   <div class="recommend-post" *ngIf="!isLoading">
     <div class="recommend-post__main">
       <h1 class="recommend-post__title">ようこそMusiLへ</h1>
-      <h2 class="welcome__sub-title">
+      <h2 class="recommend-post__sub-title">
         MusiLは、DTMや作曲の知識を記録・共有するためのサービスです。
       </h2>
       <div class="recommend-post__text">
@@ -16,44 +16,7 @@
   </div>
 </ng-container>
 <ng-template #welcome>
-  <div class="welcome" *ngIf="!isLoading">
-    <div
-      class="welcome__bg"
-      [style.background-image]="'url(/assets/images/hero-image.jpg)'"
-    ></div>
-    <div class="welcome__wrapper">
-      <div class="welcome__main">
-        <h1 class="welcome__title">DTMや作曲の知識を記録しよう</h1>
-        <h2 class="welcome__sub-title">
-          MusiLは、DTMや作曲の知識を記録・共有するためのサービスです。
-        </h2>
-        <div class="welcome__text">
-          <p class="welcome__agree">
-            <a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
-          </p>
-          <button
-            [disabled]="authService.loginProcessing"
-            (click)="login()"
-            mat-flat-button
-            color="primary"
-            class="login-button"
-          >
-            <mat-icon
-              ><img
-                src="/assets/icons/twitter-logo-white.png"
-                alt="Twitterロゴ"
-            /></mat-icon>
-            <span>{{
-              authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
-            }}</span>
-          </button>
-        </div>
-        <p class="welcome__notice">
-          ※読み取り専用です。許可なくツイート等は行いません。
-        </p>
-      </div>
-    </div>
-  </div>
+  <app-welcome *ngIf="!isLoading"></app-welcome>
 </ng-template>
 <div class="top-page">
   <div class="top-main" *ngIf="popularArticles$ | async as popularArticles">

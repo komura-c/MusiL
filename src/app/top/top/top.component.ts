@@ -52,12 +52,5 @@ export class TopComponent implements OnInit {
     this.loadingService.toggleLoading(true);
   }
 
-  login() {
-    this.authService.loginProcessing = true;
-    this.authService.login().finally(() => {
-      this.authService.loginProcessing = false;
-    });
-  }
-
   ngOnInit(): void { }
 }
