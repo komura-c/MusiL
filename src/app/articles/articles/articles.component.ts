@@ -5,7 +5,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Article } from 'functions/src/interfaces/article';
 import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
-import { tap, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -14,14 +14,11 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./articles.component.scss'],
 })
 export class ArticlesComponent implements OnInit {
-  uid = this.authService.uid;
   user$: Observable<UserData> = this.authService.user$;
-  articles$: Observable<Article[]> = this.articleService
-    .getMyArticlesAll(this.uid)
-    .pipe(
-      take(1),
-      tap(() => this.loadingService.toggleLoading(false))
-    );
+
+  lastArticle: Article;
+  articles: Article[] = [];
+  isComplete: boolean;
 
   constructor(
     private articleService: ArticleService,
@@ -40,5 +37,34 @@ export class ArticlesComponent implements OnInit {
     this.loadingService.toggleLoading(true);
   }
 
-  ngOnInit(): void { }
+  getArticles(uid: string) {
+    this.loadingService.toggleLoading(true);
+    if (this.isComplete) {
+      this.loadingService.toggleLoading(false);
+      return;
+    }
+    this.articleService
+      .getMyArticles(uid, this.lastArticle)
+      .pipe(take(1))
+      .toPromise().then(({ articles, lastArticle }) => {
+        if (articles) {
+          if (!articles.length) {
+            this.isComplete = true;
+            this.loadingService.toggleLoading(false);
+            return;
+          }
+          this.lastArticle = lastArticle;
+          this.articles.push(...articles);
+          this.loadingService.toggleLoading(false);
+        }
+      });
+  }
+
+  ngOnInit(): void {
+    this.user$.pipe(take(1)).toPromise().then(
+      (user) => {
+        this.getArticles(user.uid);
+      }
+    );
+  }
 }

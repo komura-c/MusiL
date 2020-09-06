@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditorComponent } from './editor/editor.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { TagFormComponent } from './tag-form/tag-form.component';
     SharedModule,
     MatChipsModule,
     MatAutocompleteModule,
+    InfiniteScrollModule
   ],
 })
 export class ArticlesModule { }

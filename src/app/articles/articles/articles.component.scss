@@ -1,18 +1,16 @@
 @import 'mixins';
 
 .articles {
-  margin: 30px auto;
+  margin: 0 auto;
   max-width: 910px;
+  &__header {
+    padding-left: 8px;
+    border-bottom: 1px solid #f0f0f0;
+  }
   &__title {
     font-size: 20px;
     margin-bottom: 24px;
     font-weight: bold;
-  }
-  &__list-header {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 16px 8px 16px;
-    border-bottom: 1px solid #f0f0f0;
   }
   &__list-body {
     width: 100%;
@@ -62,10 +60,11 @@
   &__status-label {
     font-size: 12px;
     font-weight: bold;
+    margin-right: 8px;
   }
   &__updated-date {
     font-size: 12px;
-    margin: 0 0 0 8px;
+    margin: 0;
   }
 }
 

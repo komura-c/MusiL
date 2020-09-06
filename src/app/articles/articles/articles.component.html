@@ -1,10 +1,9 @@
 <div class="articles">
-  <h1 class="articles__title">記事一覧</h1>
-  <ng-container *ngIf="articles$ | async as articles">
-    <div class="articles__list-header">
-      <div class="list-header__num">{{ articles.length }} 記事</div>
-    </div>
-    <ng-container *ngIf="user$ | async as user">
+  <div class="articles__header">
+    <h1 class="articles__title">自分の記事一覧</h1>
+  </div>
+  <ng-container *ngIf="user$ | async as user">
+    <ng-container *ngIf="articles.length; else blank">
       <div class="articles__list-body">
         <div class="articles__list-item" *ngFor="let article of articles">
           <a
@@ -40,8 +39,14 @@
           ></app-article-edit-buttons>
         </div>
       </div>
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="getArticles(user.uid)"
+      ></div>
     </ng-container>
-    <ng-container *ngIf="articles.length === 0">
+    <ng-template #blank>
       <div class="no-article">
         <p>まだ、記事がありません。記事を投稿してみましょう。</p>
         <button mat-flat-button color="primary" routerLink="/articles/create">
@@ -49,6 +54,6 @@
           <span>投稿</span>
         </button>
       </div>
-    </ng-container>
+    </ng-template>
   </ng-container>
 </div>
