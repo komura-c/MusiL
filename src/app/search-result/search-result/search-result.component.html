@@ -26,10 +26,12 @@
     </mat-paginator>
   </ng-container>
   <ng-template #blank>
-    <p class="no-article">
-      「{{
-        searchQuery ? searchQuery : searchTag
-      }}」に関する記事は見つかりませんでした。
-    </p>
+    <div class="no-article">
+      <p>
+        「{{
+          searchQuery ? searchQuery : searchTag
+        }}」に関する記事は見つかりませんでした。
+      </p>
+    </div>
   </ng-template>
 </div>

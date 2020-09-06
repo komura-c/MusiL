@@ -14,5 +14,7 @@
   <mat-spinner class="loading-bar" diameter="55" strokeWidth="4"></mat-spinner>
 </ng-container>
 <ng-template #notFound>
-  <p class="no-article" *ngIf="!isLoading">まだ、記事はありません。</p>
+  <div class="no-article" *ngIf="!isLoading">
+    <p>まだ、いいねした記事はありません。</p>
+  </div>
 </ng-template>

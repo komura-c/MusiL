@@ -18,6 +18,7 @@ export class ArticlesComponent implements OnInit {
 
   lastArticle: Article;
   articles: Article[] = [];
+  isLoading: boolean;
   isComplete: boolean;
 
   constructor(
@@ -26,20 +27,20 @@ export class ArticlesComponent implements OnInit {
     private loadingService: LoadingService,
     private seoService: SeoService
   ) {
-    const metaTags = {
+    this.isLoading = true;
+    this.loadingService.toggleLoading(true);
+    this.seoService.setTitleAndMeta({
       title: `記事の管理 | MusiL`,
       description: `自分の記事を管理するページです`,
       ogType: null,
       ogImage: null,
       twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
-    this.loadingService.toggleLoading(true);
+    });
   }
 
   getArticles(uid: string) {
-    this.loadingService.toggleLoading(true);
     if (this.isComplete) {
+      this.isLoading = false;
       this.loadingService.toggleLoading(false);
       return;
     }
@@ -50,11 +51,13 @@ export class ArticlesComponent implements OnInit {
         if (articles) {
           if (!articles.length) {
             this.isComplete = true;
+            this.isLoading = false;
             this.loadingService.toggleLoading(false);
             return;
           }
           this.lastArticle = lastArticle;
           this.articles.push(...articles);
+          this.isLoading = false;
           this.loadingService.toggleLoading(false);
         }
       });
