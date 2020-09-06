@@ -8,9 +8,11 @@ import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { PickupComponent } from './pickup/pickup.component';
+import { SwiperModule } from 'ngx-swiper-wrapper';
 
 @NgModule({
-  declarations: [TopComponent, WelcomeComponent],
+  declarations: [TopComponent, WelcomeComponent, PickupComponent],
   imports: [
     CommonModule,
     TopRoutingModule,
@@ -18,6 +20,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     SharedModule,
     MatIconModule,
     MatButtonModule,
+    SwiperModule,
   ],
 })
 export class TopModule { }

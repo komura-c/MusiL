@@ -189,6 +189,21 @@ export class ArticleService {
     return this.getArticlesWithAuthors(sorted);
   }
 
+  getPickUpArticles(ramdamDateTimeStamp?: firestore.Timestamp): Observable<ArticleWithAuthor[]> {
+    const sorted: Observable<Article[]> = this.db
+      .collection<Article>('articles', (ref) => {
+        let query = ref
+          .where('isPublic', '==', true)
+          .orderBy('createdAt', 'desc')
+          .limit(10);
+        if (ramdamDateTimeStamp) {
+          query = query.startAfter(ramdamDateTimeStamp);
+        }
+        return query;
+      }).valueChanges();
+    return this.getArticlesWithAuthors(sorted);
+  }
+
   getArticlesWithAuthors(
     sorted: Observable<Article[]>
   ): Observable<ArticleWithAuthor[]> {
