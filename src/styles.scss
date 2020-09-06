@@ -29,7 +29,11 @@ img {
   margin: 40px auto;
 }
 .no-article {
+  margin: 40px auto;
   text-align: center;
+  &__text {
+    margin-bottom: 32px;
+  }
 }
 
 .mypage__user-description a {

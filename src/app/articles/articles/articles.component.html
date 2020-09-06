@@ -47,11 +47,13 @@
       ></div>
     </ng-container>
     <ng-template #blank>
-      <div class="no-article">
-        <p>まだ、記事がありません。記事を投稿してみましょう。</p>
+      <div class="no-article" *ngIf="!isLoading">
+        <p class="no-article__text">
+          まだ、投稿した記事がありません。記事を投稿してみましょう。
+        </p>
         <button mat-flat-button color="primary" routerLink="/articles/create">
           <mat-icon>post_add</mat-icon>
-          <span>投稿</span>
+          <span>投稿してみる</span>
         </button>
       </div>
     </ng-template>
