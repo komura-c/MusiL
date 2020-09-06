@@ -35,7 +35,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private userService: UserService
   ) {
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.forEach((params) => {
       const searchQuery: string = params.get('q');
       this.searchControl.patchValue(searchQuery, {
         emitEvent: false,
