@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { SearchGuard } from './guards/search.guard';
 
 const routes: Routes = [
   {
@@ -15,11 +16,13 @@ const routes: Routes = [
     path: 'search',
     loadChildren: () =>
       import('./search-result/search-result.module').then((m) => m.SearchResultModule),
+    canActivate: [SearchGuard],
   },
   {
     path: 'tags/:id',
     loadChildren: () =>
       import('./search-result/search-result.module').then((m) => m.SearchResultModule),
+    canActivate: [SearchGuard],
   },
   {
     path: 'privacy',

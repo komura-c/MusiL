@@ -44,13 +44,14 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   routeSearch(keyword: string): void {
-    if (keyword === null) {
-      keyword = '';
+    if (keyword === null || /^ {1,}$/.test(keyword)) {
+      return;
+    } else {
+      this.router.navigate(['/search'], {
+        queryParamsHandling: 'merge',
+        queryParams: { q: keyword },
+      });
     }
-    this.router.navigate(['/search'], {
-      queryParamsHandling: 'merge',
-      queryParams: { q: keyword },
-    });
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
