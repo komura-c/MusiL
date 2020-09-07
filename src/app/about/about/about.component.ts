@@ -10,13 +10,13 @@ import { SeoService } from 'src/app/services/seo.service';
 export class AboutComponent implements OnInit {
   user$ = this.authService.user$;
 
-  constructor(private seoService: SeoService, public authService: AuthService) {
+  constructor(
+    private seoService: SeoService,
+    public authService: AuthService
+  ) {
     this.seoService.setTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
     });
   }
 

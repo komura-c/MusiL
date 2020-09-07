@@ -54,15 +54,14 @@ export class SettingsComponent implements OnInit {
     private router: Router,
     private seoService: SeoService
   ) {
-    const metaTags = {
+    this.loadingService.toggleLoading(true);
+    this.seoService.setTitleAndMeta({
       title: 'アカウント設定 | MusiL',
       description: 'アカウント設定のページです',
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
-    this.loadingService.toggleLoading(true);
+    });
+  }
+
+  ngOnInit(): void {
     this.user$
       .pipe(take(1))
       .toPromise()
@@ -74,9 +73,7 @@ export class SettingsComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void { }
-
-  openImageCropDialog(event: any, imageSelecter: any) {
+  openImageCropDialog(event: any, imageSelecter: any): void {
     this.dialog.open(ImageCropDialogComponent, {
       autoFocus: false,
       restoreFocus: false,
@@ -84,7 +81,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  changeProfile() {
+  changeProfile(): void {
     const formData = this.form.value;
     const newUserData: Pick<UserData, 'userName' | 'description'> = {
       userName: formData.userName,
@@ -100,7 +97,7 @@ export class SettingsComponent implements OnInit {
     this.snackBar.open('プロフィールが更新されました', '閉じる');
   }
 
-  openDeleteAccountDialog() {
+  openDeleteAccountDialog(): void {
     this.dialog.open(DeleteAccountDialogComponent, {
       autoFocus: false,
       restoreFocus: false,

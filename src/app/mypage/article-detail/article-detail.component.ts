@@ -52,20 +52,10 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
           .then((result) => {
             this.isLiked = result;
           });
-        const html2textReg = new RegExp(/<("[^"]*"|'[^']*'|[^'">])*>/g);
-        const descriptionMaxLength = 120;
-        const description =
-          article.text
-            ?.replace(html2textReg, '')
-            .slice(0, descriptionMaxLength) + '…';
-        const metaTags = {
+        this.seoService.setTitleAndMeta({
           title: `${article.title} | MusiL`,
-          description,
-          ogType: 'article',
-          ogImage: null,
-          twitterCard: null,
-        };
-        this.seoService.setTitleAndMeta(metaTags);
+          description: article.text,
+        });
       }
     }),
     tap(() => {
@@ -89,19 +79,6 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   projectURL = environment.hostingURL;
   path: string = this.location.path();
 
-  @HostListener('window:scroll', ['$event'])
-  getTableOfContents() {
-    if (this.headingPositions.length) {
-      const buffer = 20;
-      const position = window.pageYOffset + this.headerHeight + buffer;
-      this.headingPositions.forEach((headingPosition, index) => {
-        if (headingPosition < position) {
-          this.activeHeadingIndex = index;
-        }
-      });
-    }
-  }
-
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
@@ -118,18 +95,23 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
   }
 
-  scrollToHeading(event) {
-    const id = event.target.hash.replace('#', '');
-    if (id !== '') {
-      const rectTop = document.getElementById(id).getBoundingClientRect().top;
-      const position = window.pageYOffset;
-      const top = rectTop + position - this.headerHeight;
-      window.scroll({
-        top,
-        behavior: 'smooth',
+  ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    this.scrollService.saveScrollPosition(this.articleId);
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  getTableOfContents() {
+    if (this.headingPositions.length) {
+      const buffer = 20;
+      const position = window.pageYOffset + this.headerHeight + buffer;
+      this.headingPositions.forEach((headingPosition, index) => {
+        if (headingPosition < position) {
+          this.activeHeadingIndex = index;
+        }
       });
     }
-    return false;
   }
 
   getHeading() {
@@ -145,6 +127,20 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         );
       });
     }, 100);
+  }
+
+  scrollToHeading(event) {
+    const id = event.target.hash.replace('#', '');
+    if (id !== '') {
+      const rectTop = document.getElementById(id).getBoundingClientRect().top;
+      const position = window.pageYOffset;
+      const top = rectTop + position - this.headerHeight;
+      window.scroll({
+        top,
+        behavior: 'smooth',
+      });
+    }
+    return false;
   }
 
   clickedLike(articleId: string) {
@@ -164,11 +160,5 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   copyLink(): void {
     this.clipboard.copy(this.projectURL + this.path);
     this.snackBar.open('URLがコピーされました！', '閉じる');
-  }
-
-  ngOnInit(): void { }
-
-  ngOnDestroy(): void {
-    this.scrollService.saveScrollPosition(this.articleId);
   }
 }

@@ -32,10 +32,15 @@ export class ArticlesComponent implements OnInit {
     this.seoService.setTitleAndMeta({
       title: `記事の管理 | MusiL`,
       description: `自分の記事を管理するページです`,
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
     });
+  }
+
+  ngOnInit(): void {
+    this.user$.pipe(take(1)).toPromise().then(
+      (user) => {
+        this.getArticles(user.uid);
+      }
+    );
   }
 
   getArticles(uid: string) {
@@ -61,13 +66,5 @@ export class ArticlesComponent implements OnInit {
           this.loadingService.toggleLoading(false);
         }
       });
-  }
-
-  ngOnInit(): void {
-    this.user$.pipe(take(1)).toPromise().then(
-      (user) => {
-        this.getArticles(user.uid);
-      }
-    );
   }
 }

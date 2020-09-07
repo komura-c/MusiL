@@ -41,15 +41,12 @@ export class TopComponent implements OnInit {
     private seoService: SeoService,
     public authService: AuthService
   ) {
-    const metaTags = {
+    this.loadingService.toggleLoading(true);
+    this.seoService.setTitleAndMeta({
       title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
       description: 'DTMや作曲の知識を記録しよう',
       ogType: 'website',
-      ogImage: null,
-      twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
-    this.loadingService.toggleLoading(true);
+    });
   }
 
   ngOnInit(): void { }
