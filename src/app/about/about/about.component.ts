@@ -8,8 +8,6 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  user$ = this.authService.user$;
-
   constructor(
     private seoService: SeoService,
     public authService: AuthService

@@ -8,7 +8,7 @@
       mat-flat-button
       color="primary"
       class="login-button"
-      *ngIf="!(user$ | async)"
+      *ngIf="!(authService.user$ | async)"
     >
       <mat-icon
         ><img src="/assets/icons/twitter-logo-white.png" alt="Twitterロゴ"
