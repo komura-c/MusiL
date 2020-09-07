@@ -23,4 +23,4 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
     SwiperModule,
   ],
 })
-export class TopModule { }
+export class TopModule {}

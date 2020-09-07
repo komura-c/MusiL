@@ -36,11 +36,12 @@ export class ArticlesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user$.pipe(take(1)).toPromise().then(
-      (user) => {
+    this.user$
+      .pipe(take(1))
+      .toPromise()
+      .then((user) => {
         this.getArticles(user.uid);
-      }
-    );
+      });
   }
 
   getArticles(uid: string) {
@@ -52,7 +53,8 @@ export class ArticlesComponent implements OnInit {
     this.articleService
       .getMyArticles(uid, this.lastArticle)
       .pipe(take(1))
-      .toPromise().then(({ articles, lastArticle }) => {
+      .toPromise()
+      .then(({ articles, lastArticle }) => {
         if (articles) {
           if (!articles.length) {
             this.isComplete = true;

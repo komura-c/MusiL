@@ -65,7 +65,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     if (this.searchQuery) {
@@ -123,7 +123,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
             return this.userService.getUserData(userId);
           })
         );
-        this.articles$ = users$.pipe(take(1),
+        this.articles$ = users$.pipe(
+          take(1),
           map((users) => {
             if (algoliaArticles?.length) {
               return algoliaArticles.map((article) => {

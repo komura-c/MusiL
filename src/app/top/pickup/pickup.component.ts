@@ -9,7 +9,7 @@ import { ArticleWithAuthor } from '@interfaces/article-with-author';
 @Component({
   selector: 'app-pickup',
   templateUrl: './pickup.component.html',
-  styleUrls: ['./pickup.component.scss']
+  styleUrls: ['./pickup.component.scss'],
 })
 export class PickupComponent implements OnInit {
   config: SwiperConfigInterface = {
@@ -22,37 +22,41 @@ export class PickupComponent implements OnInit {
     spaceBetween: 20,
     breakpoints: {
       480: {
-        slidesPerView: 2
+        slidesPerView: 2,
       },
       896: {
-        slidesPerView: 3
-      }
-    }
+        slidesPerView: 3,
+      },
+    },
   };
   activeSlide = 0;
 
-  ramdamDateTimeStamp = firestore.Timestamp.fromDate(this.randomizeDate('2020/08/01'));
-  articles$: Observable<ArticleWithAuthor[]> =
-    this.articleService.getPickUpArticles(this.ramdamDateTimeStamp).pipe(
-      map((articles) => {
-        if (articles.length) {
-          return this.shuffleArticle(articles);
-        } else {
-          return null;
-        }
-      })
-    );
+  ramdamDateTimeStamp = firestore.Timestamp.fromDate(
+    this.randomizeDate('2020/08/01')
+  );
+  articles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getPickUpArticles(this.ramdamDateTimeStamp).pipe(
+    map((articles) => {
+      if (articles.length) {
+        return this.shuffleArticle(articles);
+      } else {
+        return null;
+      }
+    })
+  );
 
-  constructor(
-    private articleService: ArticleService
-  ) { }
+  constructor(private articleService: ArticleService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   randomizeDate(fromYmd: string) {
     const fromDate = new Date(fromYmd);
     const today = new Date();
-    return new Date(fromDate.getTime() + Math.random() * (today.getTime() - fromDate.getTime()));
+    return new Date(
+      fromDate.getTime() +
+        Math.random() * (today.getTime() - fromDate.getTime())
+    );
   }
 
   shuffleArticle(articles: ArticleWithAuthor[]) {

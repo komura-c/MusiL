@@ -7,14 +7,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
-  declarations: [
-    SearchResultComponent
-  ],
+  declarations: [SearchResultComponent],
   imports: [
     CommonModule,
     SearchResultRoutingModule,
     MatPaginatorModule,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class SearchResultModule { }
+export class SearchResultModule {}

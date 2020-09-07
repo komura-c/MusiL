@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) { }
+  ) {}
   snapArticleId: string;
 
   async uploadImage(uid: string, file: File): Promise<void> {
@@ -106,17 +106,20 @@ export class ArticleService {
       .collection(`users/${uid}/likedArticles`, (ref) =>
         ref.orderBy('updatedAt', 'desc').limit(20)
       )
-      .valueChanges().pipe(take(1))
+      .valueChanges()
+      .pipe(take(1))
       .pipe(
         switchMap((articleIdDocs: { articleId: string }[]) => {
           if (articleIdDocs?.length) {
             return combineLatest(
               articleIdDocs.map((articleIdDoc) => {
-                const articleDocs = this.db.collection<Article>(`articles`, (ref) =>
-                  ref
-                    .where('articleId', '==', articleIdDoc.articleId)
-                    .where('isPublic', '==', true)
-                ).valueChanges();
+                const articleDocs = this.db
+                  .collection<Article>(`articles`, (ref) =>
+                    ref
+                      .where('articleId', '==', articleIdDoc.articleId)
+                      .where('isPublic', '==', true)
+                  )
+                  .valueChanges();
                 return articleDocs.pipe(
                   map((articles) => {
                     if (articles.length) {
@@ -133,28 +136,36 @@ export class ArticleService {
           }
         }),
         map((articles) => {
-          return articles.filter(article => article);
+          return articles.filter((article) => article);
         })
       );
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getMyArticles(uid: string, lastArticle?: Article): Observable<{
+  getMyArticles(
+    uid: string,
+    lastArticle?: Article
+  ): Observable<{
     articles: Article[];
     lastArticle: Article;
   }> {
-    const articles$ = this.db.collection<Article>('articles', ref => {
-      let query = ref.where('uid', '==', uid).orderBy('updatedAt', 'desc').limit(20);
-      if (lastArticle) {
-        query = query.startAfter(lastArticle.updatedAt);
-      }
-      return query;
-    }).valueChanges();
+    const articles$ = this.db
+      .collection<Article>('articles', (ref) => {
+        let query = ref
+          .where('uid', '==', uid)
+          .orderBy('updatedAt', 'desc')
+          .limit(20);
+        if (lastArticle) {
+          query = query.startAfter(lastArticle.updatedAt);
+        }
+        return query;
+      })
+      .valueChanges();
     return articles$.pipe(
-      map(articles => {
+      map((articles) => {
         return {
           articles,
-          lastArticle: articles[articles.length - 1]
+          lastArticle: articles[articles.length - 1],
         };
       })
     );
@@ -189,7 +200,9 @@ export class ArticleService {
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getPickUpArticles(ramdamDateTimeStamp?: firestore.Timestamp): Observable<ArticleWithAuthor[]> {
+  getPickUpArticles(
+    ramdamDateTimeStamp?: firestore.Timestamp
+  ): Observable<ArticleWithAuthor[]> {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>('articles', (ref) => {
         let query = ref
@@ -200,7 +213,8 @@ export class ArticleService {
           query = query.startAfter(ramdamDateTimeStamp);
         }
         return query;
-      }).valueChanges();
+      })
+      .valueChanges();
     return this.getArticlesWithAuthors(sorted);
   }
 
@@ -239,7 +253,9 @@ export class ArticleService {
     );
   }
 
-  getArticleWithAuthorByArticleId(articleId: string): Observable<ArticleWithAuthor> {
+  getArticleWithAuthorByArticleId(
+    articleId: string
+  ): Observable<ArticleWithAuthor> {
     return this.getArticleOnly(articleId).pipe(
       switchMap((article: Article) => {
         return combineLatest([

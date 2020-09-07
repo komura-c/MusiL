@@ -39,7 +39,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     SharedModule,
     MatChipsModule,
     MatAutocompleteModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
   ],
 })
-export class ArticlesModule { }
+export class ArticlesModule {}
