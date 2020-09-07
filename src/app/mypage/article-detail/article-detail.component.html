@@ -55,7 +55,7 @@
     </div>
     <div class="article__main-box">
       <div class="article-header">
-        <div *ngIf="article.isPublic === false">
+        <div *ngIf="!article.isPublic">
           <div class="article-header__draft">
             <div class="article-header__draft-text">
               これは公開前の下書きです

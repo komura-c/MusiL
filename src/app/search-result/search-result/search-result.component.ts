@@ -114,7 +114,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.searchResult = searchResult;
       if (this.searchResult?.hits?.length) {
         const algoliaArticles = this.searchResult.hits;
-        const authorIds: string[] = this.searchResult.hits.map(
+        const authorIds: string[] = algoliaArticles.map(
           (algoliaItem) => algoliaItem.uid
         );
         const authorUniqueIds: string[] = Array.from(new Set(authorIds));

@@ -30,28 +30,12 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
     switchMap((articleId: string) => {
       return this.articleService
-        .getArticleWithAuthorOnly(articleId)
+        .getArticleWithAuthorByArticleId(articleId)
         .pipe(take(1));
-    }),
-    map((article: ArticleWithAuthor) => {
-      if (article?.isPublic || this.authService.uid === article?.author?.uid) {
-        return article;
-      } else {
-        return null;
-      }
     }),
     tap((article: ArticleWithAuthor) => {
       if (article) {
-        if (!this.likeCount) {
-          this.likeCount = article.likeCount;
-        }
-        this.likeService
-          .isLiked(article.articleId, this.authService.uid)
-          .pipe(take(1))
-          .toPromise()
-          .then((result) => {
-            this.isLiked = result;
-          });
+        this.initLikeStatus(article);
         this.seoService.setTitleAndMeta({
           title: `${article.title} | MusiL`,
           description: article.text,
@@ -60,8 +44,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     }),
     tap(() => {
       this.getHeading();
-      this.loadingService.toggleLoading(false);
       this.isLoading = false;
+      this.loadingService.toggleLoading(false);
       this.scrollService.restoreScrollPosition(this.articleId);
     })
   );
@@ -99,6 +83,19 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);
+  }
+
+  private initLikeStatus(article: ArticleWithAuthor) {
+    if (!this.likeCount) {
+      this.likeCount = article.likeCount;
+    }
+    this.likeService
+      .isLiked(article.articleId, this.authService.uid)
+      .pipe(take(1))
+      .toPromise()
+      .then((result) => {
+        this.isLiked = result;
+      });
   }
 
   @HostListener('window:scroll', ['$event'])

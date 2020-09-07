@@ -239,7 +239,7 @@ export class ArticleService {
     );
   }
 
-  getArticleWithAuthorOnly(articleId: string): Observable<ArticleWithAuthor> {
+  getArticleWithAuthorByArticleId(articleId: string): Observable<ArticleWithAuthor> {
     return this.getArticleOnly(articleId).pipe(
       switchMap((article: Article) => {
         return combineLatest([

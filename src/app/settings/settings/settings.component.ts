@@ -19,10 +19,6 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  private screenName$: Observable<string> = this.authService.user$.pipe(
-    map((user) => user.screenName)
-  );
-
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => this.loadingService.toggleLoading(false))
   );
@@ -81,19 +77,14 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  changeProfile(): void {
+  changeProfile(screenName: string): void {
     const formData = this.form.value;
     const newUserData: Pick<UserData, 'userName' | 'description'> = {
       userName: formData.userName,
       description: formData.description,
     };
     this.userService.changeUserData(this.authService.uid, newUserData);
-    this.screenName$
-      .pipe(take(1))
-      .toPromise()
-      .then((screenName) => {
-        this.router.navigateByUrl('/' + screenName);
-      });
+    this.router.navigateByUrl('/' + screenName);
     this.snackBar.open('プロフィールが更新されました', '閉じる');
   }
 
