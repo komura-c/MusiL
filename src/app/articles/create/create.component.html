@@ -7,8 +7,9 @@
           formControlName="title"
           matInput
           #titleInput
-          placeholder="タイトル*"
+          placeholder="タイトル"
           autocomplete="off"
+          required
         />
         <mat-hint align="end"
           >{{ titleInput.value?.length || 0 }}/{{ titleMaxLength }}</mat-hint
