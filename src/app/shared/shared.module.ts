@@ -33,4 +33,4 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NotFoundComponent,
   ],
 })
-export class SharedModule { }
+export class SharedModule {}

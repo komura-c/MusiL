@@ -21,9 +21,9 @@ export class ArticleEditButtonsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private clipboard: Clipboard
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {

@@ -8,17 +8,14 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  constructor(
-    private seoService: SeoService,
-    public authService: AuthService
-  ) {
+  constructor(private seoService: SeoService, public authService: AuthService) {
     this.seoService.setTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.authService.loginProcessing = true;

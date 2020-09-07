@@ -15,13 +15,17 @@ const routes: Routes = [
   {
     path: 'search',
     loadChildren: () =>
-      import('./search-result/search-result.module').then((m) => m.SearchResultModule),
+      import('./search-result/search-result.module').then(
+        (m) => m.SearchResultModule
+      ),
     canActivate: [SearchGuard],
   },
   {
     path: 'tags/:id',
     loadChildren: () =>
-      import('./search-result/search-result.module').then((m) => m.SearchResultModule),
+      import('./search-result/search-result.module').then(
+        (m) => m.SearchResultModule
+      ),
     canActivate: [SearchGuard],
   },
   {
@@ -76,4 +80,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

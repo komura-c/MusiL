@@ -14,5 +14,5 @@ export class TermsComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }
