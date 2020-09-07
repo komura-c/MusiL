@@ -29,8 +29,8 @@ export class TagFormComponent implements OnInit, OnDestroy {
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
+  private readonly index = this.searchService.index.latest;
   private subscription: Subscription;
-  private index = this.searchService.index.latest;
   allTags: {
     value: string;
     highlighted: string;
@@ -45,7 +45,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
     return this.parentForm.get('tag') as FormControl;
   }
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService) { }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;

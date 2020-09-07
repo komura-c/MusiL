@@ -18,7 +18,7 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./search-result.component.scss'],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
-  private index = this.searchService.index.popular;
+  private readonly index = this.searchService.index.popular;
 
   searchQuery: string;
   searchTag: string;
