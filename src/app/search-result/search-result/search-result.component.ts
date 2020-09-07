@@ -48,9 +48,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.seoService.setTitleAndMeta({
           title: `${this.searchTag}に関する記事 | MusiL`,
           description: 'タグの関連記事を表示するページです',
-          ogType: null,
-          ogImage: null,
-          twitterCard: null,
         });
       }
     });
@@ -60,15 +57,23 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.seoService.setTitleAndMeta({
           title: `「${this.searchQuery}」の検索結果 | MusiL`,
           description: '検索結果を表示するページです',
-          ogType: null,
-          ogImage: null,
-          twitterCard: null,
         });
       }
       const pageIndexParam = params.get('page');
       this.pageIndex = +pageIndexParam;
       this.search(this.pageIndex || null);
     });
+  }
+
+  ngOnInit() { }
+
+  ngOnDestroy(): void {
+    if (this.searchQuery) {
+      this.scrollService.saveScrollPosition(this.searchQuery);
+    }
+    if (this.searchTag) {
+      this.scrollService.saveScrollPosition(this.searchTag);
+    }
   }
 
   routeSearch(event?: PageEvent): void {
@@ -145,16 +150,5 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         this.loadingService.toggleLoading(false);
       }
     });
-  }
-
-  ngOnInit() { }
-
-  ngOnDestroy(): void {
-    if (this.searchQuery) {
-      this.scrollService.saveScrollPosition(this.searchQuery);
-    }
-    if (this.searchTag) {
-      this.scrollService.saveScrollPosition(this.searchTag);
-    }
   }
 }

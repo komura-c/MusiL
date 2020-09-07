@@ -65,14 +65,13 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private seoService: SeoService
   ) {
-    const metaTags = {
+    this.seoService.setTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
+    });
+  }
+
+  ngOnInit(): void {
     this.getUserData();
     this.getArticleAndPatchValue();
   }
@@ -159,6 +158,4 @@ export class CreateComponent implements OnInit {
         );
       });
   }
-
-  ngOnInit(): void { }
 }
