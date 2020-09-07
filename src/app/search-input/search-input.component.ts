@@ -14,8 +14,8 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
+  private readonly index = this.searchService.index.popular;
   private subscription: Subscription;
-  private index = this.searchService.index.popular;
   private searchOptions = {
     page: 0,
     hitsPerPage: 20,
