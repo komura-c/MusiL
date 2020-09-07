@@ -1,0 +1,231 @@
+<ng-container *ngIf="article$ | async as article; else notFoundArticle">
+  <div class="article">
+    <div class="article__left-box">
+      <div class="left-actions">
+        <button
+          mat-icon-button
+          color="warn"
+          class="left-actions__like"
+          aria-label="いいね"
+          matTooltip="いいね"
+          matTooltipPosition="right"
+          (click)="clickedLike(article.articleId)"
+          [class.left-actions__like--liked]="isLiked"
+        >
+          <ng-container *ngIf="isLiked; else isNotLiked">
+            <mat-icon>favorite</mat-icon>
+            <span>{{ likeCount }}</span>
+          </ng-container>
+          <ng-template #isNotLiked>
+            <mat-icon>favorite_border</mat-icon>
+            <span>{{ likeCount }}</span>
+          </ng-template>
+        </button>
+        <a
+          mat-icon-button
+          class="left-actions__twitter"
+          aria-label="Twitterでシェア"
+          matTooltip="Twitterでシェア"
+          [href]="
+            'https://twitter.com/share?url=' +
+            projectURL +
+            path +
+            '&text=' +
+            article.title
+          "
+          target="_blank"
+          rel="noopener noreferrer"
+          matTooltipPosition="right"
+        >
+          <mat-icon>
+            <img src="/assets/icons/twitter-logo-blue.png" alt="Twitterロゴ" />
+          </mat-icon>
+        </a>
+        <button
+          mat-icon-button
+          class="left-actions__link"
+          aria-label="リンクをコピー"
+          matTooltip="リンクをコピー"
+          matTooltipPosition="right"
+          (click)="copyLink()"
+        >
+          <mat-icon>link</mat-icon>
+        </button>
+      </div>
+    </div>
+    <div class="article__main-box">
+      <div class="article-header">
+        <div *ngIf="!article.isPublic">
+          <div class="article-header__draft">
+            <div class="article-header__draft-text">
+              これは公開前の下書きです
+            </div>
+          </div>
+        </div>
+        <div class="article-header__author">
+          <a [routerLink]="'/' + article.author.screenName">
+            <img
+              class="article-header__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+          /></a>
+
+          <a
+            class="article-header__user-name"
+            [routerLink]="'/' + article.author.screenName"
+            >{{ article.author.userName }}</a
+          >
+          <a
+            class="article-header__twitter"
+            [href]="'https://twitter.com/' + article.author.screenName"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <mat-icon>
+              <img
+                src="/assets/icons/twitter-logo-blue.png"
+                alt="Twitterロゴ"
+              />
+            </mat-icon>
+          </a>
+          <p class="article-header__updated-date">
+            {{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}更新
+          </p>
+          <app-article-edit-buttons
+            class="article-header__actions"
+            *ngIf="article.author.uid === authService.uid"
+            [article]="article"
+            [screenName]="article.author.screenName"
+          >
+          </app-article-edit-buttons>
+        </div>
+        <h1 class="article-header__title">{{ article.title }}</h1>
+        <ng-container *ngIf="article.tags">
+          <mat-chip-list aria-label="記事のタグ">
+            <mat-chip *ngFor="let tag of article.tags">
+              <a [routerLink]="'/tags/' + tag">{{ tag }}</a>
+            </mat-chip>
+          </mat-chip-list>
+        </ng-container>
+      </div>
+      <div class="article-content" [froalaView]="article.text"></div>
+      <div class="article-footer">
+        <div class="main-actions">
+          <button
+            mat-icon-button
+            color="warn"
+            class="main-actions__like"
+            aria-label="いいね"
+            matTooltip="いいね"
+            (click)="clickedLike(article.articleId)"
+            [class.main-actions__like--liked]="isLiked"
+          >
+            <ng-container *ngIf="isLiked; else isNotLiked">
+              <mat-icon>favorite</mat-icon>
+              <span>{{ likeCount }}</span>
+            </ng-container>
+            <ng-template #isNotLiked>
+              <mat-icon>favorite_border</mat-icon>
+              <span>{{ likeCount }}</span>
+            </ng-template>
+          </button>
+
+          <div class="main-actions__share">
+            <a
+              mat-icon-button
+              class="main-actions__twitter"
+              aria-label="Twitterでシェア"
+              matTooltip="Twitterでシェア"
+              [href]="
+                'https://twitter.com/share?url=' +
+                projectURL +
+                path +
+                '&text=' +
+                article.title
+              "
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <mat-icon>
+                <img
+                  src="/assets/icons/twitter-logo-blue.png"
+                  alt="Twitterロゴ"
+                />
+              </mat-icon>
+            </a>
+            <button
+              mat-icon-button
+              class="main-actions__link"
+              aria-label="リンクをコピー"
+              matTooltip="リンクをコピー"
+              (click)="copyLink()"
+            >
+              <mat-icon>link</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div class="article-footer__author">
+          <a [routerLink]="'/' + article.author.screenName">
+            <img
+              class="article-footer__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+          /></a>
+
+          <div class="article-footer__user-profile">
+            <a
+              class="article-footer__user-name"
+              [routerLink]="'/' + article.author.screenName"
+              >{{ article.author.userName }}</a
+            >
+            <p
+              class="article-footer__user-description"
+              [innerHTML]="article.author.description | stringToLink"
+            ></p>
+            <a
+              mat-flat-button
+              color="primary"
+              [href]="
+                'https://twitter.com/intent/follow?screen_name=' +
+                article.author.screenName
+              "
+              class="article-footer__twitter"
+              target="_blank"
+              rel="noopener noreferrer"
+              *ngIf="article.author.uid !== authService.uid"
+            >
+              <mat-icon
+                ><img
+                  src="/assets/icons/twitter-logo-white.png"
+                  alt="Twitterロゴ"
+              /></mat-icon>
+              <span>Twitterでフォロー</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-container *ngIf="headingPositions.length">
+      <div class="article__sub-box">
+        <p class="article__sub-box-title">目次</p>
+        <ul class="article__sub-box-toc">
+          <li *ngFor="let headingElement of headingElements; index as i">
+            <a
+              [href]="'#' + headingElement.id"
+              [class.active]="i === activeHeadingIndex"
+              [class.toc-h2]="headingElement.tagName === 'H2'"
+              [class.toc-h3]="headingElement.tagName === 'H3'"
+              [class.toc-h4]="headingElement.tagName === 'H4'"
+              (click)="scrollToHeading($event)"
+              >{{ headingElement.textContent }}</a
+            >
+          </li>
+        </ul>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+<ng-template #notFoundArticle>
+  <app-not-found *ngIf="!isLoading"></app-not-found>
+</ng-template>

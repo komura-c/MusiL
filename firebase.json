@@ -1,14 +1,10 @@
 {
   "hosting": {
     "public": "dist/musil",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
-        "source": "/**/n/**",
+        "source": "/**/a/**",
         "function": "render"
       },
       {

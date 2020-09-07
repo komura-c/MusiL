@@ -14,8 +14,8 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
   styleUrls: ['./search-input.component.scss'],
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
+  private readonly index = this.searchService.index.popular;
   private subscription: Subscription;
-  private index = this.searchService.index.popular;
   private searchOptions = {
     page: 0,
     hitsPerPage: 20,
@@ -35,7 +35,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private userService: UserService
   ) {
-    this.route.queryParamMap.subscribe((params) => {
+    this.route.queryParamMap.forEach((params) => {
       const searchQuery: string = params.get('q');
       this.searchControl.patchValue(searchQuery, {
         emitEvent: false,
@@ -44,13 +44,14 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   routeSearch(keyword: string): void {
-    if (keyword === null) {
-      keyword = '';
+    if (keyword === null || /^ {1,}$/.test(keyword)) {
+      return;
+    } else {
+      this.router.navigate(['/search'], {
+        queryParamsHandling: 'merge',
+        queryParams: { q: keyword },
+      });
     }
-    this.router.navigate(['/search'], {
-      queryParamsHandling: 'merge',
-      queryParams: { q: keyword },
-    });
   }
 
   selected(event: MatAutocompleteSelectedEvent): void {
@@ -63,7 +64,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
         .toPromise()
         .then((user: UserData) => {
           this.router.navigateByUrl(
-            '/' + user?.screenName + '/n/' + article?.articleId
+            '/' + user?.screenName + '/a/' + article?.articleId
           );
         });
     }

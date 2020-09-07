@@ -1,0 +1,30 @@
+<ng-container *ngIf="user$ | async; else welcome">
+  <app-pickup></app-pickup>
+</ng-container>
+<ng-template #welcome>
+  <app-welcome *ngIf="!isLoading"></app-welcome>
+</ng-template>
+<div class="top-page">
+  <div class="top-main" *ngIf="popularArticles$ | async as popularArticles">
+    <h3 class="top-main__title">
+      <mat-icon>trending_up</mat-icon>
+      <span>トレンド</span>
+    </h3>
+    <div class="top-main__body">
+      <div class="top-main__card" *ngFor="let article of popularArticles">
+        <app-article-card [article]="article"></app-article-card>
+      </div>
+    </div>
+  </div>
+  <div class="top-sub" *ngIf="latestArticles$ | async as latestArticles">
+    <h3 class="top-sub__title">
+      <mat-icon>library_books</mat-icon>
+      <span>最新の記事</span>
+    </h3>
+    <div class="top-sub__body">
+      <div class="top-sub__card" *ngFor="let article of latestArticles">
+        <app-article-card [article]="article"></app-article-card>
+      </div>
+    </div>
+  </div>
+</div>

@@ -6,7 +6,7 @@ import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map, switchMap, take } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { OgpService } from './ogp.service';
 
@@ -84,6 +84,7 @@ export class ArticleService {
       )
       .valueChanges()
       .pipe(
+        take(1),
         map((articles: Article[]) => {
           if (articles?.length) {
             return articles.map((article) => {
@@ -106,30 +107,68 @@ export class ArticleService {
         ref.orderBy('updatedAt', 'desc').limit(20)
       )
       .valueChanges()
+      .pipe(take(1))
       .pipe(
         switchMap((articleIdDocs: { articleId: string }[]) => {
           if (articleIdDocs?.length) {
             return combineLatest(
               articleIdDocs.map((articleIdDoc) => {
-                return this.db
-                  .doc<Article>(`articles/${articleIdDoc.articleId}`)
+                const articleDocs = this.db
+                  .collection<Article>(`articles`, (ref) =>
+                    ref
+                      .where('articleId', '==', articleIdDoc.articleId)
+                      .where('isPublic', '==', true)
+                  )
                   .valueChanges();
+                return articleDocs.pipe(
+                  map((articles) => {
+                    if (articles.length) {
+                      return articles[0];
+                    } else {
+                      return null;
+                    }
+                  })
+                );
               })
             );
           } else {
             return of([]);
           }
+        }),
+        map((articles) => {
+          return articles.filter((article) => article);
         })
       );
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getMyArticlesAll(uid: string): Observable<Article[]> {
-    return this.db
-      .collection<Article>(`articles`, (ref) =>
-        ref.where('uid', '==', uid).orderBy('updatedAt', 'desc').limit(20)
-      )
+  getMyArticles(
+    uid: string,
+    lastArticle?: Article
+  ): Observable<{
+    articles: Article[];
+    lastArticle: Article;
+  }> {
+    const articles$ = this.db
+      .collection<Article>('articles', (ref) => {
+        let query = ref
+          .where('uid', '==', uid)
+          .orderBy('updatedAt', 'desc')
+          .limit(20);
+        if (lastArticle) {
+          query = query.startAfter(lastArticle.updatedAt);
+        }
+        return query;
+      })
       .valueChanges();
+    return articles$.pipe(
+      map((articles) => {
+        return {
+          articles,
+          lastArticle: articles[articles.length - 1],
+        };
+      })
+    );
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
@@ -156,6 +195,24 @@ export class ArticleService {
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
           .limit(20);
+      })
+      .valueChanges();
+    return this.getArticlesWithAuthors(sorted);
+  }
+
+  getPickUpArticles(
+    ramdamDateTimeStamp?: firestore.Timestamp
+  ): Observable<ArticleWithAuthor[]> {
+    const sorted: Observable<Article[]> = this.db
+      .collection<Article>('articles', (ref) => {
+        let query = ref
+          .where('isPublic', '==', true)
+          .orderBy('createdAt', 'desc')
+          .limit(10);
+        if (ramdamDateTimeStamp) {
+          query = query.startAfter(ramdamDateTimeStamp);
+        }
+        return query;
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);
@@ -196,7 +253,9 @@ export class ArticleService {
     );
   }
 
-  getArticleWithAuthorOnly(articleId: string): Observable<ArticleWithAuthor> {
+  getArticleWithAuthorByArticleId(
+    articleId: string
+  ): Observable<ArticleWithAuthor> {
     return this.getArticleOnly(articleId).pipe(
       switchMap((article: Article) => {
         return combineLatest([

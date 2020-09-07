@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
-import { SearchResultComponent } from './search-result/search-result.component';
-import { TagResultComponent } from './tag-result/tag-result.component';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
+import { SearchGuard } from './guards/search.guard';
 
 const routes: Routes = [
   {
@@ -15,11 +14,19 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchResultComponent,
+    loadChildren: () =>
+      import('./search-result/search-result.module').then(
+        (m) => m.SearchResultModule
+      ),
+    canActivate: [SearchGuard],
   },
   {
     path: 'tags/:id',
-    component: TagResultComponent,
+    loadChildren: () =>
+      import('./search-result/search-result.module').then(
+        (m) => m.SearchResultModule
+      ),
+    canActivate: [SearchGuard],
   },
   {
     path: 'privacy',
@@ -37,9 +44,9 @@ const routes: Routes = [
       import('./about/about.module').then((m) => m.AboutModule),
   },
   {
-    path: 'notes',
+    path: 'articles',
     loadChildren: () =>
-      import('./notes/notes.module').then((m) => m.NotesModule),
+      import('./articles/articles.module').then((m) => m.ArticlesModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
     data: {
@@ -54,7 +61,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    loadChildren: () => import('./top/top.module').then((m) => m.TopModule),
   },
   {
     path: '**',
@@ -65,7 +72,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'enabled',
+      scrollPositionRestoration: 'top',
       anchorScrolling: 'enabled',
       useHash: false,
       scrollOffset: [0, 70],

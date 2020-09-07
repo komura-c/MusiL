@@ -1,0 +1,53 @@
+import { Component, OnInit } from '@angular/core';
+import { ArticleService } from 'src/app/services/article.service';
+import { Observable } from 'rxjs';
+import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { tap, take } from 'rxjs/operators';
+import { LoadingService } from 'src/app/services/loading.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserData } from '@interfaces/user';
+import { SeoService } from 'src/app/services/seo.service';
+
+@Component({
+  selector: 'app-top',
+  templateUrl: './top.component.html',
+  styleUrls: ['./top.component.scss'],
+})
+export class TopComponent implements OnInit {
+  isLoading = true;
+  user$: Observable<UserData> = this.authService.user$.pipe(
+    tap(() => (this.isLoading = false))
+  );
+
+  popularArticles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getPopularArticles().pipe(
+    take(1),
+    tap(() => {
+      this.loadingService.toggleLoading(false);
+    })
+  );
+
+  latestArticles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getLatestArticles().pipe(
+    take(1),
+    tap(() => this.loadingService.toggleLoading(false))
+  );
+
+  constructor(
+    private articleService: ArticleService,
+    private loadingService: LoadingService,
+    private seoService: SeoService,
+    public authService: AuthService
+  ) {
+    this.loadingService.toggleLoading(true);
+    this.seoService.setTitleAndMeta({
+      title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
+      description: 'DTMや作曲の知識を記録しよう',
+      ogType: 'website',
+    });
+  }
+
+  ngOnInit(): void {}
+}

@@ -1,0 +1,22 @@
+<div class="pickup" *ngIf="articles$ | async as articles">
+  <h3 class="pickup__title">
+    <mat-icon>stars</mat-icon>
+    <span>ピックアップ</span>
+  </h3>
+  <swiper [config]="config" [(index)]="activeSlide">
+    <div class="swiper-slide" *ngFor="let article of articles">
+      <a
+        [routerLink]="
+          '/' + article.author.screenName + '/a/' + article.articleId
+        "
+        class="pickup-card"
+      >
+        <img
+          class="pickup-card__thumbnail"
+          [src]="article.thumbnailURL"
+          alt="サムネイルURL"
+        />
+      </a>
+    </div>
+  </swiper>
+</div>

@@ -3,7 +3,7 @@
   <ng-container *ngIf="user$ | async as user">
     <h2 class="settings__heading">プロフィール</h2>
     <label
-      for="avatarFile"
+      for="avatar-file"
       [style.background-image]="'url(' + user.avatarURL + ')'"
       class="settings__avatar-image"
       alt="プロフィール画像"
@@ -13,7 +13,7 @@
       </div>
     </label>
     <input
-      id="avatarFile"
+      id="avatar-file"
       type="file"
       accept="image/*"
       class="settings__avatar-input"
@@ -84,7 +84,7 @@
         class="settings-button"
         mat-flat-button
         color="primary"
-        (click)="changeProfile()"
+        (click)="changeProfile(user.screenName)"
       >
         プロフィールを更新
       </button>

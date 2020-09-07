@@ -19,7 +19,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const description = htmlToText.fromString(articleAndScreenName.text ? articleAndScreenName.text : '', {
     wordwrap: 200
   });
-  const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/n/' + articleAndScreenName.articleId;
+  const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/a/' + articleAndScreenName.articleId;
   const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : config.project.hosting_url + 'assets/images/ogp-cover.png';
   return file
     .replace(/\n/g, '')
@@ -55,10 +55,10 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 const app = express();
 // ユーザーエージェント判定ヘルパーを導入
 app.use(useragent.express());
-app.get('/:screenName/n/:articleId', async (req: any, res: any) => {
+app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
   // ロボットであれば置換結果を返却
   if (req.useragent.isBot) {
-    // https://xxx/:screenName/n/:articleId のようなURLを元に記事データをDBから取得
+    // https://xxx/:screenName/a/:articleId のようなURLを元に記事データをDBから取得
     const article = (await db.doc(`articles/${req.params.articleId}`).get())?.data();
     if (article) {
       const articleAndScreenName = {

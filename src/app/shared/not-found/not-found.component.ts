@@ -8,14 +8,11 @@ import { SeoService } from 'src/app/services/seo.service';
 })
 export class NotFoundComponent implements OnInit {
   constructor(private seoService: SeoService) {
-    const metaTags = {
-      title: null,
-      description: null,
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
+    this.seoService.setTitleAndMeta({
+      title: 'ページが見つかりません | MusiL',
+      description:
+        'お探しのページは、削除されたかURLが変更された可能性があります。',
+    });
   }
 
   ngOnInit(): void {}
