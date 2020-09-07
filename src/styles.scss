@@ -29,19 +29,26 @@ img {
   margin: 40px auto;
 }
 .no-article {
+  margin: 40px auto;
   text-align: center;
+  &__text {
+    margin-bottom: 32px;
+  }
 }
 
 .mypage__user-description a {
   color: $color-primary;
 }
-.note-footer__user-description a {
+.article-footer__user-description a {
   color: $color-primary;
 }
 
 .mat-chip {
   word-break: break-word;
   line-height: 100%;
+}
+.mat-simple-snackbar-action {
+  color: $color-primary;
 }
 
 //  froala-editor

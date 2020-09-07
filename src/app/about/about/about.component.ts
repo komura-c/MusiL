@@ -8,17 +8,11 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent implements OnInit {
-  user$ = this.authService.user$;
-
   constructor(private seoService: SeoService, public authService: AuthService) {
-    const metaTags = {
+    this.seoService.setTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
-      ogType: null,
-      ogImage: null,
-      twitterCard: null,
-    };
-    this.seoService.setTitleAndMeta(metaTags);
+    });
   }
 
   ngOnInit(): void {}

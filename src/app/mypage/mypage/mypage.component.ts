@@ -30,17 +30,10 @@ export class MypageComponent implements OnInit {
     }),
     tap((user) => {
       if (user) {
-        const descriptionMaxLength = 120;
-        const description =
-          user.description.slice(0, descriptionMaxLength) + '…';
-        const metaTags = {
+        this.seoService.setTitleAndMeta({
           title: `${user.userName}(${user.screenName}) | MusiL`,
-          description,
-          ogType: null,
-          ogImage: null,
-          twitterCard: null,
-        };
-        this.seoService.setTitleAndMeta(metaTags);
+          description: user.description,
+        });
       }
     }),
     tap(() => {

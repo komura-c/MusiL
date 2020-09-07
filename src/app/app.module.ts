@@ -28,7 +28,6 @@ import {
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
-import { SearchResultComponent } from './search-result/search-result.component';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,11 +35,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SharedModule } from './shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
-import { TagResultComponent } from './tag-result/tag-result.component';
-import {
-  MatPaginatorModule,
-  MatPaginatorIntl,
-} from '@angular/material/paginator';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
 
 @NgModule({
@@ -48,9 +43,7 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    SearchResultComponent,
     SearchInputComponent,
-    TagResultComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,7 +69,6 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     SharedModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    MatPaginatorModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
