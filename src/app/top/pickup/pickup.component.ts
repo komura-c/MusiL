@@ -41,7 +41,7 @@ export class PickupComponent implements OnInit {
     ArticleWithAuthor[]
   > = this.articleService.getPickUpArticles(this.ramdamDateTimeStamp).pipe(
     map((articles) => {
-      if (articles.length) {
+      if (articles?.length) {
         return this.shuffleArticle(articles);
       } else {
         return null;
