@@ -10,13 +10,11 @@ import { AngularFireStorage } from '@angular/fire/storage';
   providedIn: 'root',
 })
 export class UserService {
-  mypageUser: UserData;
-
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   getUserData(uid: string): Observable<UserData> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();
@@ -31,7 +29,6 @@ export class UserService {
       .pipe(
         map((users) => {
           if (users.length) {
-            this.mypageUser = users[0];
             return users[0];
           } else {
             return null;

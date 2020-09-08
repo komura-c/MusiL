@@ -10,6 +10,7 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-create',
@@ -63,7 +64,8 @@ export class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private seoService: SeoService
+    private seoService: SeoService,
+    private db: AngularFirestore,
   ) {
     this.seoService.setTitleAndMeta({
       title: `記事の編集 | MusiL`,
@@ -140,13 +142,14 @@ export class CreateComponent implements OnInit {
         this.user
       );
     } else {
-      task = this.articleService.createArticle(sendData, this.user);
+      this.articleId = this.db.createId();
+      task = this.articleService.createArticle(this.articleId, sendData, this.user);
     }
 
     task
       .then(() => {
         this.router.navigateByUrl(
-          '/' + this.user.screenName + '/a/' + this.articleService.snapArticleId
+          '/' + this.user.screenName + '/a/' + this.articleId
         );
         this.snackBar.open(msg, '閉じる');
       })

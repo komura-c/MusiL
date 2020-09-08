@@ -19,9 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) {}
-  snapArticleId: string;
-
+  ) { }
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
@@ -31,14 +29,13 @@ export class ArticleService {
   }
 
   createArticle(
+    articleId: string,
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >,
     user: UserData
   ): Promise<void> {
-    const articleId = this.db.createId();
-    this.snapArticleId = articleId;
     const resultArticle = {
       articleId,
       ...article,
@@ -58,7 +55,6 @@ export class ArticleService {
     >,
     user: UserData
   ): Promise<void> {
-    this.snapArticleId = articleId;
     const resultArticle = {
       articleId,
       ...article,
@@ -73,11 +69,11 @@ export class ArticleService {
     return this.db.doc(`articles/${articleId}`).delete();
   }
 
-  getMyArticlesPublic(uid: string): Observable<ArticleWithAuthor[]> {
+  getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref
-          .where('uid', '==', uid)
+          .where('uid', '==', user.uid)
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
           .limit(20)
@@ -90,7 +86,7 @@ export class ArticleService {
             return articles.map((article) => {
               const result: ArticleWithAuthor = {
                 ...article,
-                author: this.userService.mypageUser,
+                author: user,
               };
               return result;
             });
