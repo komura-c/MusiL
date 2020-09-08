@@ -2,15 +2,17 @@
 
 .mypage {
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 610px;
   &__author {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
   }
   &__user-profile {
-    margin: 16px;
-    max-width: 460px;
+    margin-top: 16px;
+    width: 100%;
+    max-width: 450px;
   }
   &__user-header {
     display: flex;
@@ -20,10 +22,11 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    margin: 16px 0px;
+    margin: 16px 16px 0 16px;
     @include sp {
-      width: 100px;
-      height: 100px;
+      width: 80px;
+      height: 80px;
+      margin: 8px 8px 0 8px;
     }
   }
   &__user-name {
@@ -55,14 +58,9 @@
       font-size: 14px;
     }
   }
-  &__menu {
-    max-width: 600px;
-    margin: 0 auto;
-  }
   &__body {
     min-height: 400px;
     padding: 12px 0;
-    margin: 0 auto;
   }
 }
 
