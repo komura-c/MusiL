@@ -13,10 +13,7 @@ export class AboutComponent implements OnInit {
   user: UserData;
   isLoading: boolean;
 
-  constructor(
-    private seoService: SeoService,
-    public authService: AuthService
-  ) {
+  constructor(private seoService: SeoService, public authService: AuthService) {
     this.seoService.setTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
@@ -25,10 +22,13 @@ export class AboutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.user$.pipe(take(1)).toPromise().then((user) => {
-      this.user = user;
-      this.isLoading = false;
-    });
+    this.authService.user$
+      .pipe(take(1))
+      .toPromise()
+      .then((user) => {
+        this.user = user;
+        this.isLoading = false;
+      });
   }
 
   login() {

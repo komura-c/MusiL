@@ -65,7 +65,7 @@ export class CreateComponent implements OnInit {
     private location: Location,
     private route: ActivatedRoute,
     private seoService: SeoService,
-    private db: AngularFirestore,
+    private db: AngularFirestore
   ) {
     this.seoService.setTitleAndMeta({
       title: `記事の編集 | MusiL`,
@@ -143,7 +143,11 @@ export class CreateComponent implements OnInit {
       );
     } else {
       this.articleId = this.db.createId();
-      task = this.articleService.createArticle(this.articleId, sendData, this.user);
+      task = this.articleService.createArticle(
+        this.articleId,
+        sendData,
+        this.user
+      );
     }
 
     task
