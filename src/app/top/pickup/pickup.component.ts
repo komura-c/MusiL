@@ -49,16 +49,16 @@ export class PickupComponent implements OnInit {
     })
   );
 
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService: ArticleService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   randomizeDate(fromYmd: string) {
     const fromDate = new Date(fromYmd);
     const today = new Date();
     return new Date(
       fromDate.getTime() +
-      Math.random() * (today.getTime() - fromDate.getTime())
+        Math.random() * (today.getTime() - fromDate.getTime())
     );
   }
 

@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ActivatedRoute,
-} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { UserData } from 'functions/src/interfaces/user';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
@@ -45,9 +43,9 @@ export class MypageComponent implements OnInit {
     private userService: UserService,
     private loadingService: LoadingService,
     private seoService: SeoService,
-    public authService: AuthService,
+    public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
   }
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

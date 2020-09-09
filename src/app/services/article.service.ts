@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) { }
+  ) {}
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
@@ -168,12 +168,15 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    return this.db.doc<Article>(`articles/${articleId}`).valueChanges().pipe(
-      catchError((error) => {
-        console.error(error.message);
-        return of(null);
-      })
-    );
+    return this.db
+      .doc<Article>(`articles/${articleId}`)
+      .valueChanges()
+      .pipe(
+        catchError((error) => {
+          console.error(error.message);
+          return of(null);
+        })
+      );
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {

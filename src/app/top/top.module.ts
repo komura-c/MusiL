@@ -23,4 +23,4 @@ import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
     NgxUsefulSwiperModule,
   ],
 })
-export class TopModule { }
+export class TopModule {}

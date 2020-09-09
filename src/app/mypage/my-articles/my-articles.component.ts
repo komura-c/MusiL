@@ -18,8 +18,8 @@ export class MyArticlesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private userService: UserService,
-  ) { }
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.route.paramMap.forEach((params) => {
@@ -30,7 +30,9 @@ export class MyArticlesComponent implements OnInit {
   }
 
   getUserAndArticles(screenName: string): void {
-    const user$ = this.userService.getUserByScreenName(screenName).pipe(take(1));
+    const user$ = this.userService
+      .getUserByScreenName(screenName)
+      .pipe(take(1));
     this.articles$ = user$.pipe(
       switchMap((user) => {
         if (user) {
