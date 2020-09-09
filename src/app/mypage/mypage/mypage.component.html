@@ -5,6 +5,7 @@
         [src]="user.avatarURL"
         class="mypage__user-icon"
         alt="プロフィール画像"
+        onError="this.src='/assets/icons/no-user-icon.png'"
       />
       <div class="mypage__user-profile">
         <div class="mypage__user-header">

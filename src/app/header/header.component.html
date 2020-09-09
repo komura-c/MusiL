@@ -40,9 +40,16 @@
           mat-icon-button
           [matMenuTriggerFor]="menu"
           aria-label="マイメニュー"
-          [style.background-image]="'url(' + user.avatarURL + ')'"
           class="my-menu"
-        ></button>
+        >
+          <mat-icon>
+            <img
+              [src]="user.avatarURL"
+              alt="プロフィール画像"
+              onError="this.src='/assets/icons/no-user-icon.png'"
+            />
+          </mat-icon>
+        </button>
 
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="'/' + user.screenName">
