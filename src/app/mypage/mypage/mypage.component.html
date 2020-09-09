@@ -33,7 +33,7 @@
           class="mypage__twitter"
           target="_blank"
           rel="noopener noreferrer"
-          *ngIf="user.uid !== authService.uid"
+          *ngIf="!(user.uid === authService.uid)"
         >
           <mat-icon
             ><img src="/assets/icons/twitter-logo-white.png" alt="Twitterロゴ"
