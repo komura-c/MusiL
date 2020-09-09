@@ -6,7 +6,7 @@ import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, catchError, tap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { OgpService } from './ogp.service';
 
@@ -168,7 +168,12 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
+    return this.db.doc<Article>(`articles/${articleId}`).valueChanges().pipe(
+      catchError((error) => {
+        console.error(error.message);
+        return of(null);
+      })
+    );
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
@@ -211,7 +216,15 @@ export class ArticleService {
         return query;
       })
       .valueChanges();
-    return this.getArticlesWithAuthors(sorted);
+    return this.getArticlesWithAuthors(sorted).pipe(
+      tap((articles) => {
+        if (articles?.length) {
+          return articles;
+        } else {
+          return this.getPickUpArticles();
+        }
+      })
+    );
   }
 
   getArticlesWithAuthors(
