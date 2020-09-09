@@ -45,7 +45,7 @@
         ></button>
 
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/', user.screenName]">
+          <button mat-menu-item [routerLink]="'/' + user.screenName">
             <mat-icon>account_box</mat-icon>
             <span>マイページ</span>
           </button>

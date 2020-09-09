@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable, of } from 'rxjs';
-import { tap, take, map, switchMap } from 'rxjs/operators';
+import { tap, take, switchMap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
@@ -12,33 +12,8 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./my-articles.component.scss'],
 })
 export class MyArticlesComponent implements OnInit {
-  screenName$: Observable<string> = this.route.paramMap.pipe(
-    map((params) => params.get('id'))
-  );
-
-  private user$ = this.screenName$.pipe(
-    switchMap((screenName) => {
-      return this.userService.getUserByScreenName(screenName).pipe(take(1));
-    })
-  );
-
-  articles$: Observable<
-    ArticleWithAuthor[]
-  > = this.user$.pipe(
-    switchMap((user) => {
-      if (user) {
-        return this.articleService.getMyArticlesPublic(user).pipe(take(1));
-      } else {
-        return of(null);
-      }
-    }),
-    take(1),
-    tap(() => {
-      this.isLoading = false;
-    })
-  );
-
-  isLoading = true;
+  articles$: Observable<ArticleWithAuthor[]>;
+  isLoading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,5 +21,28 @@ export class MyArticlesComponent implements OnInit {
     private userService: UserService,
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.route.paramMap.forEach((params) => {
+      this.isLoading = true;
+      const screenName = params.get('id');
+      this.getUserAndArticles(screenName);
+    });
+  }
+
+  getUserAndArticles(screenName: string): void {
+    const user$ = this.userService.getUserByScreenName(screenName).pipe(take(1));
+    this.articles$ = user$.pipe(
+      switchMap((user) => {
+        if (user) {
+          return this.articleService.getMyArticlesPublic(user).pipe(take(1));
+        } else {
+          return of(null);
+        }
+      }),
+      take(1),
+      tap(() => {
+        this.isLoading = false;
+      })
+    );
+  }
 }
