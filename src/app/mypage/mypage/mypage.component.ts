@@ -49,6 +49,9 @@ export class MypageComponent implements OnInit {
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
+  }
+
+  ngOnInit(): void {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.isMyArticlesRoute =
@@ -56,5 +59,4 @@ export class MypageComponent implements OnInit {
       }
     });
   }
-  ngOnInit(): void { }
 }
