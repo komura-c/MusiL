@@ -22,6 +22,9 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: MyArticlesComponent,
+        data: {
+          isMyArticlesRoute: true,
+        },
       },
     ],
   },
@@ -31,4 +34,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MypageRoutingModule {}
+export class MypageRoutingModule { }
