@@ -9,11 +9,13 @@ import { tap } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit {
   user$ = this.authService.user$.pipe(tap(() => (this.isLoading = false)));
-  isLoading = true;
+  isLoading: boolean;
 
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService) {
+    this.isLoading = true;
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   login() {
     this.authService.loginProcessing = true;

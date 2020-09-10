@@ -36,7 +36,7 @@ export class MypageComponent implements OnInit {
     })
   );
 
-  isLoading = true;
+  isLoading: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,6 +46,7 @@ export class MypageComponent implements OnInit {
     public authService: AuthService
   ) {
     this.loadingService.toggleLoading(true);
+    this.isLoading = true;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }
