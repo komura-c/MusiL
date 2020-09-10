@@ -1,15 +1,16 @@
 @import 'mixins';
 
 .top-page {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 20px;
   max-width: 910px;
   margin: 0 auto;
-  display: flex;
   @include tab {
-    flex-wrap: wrap;
+    display: block;
   }
 }
 .top-main {
-  flex: 1;
   &__title {
     display: flex;
     align-items: center;
@@ -31,15 +32,12 @@
     }
   }
   @include tab {
-    flex: none;
     width: 100%;
     max-width: 610px;
     margin: 0 auto;
   }
 }
 .top-sub {
-  max-width: 300px;
-  margin-left: 24px;
   &__title {
     display: flex;
     align-items: center;

@@ -2,29 +2,55 @@
   <app-pickup></app-pickup>
 </ng-container>
 <ng-template #welcome>
-  <app-welcome *ngIf="!isLoading"></app-welcome>
+  <mat-spinner
+    class="loading-bar"
+    diameter="55"
+    strokeWidth="4"
+    *ngIf="isUserLoading"
+  ></mat-spinner>
+  <app-welcome *ngIf="!isUserLoading"></app-welcome>
 </ng-template>
 <div class="top-page">
-  <div class="top-main" *ngIf="popularArticles$ | async as popularArticles">
+  <div class="top-main">
     <h3 class="top-main__title">
       <mat-icon>trending_up</mat-icon>
       <span>トレンド</span>
     </h3>
-    <div class="top-main__body">
+    <div
+      class="top-main__body"
+      *ngIf="popularArticles$ | async as popularArticles; else popularLoading"
+    >
       <div class="top-main__card" *ngFor="let article of popularArticles">
         <app-article-card [article]="article"></app-article-card>
       </div>
     </div>
+    <ng-template #popularLoading>
+      <mat-spinner
+        class="loading-bar"
+        diameter="55"
+        strokeWidth="4"
+      ></mat-spinner>
+    </ng-template>
   </div>
-  <div class="top-sub" *ngIf="latestArticles$ | async as latestArticles">
+  <div class="top-sub">
     <h3 class="top-sub__title">
       <mat-icon>library_books</mat-icon>
       <span>最新の記事</span>
     </h3>
-    <div class="top-sub__body">
+    <div
+      class="top-sub__body"
+      *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
+    >
       <div class="top-sub__card" *ngFor="let article of latestArticles">
         <app-article-card [article]="article"></app-article-card>
       </div>
     </div>
+    <ng-template #latestLoading>
+      <mat-spinner
+        class="loading-bar"
+        diameter="55"
+        strokeWidth="4"
+      ></mat-spinner>
+    </ng-template>
   </div>
 </div>

@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) {}
+  ) { }
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
@@ -185,7 +185,7 @@ export class ArticleService {
         return ref
           .where('isPublic', '==', true)
           .orderBy('likeCount', 'desc')
-          .orderBy('updatedAt', 'desc')
+          .orderBy('createdAt', 'desc')
           .limit(20);
       })
       .valueChanges();
@@ -197,37 +197,23 @@ export class ArticleService {
       .collection<Article>(`articles`, (ref) => {
         return ref
           .where('isPublic', '==', true)
-          .orderBy('updatedAt', 'desc')
+          .orderBy('createdAt', 'desc')
           .limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);
   }
 
-  getPickUpArticles(
-    ramdamDateTimeStamp?: firestore.Timestamp
-  ): Observable<ArticleWithAuthor[]> {
+  getPickUpArticles(): Observable<ArticleWithAuthor[]> {
     const sorted: Observable<Article[]> = this.db
       .collection<Article>('articles', (ref) => {
-        let query = ref
+        return ref
           .where('isPublic', '==', true)
-          .orderBy('createdAt', 'desc')
+          .orderBy('updatedAt', 'desc')
           .limit(10);
-        if (ramdamDateTimeStamp) {
-          query = query.startAfter(ramdamDateTimeStamp);
-        }
-        return query;
       })
       .valueChanges();
-    return this.getArticlesWithAuthors(sorted).pipe(
-      tap((articles) => {
-        if (articles?.length) {
-          return articles;
-        } else {
-          return this.getPickUpArticles();
-        }
-      })
-    );
+    return this.getArticlesWithAuthors(sorted);
   }
 
   getArticlesWithAuthors(
