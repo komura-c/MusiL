@@ -3,7 +3,6 @@ import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { tap, take } from 'rxjs/operators';
-import { LoadingService } from 'src/app/services/loading.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
 import { SeoService } from 'src/app/services/seo.service';
@@ -14,34 +13,35 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent implements OnInit {
-  isLoading = true;
   user$: Observable<UserData> = this.authService.user$.pipe(
-    tap(() => (this.isLoading = false))
+    tap(() => (this.isUserLoading = false))
   );
+  isUserLoading: boolean;
 
   popularArticles$: Observable<
     ArticleWithAuthor[]
   > = this.articleService.getPopularArticles().pipe(
     take(1),
-    tap(() => {
-      this.loadingService.toggleLoading(false);
-    })
+    tap(() => this.isPopularLoading = false)
   );
+  isPopularLoading: boolean;
 
   latestArticles$: Observable<
     ArticleWithAuthor[]
   > = this.articleService.getLatestArticles().pipe(
     take(1),
-    tap(() => this.loadingService.toggleLoading(false))
+    tap(() => this.isLatestLoading = false)
   );
+  isLatestLoading: boolean;
 
   constructor(
     private articleService: ArticleService,
-    private loadingService: LoadingService,
     private seoService: SeoService,
     public authService: AuthService
   ) {
-    this.loadingService.toggleLoading(true);
+    this.isUserLoading = true;
+    this.isPopularLoading = true;
+    this.isLatestLoading = true;
     this.seoService.setTitleAndMeta({
       title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
       description: 'DTMや作曲の知識を記録しよう',
@@ -49,5 +49,5 @@ export class TopComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 }

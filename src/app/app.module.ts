@@ -37,6 +37,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
     SharedModule,
     MatProgressSpinnerModule,
     MatDividerModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },

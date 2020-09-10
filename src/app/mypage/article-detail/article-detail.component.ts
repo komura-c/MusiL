@@ -55,7 +55,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   headingElements: Element[] = [];
   headerHeight = 70;
 
-  isLoading = true;
+  isLoading: boolean;
 
   likeCount: number;
   isLiked: boolean;
@@ -79,7 +79,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

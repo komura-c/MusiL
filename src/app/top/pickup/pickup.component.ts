@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
-import { firestore } from 'firebase/app';
-import { map } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { SwiperOptions } from 'swiper';
@@ -34,33 +33,29 @@ export class PickupComponent implements OnInit {
     },
   };
 
-  ramdamDateTimeStamp = firestore.Timestamp.fromDate(
-    this.randomizeDate('2020/08/01')
-  );
   articles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService.getPickUpArticles(this.ramdamDateTimeStamp).pipe(
+  > = this.articleService.getPickUpArticles().pipe(
+    take(1),
     map((articles) => {
-      if (articles?.length) {
+      if (articles.length) {
         return this.shuffleArticle(articles);
       } else {
         return null;
       }
+    }),
+    tap(() => {
+      this.isLoading = false;
     })
   );
 
-  constructor(private articleService: ArticleService) {}
+  isLoading: boolean;
 
-  ngOnInit(): void {}
-
-  randomizeDate(fromYmd: string) {
-    const fromDate = new Date(fromYmd);
-    const today = new Date();
-    return new Date(
-      fromDate.getTime() +
-        Math.random() * (today.getTime() - fromDate.getTime())
-    );
+  constructor(private articleService: ArticleService) {
+    this.isLoading = true;
   }
+
+  ngOnInit(): void { }
 
   shuffleArticle(articles: ArticleWithAuthor[]) {
     for (let i = articles.length - 1; i > 0; i--) {

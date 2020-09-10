@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
+import { environment } from 'src/environments/environment';
 import FroalaEditor from 'froala-editor';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
@@ -53,6 +54,7 @@ export class EditorComponent implements OnInit {
     };
   };
   options = {
+    key: environment.key,
     toolbarSticky: false,
     toolbarInline: false,
     heightMin: '260',
@@ -152,7 +154,7 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     FroalaEditor.DefineIcon('paragraphFormat', {
