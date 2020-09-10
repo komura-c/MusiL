@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { LoadingService } from './services/loading.service';
 import { DOCUMENT } from '@angular/common';
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   showHeader: boolean;
   showFooter: boolean;
 
@@ -20,7 +20,9 @@ export class AppComponent {
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     this.router.events.forEach((event) => {
       if (!environment.production) {
         this.rootDocument

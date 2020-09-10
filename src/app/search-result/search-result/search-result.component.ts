@@ -42,6 +42,9 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private seoService: SeoService
   ) {
     this.loadingService.toggleLoading(true);
+  }
+
+  ngOnInit(): void {
     this.route.paramMap.forEach((params) => {
       this.searchTag = params.get('id');
       if (this.searchTag) {
@@ -64,8 +67,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       this.search(this.pageIndex || null);
     });
   }
-
-  ngOnInit() {}
 
   ngOnDestroy(): void {
     if (this.searchQuery) {
@@ -144,7 +145,12 @@ export class SearchResultComponent implements OnInit, OnDestroy {
           }),
           tap(() => {
             this.loadingService.toggleLoading(false);
-            this.scrollService.restoreScrollPosition(this.searchQuery);
+            if (this.searchQuery) {
+              this.scrollService.restoreScrollPosition(this.searchQuery);
+            }
+            if (this.searchTag) {
+              this.scrollService.restoreScrollPosition(this.searchTag);
+            }
           })
         );
       } else {
