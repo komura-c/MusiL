@@ -27,8 +27,8 @@ export class ArticlesComponent implements OnInit {
     private loadingService: LoadingService,
     private seoService: SeoService
   ) {
-    this.isLoading = true;
     this.loadingService.toggleLoading(true);
+    this.isLoading = true;
     this.seoService.setTitleAndMeta({
       title: `記事の管理 | MusiL`,
       description: `自分の記事を管理するページです`,
