@@ -1,9 +1,10 @@
 {
-  "name": "musil",
-  "short_name": "musil",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "name": "MusiL",
+  "short_name": "MusiL",
+  "theme_color": "#ff5722",
+  "background_color": "#ffffff",
   "display": "standalone",
+  "orientation": "portrait",
   "scope": "./",
   "start_url": "./",
   "icons": [
