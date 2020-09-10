@@ -20,15 +20,15 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    if (!environment.production) {
+      this.rootDocument
+        .querySelector('[rel=icon]')
+        .setAttribute('href', 'favicon-dev.svg');
+    }
     this.router.events.forEach((event) => {
-      if (!environment.production) {
-        this.rootDocument
-          .querySelector('[rel=icon]')
-          .setAttribute('href', 'favicon-dev.svg');
-      }
       if (event instanceof NavigationEnd) {
         this.showHeader =
           this.route.snapshot.firstChild.data.showHeader !== false;
