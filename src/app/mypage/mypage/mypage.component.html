@@ -5,6 +5,7 @@
         [src]="user.avatarURL"
         class="mypage__user-icon"
         alt="プロフィール画像"
+        onError="this.src='/assets/icons/no-user-icon.png'"
       />
       <div class="mypage__user-profile">
         <div class="mypage__user-header">
@@ -33,7 +34,7 @@
           class="mypage__twitter"
           target="_blank"
           rel="noopener noreferrer"
-          *ngIf="user.uid !== authService.uid"
+          *ngIf="!(user.uid === authService.uid)"
         >
           <mat-icon
             ><img src="/assets/icons/twitter-logo-white.png" alt="Twitterロゴ"
@@ -43,12 +44,7 @@
       </div>
     </div>
 
-    <nav
-      mat-tab-nav-bar
-      mat-stretch-tabs
-      disablePagination="true"
-      class="mypage__menu"
-    >
+    <nav mat-tab-nav-bar mat-stretch-tabs disablePagination="true">
       <a
         mat-tab-link
         [routerLink]="'/' + user.screenName"

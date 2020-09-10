@@ -1,6 +1,8 @@
 @import 'mixins';
 
 .pickup {
+  margin: 0 auto;
+  max-width: 910px;
   &__title {
     max-width: 910px;
     margin: 16px auto;
@@ -9,19 +11,54 @@
     font-size: 20px;
     padding-bottom: 8px;
     border-bottom: 1px solid #e0e0e0;
-    .mat-icon {
+    mat-icon {
       margin-right: 8px;
     }
   }
 }
 
 .pickup-card {
-  width: 100%;
-  &__thumbnail {
-    width: 100%;
+  display: block;
+  width: 95%;
+}
+
+.swiper {
+  margin: -8px -44px;
+  overflow: hidden;
+  padding: 0 44px;
+  @include sp {
+    padding: 0 24px 0 8px;
+    margin: -8px -16px;
+  }
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    @include sp {
+      display: none;
+    }
+    mat-icon {
+      vertical-align: bottom;
+    }
+    &.swiper-button-disabled {
+      display: none;
+    }
+    &--next {
+      right: 24px;
+    }
+    &--prev {
+      left: 24px;
+    }
   }
 }
+
 .swiper-slide {
+  padding: 8px;
+  margin-right: -20px;
   box-sizing: border-box;
   height: auto;
+  @include sp {
+    padding: 4px;
+  }
 }

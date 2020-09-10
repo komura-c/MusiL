@@ -67,22 +67,22 @@
     display: flex;
     align-items: center;
     margin-right: 8px;
-    .mat-icon {
+    mat-icon {
       color: $color-primary;
       font-size: 16px;
       width: 16px;
-      height: 16px;
+      height: 14px;
       margin-right: 4px;
     }
   }
   &__updated-date {
     display: flex;
     align-items: center;
-    .mat-icon {
+    mat-icon {
       color: $color-primary;
       font-size: 16px;
       width: 16px;
-      height: 16px;
+      height: 14px;
       margin-right: 4px;
     }
   }
