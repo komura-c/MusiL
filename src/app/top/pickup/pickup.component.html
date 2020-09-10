@@ -6,7 +6,7 @@
   <swiper
     class="swiper"
     [config]="swiperConfig"
-    *ngIf="articles$ | async as articles"
+    *ngIf="articles$ | async as articles; else loading"
   >
     <div class="swiper-wrapper">
       <div class="swiper-slide" *ngFor="let article of articles">
@@ -31,4 +31,11 @@
       </button>
     </div>
   </swiper>
+  <ng-template #loading>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
+  </ng-template>
 </div>

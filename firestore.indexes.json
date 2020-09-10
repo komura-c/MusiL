@@ -27,7 +27,7 @@
           "order": "DESCENDING"
         },
         {
-          "fieldPath": "updatedAt",
+          "fieldPath": "createdAt",
           "order": "DESCENDING"
         }
       ]
@@ -57,20 +57,6 @@
         {
           "fieldPath": "isPublic",
           "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "updatedAt",
-          "order": "DESCENDING"
-        }
-      ]
-    },
-    {
-      "collectionGroup": "articles",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "likeCount",
-          "order": "DESCENDING"
         },
         {
           "fieldPath": "updatedAt",
