@@ -51,7 +51,7 @@
         routerLinkActive
         [routerLinkActiveOptions]="{ exact: true }"
         #rla1="routerLinkActive"
-        [active]="rla1.isActive"
+        [active]="rla1.isActive || isMyArticlesRoute"
       >
         投稿
       </a>

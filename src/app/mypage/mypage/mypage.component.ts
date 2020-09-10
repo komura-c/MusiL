@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { UserData } from 'functions/src/interfaces/user';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
@@ -37,16 +37,24 @@ export class MypageComponent implements OnInit {
   );
 
   isLoading: boolean;
+  isMyArticlesRoute: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,
     private loadingService: LoadingService,
     private seoService: SeoService,
-    public authService: AuthService
+    public authService: AuthService,
+    private router: Router,
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
+    this.router.events.forEach((event) => {
+      if (event instanceof NavigationEnd) {
+        this.isMyArticlesRoute =
+          this.route.snapshot.firstChild.data.isMyArticlesRoute === true;
+      }
+    });
   }
   ngOnInit(): void { }
 }
