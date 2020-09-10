@@ -6,7 +6,7 @@ import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take } from 'rxjs/operators';
+import { map, switchMap, take, catchError, tap } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { OgpService } from './ogp.service';
 
@@ -20,8 +20,6 @@ export class ArticleService {
     private userService: UserService,
     private ogpService: OgpService
   ) {}
-  snapArticleId: string;
-
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
@@ -31,14 +29,13 @@ export class ArticleService {
   }
 
   createArticle(
+    articleId: string,
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >,
     user: UserData
   ): Promise<void> {
-    const articleId = this.db.createId();
-    this.snapArticleId = articleId;
     const resultArticle = {
       articleId,
       ...article,
@@ -58,7 +55,6 @@ export class ArticleService {
     >,
     user: UserData
   ): Promise<void> {
-    this.snapArticleId = articleId;
     const resultArticle = {
       articleId,
       ...article,
@@ -73,11 +69,11 @@ export class ArticleService {
     return this.db.doc(`articles/${articleId}`).delete();
   }
 
-  getMyArticlesPublic(uid: string): Observable<ArticleWithAuthor[]> {
+  getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
         ref
-          .where('uid', '==', uid)
+          .where('uid', '==', user.uid)
           .where('isPublic', '==', true)
           .orderBy('updatedAt', 'desc')
           .limit(20)
@@ -90,7 +86,7 @@ export class ArticleService {
             return articles.map((article) => {
               const result: ArticleWithAuthor = {
                 ...article,
-                author: this.userService.mypageUser,
+                author: user,
               };
               return result;
             });
@@ -172,7 +168,15 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    return this.db.doc<Article>(`articles/${articleId}`).valueChanges();
+    return this.db
+      .doc<Article>(`articles/${articleId}`)
+      .valueChanges()
+      .pipe(
+        catchError((error) => {
+          console.error(error.message);
+          return of(null);
+        })
+      );
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
@@ -215,7 +219,15 @@ export class ArticleService {
         return query;
       })
       .valueChanges();
-    return this.getArticlesWithAuthors(sorted);
+    return this.getArticlesWithAuthors(sorted).pipe(
+      tap((articles) => {
+        if (articles?.length) {
+          return articles;
+        } else {
+          return this.getPickUpArticles();
+        }
+      })
+    );
   }
 
   getArticlesWithAuthors(

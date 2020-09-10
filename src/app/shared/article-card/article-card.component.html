@@ -11,6 +11,7 @@
         class="card__user-icon"
         [src]="article.author.avatarURL"
         alt="プロフィール画像"
+        onError="this.src='/assets/icons/no-user-icon.png'"
     /></a>
     <div class="card__body">
       <h3

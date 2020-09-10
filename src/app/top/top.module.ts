@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { PickupComponent } from './pickup/pickup.component';
-import { SwiperModule } from 'ngx-swiper-wrapper';
+import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 
 @NgModule({
   declarations: [TopComponent, WelcomeComponent, PickupComponent],
@@ -20,7 +20,7 @@ import { SwiperModule } from 'ngx-swiper-wrapper';
     SharedModule,
     MatIconModule,
     MatButtonModule,
-    SwiperModule,
+    NgxUsefulSwiperModule,
   ],
 })
 export class TopModule {}

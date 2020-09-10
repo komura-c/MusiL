@@ -10,8 +10,6 @@ import { AngularFireStorage } from '@angular/fire/storage';
   providedIn: 'root',
 })
 export class UserService {
-  mypageUser: UserData;
-
   constructor(
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
@@ -31,7 +29,6 @@ export class UserService {
       .pipe(
         map((users) => {
           if (users.length) {
-            this.mypageUser = users[0];
             return users[0];
           } else {
             return null;

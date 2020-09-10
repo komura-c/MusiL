@@ -52,5 +52,12 @@
 }
 
 .my-menu {
-  background-size: cover;
+  line-height: normal;
+  mat-icon {
+    height: 100%;
+    width: 100%;
+  }
+  img {
+    border-radius: 50%;
+  }
 }

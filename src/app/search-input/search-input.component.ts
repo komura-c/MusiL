@@ -34,13 +34,26 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private userService: UserService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.route.queryParamMap.forEach((params) => {
       const searchQuery: string = params.get('q');
       this.searchControl.patchValue(searchQuery, {
         emitEvent: false,
       });
     });
+    this.subscription = this.searchControl.valueChanges
+      .pipe(startWith(''), debounceTime(500))
+      .subscribe((keyword: string) => {
+        this.index
+          .search(keyword, this.searchOptions)
+          .then((searchResult) => (this.searchResult = searchResult));
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   routeSearch(keyword: string): void {
@@ -68,19 +81,5 @@ export class SearchInputComponent implements OnInit, OnDestroy {
           );
         });
     }
-  }
-
-  ngOnInit(): void {
-    this.subscription = this.searchControl.valueChanges
-      .pipe(startWith(''), debounceTime(500))
-      .subscribe((keyword: string) => {
-        this.index
-          .search(keyword, this.searchOptions)
-          .then((searchResult) => (this.searchResult = searchResult));
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 }
