@@ -34,7 +34,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private searchService: SearchService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.route.queryParamMap.forEach((params) => {
