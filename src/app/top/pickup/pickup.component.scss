@@ -23,13 +23,7 @@
 }
 
 .swiper {
-  margin: -8px -44px;
   overflow: hidden;
-  padding: 0 44px;
-  @include sp {
-    padding: 0 24px 0 8px;
-    margin: -8px -16px;
-  }
   &__arrow {
     position: absolute;
     top: 50%;
@@ -54,11 +48,25 @@
 }
 
 .swiper-slide {
-  padding: 8px;
-  margin-right: -20px;
+  padding: 8px 0 8px 8px;
+  margin-right: -12px;
   box-sizing: border-box;
   height: auto;
   @include sp {
-    padding: 4px;
+    margin-right: 0;
+    padding: 4px 0 4px 4px;
+  }
+}
+
+.swiper-slide-prev {
+  margin-right: 24px;
+  @include sp {
+    margin-right: 0;
+  }
+}
+
+.swiper-slide-active {
+  @include sp {
+    margin-right: -12px;
   }
 }
