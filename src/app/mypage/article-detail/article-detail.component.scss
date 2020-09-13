@@ -123,6 +123,9 @@
   }
   &__title {
     padding: 0 4px;
+    @include sp {
+      font-size: 24px;
+    }
   }
 }
 
