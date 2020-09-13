@@ -5,14 +5,13 @@
   ></div>
   <div class="welcome__wrapper">
     <div class="welcome__main">
-      <h1 class="welcome__title">DTMや作曲の知識を記録しよう</h1>
+      <h1 class="welcome__title">
+        DTMや作曲の知識を<span class="new-line">記録しよう</span>
+      </h1>
       <h2 class="welcome__sub-title">
-        MusiLは、DTMや作曲の知識を記録・共有するためのサービスです。
+        MusiLはDTMや作曲の知識を記録・共有するためのサービスです。
       </h2>
       <div class="welcome__text">
-        <p class="welcome__agree">
-          <a routerLink="/terms" class="terms-link">利用規約</a>に同意し、
-        </p>
         <button
           [disabled]="authService.loginProcessing"
           (click)="login()"
@@ -29,7 +28,10 @@
         </button>
       </div>
       <p class="welcome__notice">
-        ※読み取り専用です。許可なくツイート等は行いません。
+        <a routerLink="/terms" class="terms-link">利用規約</a
+        >が適用されます。<span class="new-line"
+          >許可なくツイート等は行いません。</span
+        >
       </p>
     </div>
   </div>

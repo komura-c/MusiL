@@ -45,7 +45,7 @@
   }
   &__sub-title {
     font-size: 16px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.8px;
   }
   &__text {
     display: flex;
@@ -53,12 +53,9 @@
     justify-content: center;
     align-items: center;
   }
-  &__agree {
-    letter-spacing: 1.5px;
-  }
   &__notice {
     font-size: 12px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
   }
 }
 
@@ -68,4 +65,11 @@
 
 .terms-link {
   text-decoration: underline;
+}
+
+.new-line::before {
+  @include sp {
+    content: '\A';
+    white-space: pre;
+  }
 }
