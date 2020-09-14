@@ -6,12 +6,12 @@
   <div class="welcome__wrapper">
     <div class="welcome__main">
       <h1 class="welcome__title">
-        DTMや作曲の知識を<span class="new-line">記録しよう</span>
+        音楽の学びを<span class="new-line">記録しよう</span>
       </h1>
       <h2 class="welcome__sub-title">
-        MusiLはDTMや作曲の知識を記録・共有するためのサービスです。
+        MusiLは、DTMや作曲の知識を記録・共有できるサービスです。
       </h2>
-      <div class="welcome__text">
+      <div class="welcome__login">
         <button
           [disabled]="authService.loginProcessing"
           (click)="login()"
@@ -20,7 +20,7 @@
           class="login-button"
         >
           <mat-icon
-            ><img src="/assets/icons/twitter-logo-white.png" alt="Twitterロゴ"
+            ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
           /></mat-icon>
           <span>{{
             authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
