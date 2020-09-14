@@ -21,7 +21,7 @@
     font-size: 12px;
     margin: 0;
     outline: none;
-    border: solid 1px #e0e0e0;
+    border: solid 1px $color-grey;
     @include sp {
       border-radius: 4px;
       outline: none;

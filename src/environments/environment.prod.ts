@@ -16,5 +16,5 @@ export const environment = {
     measurementId: 'G-2XYYKELX26'
   },
   key: 'sZH1rC3D7B5F6C4D4iF-7bkpvA2lqC-7G-7eB-16D4E3D2B2C3I2E2B10B2A3==',
-  hostingURL: 'https://musil-prod.web.app',
+  hostingURL: 'https://musil.place',
 };

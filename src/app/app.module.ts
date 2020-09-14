@@ -70,7 +70,9 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SharedModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+    }),
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },

@@ -61,10 +61,16 @@
   display: flex;
   flex-direction: column;
   &__like {
-    margin-left: 2px;
+    margin-left: -1px;
     transform-origin: 50% 50%;
     &--liked {
       animation: like-anim 0.5s ease-out;
+    }
+    span {
+      position: absolute;
+      top: 4px;
+      right: -4px;
+      font-size: 18px;
     }
   }
   &__twitter {
@@ -117,12 +123,15 @@
   }
   &__title {
     padding: 0 4px;
+    @include sp {
+      font-size: 24px;
+    }
   }
 }
 
 .article-content {
   padding: 20px 8px;
-  border-bottom: solid 1px #b6b6b6;
+  border-bottom: solid 1px $color-grey;
 }
 
 .article-footer {
@@ -179,6 +188,12 @@
     transform-origin: 50% 50%;
     &--liked {
       animation: like-anim 0.5s ease-out;
+    }
+    span {
+      position: absolute;
+      top: 4px;
+      right: -4px;
+      font-size: 18px;
     }
   }
   &__share {

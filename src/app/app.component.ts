@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     if (!environment.production) {
