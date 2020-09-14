@@ -11,7 +11,7 @@
     max-width: 320px;
     margin: 0 auto;
     @include sp {
-      max-width: 200px;
+      max-width: 220px;
     }
   }
   &__sub-title {
@@ -19,13 +19,19 @@
     margin-bottom: 32px;
     letter-spacing: 1.8px;
     @include sp {
-      font-size: 14px;
-      letter-spacing: 1;
+      font-size: 16px;
     }
   }
   &__notice {
     font-size: 12px;
     letter-spacing: 1.6px;
+  }
+}
+
+.new-line::before {
+  @include sp {
+    content: '\A';
+    white-space: pre;
   }
 }
 
@@ -72,7 +78,7 @@
     border-radius: 4px;
   }
   @include sp {
-    font-size: 20px;
+    font-size: 24px;
   }
 }
 
@@ -98,18 +104,12 @@
   }
   &__title {
     text-align: center;
-    @include sp {
-      font-size: 16px;
-    }
   }
 }
 
 .about-concept {
   background-color: #f5f5f5;
   padding: 52px 16px;
-  @include sp {
-    font-size: 14px;
-  }
   &__card {
     max-width: 610px;
     margin: 32px auto;
@@ -122,8 +122,5 @@
     font-size: 20px;
     margin: 32px 0;
     text-align: center;
-    @include sp {
-      font-size: 16px;
-    }
   }
 }
