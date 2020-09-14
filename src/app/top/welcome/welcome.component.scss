@@ -40,18 +40,21 @@
     margin: 0 16px;
   }
   &__title {
-    font-size: 28px;
+    font-size: 32px;
     letter-spacing: 2px;
+    @include sp {
+      font-size: 28px;
+    }
   }
   &__sub-title {
-    font-size: 16px;
+    font-size: 18px;
     letter-spacing: 1.8px;
+    @include sp {
+      font-size: 16px;
+    }
   }
-  &__text {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
+  &__login {
+    margin: 20px 0;
   }
   &__notice {
     font-size: 12px;
