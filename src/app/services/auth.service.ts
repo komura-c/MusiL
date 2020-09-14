@@ -32,9 +32,10 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) {}
+  ) { }
 
   async login(): Promise<void> {
+    this.loginProcessing = true;
     const provider = new auth.TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     const userCredential = await this.afAuth.signInWithPopup(provider);
@@ -57,8 +58,10 @@ export class AuthService {
       .then(() => {
         this.router.navigateByUrl('/');
         this.snackBar.open('ログインしました。', '閉じる');
+        this.loginProcessing = false;
       })
       .catch((error) => {
+        this.loginProcessing = false;
         console.error(error.message);
         this.snackBar.open(
           'ログインエラーです。数秒後にもう一度お試しください。',
@@ -68,13 +71,16 @@ export class AuthService {
   }
 
   async logout(): Promise<void> {
+    this.loginProcessing = true;
     return await this.afAuth
       .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
         this.snackBar.open('ログアウトしました。', '閉じる');
+        this.loginProcessing = false;
       })
       .catch((error) => {
+        this.loginProcessing = false;
         console.error(error.message);
         this.snackBar.open(
           'ログアウトエラーです。数秒後にもう一度お試しください。',
