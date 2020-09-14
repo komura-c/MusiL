@@ -32,9 +32,6 @@ export class AboutComponent implements OnInit {
   }
 
   login() {
-    this.authService.loginProcessing = true;
-    this.authService.login().finally(() => {
-      this.authService.loginProcessing = false;
-    });
+    this.authService.login();
   }
 }
