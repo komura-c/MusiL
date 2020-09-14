@@ -79,7 +79,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);

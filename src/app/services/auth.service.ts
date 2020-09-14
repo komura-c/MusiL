@@ -32,7 +32,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) { }
+  ) {}
 
   async login(): Promise<void> {
     this.loginProcessing = true;

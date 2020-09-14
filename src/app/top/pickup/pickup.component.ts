@@ -55,7 +55,7 @@ export class PickupComponent implements OnInit {
     this.isLoading = true;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   shuffleArticle(articles: ArticleWithAuthor[]) {
     for (let i = articles.length - 1; i > 0; i--) {
