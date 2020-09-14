@@ -22,7 +22,7 @@ export class TopComponent implements OnInit {
     ArticleWithAuthor[]
   > = this.articleService.getPopularArticles().pipe(
     take(1),
-    tap(() => this.isPopularLoading = false)
+    tap(() => (this.isPopularLoading = false))
   );
   isPopularLoading: boolean;
 
@@ -30,7 +30,7 @@ export class TopComponent implements OnInit {
     ArticleWithAuthor[]
   > = this.articleService.getLatestArticles().pipe(
     take(1),
-    tap(() => this.isLatestLoading = false)
+    tap(() => (this.isLatestLoading = false))
   );
   isLatestLoading: boolean;
 
@@ -49,5 +49,5 @@ export class TopComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 }

@@ -45,7 +45,7 @@ export class MypageComponent implements OnInit {
     private loadingService: LoadingService,
     private seoService: SeoService,
     public authService: AuthService,
-    private router: Router,
+    private router: Router
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
