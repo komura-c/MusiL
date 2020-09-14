@@ -40,25 +40,25 @@
     margin: 0 16px;
   }
   &__title {
-    font-size: 28px;
+    font-size: 32px;
     letter-spacing: 2px;
+    @include sp {
+      font-size: 28px;
+    }
   }
   &__sub-title {
-    font-size: 16px;
-    letter-spacing: 1.5px;
+    font-size: 18px;
+    letter-spacing: 1.8px;
+    @include sp {
+      font-size: 16px;
+    }
   }
-  &__text {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  }
-  &__agree {
-    letter-spacing: 1.5px;
+  &__login {
+    margin: 20px 0;
   }
   &__notice {
     font-size: 12px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.6px;
   }
 }
 
@@ -68,4 +68,11 @@
 
 .terms-link {
   text-decoration: underline;
+}
+
+.new-line::before {
+  @include sp {
+    content: '\A';
+    white-space: pre;
+  }
 }

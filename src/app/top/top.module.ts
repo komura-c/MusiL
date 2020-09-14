@@ -25,4 +25,4 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatProgressSpinnerModule,
   ],
 })
-export class TopModule { }
+export class TopModule {}
