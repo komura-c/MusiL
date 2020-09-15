@@ -13,7 +13,7 @@ import {
 } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 
@@ -26,6 +26,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
   @Input() parentForm: FormGroup;
   @Input() tags: string[];
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
+  @ViewChild('chipList') chipList: MatChipList;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -39,23 +40,23 @@ export class TagFormComponent implements OnInit, OnDestroy {
   }[];
   selectable = true;
   removable = true;
-  isTagWordOver = false;
+
+  readonly maxWordCount = 50;
+  readonly maxLength = 10;
 
   get tagControl() {
     return this.parentForm.get('tag') as FormControl;
   }
 
-  constructor(private searchService: SearchService) {}
+  constructor(private searchService: SearchService) { }
 
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-    const maxWordCount = 50;
-    const maxLength = 10;
-    if (value.length > maxWordCount) {
-      this.isTagWordOver = true;
-    } else if ((value || '').trim() && this.tags.length < maxLength) {
-      this.isTagWordOver = false;
+    if (value.length > this.maxWordCount) {
+      this.chipList.errorState = true;
+    } else if ((value || '').trim() && this.tags.length < this.maxLength) {
+      this.chipList.errorState = false;
       this.tags.push(value);
       if (input) {
         input.value = '';
