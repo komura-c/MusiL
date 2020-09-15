@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
   private user: UserData;
 
   readonly titleMaxLength = 60;
+  readonly tagMaxLength = 10;
 
   // NOTE: Guardで使用している
   public isComplete = false;
@@ -43,7 +44,7 @@ export class CreateComponent implements OnInit {
       '',
       [Validators.required, Validators.maxLength(this.titleMaxLength)],
     ],
-    tag: [''],
+    tag: ['', Validators.maxLength(this.tagMaxLength)],
     editorContent: [''],
     isPublic: [true],
   });
