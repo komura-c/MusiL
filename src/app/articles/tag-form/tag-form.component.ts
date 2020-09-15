@@ -25,6 +25,8 @@ import { startWith, debounceTime } from 'rxjs/operators';
 export class TagFormComponent implements OnInit, OnDestroy {
   @Input() parentForm: FormGroup;
   @Input() tags: string[];
+  @Input() tagMaxWordCount: number;
+  @Input() tagMaxLength: number;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
   @ViewChild('chipList') chipList: MatChipList;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
@@ -41,9 +43,6 @@ export class TagFormComponent implements OnInit, OnDestroy {
   selectable = true;
   removable = true;
 
-  readonly maxWordCount = 50;
-  readonly maxLength = 10;
-
   get tagControl() {
     return this.parentForm.get('tag') as FormControl;
   }
@@ -53,16 +52,18 @@ export class TagFormComponent implements OnInit, OnDestroy {
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
-    if (value.length > this.maxWordCount) {
+    if (value.length > this.tagMaxWordCount) {
       this.chipList.errorState = true;
-    } else if ((value || '').trim() && this.tags.length < this.maxLength) {
-      this.chipList.errorState = false;
-      this.tags.push(value);
-      if (input) {
-        input.value = '';
-      }
-      this.tagControl.patchValue(null);
+      return;
     }
+    if ((value || '').trim() && this.tags.length < this.tagMaxLength) {
+      this.chipList.errorState = false;
+      this.tags.push(value.trim());
+    }
+    if (input) {
+      input.value = '';
+    }
+    this.tagControl.patchValue(null);
   }
 
   remove(tag: string): void {

@@ -32,6 +32,7 @@ export class CreateComponent implements OnInit {
   private user: UserData;
 
   readonly titleMaxLength = 60;
+  readonly tagMaxWordCount = 50;
   readonly tagMaxLength = 10;
 
   // NOTE: Guardで使用している
@@ -44,7 +45,7 @@ export class CreateComponent implements OnInit {
       '',
       [Validators.required, Validators.maxLength(this.titleMaxLength)],
     ],
-    tag: ['', Validators.maxLength(this.tagMaxLength)],
+    tag: ['', Validators.maxLength(this.tagMaxWordCount)],
     editorContent: [''],
     isPublic: [true],
   });

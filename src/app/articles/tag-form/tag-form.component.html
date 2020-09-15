@@ -28,9 +28,9 @@
         {{ tag.value }}({{ tag.count }})
       </mat-option>
     </mat-autocomplete>
-    <mat-hint align="end">{{ tags?.length || 0 }}/{{ maxLength }}</mat-hint>
+    <mat-hint align="end">{{ tags?.length || 0 }}/{{ tagMaxLength }}</mat-hint>
     <mat-error *ngIf="chipList.errorState"
-      >タグは{{ maxWordCount }}文字以内です</mat-error
+      >タグは{{ tagMaxWordCount }}文字以内です</mat-error
     >
   </mat-form-field>
 </div>
