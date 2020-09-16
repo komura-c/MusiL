@@ -7,9 +7,9 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./welcome.component.scss'],
 })
 export class WelcomeComponent implements OnInit {
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.authService.loginProcessing = true;
