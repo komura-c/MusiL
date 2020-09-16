@@ -12,6 +12,9 @@ export class WelcomeComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService.login();
+    this.authService.loginProcessing = true;
+    this.authService.login().finally(() => {
+      this.authService.loginProcessing = false;
+    });
   }
 }

@@ -18,10 +18,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {}
 
   login() {
-    this.authService.login();
+    this.authService.loginProcessing = true;
+    this.authService.login().finally(() => {
+      this.authService.loginProcessing = false;
+    });
   }
 
   logout() {
-    this.authService.logout();
+    this.authService.loginProcessing = true;
+    this.authService.logout().finally(() => {
+      this.authService.loginProcessing = false;
+    });
   }
 }
