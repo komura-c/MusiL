@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
     this.isLoading = true;
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   login() {
     this.authService.loginProcessing = true;
