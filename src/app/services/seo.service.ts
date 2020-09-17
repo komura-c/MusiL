@@ -11,18 +11,18 @@ export class SeoService {
     ogType: 'article',
   };
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(private meta: Meta, private title: Title) { }
 
   setTitleAndMeta(metaTags: {
     title?: string;
     description?: string;
     ogType?: string;
   }) {
-    const html2textReg = /<("[^"]*"|'[^']*'|[^'">])*>/g;
     const descriptionMaxLength = 120;
     const descriptionText =
       metaTags.description
-        ?.replace(html2textReg, '')
+        ?.replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
+        .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '')
         .slice(0, descriptionMaxLength) + '…';
     this.title.setTitle(
       metaTags.title ? metaTags.title : this.defaultMetas.title
