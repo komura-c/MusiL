@@ -18,7 +18,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
   const description = htmlToText.fromString(articleAndScreenName.text ? articleAndScreenName.text : '', {
     wordwrap: 200
-  });
+  }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
   const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/a/' + articleAndScreenName.articleId;
   const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : config.project.hosting_url + 'assets/images/ogp-cover.png';
   return file
