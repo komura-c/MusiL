@@ -8,11 +8,11 @@ const algolia = new Algolia();
 export const createPost = functions
   .region('asia-northeast1')
   .firestore.document('articles/{id}')
-  .onCreate((snap) => {
+  .onCreate(async (snap) => {
     const data = snap.data();
-    data.text = htmlToText.fromString(data.text ? data.text : '', {
+    data.text = await htmlToText.fromString(data.text ? data.text : '', {
       wordwrap: 200
-    });
+    }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
@@ -37,8 +37,11 @@ export const deletePost = functions
 export const updatePost = functions
   .region('asia-northeast1')
   .firestore.document('articles/{id}')
-  .onUpdate((change) => {
+  .onUpdate(async (change) => {
     const data = change.after.data();
+    data.text = await htmlToText.fromString(data.text ? data.text : '', {
+      wordwrap: 200
+    }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
