@@ -9,6 +9,7 @@ import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
 import 'froala-editor/js/third_party/embedly.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
+import 'froala-editor/js/plugins/fullscreen.min.js';
 import 'froala-editor/js/plugins/image.min.js';
 import 'froala-editor/js/plugins/image_manager.min.js';
 import 'froala-editor/js/plugins/line_breaker.min.js';
@@ -41,6 +42,7 @@ export class EditorComponent implements OnInit {
     'emoticons',
     'undo',
     'redo',
+    'fullscreen',
   ];
 
   froalaEditor: {
