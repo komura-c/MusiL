@@ -26,20 +26,20 @@ export class OgpService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   async createOgpImageAndUpload(
-    article: Omit<Article, 'createdAt' | 'likeCount'>,
+    title: string,
+    articleId: string,
     user: UserData
   ) {
-    if (article.title && article.articleId && user.userName) {
-      const ogpImage = await this.createOgp(article.title, user.userName);
-      const thumbnailURL = await this.uploadOgp(article.articleId, ogpImage);
+    if (title && articleId && user?.userName) {
+      const ogpImage = await this.createOgp(title, user.userName);
+      const thumbnailURL = await this.uploadOgp(articleId, ogpImage);
       return this.db
-        .doc<Article>(`articles/${article.articleId}`)
+        .doc<Article>(`articles/${articleId}`)
         .update({ thumbnailURL });
     }
-    return;
   }
 
   async createOgp(title: string, userName: string): Promise<string> {
@@ -69,7 +69,7 @@ export class OgpService {
     let userNamelineY =
       this.userNameHeight / 2 -
       ((this.userNameSize + this.userNameLineMargin) / 2) *
-        (userNameLines.length - 1);
+      (userNameLines.length - 1);
     userNameLines.forEach((line) => {
       const textWidth = context.measureText(line).width;
       context.fillText(line, (this.canvasWidth - textWidth) / 2, userNamelineY);
