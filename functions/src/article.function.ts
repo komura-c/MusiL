@@ -10,9 +10,8 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate(async (snap) => {
     const data = snap.data();
-    data.text = await htmlToText.fromString(data.text ? data.text : '', {
-      wordwrap: 200
-    }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
+    data.text = await htmlToText.fromString(data.text ? data.text : '')
+      .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
@@ -26,7 +25,6 @@ export const deletePost = functions
   .firestore.document('articles/{id}')
   .onDelete((snap) => {
     const data = snap.data();
-
     if (data) {
       return algolia.removeRecord(config.algolia.index_name, data.articleId);
     } else {
@@ -39,9 +37,8 @@ export const updatePost = functions
   .firestore.document('articles/{id}')
   .onUpdate(async (change) => {
     const data = change.after.data();
-    data.text = await htmlToText.fromString(data.text ? data.text : '', {
-      wordwrap: 200
-    }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
+    data.text = await htmlToText.fromString(data.text ? data.text : '')
+      .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',

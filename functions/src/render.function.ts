@@ -8,17 +8,15 @@ const htmlToText = require('html-to-text');
 
 const config = functions.config();
 const db = admin.firestore();
-// コピーされたindex.htmlの中身を取得
+
 const file = readFileSync(resolve(__dirname, 'index.html'), {
   encoding: 'utf-8',
 });
 
-// 置換関数
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
-  const description = htmlToText.fromString(articleAndScreenName.text ? articleAndScreenName.text : '', {
-    wordwrap: 200
-  }).replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
+  const description = htmlToText.fromString(articleAndScreenName.text ? articleAndScreenName.text : '')
+    .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
   const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/a/' + articleAndScreenName.articleId;
   const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : config.project.hosting_url + 'assets/images/ogp-cover.png';
   return file
@@ -51,28 +49,21 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
     );
 };
 
-// expressアプリ初期化
 const app = express();
-// ユーザーエージェント判定ヘルパーを導入
 app.use(useragent.express());
 app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
-  // ロボットであれば置換結果を返却
   if (req.useragent.isBot) {
-    // https://xxx/:screenName/a/:articleId のようなURLを元に記事データをDBから取得
     const article = (await db.doc(`articles/${req.params.articleId}`).get())?.data();
     if (article) {
       const articleAndScreenName = {
         ...article,
         screenName: req.params.screenName,
       };
-      // 結果を返却
       res.send(buildHtml(articleAndScreenName));
       return;
     }
   }
-  // ロボットでなければ置換せずindex.htmlを返却
   res.send(file);
 });
 
-// 関数を定義
 export const render = functions.https.onRequest(app);
