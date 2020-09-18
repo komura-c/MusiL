@@ -6,7 +6,7 @@ import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap, take, catchError, tap } from 'rxjs/operators';
+import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { OgpService } from './ogp.service';
 
@@ -33,8 +33,7 @@ export class ArticleService {
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-    >,
-    user: UserData
+    >
   ): Promise<void> {
     const resultArticle = {
       articleId,
@@ -43,7 +42,6 @@ export class ArticleService {
       createdAt: firestore.Timestamp.now(),
       updatedAt: firestore.Timestamp.now(),
     };
-    this.ogpService.createOgpImageAndUpload(resultArticle, user);
     return this.db.doc(`articles/${articleId}`).set(resultArticle);
   }
 
@@ -52,15 +50,13 @@ export class ArticleService {
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-    >,
-    user: UserData
+    >
   ): Promise<void> {
     const resultArticle = {
       articleId,
       ...article,
       updatedAt: firestore.Timestamp.now(),
     };
-    this.ogpService.createOgpImageAndUpload(resultArticle, user);
     return this.db.doc(`articles/${articleId}`).update(resultArticle);
   }
 
