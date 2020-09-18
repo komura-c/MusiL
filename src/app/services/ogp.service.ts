@@ -29,17 +29,17 @@ export class OgpService {
   ) {}
 
   async createOgpImageAndUpload(
-    article: Omit<Article, 'createdAt' | 'likeCount'>,
+    title: string,
+    articleId: string,
     user: UserData
   ) {
-    if (article.title && article.articleId && user.userName) {
-      const ogpImage = await this.createOgp(article.title, user.userName);
-      const thumbnailURL = await this.uploadOgp(article.articleId, ogpImage);
+    if (title && articleId && user?.userName) {
+      const ogpImage = await this.createOgp(title, user.userName);
+      const thumbnailURL = await this.uploadOgp(articleId, ogpImage);
       return this.db
-        .doc<Article>(`articles/${article.articleId}`)
+        .doc<Article>(`articles/${articleId}`)
         .update({ thumbnailURL });
     }
-    return;
   }
 
   async createOgp(title: string, userName: string): Promise<string> {
