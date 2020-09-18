@@ -26,7 +26,7 @@ export class OgpService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) { }
+  ) {}
 
   async createOgpImageAndUpload(
     title: string,
@@ -69,7 +69,7 @@ export class OgpService {
     let userNamelineY =
       this.userNameHeight / 2 -
       ((this.userNameSize + this.userNameLineMargin) / 2) *
-      (userNameLines.length - 1);
+        (userNameLines.length - 1);
     userNameLines.forEach((line) => {
       const textWidth = context.measureText(line).width;
       context.fillText(line, (this.canvasWidth - textWidth) / 2, userNamelineY);

@@ -19,7 +19,7 @@ export class ArticleService {
     private storage: AngularFireStorage,
     private userService: UserService,
     private ogpService: OgpService
-  ) { }
+  ) {}
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage

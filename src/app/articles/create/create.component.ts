@@ -140,16 +140,10 @@ export class CreateComponent implements OnInit {
 
     let task: Promise<void>;
     if (this.articleId) {
-      task = this.articleService.updateArticle(
-        this.articleId,
-        sendData,
-      );
+      task = this.articleService.updateArticle(this.articleId, sendData);
     } else {
       this.articleId = this.db.createId();
-      task = this.articleService.createArticle(
-        this.articleId,
-        sendData,
-      );
+      task = this.articleService.createArticle(this.articleId, sendData);
     }
 
     task
@@ -158,7 +152,11 @@ export class CreateComponent implements OnInit {
           '/' + this.user.screenName + '/a/' + this.articleId
         );
         this.snackBar.open(msg, '閉じる');
-        this.ogpService.createOgpImageAndUpload(sendData.title, this.articleId, this.user);
+        this.ogpService.createOgpImageAndUpload(
+          sendData.title,
+          this.articleId,
+          this.user
+        );
       })
       .catch((error) => {
         console.error(error.message);
