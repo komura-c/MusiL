@@ -26,7 +26,7 @@
     </mat-paginator>
   </ng-container>
   <ng-template #blank>
-    <div class="no-article">
+    <div class="no-article" *ngIf="!isLoading">
       <p>
         「{{
           searchQuery ? searchQuery : searchTag
