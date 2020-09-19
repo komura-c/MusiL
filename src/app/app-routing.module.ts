@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { SearchGuard } from './guards/search.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -50,6 +51,17 @@ const routes: Routes = [
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
     data: {
+      showFooter: false,
+    },
+  },
+  {
+    path: 'admin/check',
+    loadChildren: () =>
+      import('./check/check.module').then((m) => m.CheckModule),
+    canLoad: [AdminGuard],
+    canActivate: [AdminGuard],
+    data: {
+      showHeader: false,
       showFooter: false,
     },
   },

@@ -138,32 +138,51 @@ export class CreateComponent implements OnInit {
       ? '記事を投稿しました！おめでとうございます。'
       : '下書きを保存しました！おつかれさまです。';
 
-    let task: Promise<void>;
     if (this.articleId) {
-      task = this.articleService.updateArticle(this.articleId, sendData);
+      this.articleService
+        .updateArticle(this.articleId, sendData)
+        .then(() => {
+          this.succeededSubmit(msg, sendData);
+        })
+        .catch((error) => {
+          this.failedSubmit(error);
+        });
     } else {
       this.articleId = this.db.createId();
-      task = this.articleService.createArticle(this.articleId, sendData);
+      this.articleService
+        .createArticle(this.articleId, sendData)
+        .then(() => {
+          this.succeededSubmit(msg, sendData);
+        })
+        .catch((error) => {
+          this.failedSubmit(error);
+        });
     }
+  }
 
-    task
-      .then(() => {
-        this.router.navigateByUrl(
-          '/' + this.user.screenName + '/a/' + this.articleId
-        );
-        this.snackBar.open(msg, '閉じる');
-        this.ogpService.createOgpImageAndUpload(
-          sendData.title,
-          this.articleId,
-          this.user
-        );
-      })
-      .catch((error) => {
-        console.error(error.message);
-        this.snackBar.open(
-          'すみません、投稿エラーです。数秒後にもう一度お試しください。',
-          '閉じる'
-        );
-      });
+  succeededSubmit(
+    msg: string,
+    sendData: Omit<
+      Article,
+      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
+    >
+  ) {
+    this.router.navigateByUrl(
+      '/' + this.user.screenName + '/a/' + this.articleId
+    );
+    this.snackBar.open(msg, '閉じる');
+    this.ogpService.createOgpImageAndUpload(
+      sendData.title,
+      this.articleId,
+      this.user
+    );
+  }
+
+  failedSubmit(error: { message: any }) {
+    console.error(error.message);
+    this.snackBar.open(
+      'すみません、投稿エラーです。数秒後にもう一度お試しください。',
+      '閉じる'
+    );
   }
 }
