@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { NotFoundComponent } from './shared/not-found/not-found.component';
 import { SearchGuard } from './guards/search.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -54,6 +55,17 @@ const routes: Routes = [
     },
   },
   {
+    path: 'admin/check',
+    loadChildren: () =>
+      import('./check/check.module').then((m) => m.CheckModule),
+    canLoad: [AdminGuard],
+    canActivate: [AdminGuard],
+    data: {
+      showHeader: false,
+      showFooter: false,
+    },
+  },
+  {
     path: ':id',
     loadChildren: () =>
       import('./mypage/mypage.module').then((m) => m.MypageModule),
@@ -80,4 +92,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
