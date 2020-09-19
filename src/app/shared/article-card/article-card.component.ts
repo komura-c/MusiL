@@ -16,8 +16,8 @@ export class ArticleCardComponent implements OnInit {
 
   constructor(
     private likeService: LikeService,
-    private authService: AuthService,
-  ) { }
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
     this.likeCount = this.article.likeCount;
@@ -29,7 +29,8 @@ export class ArticleCardComponent implements OnInit {
       this.likeService
         .isLiked(this.article.articleId, this.authService.uid)
         .pipe(take(1))
-        .toPromise().then((result) => {
+        .toPromise()
+        .then((result) => {
           this.isLiked = result;
           this.likeCount = this.article.likeCount;
         });

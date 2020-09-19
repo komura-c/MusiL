@@ -1,6 +1,6 @@
 <div class="settings">
   <h1 class="settings__title">アカウント設定</h1>
-  <ng-container *ngIf="user$ | async as user">
+  <ng-container *ngIf="user$ | async as user; else loading">
     <h2 class="settings__heading">プロフィール</h2>
     <label
       for="avatar-file"
@@ -101,4 +101,11 @@
       退会する
     </button>
   </ng-container>
+  <ng-template #loading>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
+  </ng-template>
 </div>

@@ -1,0 +1,14 @@
+<h1>check</h1>
+<h2>screenName</h2>
+<ng-container *ngIf="usersScreenNameIsNull$ | async as users">
+  <div *ngFor="let user of users">
+    <p>{{ user.uid }}</p>
+  </div>
+</ng-container>
+
+<h2>thumbnailURL</h2>
+<ng-container *ngIf="articlesThumbnailURLIsNull$ | async as articles">
+  <div *ngFor="let article of articles">
+    <p>{{ article.articleId }}</p>
+  </div>
+</ng-container>
