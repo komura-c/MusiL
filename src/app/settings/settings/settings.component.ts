@@ -4,7 +4,7 @@ import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoadingService } from 'src/app/services/loading.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
-import { tap, map, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
@@ -19,9 +19,7 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-  user$: Observable<UserData> = this.authService.user$.pipe(
-    tap(() => this.loadingService.toggleLoading(false))
-  );
+  user$: Observable<UserData> = this.authService.user$;
   userNameMaxLength = 50;
   descriptionMaxLength = 160;
   form = this.fb.group({
@@ -66,6 +64,7 @@ export class SettingsComponent implements OnInit {
           userName: user.userName,
           description: user.description,
         });
+        this.loadingService.toggleLoading(false);
       });
   }
 
