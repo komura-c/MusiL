@@ -14,7 +14,7 @@ export class UserService {
     private db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   getUserData(uid: string): Observable<UserData> {
     return this.db.doc<UserData>(`users/${uid}`).valueChanges();
@@ -45,14 +45,14 @@ export class UserService {
       screenName: twitterProfile.screen_name,
       description: twitterProfile.description,
     };
-    return this.db.doc<UserData>(`users/${uid}`).set(userData);
+    return await this.db.doc<UserData>(`users/${uid}`).set(userData);
   }
 
   async updateUser(uid: string, twitterProfile: any): Promise<void> {
     const userData: Pick<UserData, 'screenName'> = {
       screenName: twitterProfile.screen_name,
     };
-    return this.db.doc<UserData>(`users/${uid}`).update(userData);
+    return await this.db.doc<UserData>(`users/${uid}`).update(userData);
   }
 
   async uploadAvatar(uid: string, avatar: string): Promise<void> {

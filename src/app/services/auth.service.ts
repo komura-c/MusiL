@@ -32,7 +32,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) {}
+  ) { }
 
   async login(): Promise<void> {
     this.loginProcessing = true;
@@ -41,32 +41,41 @@ export class AuthService {
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
     const twitterProfile = additionalUserInfo.profile as any;
-    const userDoc: UserData = await this.userService
-      .getUserData(user.uid)
+    this.userService.getUserData(user.uid)
       .pipe(take(1))
-      .toPromise();
-
-    let task: Promise<void>;
-
-    if (userDoc?.screenName) {
-      task = this.userService.updateUser(user.uid, twitterProfile);
-    } else {
-      task = this.userService.createUser(user.uid, twitterProfile);
-    }
-
-    task
-      .then(() => {
-        this.router.navigateByUrl('/');
-        this.snackBar.open('ログインしました。', '閉じる');
-        this.loginProcessing = false;
-      })
-      .catch((error) => {
-        this.loginProcessing = false;
-        console.error(error.message);
-        this.snackBar.open(
-          'ログインエラーです。数秒後にもう一度お試しください。',
-          '閉じる'
-        );
+      .toPromise()
+      .then((userDoc) => {
+        if (userDoc?.screenName) {
+          this.userService.updateUser(user.uid, twitterProfile)
+            .then(() => {
+              this.router.navigateByUrl('/');
+              this.snackBar.open('ログインしました。', '閉じる');
+              this.loginProcessing = false;
+            })
+            .catch((error) => {
+              this.loginProcessing = false;
+              console.error(error.message);
+              this.snackBar.open(
+                'ログインエラーです。数秒後にもう一度お試しください。',
+                '閉じる'
+              );
+            });
+        } else {
+          this.userService.createUser(user.uid, twitterProfile)
+            .then(() => {
+              this.router.navigateByUrl('/');
+              this.snackBar.open('ログインしました。', '閉じる');
+              this.loginProcessing = false;
+            })
+            .catch((error) => {
+              this.loginProcessing = false;
+              console.error(error.message);
+              this.snackBar.open(
+                'ログインエラーです。数秒後にもう一度お試しください。',
+                '閉じる'
+              );
+            });
+        }
       });
   }
 
