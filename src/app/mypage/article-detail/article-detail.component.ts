@@ -79,7 +79,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     this.isLoading = true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);
@@ -141,17 +141,19 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   clickedLike(articleId: string) {
-    if (this.authService.uid && !this.isLiked) {
-      this.likeService.likeArticle(articleId, this.authService.uid);
-      this.likeCount++;
-      this.isLiked = true;
-    } else if (this.authService.uid && this.isLiked) {
-      this.likeService.unLikeArticle(articleId, this.authService.uid);
-      this.likeCount--;
-      this.isLiked = false;
-    } else {
-      this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる');
-    }
+    this.authService.user$.pipe(take(1)).toPromise().then((user) => {
+      if (user && !this.isLiked) {
+        this.likeService.likeArticle(articleId, this.authService.uid);
+        this.likeCount++;
+        this.isLiked = true;
+      } else if (user && this.isLiked) {
+        this.likeService.unLikeArticle(articleId, this.authService.uid);
+        this.likeCount--;
+        this.isLiked = false;
+      } else {
+        this.snackBar.open('いいねをするには、ログインが必要です。', '閉じる');
+      }
+    });
   }
 
   copyLink(): void {
