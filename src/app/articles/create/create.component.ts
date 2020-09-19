@@ -139,27 +139,34 @@ export class CreateComponent implements OnInit {
       : '下書きを保存しました！おつかれさまです。';
 
     if (this.articleId) {
-      this.articleService.updateArticle(this.articleId, sendData).then(() => {
-        this.succeededSubmit(msg, sendData);
-      })
+      this.articleService
+        .updateArticle(this.articleId, sendData)
+        .then(() => {
+          this.succeededSubmit(msg, sendData);
+        })
         .catch((error) => {
           this.failedSubmit(error);
         });
     } else {
       this.articleId = this.db.createId();
-      this.articleService.createArticle(this.articleId, sendData).then(() => {
-        this.succeededSubmit(msg, sendData);
-      })
+      this.articleService
+        .createArticle(this.articleId, sendData)
+        .then(() => {
+          this.succeededSubmit(msg, sendData);
+        })
         .catch((error) => {
           this.failedSubmit(error);
         });
     }
   }
 
-  succeededSubmit(msg: string, sendData: Omit<
-    Article,
-    'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-  >) {
+  succeededSubmit(
+    msg: string,
+    sendData: Omit<
+      Article,
+      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
+    >
+  ) {
     this.router.navigateByUrl(
       '/' + this.user.screenName + '/a/' + this.articleId
     );
@@ -171,7 +178,7 @@ export class CreateComponent implements OnInit {
     );
   }
 
-  failedSubmit(error: { message: any; }) {
+  failedSubmit(error: { message: any }) {
     console.error(error.message);
     this.snackBar.open(
       'すみません、投稿エラーです。数秒後にもう一度お試しください。',

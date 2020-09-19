@@ -102,14 +102,16 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       facetFilters: ['isPublic:true'],
     };
     if (this.searchQuery) {
-      this.index.search(this.searchQuery, searchOptions)
+      this.index
+        .search(this.searchQuery, searchOptions)
         .then((searchResult: { nbHits: number; hits: any[] }) => {
           this.searchResultWithFirestore(searchResult);
         });
     }
     if (this.searchTag) {
       searchOptions.facetFilters.push('tags:' + this.searchTag);
-      this.index.search('', searchOptions)
+      this.index
+        .search('', searchOptions)
         .then((searchResult: { nbHits: number; hits: any[] }) => {
           this.searchResultWithFirestore(searchResult);
         });

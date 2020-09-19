@@ -32,7 +32,7 @@ export class AuthService {
     private router: Router,
     private snackBar: MatSnackBar,
     private userService: UserService
-  ) { }
+  ) {}
 
   async login(): Promise<void> {
     this.loginProcessing = true;
@@ -41,12 +41,14 @@ export class AuthService {
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
     const twitterProfile = additionalUserInfo.profile as any;
-    this.userService.getUserData(user.uid)
+    this.userService
+      .getUserData(user.uid)
       .pipe(take(1))
       .toPromise()
       .then((userDoc) => {
         if (userDoc?.screenName) {
-          this.userService.updateUser(user.uid, twitterProfile)
+          this.userService
+            .updateUser(user.uid, twitterProfile)
             .then(() => {
               this.succeededLogin();
             })
@@ -54,7 +56,8 @@ export class AuthService {
               this.failedLogin(error);
             });
         } else {
-          this.userService.createUser(user.uid, twitterProfile)
+          this.userService
+            .createUser(user.uid, twitterProfile)
             .then(() => {
               this.succeededLogin();
             })
@@ -71,7 +74,7 @@ export class AuthService {
     this.loginProcessing = false;
   }
 
-  failedLogin(error: { message: any; }) {
+  failedLogin(error: { message: any }) {
     this.loginProcessing = false;
     console.error(error.message);
     this.snackBar.open(
