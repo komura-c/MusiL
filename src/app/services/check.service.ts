@@ -6,20 +6,18 @@ import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CheckService {
-
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) { }
+  ) {}
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
     return this.db
       .collection<UserData>(`users`, (ref) =>
-        ref
-          .where('screenName', '==', null)
+        ref.where('screenName', '==', null)
       )
       .valueChanges();
   }
@@ -27,8 +25,7 @@ export class CheckService {
   getArticleThumbnailURLIsNull(): Observable<Article[]> {
     return this.db
       .collection<Article>(`articles`, (ref) =>
-        ref.where('isPublic', '==', true)
-          .where('thumbnailURL', '==', null)
+        ref.where('isPublic', '==', true).where('thumbnailURL', '==', null)
       )
       .valueChanges();
   }
