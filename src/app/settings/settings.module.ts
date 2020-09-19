@@ -34,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ImageCropperModule,
     MatProgressSpinnerModule,
     MatDialogModule,
+    MatProgressSpinnerModule,
   ],
 })
-export class SettingsModule {}
+export class SettingsModule { }

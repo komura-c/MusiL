@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { LoadingService } from 'src/app/services/loading.service';
 import { FormControl, Validators, FormBuilder } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
@@ -41,14 +40,12 @@ export class SettingsComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private loadingService: LoadingService,
     private fb: FormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
     private seoService: SeoService
   ) {
-    this.loadingService.toggleLoading(true);
     this.seoService.setTitleAndMeta({
       title: 'アカウント設定 | MusiL',
       description: 'アカウント設定のページです',
@@ -64,7 +61,6 @@ export class SettingsComponent implements OnInit {
           userName: user.userName,
           description: user.description,
         });
-        this.loadingService.toggleLoading(false);
       });
   }
 
