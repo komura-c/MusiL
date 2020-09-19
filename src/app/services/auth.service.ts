@@ -48,35 +48,36 @@ export class AuthService {
         if (userDoc?.screenName) {
           this.userService.updateUser(user.uid, twitterProfile)
             .then(() => {
-              this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる');
-              this.loginProcessing = false;
+              this.succeededLogin();
             })
             .catch((error) => {
-              this.loginProcessing = false;
-              console.error(error.message);
-              this.snackBar.open(
-                'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる'
-              );
+              this.failedLogin(error);
             });
         } else {
           this.userService.createUser(user.uid, twitterProfile)
             .then(() => {
-              this.router.navigateByUrl('/');
-              this.snackBar.open('ログインしました。', '閉じる');
-              this.loginProcessing = false;
+              this.succeededLogin();
             })
             .catch((error) => {
-              this.loginProcessing = false;
-              console.error(error.message);
-              this.snackBar.open(
-                'ログインエラーです。数秒後にもう一度お試しください。',
-                '閉じる'
-              );
+              this.failedLogin(error);
             });
         }
       });
+  }
+
+  succeededLogin() {
+    this.router.navigateByUrl('/');
+    this.snackBar.open('ログインしました。', '閉じる');
+    this.loginProcessing = false;
+  }
+
+  failedLogin(error: { message: any; }) {
+    this.loginProcessing = false;
+    console.error(error.message);
+    this.snackBar.open(
+      'ログインエラーです。数秒後にもう一度お試しください。',
+      '閉じる'
+    );
   }
 
   async logout(): Promise<void> {

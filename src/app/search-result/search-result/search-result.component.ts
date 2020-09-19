@@ -101,61 +101,65 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       hitsPerPage: this.defaultPageSize,
       facetFilters: ['isPublic:true'],
     };
-
-    let task: Promise<{ nbHits: number; hits: any[] }>;
     if (this.searchQuery) {
-      task = this.index.search(this.searchQuery, searchOptions);
+      this.index.search(this.searchQuery, searchOptions)
+        .then((searchResult: { nbHits: number; hits: any[] }) => {
+          this.searchResultWithFirestore(searchResult);
+        });
     }
     if (this.searchTag) {
       searchOptions.facetFilters.push('tags:' + this.searchTag);
-      task = this.index.search('', searchOptions);
+      this.index.search('', searchOptions)
+        .then((searchResult: { nbHits: number; hits: any[] }) => {
+          this.searchResultWithFirestore(searchResult);
+        });
     }
+  }
 
-    task?.then((searchResult: { nbHits: number; hits: any[] }) => {
-      this.searchResult = searchResult;
-      if (this.searchResult?.hits?.length) {
-        const algoliaArticles = this.searchResult.hits;
-        const authorIds: string[] = algoliaArticles.map(
-          (algoliaItem) => algoliaItem.uid
-        );
-        const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-        const users$ = combineLatest(
-          authorUniqueIds.map((userId) => {
-            return this.userService.getUserData(userId);
-          })
-        );
-        this.articles$ = users$.pipe(
-          take(1),
-          map((users) => {
-            if (algoliaArticles?.length) {
-              return algoliaArticles.map((article) => {
-                const result: ArticleWithAuthor = {
-                  ...article,
-                  createdAt: firestore.Timestamp.fromMillis(article.createdAt),
-                  updatedAt: firestore.Timestamp.fromMillis(article.updatedAt),
-                  author: users?.find(
-                    (user: UserData) => user.uid === article.uid
-                  ),
-                };
-                return result;
-              });
-            } else {
-              return null;
-            }
-          }),
-          tap(() => {
-            this.loadingService.toggleLoading(false);
-            if (this.searchQuery) {
-              this.scrollService.restoreScrollPosition(this.searchQuery);
-            }
-            if (this.searchTag) {
-              this.scrollService.restoreScrollPosition(this.searchTag);
-            }
-          })
-        );
-      } else {
-        this.loadingService.toggleLoading(false);
-      }
-    });
+  searchResultWithFirestore(searchResult: { nbHits: number; hits: any[] }) {
+    this.searchResult = searchResult;
+    if (this.searchResult?.hits?.length) {
+      const algoliaArticles = this.searchResult.hits;
+      const authorIds: string[] = algoliaArticles.map(
+        (algoliaItem) => algoliaItem.uid
+      );
+      const authorUniqueIds: string[] = Array.from(new Set(authorIds));
+      const users$ = combineLatest(
+        authorUniqueIds.map((userId) => {
+          return this.userService.getUserData(userId);
+        })
+      );
+      this.articles$ = users$.pipe(
+        take(1),
+        map((users) => {
+          if (algoliaArticles?.length) {
+            return algoliaArticles.map((article) => {
+              const result: ArticleWithAuthor = {
+                ...article,
+                createdAt: firestore.Timestamp.fromMillis(article.createdAt),
+                updatedAt: firestore.Timestamp.fromMillis(article.updatedAt),
+                author: users?.find(
+                  (user: UserData) => user.uid === article.uid
+                ),
+              };
+              return result;
+            });
+          } else {
+            return null;
+          }
+        }),
+        tap(() => {
+          this.loadingService.toggleLoading(false);
+          if (this.searchQuery) {
+            this.scrollService.restoreScrollPosition(this.searchQuery);
+          }
+          if (this.searchTag) {
+            this.scrollService.restoreScrollPosition(this.searchTag);
+          }
+        })
+      );
+    } else {
+      this.loadingService.toggleLoading(false);
+    }
   }
 }
