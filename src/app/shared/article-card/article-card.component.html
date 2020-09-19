@@ -39,8 +39,14 @@
       </div>
       <div class="card__meta">
         <div class="card__like-count">
-          <mat-icon>favorite_border</mat-icon>
-          <span>{{ article.likeCount }}</span>
+          <ng-container *ngIf="isLiked; else isNotLiked">
+            <mat-icon>favorite</mat-icon>
+            <span>{{ likeCount }}</span>
+          </ng-container>
+          <ng-template #isNotLiked>
+            <mat-icon>favorite_border</mat-icon>
+            <span>{{ likeCount }}</span>
+          </ng-template>
         </div>
         <div class="card__updated-date">
           <mat-icon>update</mat-icon>
