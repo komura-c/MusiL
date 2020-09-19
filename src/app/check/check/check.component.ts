@@ -7,16 +7,17 @@ import { CheckService } from 'src/app/services/check.service';
 @Component({
   selector: 'app-check',
   templateUrl: './check.component.html',
-  styleUrls: ['./check.component.scss']
+  styleUrls: ['./check.component.scss'],
 })
 export class CheckComponent implements OnInit {
-  usersScreenNameIsNull$: Observable<UserData[]> = this.checkService.getUserScreenNameIsNull();
-  articlesThumbnailURLIsNull$: Observable<Article[]> = this.checkService.getArticleThumbnailURLIsNull();
+  usersScreenNameIsNull$: Observable<
+    UserData[]
+  > = this.checkService.getUserScreenNameIsNull();
+  articlesThumbnailURLIsNull$: Observable<
+    Article[]
+  > = this.checkService.getArticleThumbnailURLIsNull();
 
-  constructor(
-    private checkService: CheckService,
-  ) { }
+  constructor(private checkService: CheckService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
