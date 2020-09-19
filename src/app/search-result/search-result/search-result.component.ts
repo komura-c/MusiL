@@ -32,6 +32,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
   };
   articles$: Observable<ArticleWithAuthor[]>;
 
+  isLoading: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private searchService: SearchService,
@@ -41,6 +43,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private scrollService: ScrollService,
     private seoService: SeoService
   ) {
+    this.isLoading = true;
     this.loadingService.toggleLoading(true);
   }
 
@@ -151,6 +154,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
           }
         }),
         tap(() => {
+          this.isLoading = false;
           this.loadingService.toggleLoading(false);
           if (this.searchQuery) {
             this.scrollService.restoreScrollPosition(this.searchQuery);
@@ -161,6 +165,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         })
       );
     } else {
+      this.isLoading = false;
       this.loadingService.toggleLoading(false);
     }
   }
