@@ -32,7 +32,6 @@ import { SearchInputComponent } from './search-input/search-input.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { SharedModule } from './shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl } from '@angular/material/paginator';
@@ -67,7 +66,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     FormsModule,
     ReactiveFormsModule,
     MatAutocompleteModule,
-    SharedModule,
     MatProgressSpinnerModule,
     MatDividerModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
