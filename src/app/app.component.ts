@@ -20,9 +20,12 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) {}
+  ) { }
 
   ngOnInit(): void {
+    const tag = document.createElement('script');
+    tag.src = '//cdn.embedly.com/widgets/platform.js';
+    document.body.appendChild(tag);
     if (!environment.production) {
       this.rootDocument
         .querySelector('[rel=icon]')
