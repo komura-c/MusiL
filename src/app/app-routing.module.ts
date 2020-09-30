@@ -7,11 +7,24 @@ import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
-    path: 'settings',
+    path: '',
+    pathMatch: 'full',
+    loadChildren: () => import('./top/top.module').then((m) => m.TopModule),
+  },
+  {
+    path: 'articles',
     loadChildren: () =>
-      import('./settings/settings.module').then((m) => m.SettingsModule),
+      import('./articles/articles.module').then((m) => m.ArticlesModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
+    data: {
+      showFooter: false,
+    },
+  },
+  {
+    path: 'about',
+    loadChildren: () =>
+      import('./about/about.module').then((m) => m.AboutModule),
   },
   {
     path: 'search',
@@ -30,6 +43,13 @@ const routes: Routes = [
     canActivate: [SearchGuard],
   },
   {
+    path: 'settings',
+    loadChildren: () =>
+      import('./settings/settings.module').then((m) => m.SettingsModule),
+    canLoad: [AuthGuard],
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'privacy',
     loadChildren: () =>
       import('./privacy/privacy.module').then((m) => m.PrivacyModule),
@@ -38,21 +58,6 @@ const routes: Routes = [
     path: 'terms',
     loadChildren: () =>
       import('./terms/terms.module').then((m) => m.TermsModule),
-  },
-  {
-    path: 'about',
-    loadChildren: () =>
-      import('./about/about.module').then((m) => m.AboutModule),
-  },
-  {
-    path: 'articles',
-    loadChildren: () =>
-      import('./articles/articles.module').then((m) => m.ArticlesModule),
-    canLoad: [AuthGuard],
-    canActivate: [AuthGuard],
-    data: {
-      showFooter: false,
-    },
   },
   {
     path: 'admin/check',
@@ -71,11 +76,6 @@ const routes: Routes = [
       import('./mypage/mypage.module').then((m) => m.MypageModule),
   },
   {
-    path: '',
-    pathMatch: 'full',
-    loadChildren: () => import('./top/top.module').then((m) => m.TopModule),
-  },
-  {
     path: '**',
     component: NotFoundComponent,
   },
@@ -92,4 +92,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
