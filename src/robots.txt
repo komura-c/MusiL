@@ -1,0 +1,15 @@
+User-agent: *
+Disallow: /admin/
+Allow: /*
+# allow google image bot to search all images
+User-agent: Googlebot-Image
+Disallow:
+Allow: /*
+# allow Google adsense bot on entire site
+User-agent: Mediapartners-Google*
+Disallow:
+Allow: /*
+User-agent: Twitterbot
+Disallow:
+Allow: /*
+Sitemap: https://musil.place/sitemap.xml
