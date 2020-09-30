@@ -7,11 +7,11 @@ import { Meta, Title } from '@angular/platform-browser';
 export class SeoService {
   readonly defaultMetas = {
     title: 'MusiL - DTMや作曲の知識記録プラットフォーム',
-    description: 'DTMや作曲の知識を記録しよう',
+    description: 'MusiLはDTMや作曲をしている人が気軽に記事などを投稿できるコミュニティです。',
     ogType: 'article',
   };
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(private meta: Meta, private title: Title) { }
 
   setTitleAndMeta(metaTags: {
     title?: string;
