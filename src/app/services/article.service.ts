@@ -193,7 +193,7 @@ export class ArticleService {
       .collection<Article>(`articles`, (ref) => {
         return ref
           .where('isPublic', '==', true)
-          .orderBy('createdAt', 'desc')
+          .orderBy('updatedAt', 'desc')
           .limit(20);
       })
       .valueChanges();
@@ -205,7 +205,7 @@ export class ArticleService {
       .collection<Article>('articles', (ref) => {
         return ref
           .where('isPublic', '==', true)
-          .orderBy('updatedAt', 'desc')
+          .orderBy('createdAt', 'desc')
           .limit(10);
       })
       .valueChanges();
