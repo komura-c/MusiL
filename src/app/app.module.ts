@@ -87,4 +87,4 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
