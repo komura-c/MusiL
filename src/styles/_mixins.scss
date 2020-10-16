@@ -1,9 +1,10 @@
 $color-primary: #ff5722;
 $color-grey: #e0e0e0;
 $color-twitter: #1da1f2;
+$color-background: #eff0f3;
 
 $sp: 480px;
-$tab: 896px;
+$tab: 760px;
 
 @mixin sp {
   @media (max-width: ($sp)) {
