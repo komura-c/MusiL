@@ -5,11 +5,12 @@
   <div class="top-main">
     <h3 class="top-main__title">
       <mat-icon>trending_up</mat-icon>
-      <span>トレンド</span>
+      <span>人気の投稿</span>
     </h3>
     <div
       class="top-main__body"
       *ngIf="popularArticles$ | async as popularArticles; else popularLoading"
+      [class.fade]="popularArticles"
     >
       <div class="top-main__card" *ngFor="let article of popularArticles">
         <app-article-card [article]="article"></app-article-card>
@@ -26,12 +27,12 @@
   <div class="top-main">
     <h3 class="top-main__title">
       <mat-icon>library_books</mat-icon>
-      <span>最新の記事</span>
+      <span>最新の投稿</span>
     </h3>
     <div
       class="top-main__body"
       *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
-      [class.active]="latestArticles"
+      [class.fade]="latestArticles"
     >
       <div class="top-main__card" *ngFor="let article of latestArticles">
         <app-article-card [article]="article"></app-article-card>
