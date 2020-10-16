@@ -11,11 +11,12 @@
     </h2>
   </div>
   <ng-container *ngIf="searchResult?.nbHits; else blank">
-    <div class="search-result__body" *ngIf="articles$ | async as articles">
-      <div class="search-result__card" *ngFor="let article of articles">
-        <app-article-card [article]="article"></app-article-card>
-      </div>
-    </div>
+    <ng-container *ngIf="articles$ | async as articles">
+      <app-article-card
+        *ngFor="let article of articles"
+        [article]="article"
+      ></app-article-card>
+    </ng-container>
     <mat-paginator
       *ngIf="searchResult?.nbHits > defaultPageSize"
       [length]="searchResult?.nbHits"

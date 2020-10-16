@@ -16,14 +16,4 @@
   &__hits {
     margin-left: 16px;
   }
-  &__body {
-    border: solid 1px $color-grey;
-    border-radius: 4px;
-  }
-  &__card {
-    border-bottom: solid 1px $color-grey;
-    &:last-of-type {
-      border: none;
-    }
-  }
 }
