@@ -7,19 +7,16 @@ import { SharedModule } from '../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { WelcomeComponent } from './welcome/welcome.component';
-import { PickupComponent } from './pickup/pickup.component';
-import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
-  declarations: [TopComponent, WelcomeComponent, PickupComponent],
+  declarations: [TopComponent, WelcomeComponent],
   imports: [
     CommonModule,
     TopRoutingModule,
     SharedModule,
     MatIconModule,
     MatButtonModule,
-    NgxUsefulSwiperModule,
     MatProgressSpinnerModule,
   ],
 })

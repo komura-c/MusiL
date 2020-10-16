@@ -27,7 +27,6 @@ import {
 } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { MatListModule } from '@angular/material/list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -60,8 +59,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     AngularFireStorageModule,
     AngularFireFunctionsModule,
     AngularFireAuthModule,
-    FroalaEditorModule.forRoot(),
-    FroalaViewModule.forRoot(),
     MatListModule,
     FormsModule,
     ReactiveFormsModule,

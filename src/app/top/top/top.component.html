@@ -1,15 +1,6 @@
-<ng-container *ngIf="user$ | async; else welcome">
-  <app-pickup></app-pickup>
-</ng-container>
-<ng-template #welcome>
-  <mat-spinner
-    class="loading-bar"
-    diameter="55"
-    strokeWidth="4"
-    *ngIf="isUserLoading"
-  ></mat-spinner>
+<ng-container *ngIf="!(user$ | async)">
   <app-welcome *ngIf="!isUserLoading"></app-welcome>
-</ng-template>
+</ng-container>
 <div class="top-page">
   <div class="top-main">
     <h3 class="top-main__title">
@@ -32,16 +23,17 @@
       ></mat-spinner>
     </ng-template>
   </div>
-  <div class="top-sub">
-    <h3 class="top-sub__title">
+  <div class="top-main">
+    <h3 class="top-main__title">
       <mat-icon>library_books</mat-icon>
       <span>最新の記事</span>
     </h3>
     <div
-      class="top-sub__body"
+      class="top-main__body"
       *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
+      [class.active]="latestArticles"
     >
-      <div class="top-sub__card" *ngFor="let article of latestArticles">
+      <div class="top-main__card" *ngFor="let article of latestArticles">
         <app-article-card [article]="article"></app-article-card>
       </div>
     </div>
