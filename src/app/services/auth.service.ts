@@ -41,7 +41,7 @@ export class AuthService {
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
     const twitterProfile = additionalUserInfo.profile as any;
-    this.userService
+    return this.userService
       .getUserData(user.uid)
       .pipe(take(1))
       .toPromise()
