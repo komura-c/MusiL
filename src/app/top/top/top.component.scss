@@ -1,9 +1,6 @@
 @import 'mixins';
 
 .top-page {
-  display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 20px;
   max-width: 910px;
   margin: 0 auto;
   @include tab {
@@ -22,45 +19,18 @@
     }
   }
   &__body {
-    border: solid 1px $color-grey;
-    border-radius: 4px;
-  }
-  &__card {
-    border-bottom: solid 1px $color-grey;
-    &:last-of-type {
-      border: none;
-    }
-  }
-  @include tab {
-    width: 100%;
-    max-width: 610px;
-    margin: 0 auto;
-  }
-}
-.top-sub {
-  &__title {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
-    font-size: 20px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid $color-grey;
-    mat-icon {
-      margin-right: 8px;
-    }
-  }
-  &__body {
-    border: solid 1px $color-grey;
-    border-radius: 4px;
   }
   &__card {
-    border-bottom: solid 1px $color-grey;
+    width: 48%;
     &:last-of-type {
       border: none;
     }
-  }
-  @include tab {
-    width: 100%;
-    max-width: 610px;
-    margin: 0 auto;
+    @include tab {
+      width: 100%;
+    }
   }
 }
