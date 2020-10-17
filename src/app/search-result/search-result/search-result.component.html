@@ -36,9 +36,10 @@
     <ng-template #blank>
       <div class="no-article" *ngIf="!isLoading">
         <p>
-          「{{
+          {{
             searchQuery ? searchQuery : searchTag
-          }}」に関する記事は見つかりませんでした。
+          }}
+          に関する記事は見つかりませんでした。
         </p>
       </div>
     </ng-template>
