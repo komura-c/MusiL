@@ -25,6 +25,11 @@ img {
 .container {
   padding: 70px 16px 16px 16px;
 }
+.grey-container {
+  margin: -70px -16px -16px -16px;
+  padding: 70px 16px 16px 16px;
+  background-color: $color-background;
+}
 .loading-bar {
   margin: 40px auto;
 }
