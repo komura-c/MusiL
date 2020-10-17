@@ -44,7 +44,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private seoService: SeoService
   ) {
     this.isLoading = true;
-    this.loadingService.toggleLoading(true);
   }
 
   ngOnInit(): void {
@@ -155,7 +154,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
         }),
         tap(() => {
           this.isLoading = false;
-          this.loadingService.toggleLoading(false);
           if (this.searchQuery) {
             this.scrollService.restoreScrollPosition(this.searchQuery);
           }
@@ -166,7 +164,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
       );
     } else {
       this.isLoading = false;
-      this.loadingService.toggleLoading(false);
     }
   }
 }

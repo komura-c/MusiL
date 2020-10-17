@@ -4,11 +4,10 @@
   max-width: 610px;
   margin: 0 auto;
   &__header {
+    font-size: 20px;
+    padding: 12px;
+    font-weight: bold;
     text-align: center;
-  }
-  &__title {
-    padding-bottom: 8px;
-    border-bottom: 1px solid $color-grey;
   }
   &__keyword {
     word-break: break-word;
