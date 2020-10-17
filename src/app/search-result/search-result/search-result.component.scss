@@ -4,26 +4,15 @@
   max-width: 610px;
   margin: 0 auto;
   &__header {
+    font-size: 20px;
+    padding: 12px;
+    font-weight: bold;
     text-align: center;
-  }
-  &__title {
-    padding-bottom: 8px;
-    border-bottom: 1px solid $color-grey;
   }
   &__keyword {
     word-break: break-word;
   }
   &__hits {
     margin-left: 16px;
-  }
-  &__body {
-    border: solid 1px $color-grey;
-    border-radius: 4px;
-  }
-  &__card {
-    border-bottom: solid 1px $color-grey;
-    &:last-of-type {
-      border: none;
-    }
   }
 }

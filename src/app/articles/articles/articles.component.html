@@ -1,21 +1,14 @@
 <div class="articles">
-  <div class="articles__header">
-    <h1 class="articles__title">自分の記事一覧</h1>
-  </div>
+  <h1 class="articles__title">自分の記事一覧</h1>
   <ng-container *ngIf="user$ | async as user">
     <ng-container *ngIf="articles.length; else blank">
-      <div class="articles__list-body">
+      <div class="articles__list-body" [class.fade]="user">
         <div class="articles__list-item" *ngFor="let article of articles">
           <a
             [routerLink]="'/' + user.screenName + '/a/' + article.articleId"
             class="list-item__body"
           >
-            <a
-              class="list-item__title"
-              (click)="$event.stopPropagation(); $event.preventDefault()"
-              [routerLink]="'/' + user.screenName + '/a/' + article.articleId"
-              >{{ article.title }}</a
-            >
+            <h4 class="list-item__title">{{ article.title }}</h4>
             <div class="list-item__description">
               <div class="list-item__status">
                 <i

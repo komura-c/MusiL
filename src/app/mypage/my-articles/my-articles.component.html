@@ -1,12 +1,7 @@
 <ng-container *ngIf="articles$ | async as articles; else notFound">
-  <div class="my-articles">
+  <div class="my-articles" [class.fade]="articles">
     <ng-container *ngFor="let article of articles">
-      <div class="my-articles__card">
-        <app-article-card
-          *ngIf="article"
-          [article]="article"
-        ></app-article-card>
-      </div>
+      <app-article-card *ngIf="article" [article]="article"></app-article-card>
     </ng-container>
   </div>
 </ng-container>
