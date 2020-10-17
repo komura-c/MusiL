@@ -25,9 +25,6 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const tag = document.createElement('script');
-    tag.src = '//cdn.embedly.com/widgets/platform.js';
-    document.body.appendChild(tag);
     if (!environment.production) {
       this.meta.addTag({
         name: 'robots',
