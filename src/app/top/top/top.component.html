@@ -1,49 +1,51 @@
-<ng-container *ngIf="!(user$ | async)">
-  <app-welcome *ngIf="!isUserLoading"></app-welcome>
-</ng-container>
-<div class="top-page">
-  <div class="top-main">
-    <h3 class="top-main__title">
-      <mat-icon>trending_up</mat-icon>
-      <span>人気の投稿</span>
-    </h3>
-    <div
-      class="top-main__body"
-      *ngIf="popularArticles$ | async as popularArticles; else popularLoading"
-      [class.fade]="popularArticles"
-    >
-      <div class="top-main__card" *ngFor="let article of popularArticles">
-        <app-article-card [article]="article"></app-article-card>
+<div class="grey-container">
+  <ng-container *ngIf="!(user$ | async)">
+    <app-welcome *ngIf="!isUserLoading"></app-welcome>
+  </ng-container>
+  <div class="top-page">
+    <section class="top-main">
+      <h2 class="top-main__title">
+        <mat-icon>trending_up</mat-icon>
+        <span>人気の投稿</span>
+      </h2>
+      <div
+        class="top-main__body"
+        *ngIf="popularArticles$ | async as popularArticles; else popularLoading"
+        [class.fade]="popularArticles"
+      >
+        <div class="top-main__card" *ngFor="let article of popularArticles">
+          <app-article-card [article]="article"></app-article-card>
+        </div>
       </div>
-    </div>
-    <ng-template #popularLoading>
-      <mat-spinner
-        class="loading-bar"
-        diameter="55"
-        strokeWidth="4"
-      ></mat-spinner>
-    </ng-template>
-  </div>
-  <div class="top-main">
-    <h3 class="top-main__title">
-      <mat-icon>library_books</mat-icon>
-      <span>最新の投稿</span>
-    </h3>
-    <div
-      class="top-main__body"
-      *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
-      [class.fade]="latestArticles"
-    >
-      <div class="top-main__card" *ngFor="let article of latestArticles">
-        <app-article-card [article]="article"></app-article-card>
+      <ng-template #popularLoading>
+        <mat-spinner
+          class="loading-bar"
+          diameter="55"
+          strokeWidth="4"
+        ></mat-spinner>
+      </ng-template>
+    </section>
+    <section class="top-main">
+      <h2 class="top-main__title">
+        <mat-icon>library_books</mat-icon>
+        <span>最新の投稿</span>
+      </h2>
+      <div
+        class="top-main__body"
+        *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
+        [class.fade]="latestArticles"
+      >
+        <div class="top-main__card" *ngFor="let article of latestArticles">
+          <app-article-card [article]="article"></app-article-card>
+        </div>
       </div>
-    </div>
-    <ng-template #latestLoading>
-      <mat-spinner
-        class="loading-bar"
-        diameter="55"
-        strokeWidth="4"
-      ></mat-spinner>
-    </ng-template>
+      <ng-template #latestLoading>
+        <mat-spinner
+          class="loading-bar"
+          diameter="55"
+          strokeWidth="4"
+        ></mat-spinner>
+      </ng-template>
+    </section>
   </div>
 </div>

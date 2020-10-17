@@ -1,11 +1,13 @@
 @import 'mixins';
 
+.grey-container {
+  margin: -70px -16px -16px -16px;
+  padding: 70px 16px 16px 16px;
+  background-color: $color-background;
+}
 .top-page {
   max-width: 910px;
   margin: 0 auto;
-  @include tab {
-    display: block;
-  }
 }
 .top-main {
   &__title {
@@ -13,9 +15,8 @@
     align-items: center;
     font-size: 24px;
     padding: 12px 0;
-    border-bottom: 1px solid $color-grey;
     mat-icon {
-      font-size: 30px;
+      font-size: 32px;
       margin-right: 16px;
     }
   }
@@ -27,24 +28,8 @@
   }
   &__card {
     width: 48%;
-    &:last-of-type {
-      border: none;
-    }
     @include tab {
       width: 100%;
     }
-  }
-}
-
-.fade {
-  animation: fadeIn 0.3s ease-in;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
