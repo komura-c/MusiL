@@ -8,9 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CheckService {
-  constructor(
-    private db: AngularFirestore,
-  ) { }
+  constructor(private db: AngularFirestore) {}
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
     return this.db
