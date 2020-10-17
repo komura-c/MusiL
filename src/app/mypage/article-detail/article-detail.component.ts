@@ -37,7 +37,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
       if (article) {
         this.initLikeStatus(article);
         this.seoService.setTitleAndMeta({
-          title: `${article.title} | MusiL`,
+          title: `${article.title}`,
           description: article.text,
         });
       }
