@@ -23,8 +23,7 @@ img {
   max-width: 100%;
 }
 .container {
-  padding: 86px 16px 16px 16px;
-  background-color: $color-background;
+  padding: 70px 16px 16px 16px;
 }
 .loading-bar {
   margin: 40px auto;
@@ -50,6 +49,19 @@ img {
 }
 .mat-simple-snackbar-action {
   color: $color-primary;
+}
+
+.fade {
+  animation: fadeIn 0.2s ease-in;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 //  froala-editor
