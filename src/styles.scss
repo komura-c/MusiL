@@ -76,19 +76,3 @@ img {
 .fr-view a {
   color: $color-primary;
 }
-.fr-embedly {
-  width: 100%;
-  .embedly-card {
-    margin: 0 auto;
-    max-width: 300px;
-    iframe.embedly-card {
-      border: none;
-      box-shadow: none;
-    }
-    .embdscl0 {
-      display: none;
-      opacity: 0;
-      transition: none;
-    }
-  }
-}
