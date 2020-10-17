@@ -34,8 +34,7 @@
             "styles": [
               "src/styles.scss",
               "./node_modules/froala-editor/css/froala_editor.pkgd.min.css",
-              "./node_modules/froala-editor/css/froala_style.min.css",
-              "./node_modules/swiper/css/swiper.css"
+              "./node_modules/froala-editor/css/froala_style.min.css"
             ],
             "scripts": [],
             "stylePreprocessorOptions": {

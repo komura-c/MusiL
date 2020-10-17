@@ -14,13 +14,7 @@
         onError="this.src='/assets/icons/no-user-icon.png'"
     /></a>
     <div class="card__body">
-      <h3
-        class="card__title"
-        (click)="$event.stopPropagation(); $event.preventDefault()"
-        [routerLink]="
-          '/' + article.author.screenName + '/a/' + article.articleId
-        "
-      >
+      <h3 class="card__title">
         {{ article.title }}
       </h3>
       <div class="card__author-name">

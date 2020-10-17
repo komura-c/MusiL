@@ -1,9 +1,13 @@
 @import 'mixins';
 
 .card {
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.06);
   &:hover {
-    transition-duration: 0.2s;
-    background-color: #f5f5f5;
+    transition: 0.3s;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
   }
   &__inner {
     padding: 16px;
@@ -31,10 +35,6 @@
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
-    cursor: pointer;
-    &:hover {
-      text-decoration: underline;
-    }
   }
   &__author-name {
     margin: 8px 0;
@@ -47,7 +47,7 @@
     word-break: break-word;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
   &__screen-name {
@@ -55,7 +55,7 @@
     word-break: break-word;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
   }
   &__meta {

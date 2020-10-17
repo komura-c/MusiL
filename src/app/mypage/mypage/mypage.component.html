@@ -33,7 +33,7 @@
           "
           class="mypage__twitter"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           *ngIf="!(user.uid === authService.uid)"
         >
           <mat-icon
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <nav mat-tab-nav-bar mat-stretch-tabs disablePagination="true">
+    <nav mat-tab-nav-bar disablePagination="true" class="mypage__nav">
       <a
         mat-tab-link
         [routerLink]="'/' + user.screenName"

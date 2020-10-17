@@ -1,12 +1,6 @@
 @import 'mixins';
 
 .my-articles {
-  border: solid 1px $color-grey;
-  border-radius: 4px;
-  &__card {
-    border-bottom: solid 1px $color-grey;
-    &:last-of-type {
-      border: none;
-    }
-  }
+  margin: 0 auto;
+  max-width: 610px;
 }

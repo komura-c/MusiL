@@ -1,13 +1,13 @@
 .settings {
-  margin: 0 auto;
-  max-width: 600px;
+  margin: 0 auto 16px;
+  max-width: 610px;
   &__title {
-    font-size: 20px;
-    margin-bottom: 24px;
+    font-size: 24px;
+    padding: 12px 0;
     font-weight: bold;
   }
   &__heading {
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
   }
   &__avatar-image {
@@ -35,7 +35,7 @@
     border-radius: 50%;
     &:hover {
       background: rgba(45, 45, 45, 0.8);
-      transition-duration: 0.2s;
+      transition: 0.3s;
     }
   }
   &__avatar-icon {

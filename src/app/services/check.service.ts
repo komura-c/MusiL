@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
@@ -9,10 +8,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CheckService {
-  constructor(
-    private db: AngularFirestore,
-    private storage: AngularFireStorage
-  ) {}
+  constructor(private db: AngularFirestore) {}
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
     return this.db

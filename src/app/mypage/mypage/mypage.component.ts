@@ -25,7 +25,7 @@ export class MypageComponent implements OnInit {
     tap((user) => {
       if (user) {
         this.seoService.setTitleAndMeta({
-          title: `${user.userName}(${user.screenName}) | MusiL`,
+          title: `${user.userName} | MusiL`,
           description: user.description,
         });
       }

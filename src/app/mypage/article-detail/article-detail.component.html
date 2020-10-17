@@ -1,5 +1,5 @@
 <ng-container *ngIf="article$ | async as article; else notFoundArticle">
-  <div class="article">
+  <div class="article" [class.fade]="article">
     <div class="article__left-box">
       <div class="left-actions">
         <button
@@ -34,7 +34,7 @@
             article.title
           "
           target="_blank"
-          rel="noopener noreferrer"
+          rel="nofollow noopener noreferrer"
           matTooltipPosition="right"
         >
           <mat-icon>
@@ -80,7 +80,7 @@
             class="article-header__twitter"
             [href]="'https://twitter.com/' + article.author.screenName"
             target="_blank"
-            rel="noopener noreferrer"
+            rel="nofollow noopener noreferrer"
           >
             <mat-icon>
               <img
@@ -145,7 +145,7 @@
                 article.title
               "
               target="_blank"
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
             >
               <mat-icon>
                 <img
@@ -193,7 +193,7 @@
               "
               class="article-footer__twitter"
               target="_blank"
-              rel="noopener noreferrer"
+              rel="nofollow noopener noreferrer"
               *ngIf="article.author.uid !== authService.uid"
             >
               <mat-icon

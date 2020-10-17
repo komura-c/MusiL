@@ -7,7 +7,6 @@ import { environment } from 'src/environments/environment';
 import FroalaEditor from 'froala-editor';
 import 'froala-editor/js/plugins/char_counter.min.js';
 import 'froala-editor/js/plugins/draggable.min.js';
-import 'froala-editor/js/third_party/embedly.min.js';
 import 'froala-editor/js/plugins/emoticons.min.js';
 import 'froala-editor/js/plugins/fullscreen.min.js';
 import 'froala-editor/js/plugins/image.min.js';
@@ -38,7 +37,6 @@ export class EditorComponent implements OnInit {
     'insertLink',
     'insertImage',
     'insertVideo',
-    'embedly',
     'emoticons',
     'undo',
     'redo',
@@ -64,7 +62,6 @@ export class EditorComponent implements OnInit {
     charCounterCount: true,
     attribution: false,
     language: 'ja',
-    embedlyScriptPath: '',
     pastePlain: true,
     imageAddNewLine: true,
     quickInsertTags: [],
@@ -121,9 +118,7 @@ export class EditorComponent implements OnInit {
         }
       },
       'link.beforeInsert': (link: string, text: string) => {
-        const soundCloudReg = new RegExp(
-          /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/
-        );
+        const soundCloudReg = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
         if (soundCloudReg.test(link)) {
           const soundCloudURL = link.match(soundCloudReg);
           const soundCloudEmbedPlayer =
