@@ -8,9 +8,8 @@ describe('AppShellComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AppShellComponent ]
-    })
-    .compileComponents();
+      declarations: [AppShellComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
