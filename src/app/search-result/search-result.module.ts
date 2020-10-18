@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { SearchResultRoutingModule } from './search-result-routing.module';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { SharedModule } from '../shared/shared.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
 
 @NgModule({
   declarations: [SearchResultComponent],
@@ -13,7 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     CommonModule,
     SearchResultRoutingModule,
     MatPaginatorModule,
-    SharedModule,
+    SharedArticleCardModule,
     MatProgressSpinnerModule,
   ],
 })
