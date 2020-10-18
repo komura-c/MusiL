@@ -21,6 +21,7 @@
     "@angular/material": "^9.2.4",
     "@angular/platform-browser": "^9.1.9",
     "@angular/platform-browser-dynamic": "^9.1.9",
+    "@angular/platform-server": "^9.1.9",
     "@angular/router": "^9.1.9",
     "@angular/service-worker": "^9.1.9",
     "algoliasearch": "^4.3.0",
