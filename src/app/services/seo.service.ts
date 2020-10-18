@@ -31,7 +31,7 @@ export class SeoService {
     this.title.setTitle(
       metaTags.title ? metaTags.title : this.defaultMetas.title
     );
-    this.meta.addTags([
+    const metaTagsArray = [
       {
         name: 'description',
         content: descriptionText
@@ -53,6 +53,9 @@ export class SeoService {
         content: metaTags.ogType ? metaTags.ogType : this.defaultMetas.ogType,
       },
       { property: 'og:url', content: location.href },
-    ]);
+    ];
+    metaTagsArray.forEach((metaTag) => {
+      this.meta.updateTag(metaTag);
+    });
   }
 }
