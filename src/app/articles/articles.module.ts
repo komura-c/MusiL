@@ -11,12 +11,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { FroalaEditorModule } from 'angular-froala-wysiwyg';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { SharedModule } from '../shared/shared.module';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { EditorComponent } from './editor/editor.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     FroalaEditorModule,
     MatSlideToggleModule,
     MatIconModule,
-    SharedModule,
+    SharedArticleEditModule,
     MatChipsModule,
     MatAutocompleteModule,
     InfiniteScrollModule,
