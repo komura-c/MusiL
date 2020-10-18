@@ -29,6 +29,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     SearchInputComponent,
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
@@ -61,6 +62,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
     }),
+    RouterModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },
