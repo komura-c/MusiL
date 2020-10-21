@@ -26,10 +26,16 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (!environment.production) {
-      this.meta.addTag({
-        name: 'robots',
-        content: 'noindex',
-      });
+      this.meta.addTags([
+        {
+          name: 'robots',
+          content: 'noindex',
+        },
+        {
+          name: 'google-site-verification',
+          content: 'lphVgz9xigdAZsOmb_GF1_hEhN6TT-yYgE7JysL-21Q',
+        },
+      ]);
       this.rootDocument
         .querySelector('[rel=icon]')
         .setAttribute('href', 'favicon-dev.svg');
