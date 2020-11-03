@@ -46,7 +46,7 @@ export class SettingsComponent implements OnInit {
     private router: Router,
     private seoService: SeoService
   ) {
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: 'アカウント設定 | MusiL',
       description: 'アカウント設定のページです',
     });

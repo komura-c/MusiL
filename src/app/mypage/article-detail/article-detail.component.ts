@@ -36,7 +36,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     tap((article: ArticleWithAuthor) => {
       if (article) {
         this.initLikeStatus(article);
-        this.seoService.setTitleAndMeta({
+        this.seoService.updateTitleAndMeta({
           title: `${article.title}`,
           description: article.text,
         });

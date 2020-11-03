@@ -8,7 +8,7 @@ import { SeoService } from 'src/app/services/seo.service';
 })
 export class NotFoundComponent implements OnInit {
   constructor(private seoService: SeoService) {
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: 'ページが見つかりません | MusiL',
       description:
         'お探しのページは、削除されたかURLが変更された可能性があります。',

@@ -15,7 +15,7 @@ export class AboutComponent implements OnInit {
 
   constructor(private seoService: SeoService, public authService: AuthService) {
     this.isLoading = true;
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
     });
