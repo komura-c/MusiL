@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SeoService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-not-found',
@@ -13,6 +14,7 @@ export class NotFoundComponent implements OnInit {
       description:
         'お探しのページは、削除されたかURLが変更された可能性があります。',
     });
+    this.seoService.createLinkTagForCanonicalURL(environment.hostingURL);
   }
 
   ngOnInit(): void {}

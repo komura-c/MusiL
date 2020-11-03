@@ -50,6 +50,7 @@ export class SettingsComponent implements OnInit {
       title: 'アカウント設定 | MusiL',
       description: 'アカウント設定のページです',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {

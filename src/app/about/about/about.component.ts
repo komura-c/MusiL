@@ -19,6 +19,7 @@ export class AboutComponent implements OnInit {
       title: 'MusiLについて | MusiL',
       description: 'MusiLについて説明するページです',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {

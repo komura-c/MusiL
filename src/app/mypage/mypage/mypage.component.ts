@@ -28,6 +28,7 @@ export class MypageComponent implements OnInit {
           title: `${user.userName} | MusiL`,
           description: user.description,
         });
+        this.seoService.createLinkTagForCanonicalURL();
       }
     }),
     tap(() => {

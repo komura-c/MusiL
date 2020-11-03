@@ -12,6 +12,7 @@ export class PrivacyComponent implements OnInit {
       title: 'プライバシーポリシー | MusiL',
       description: 'サービスのプライバシーポリシーページです',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {}

@@ -75,6 +75,7 @@ export class CreateComponent implements OnInit {
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {
