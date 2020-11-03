@@ -14,12 +14,12 @@ import { UserService } from './user.service';
 export class CommentService {
   constructor(private db: AngularFirestore, private userService: UserService) {}
 
-  sendComment(articleId: string, text: string, user: UserData): Promise<void> {
+  sendComment(articleId: string, text: string, uid: string): Promise<void> {
     const commentId = this.db.createId();
     const newComment: ArticleComment = {
       articleId,
       commentId,
-      uid: user.uid,
+      uid,
       text,
       createdAt: firestore.Timestamp.now(),
     };
