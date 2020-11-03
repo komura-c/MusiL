@@ -1,6 +1,6 @@
 <div class="comment-card">
   <ng-container *ngIf="allComments$ | async as allComments; else noComment">
-    <div class="comment-card" *ngFor="let comment of allComments">
+    <div class="comment-card fade" *ngFor="let comment of allComments">
       <ng-container *ngIf="comment.author; else noComment">
         <div class="comment-card__head">
           <img
@@ -30,7 +30,11 @@
     <p class="no-article">まだコメントはありません。</p>
   </ng-template>
   <ng-container *ngIf="authService.user$ | async as user; else notLogin">
-    <form class="comment-card__form" [formGroup]="form">
+    <form
+      class="comment-card__form"
+      [formGroup]="form"
+      *ngIf="!processing; else loading"
+    >
       <div class="comment-card__head">
         <mat-form-field floatLabel="always">
           <mat-label></mat-label>
@@ -42,7 +46,12 @@
             matTextareaAutosize
             [matAutosizeMinRows]="3"
             #body
+            (keydown.shift.enter)="
+              $event.preventDefault(); $event.stopPropagation()
+            "
+            (keyup.shift.enter)="sendComment(user.uid)"
           ></textarea>
+          <mat-hint class="comment-card__hint">Shift + Enter で送信、Enter で改行</mat-hint>
         </mat-form-field>
       </div>
       <div class="comment-card__action">
@@ -57,15 +66,21 @@
         </button>
       </div>
     </form>
+    <ng-template #loading>
+      <mat-spinner
+        class="loading-bar"
+        diameter="55"
+        strokeWidth="4"
+      ></mat-spinner>
+    </ng-template>
   </ng-container>
   <ng-template #notLogin>
     <div class="not-login" *ngIf="!authService.loginProcessing; else loading">
-      <form class="comment-card__form" [formGroup]="form">
+      <form class="comment-card__form">
         <div class="comment-card__head">
           <mat-form-field floatLabel="always">
             <mat-label></mat-label>
             <textarea
-              formControlName="comment"
               placeholder="記事にコメントをしてみましょう"
               autocomplete="off"
               matInput

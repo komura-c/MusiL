@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { Observable } from 'rxjs';
@@ -16,7 +16,7 @@ export class ArticleCommentComponent implements OnInit {
   @Input() articleId: string;
   allComments$: Observable<ArticleCommentWithAuthor[]>;
   form = this.fb.group({
-    comment: [''],
+    comment: ['', [Validators.required]],
   });
   processing: boolean;
 
@@ -27,6 +27,10 @@ export class ArticleCommentComponent implements OnInit {
     private dialog: MatDialog
   ) {}
 
+  get commentControl() {
+    return this.form.get('comment') as FormControl;
+  }
+
   ngOnInit(): void {
     this.allComments$ = this.commentService.getLatestArticleComments(
       this.articleId
@@ -34,12 +38,15 @@ export class ArticleCommentComponent implements OnInit {
   }
 
   sendComment(uid: string) {
-    const comment = this.form.value.comment;
     this.processing = true;
-
-    this.commentService.sendComment(this.articleId, comment, uid);
+    const comment: string = this.commentControl.value;
     this.form.reset();
-    this.processing = false;
+    if (comment?.replace('\n|\r', '')) {
+      this.commentService.sendComment(this.articleId, comment, uid);
+    }
+    setTimeout(() => {
+      this.processing = false;
+    }, 5000);
   }
 
   openLoginDialog() {

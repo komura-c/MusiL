@@ -40,7 +40,7 @@ export class CommentService {
     const sorted: Observable<ArticleComment[]> = this.db
       .doc(`articles/${articleId}`)
       .collection<ArticleComment>('comments', (ref) =>
-        ref.orderBy('createdAt', 'desc').limit(30)
+        ref.orderBy('createdAt', 'asc').limit(30)
       )
       .valueChanges();
     return this.getArticleCommentsWithAuthors(sorted);
