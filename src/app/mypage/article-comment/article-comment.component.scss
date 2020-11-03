@@ -32,6 +32,12 @@
   &__spacer {
     flex: 1;
   }
+  &__comment {
+    white-space: pre-wrap;
+  }
+  &__hint {
+    margin-top: 14px;
+  }
 }
 
 .login-button {
