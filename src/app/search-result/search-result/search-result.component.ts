@@ -50,7 +50,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.route.paramMap.forEach((params) => {
       this.searchTag = params.get('id');
       if (this.searchTag) {
-        this.seoService.setTitleAndMeta({
+        this.seoService.updateTitleAndMeta({
           title: `${this.searchTag}に関する記事 | MusiL`,
           description: 'タグの関連記事を表示するページです',
         });
@@ -59,7 +59,7 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     this.route.queryParamMap.forEach((params) => {
       this.searchQuery = params.get('q');
       if (this.searchQuery) {
-        this.seoService.setTitleAndMeta({
+        this.seoService.updateTitleAndMeta({
           title: `「${this.searchQuery}」の検索結果 | MusiL`,
           description: '検索結果を表示するページです',
         });

@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
@@ -12,9 +13,13 @@ export class SeoService {
     ogType: 'article',
   };
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(
+    private meta: Meta,
+    private title: Title,
+    @Inject(DOCUMENT) private doc: Document
+  ) {}
 
-  setTitleAndMeta(metaTags: {
+  updateTitleAndMeta(metaTags: {
     title?: string;
     description?: string;
     ogType?: string;
@@ -57,5 +62,13 @@ export class SeoService {
     metaTagsArray.forEach((metaTag) => {
       this.meta.updateTag(metaTag);
     });
+  }
+
+  createLinkForCanonicalURL() {
+    const link: HTMLLinkElement = this.doc.createElement('link');
+    link.setAttribute('rel', 'canonical');
+    this.doc.head.appendChild(link);
+    link.setAttribute('href', this.doc.URL);
+    console.log(this.doc.URL);
   }
 }
