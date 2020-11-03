@@ -64,11 +64,22 @@ export class SeoService {
     });
   }
 
-  createLinkForCanonicalURL() {
-    const link: HTMLLinkElement = this.doc.createElement('link');
-    link.setAttribute('rel', 'canonical');
-    this.doc.head.appendChild(link);
-    link.setAttribute('href', this.doc.URL);
-    console.log(this.doc.URL);
+  createLinkTagForCanonicalURL(URL?: string) {
+    this.refreshLinkTagForCanonicalURL();
+
+    const canonicalURL = URL === undefined ? this.doc.URL : URL;
+    const linkTag: HTMLLinkElement = this.doc.createElement('link');
+    linkTag.setAttribute('rel', 'canonical');
+    this.doc.head.appendChild(linkTag);
+    linkTag.setAttribute('href', canonicalURL);
+  }
+
+  private refreshLinkTagForCanonicalURL() {
+    const links = this.doc.head.getElementsByTagName('link');
+    Array.from(links).forEach((linkElm) => {
+      if (linkElm.getAttribute('rel') === 'canonical') {
+        this.doc.head.removeChild(linkElm);
+      }
+    });
   }
 }

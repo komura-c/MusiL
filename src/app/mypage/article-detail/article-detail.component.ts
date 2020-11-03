@@ -40,6 +40,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
           title: `${article.title}`,
           description: article.text,
         });
+        this.seoService.createLinkTagForCanonicalURL();
       }
     }),
     tap(() => {

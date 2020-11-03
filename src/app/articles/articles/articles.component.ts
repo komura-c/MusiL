@@ -33,6 +33,7 @@ export class ArticlesComponent implements OnInit {
       title: `記事の管理 | MusiL`,
       description: `自分の記事を管理するページです`,
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {

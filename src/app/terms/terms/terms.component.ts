@@ -12,6 +12,7 @@ export class TermsComponent implements OnInit {
       title: '利用規約 | MusiL',
       description: 'サービスの利用規約ページです',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {}

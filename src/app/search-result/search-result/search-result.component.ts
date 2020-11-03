@@ -4,13 +4,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatest } from 'rxjs';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { map, tap, take } from 'rxjs/operators';
-import { LoadingService } from 'src/app/services/loading.service';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
 import { firestore } from 'firebase/app';
 import { PageEvent } from '@angular/material/paginator';
 import { SeoService } from 'src/app/services/seo.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-search-result',
@@ -39,7 +39,6 @@ export class SearchResultComponent implements OnInit, OnDestroy {
     private searchService: SearchService,
     private userService: UserService,
     private router: Router,
-    private loadingService: LoadingService,
     private scrollService: ScrollService,
     private seoService: SeoService
   ) {
@@ -54,6 +53,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
           title: `${this.searchTag}に関する記事 | MusiL`,
           description: 'タグの関連記事を表示するページです',
         });
+        const canonicalURL = environment.hostingURL + '/tags';
+        this.seoService.createLinkTagForCanonicalURL(canonicalURL);
       }
     });
     this.route.queryParamMap.forEach((params) => {
@@ -63,6 +64,8 @@ export class SearchResultComponent implements OnInit, OnDestroy {
           title: `「${this.searchQuery}」の検索結果 | MusiL`,
           description: '検索結果を表示するページです',
         });
+        const canonicalURL = environment.hostingURL + '/search';
+        this.seoService.createLinkTagForCanonicalURL(canonicalURL);
       }
       const pageIndexParam = params.get('page');
       this.pageIndex = +pageIndexParam;

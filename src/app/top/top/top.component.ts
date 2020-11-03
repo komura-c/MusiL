@@ -48,6 +48,7 @@ export class TopComponent implements OnInit {
         'MusiLはDTMや作曲をしている人が気軽に記事などを投稿できるコミュニティです。',
       ogType: 'website',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {}
