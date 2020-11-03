@@ -27,7 +27,7 @@
     </div>
   </ng-container>
   <ng-template #noComment>
-    <p class="no-article">まだこの記事にコメントはありません。</p>
+    <p class="no-article">まだコメントはありません。</p>
   </ng-template>
   <ng-container *ngIf="authService.user$ | async as user; else notLogin">
     <form class="comment-card__form" [formGroup]="form">
@@ -59,7 +59,7 @@
     </form>
   </ng-container>
   <ng-template #notLogin>
-    <div class="not-login">
+    <div class="not-login" *ngIf="!authService.loginProcessing; else loading">
       <form class="comment-card__form" [formGroup]="form">
         <div class="comment-card__head">
           <mat-form-field floatLabel="always">
@@ -72,6 +72,7 @@
               matTextareaAutosize
               [matAutosizeMinRows]="3"
               #body
+              (click)="openLoginDialog()"
             ></textarea>
           </mat-form-field>
         </div>
@@ -87,5 +88,12 @@
         </div>
       </form>
     </div>
+    <ng-template #loading>
+      <mat-spinner
+        class="loading-bar"
+        diameter="55"
+        strokeWidth="4"
+      ></mat-spinner>
+    </ng-template>
   </ng-template>
 </div>

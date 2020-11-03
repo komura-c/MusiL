@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
+import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-article-comment',
@@ -21,7 +23,8 @@ export class ArticleCommentComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public commentService: CommentService,
-    public authService: AuthService
+    public authService: AuthService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +42,10 @@ export class ArticleCommentComponent implements OnInit {
     this.processing = false;
   }
 
-  login() {
-    this.authService.loginProcessing = true;
-    this.authService.login().finally(() => {
-      this.authService.loginProcessing = false;
+  openLoginDialog() {
+    this.dialog.open(LoginDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
     });
   }
 }
