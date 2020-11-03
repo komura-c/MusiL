@@ -23,6 +23,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
+import { SharedLoginDialogModule } from '../shared-login-dialog/shared-login-dialog.module';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { MatDividerModule } from '@angular/material/divider';
     MatInputModule,
     MatFormFieldModule,
     MatDividerModule,
+    SharedLoginDialogModule,
   ],
 })
 export class MypageModule {}
