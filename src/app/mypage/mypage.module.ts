@@ -18,6 +18,11 @@ import { StringToLinkPipe } from '../pipes/string-to-link.pipe';
 import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
 import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
 import { SharedNotFoundModule } from '../shared-not-found/shared-not-found.module';
+import { ArticleCommentComponent } from './article-comment/article-comment.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   declarations: [
@@ -26,6 +31,7 @@ import { SharedNotFoundModule } from '../shared-not-found/shared-not-found.modul
     MyArticlesComponent,
     LikedArticlesComponent,
     StringToLinkPipe,
+    ArticleCommentComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +47,11 @@ import { SharedNotFoundModule } from '../shared-not-found/shared-not-found.modul
     MatChipsModule,
     ClipboardModule,
     MatProgressSpinnerModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatDividerModule,
   ],
 })
 export class MypageModule {}

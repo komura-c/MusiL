@@ -110,6 +110,7 @@
         </ng-container>
       </div>
       <div class="article-content" [froalaView]="article.text"></div>
+      <mat-divider></mat-divider>
       <div class="article-footer">
         <div class="main-actions">
           <button
@@ -206,6 +207,10 @@
           </div>
         </div>
       </div>
+      <mat-divider></mat-divider>
+      <app-article-comment
+        [articleId]="article.articleId"
+      ></app-article-comment>
     </div>
     <ng-container *ngIf="headingPositions.length">
       <div class="article__sub-box">
