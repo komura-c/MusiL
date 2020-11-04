@@ -46,7 +46,7 @@ export class ArticleCommentComponent implements OnInit {
     }
     setTimeout(() => {
       this.processing = false;
-    }, 5000);
+    }, 3000);
   }
 
   openLoginDialog() {

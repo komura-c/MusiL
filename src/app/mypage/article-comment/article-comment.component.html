@@ -1,6 +1,7 @@
-<div class="comment-card">
-  <ng-container *ngIf="allComments$ | async as allComments; else noComment">
-    <div class="comment-card fade" *ngFor="let comment of allComments">
+<ng-container *ngIf="allComments$ | async as allComments; else noComment">
+  <ng-container *ngFor="let comment of allComments">
+    <mat-divider></mat-divider>
+    <div class="comment-card fade">
       <ng-container *ngIf="comment.author; else noComment">
         <div class="comment-card__head">
           <img
@@ -26,32 +27,63 @@
       </ng-container>
     </div>
   </ng-container>
-  <ng-template #noComment>
-    <p class="no-article">まだコメントはありません。</p>
-  </ng-template>
-  <ng-container *ngIf="authService.user$ | async as user; else notLogin">
-    <form
-      class="comment-card__form"
-      [formGroup]="form"
-      *ngIf="!processing; else loading"
-    >
+</ng-container>
+<ng-template #noComment>
+  <mat-divider></mat-divider>
+  <p class="no-article">まだコメントはありません。</p>
+</ng-template>
+
+<ng-container *ngIf="authService.user$ | async as user; else notLogin">
+  <form class="comment-card__form" [formGroup]="form">
+    <div class="comment-card__head">
+      <mat-form-field floatLabel="always">
+        <mat-label></mat-label>
+        <textarea
+          formControlName="comment"
+          placeholder="記事にコメントをしてみましょう"
+          autocomplete="off"
+          matInput
+          matTextareaAutosize
+          [matAutosizeMinRows]="3"
+          #body
+          (keydown.shift.enter)="
+            $event.preventDefault(); $event.stopPropagation()
+          "
+          (keyup.shift.enter)="sendComment(user.uid)"
+        ></textarea>
+        <mat-hint class="comment-card__hint"
+          >Shift + Enter で送信、Enter で改行</mat-hint
+        >
+      </mat-form-field>
+    </div>
+    <div class="comment-card__action">
+      <button
+        class="comment-card__submit"
+        mat-flat-button
+        color="primary"
+        [disabled]="form.invalid || form.pristine || processing"
+        (click)="sendComment(user.uid)"
+      >
+        コメントを残す
+      </button>
+    </div>
+  </form>
+</ng-container>
+<ng-template #notLogin>
+  <div class="not-login" *ngIf="!authService.loginProcessing; else loading">
+    <form class="comment-card__form">
       <div class="comment-card__head">
         <mat-form-field floatLabel="always">
           <mat-label></mat-label>
           <textarea
-            formControlName="comment"
             placeholder="記事にコメントをしてみましょう"
             autocomplete="off"
             matInput
             matTextareaAutosize
             [matAutosizeMinRows]="3"
             #body
-            (keydown.shift.enter)="
-              $event.preventDefault(); $event.stopPropagation()
-            "
-            (keyup.shift.enter)="sendComment(user.uid)"
+            (focus)="openLoginDialog()"
           ></textarea>
-          <mat-hint class="comment-card__hint">Shift + Enter で送信、Enter で改行</mat-hint>
         </mat-form-field>
       </div>
       <div class="comment-card__action">
@@ -59,56 +91,18 @@
           class="comment-card__submit"
           mat-flat-button
           color="primary"
-          [disabled]="form.invalid || form.pristine || processing"
-          (click)="sendComment(user.uid)"
+          disabled
         >
           コメントを残す
         </button>
       </div>
     </form>
-    <ng-template #loading>
-      <mat-spinner
-        class="loading-bar"
-        diameter="55"
-        strokeWidth="4"
-      ></mat-spinner>
-    </ng-template>
-  </ng-container>
-  <ng-template #notLogin>
-    <div class="not-login" *ngIf="!authService.loginProcessing; else loading">
-      <form class="comment-card__form">
-        <div class="comment-card__head">
-          <mat-form-field floatLabel="always">
-            <mat-label></mat-label>
-            <textarea
-              placeholder="記事にコメントをしてみましょう"
-              autocomplete="off"
-              matInput
-              matTextareaAutosize
-              [matAutosizeMinRows]="3"
-              #body
-              (click)="openLoginDialog()"
-            ></textarea>
-          </mat-form-field>
-        </div>
-        <div class="comment-card__action">
-          <button
-            class="comment-card__submit"
-            mat-flat-button
-            color="primary"
-            disabled
-          >
-            コメントを残す
-          </button>
-        </div>
-      </form>
-    </div>
-    <ng-template #loading>
-      <mat-spinner
-        class="loading-bar"
-        diameter="55"
-        strokeWidth="4"
-      ></mat-spinner>
-    </ng-template>
+  </div>
+  <ng-template #loading>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
   </ng-template>
-</div>
+</ng-template>
