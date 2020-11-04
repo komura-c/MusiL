@@ -134,9 +134,10 @@
 }
 
 .article-footer {
-  padding: 16px 4px 16px;
+  padding: 0 4px;
   &__author {
     display: flex;
+    margin: 32px 0;
   }
   &__user-profile {
     padding: 0 12px;
@@ -184,7 +185,7 @@
 }
 
 .main-actions {
-  padding: 16px 0;
+  margin: 24px 0;
   display: flex;
   justify-content: space-between;
   &__like {
