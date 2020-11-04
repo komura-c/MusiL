@@ -1,6 +1,5 @@
 <ng-container *ngIf="allComments$ | async as allComments; else noComment">
   <ng-container *ngFor="let comment of allComments">
-    <mat-divider></mat-divider>
     <div class="comment-card fade">
       <ng-container *ngIf="comment.author; else noComment">
         <div class="comment-card__head">
