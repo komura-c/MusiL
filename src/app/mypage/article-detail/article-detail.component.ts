@@ -13,6 +13,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-article-detail',
@@ -74,7 +76,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private seoService: SeoService,
     private scrollService: ScrollService,
-    public authService: AuthService
+    public authService: AuthService,
+    private dialog: MatDialog
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
@@ -155,12 +158,16 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
           this.likeCount--;
           this.isLiked = false;
         } else {
-          this.snackBar.open(
-            'いいねをするには、ログインが必要です。',
-            '閉じる'
-          );
+          this.openLoginDialog();
         }
       });
+  }
+
+  private openLoginDialog() {
+    this.dialog.open(LoginDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   copyLink(): void {
