@@ -13,6 +13,8 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
+import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-article-detail',
@@ -20,26 +22,31 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./article-detail.component.scss'],
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy {
+  private screenName = this.route.snapshot.parent.paramMap.get('id');
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       this.articleId = params.get('id');
       return params.get('id');
     })
   );
-  articleId: string;
+  private articleId: string;
   article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
     switchMap((articleId: string) => {
       return this.articleService
-        .getArticleWithAuthorByArticleId(articleId)
+        .getArticleWithAuthorByArticleIdAndScreenName(
+          articleId,
+          this.screenName
+        )
         .pipe(take(1));
     }),
     tap((article: ArticleWithAuthor) => {
       if (article) {
         this.initLikeStatus(article);
-        this.seoService.setTitleAndMeta({
+        this.seoService.updateTitleAndMeta({
           title: `${article.title}`,
           description: article.text,
         });
+        this.seoService.createLinkTagForCanonicalURL();
       }
     }),
     tap(() => {
@@ -73,7 +80,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     private clipboard: Clipboard,
     private seoService: SeoService,
     private scrollService: ScrollService,
-    public authService: AuthService
+    public authService: AuthService,
+    private dialog: MatDialog
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
@@ -154,12 +162,16 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
           this.likeCount--;
           this.isLiked = false;
         } else {
-          this.snackBar.open(
-            'いいねをするには、ログインが必要です。',
-            '閉じる'
-          );
+          this.openLoginDialog();
         }
       });
+  }
+
+  private openLoginDialog() {
+    this.dialog.open(LoginDialogComponent, {
+      autoFocus: false,
+      restoreFocus: false,
+    });
   }
 
   copyLink(): void {

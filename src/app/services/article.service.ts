@@ -206,7 +206,7 @@ export class ArticleService {
         return ref
           .where('isPublic', '==', true)
           .orderBy('createdAt', 'desc')
-          .limit(10);
+          .limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);
@@ -247,8 +247,9 @@ export class ArticleService {
     );
   }
 
-  getArticleWithAuthorByArticleId(
-    articleId: string
+  getArticleWithAuthorByArticleIdAndScreenName(
+    articleId: string,
+    screenName: string
   ): Observable<ArticleWithAuthor> {
     return this.getArticleOnly(articleId).pipe(
       switchMap((article: Article) => {
@@ -258,7 +259,7 @@ export class ArticleService {
         ]);
       }),
       map(([article, author]) => {
-        if (article && author) {
+        if (article && author && author.screenName === screenName) {
           const result: ArticleWithAuthor = {
             ...article,
             author,

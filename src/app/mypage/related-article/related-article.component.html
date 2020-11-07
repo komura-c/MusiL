@@ -1,0 +1,18 @@
+<div class="related-article">
+  <div
+    class="related-article__body"
+    *ngIf="articles$ | async as articles; else loading"
+    [class.fade]="articles"
+  >
+    <div class="related-article__card" *ngFor="let article of articles">
+      <app-article-card [article]="article"></app-article-card>
+    </div>
+  </div>
+  <ng-template #loading>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
+  </ng-template>
+</div>

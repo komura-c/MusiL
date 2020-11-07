@@ -24,10 +24,11 @@ export class MypageComponent implements OnInit {
     }),
     tap((user) => {
       if (user) {
-        this.seoService.setTitleAndMeta({
+        this.seoService.updateTitleAndMeta({
           title: `${user.userName} | MusiL`,
           description: user.description,
         });
+        this.seoService.createLinkTagForCanonicalURL();
       }
     }),
     tap(() => {

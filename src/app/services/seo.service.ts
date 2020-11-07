@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 
 @Injectable({
@@ -12,9 +13,13 @@ export class SeoService {
     ogType: 'article',
   };
 
-  constructor(private meta: Meta, private title: Title) {}
+  constructor(
+    private meta: Meta,
+    private title: Title,
+    @Inject(DOCUMENT) private doc: Document
+  ) {}
 
-  setTitleAndMeta(metaTags: {
+  updateTitleAndMeta(metaTags: {
     title?: string;
     description?: string;
     ogType?: string;
@@ -56,6 +61,25 @@ export class SeoService {
     ];
     metaTagsArray.forEach((metaTag) => {
       this.meta.updateTag(metaTag);
+    });
+  }
+
+  createLinkTagForCanonicalURL(URL?: string) {
+    this.refreshLinkTagForCanonicalURL();
+
+    const canonicalURL = URL === undefined ? this.doc.URL : URL;
+    const linkTag: HTMLLinkElement = this.doc.createElement('link');
+    linkTag.setAttribute('rel', 'canonical');
+    this.doc.head.appendChild(linkTag);
+    linkTag.setAttribute('href', canonicalURL);
+  }
+
+  private refreshLinkTagForCanonicalURL() {
+    const links = this.doc.head.getElementsByTagName('link');
+    Array.from(links).forEach((linkElm) => {
+      if (linkElm.getAttribute('rel') === 'canonical') {
+        this.doc.head.removeChild(linkElm);
+      }
     });
   }
 }

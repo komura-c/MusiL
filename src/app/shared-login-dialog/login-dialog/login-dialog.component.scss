@@ -1,0 +1,42 @@
+@import 'src/styles/mixins';
+
+.login-dialog {
+  display: grid;
+  gap: 12px;
+  &__text {
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 0;
+  }
+  &__notice {
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 1.6px;
+  }
+}
+
+.logo {
+  max-width: 180px;
+  margin: 0 auto;
+}
+
+.mat-dialog-actions {
+  margin: 0;
+  padding: 0;
+  justify-content: center;
+}
+
+.login-button {
+  background-color: $color-twitter;
+}
+
+.terms-link {
+  color: $color-primary;
+}
+
+.new-line::before {
+  @include sp {
+    content: '\A';
+    white-space: pre;
+  }
+}

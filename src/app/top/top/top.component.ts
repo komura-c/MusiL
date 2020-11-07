@@ -42,12 +42,13 @@ export class TopComponent implements OnInit {
     this.isUserLoading = true;
     this.isPopularLoading = true;
     this.isLatestLoading = true;
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: 'MusiL | DTMや作曲の知識記録プラットフォーム',
       description:
         'MusiLはDTMや作曲をしている人が気軽に記事などを投稿できるコミュニティです。',
       ogType: 'website',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {}

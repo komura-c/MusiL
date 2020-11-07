@@ -8,10 +8,11 @@ import { SeoService } from 'src/app/services/seo.service';
 })
 export class TermsComponent implements OnInit {
   constructor(private seoService: SeoService) {
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: '利用規約 | MusiL',
       description: 'サービスの利用規約ページです',
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {}
