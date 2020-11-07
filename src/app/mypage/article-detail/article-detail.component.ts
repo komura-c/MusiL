@@ -27,7 +27,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
       return params.get('id');
     })
   );
-  private articleId$: Observable<string> = this.route.paramMap.pipe(
+  articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       this.articleId = params.get('id');
       return params.get('id');
