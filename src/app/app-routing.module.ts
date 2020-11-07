@@ -17,9 +17,6 @@ const routes: Routes = [
       import('./articles/articles.module').then((m) => m.ArticlesModule),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
-    data: {
-      showFooter: false,
-    },
   },
   {
     path: 'about',
@@ -65,10 +62,6 @@ const routes: Routes = [
       import('./check/check.module').then((m) => m.CheckModule),
     canLoad: [AdminGuard],
     canActivate: [AdminGuard],
-    data: {
-      showHeader: false,
-      showFooter: false,
-    },
   },
   {
     path: ':id',
