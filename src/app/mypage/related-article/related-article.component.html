@@ -5,7 +5,10 @@
     [class.fade]="articles"
   >
     <div class="related-article__card" *ngFor="let article of articles">
-      <app-article-card [article]="article"></app-article-card>
+      <app-article-card
+        [article]="article"
+        (click)="getArticles()"
+      ></app-article-card>
     </div>
   </div>
   <ng-template #loading>
