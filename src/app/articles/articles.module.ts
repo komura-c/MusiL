@@ -17,6 +17,7 @@ import { EditorComponent } from './editor/editor.component';
 import { TagFormComponent } from './tag-form/tag-form.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SharedArticleEditModule } from '../shared-article-edit/shared-article-e
     MatChipsModule,
     MatAutocompleteModule,
     InfiniteScrollModule,
+    MatToolbarModule,
   ],
 })
 export class ArticlesModule {}

@@ -9,16 +9,27 @@ const routes: Routes = [
     path: ':id/edit',
     component: CreateComponent,
     canDeactivate: [FormGuard],
+    data: {
+      showHeader: false,
+      showFooter: false,
+    },
   },
   {
     path: 'create',
     component: CreateComponent,
     canDeactivate: [FormGuard],
+    data: {
+      showHeader: false,
+      showFooter: false,
+    },
   },
   {
     path: '',
     pathMatch: 'full',
     component: ArticlesComponent,
+    data: {
+      showFooter: false,
+    },
   },
 ];
 
