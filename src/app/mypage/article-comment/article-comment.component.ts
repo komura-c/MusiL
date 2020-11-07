@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
 import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
@@ -13,7 +14,8 @@ import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/l
   styleUrls: ['./article-comment.component.scss'],
 })
 export class ArticleCommentComponent implements OnInit {
-  @Input() articleId: string;
+  @Input() articleId$: Observable<string>;
+  private articleId: string;
   allComments$: Observable<ArticleCommentWithAuthor[]>;
   form = this.fb.group({
     comment: ['', [Validators.required]],
@@ -32,8 +34,11 @@ export class ArticleCommentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allComments$ = this.commentService.getLatestArticleComments(
-      this.articleId
+    this.allComments$ = this.articleId$.pipe(
+      switchMap((articleId: string) => {
+        this.articleId = articleId;
+        return this.commentService.getLatestArticleComments(articleId);
+      })
     );
   }
 
