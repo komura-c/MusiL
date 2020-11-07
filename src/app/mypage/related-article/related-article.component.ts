@@ -10,35 +10,38 @@ import { ArticleService } from 'src/app/services/article.service';
   styleUrls: ['./related-article.component.scss'],
 })
 export class RelatedArticleComponent implements OnInit {
-  articles$: Observable<
-    ArticleWithAuthor[]
-  > = this.articleService.getPickUpArticles().pipe(
-    take(1),
-    map((articles) => {
-      if (articles.length) {
-        return this.shuffleArticle(articles);
-      } else {
-        return null;
-      }
-    }),
-    tap(() => {
-      this.isLoading = false;
-    })
-  );
+  articles$: Observable<ArticleWithAuthor[]>;
   isLoading: boolean;
 
   constructor(private articleService: ArticleService) {
     this.isLoading = true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getArticles();
+  }
+
+  getArticles() {
+    this.articles$ = this.articleService.getPickUpArticles().pipe(
+      map((articles) => {
+        if (articles.length) {
+          return this.shuffleArticle(articles);
+        } else {
+          return null;
+        }
+      }),
+      tap(() => {
+        this.isLoading = false;
+      })
+    );
+  }
 
   shuffleArticle(articles: ArticleWithAuthor[]) {
     for (let i = articles.length - 1; i > 0; i--) {
       const rand = Math.floor(Math.random() * (i + 1));
       [articles[i], articles[rand]] = [articles[rand], articles[i]];
     }
-    const filteredArticle = articles.filter((_, i) => i % 3 === 0);
+    const filteredArticle = articles.filter((_, i) => (i + 1) % 2 === 0);
     return filteredArticle;
   }
 }
