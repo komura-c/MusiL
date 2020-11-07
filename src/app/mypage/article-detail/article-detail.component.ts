@@ -22,17 +22,21 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./article-detail.component.scss'],
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy {
+  private screenName = this.route.snapshot.parent.paramMap.get('id');
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       this.articleId = params.get('id');
       return params.get('id');
     })
   );
-  articleId: string;
+  private articleId: string;
   article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
     switchMap((articleId: string) => {
       return this.articleService
-        .getArticleWithAuthorByArticleId(articleId)
+        .getArticleWithAuthorByArticleIdAndScreenName(
+          articleId,
+          this.screenName
+        )
         .pipe(take(1));
     }),
     tap((article: ArticleWithAuthor) => {
