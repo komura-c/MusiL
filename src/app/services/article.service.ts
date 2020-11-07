@@ -206,7 +206,7 @@ export class ArticleService {
         return ref
           .where('isPublic', '==', true)
           .orderBy('createdAt', 'desc')
-          .limit(10);
+          .limit(20);
       })
       .valueChanges();
     return this.getArticlesWithAuthors(sorted);

@@ -216,8 +216,6 @@
       <app-article-comment
         [articleId]="article.articleId"
       ></app-article-comment>
-
-      <mat-divider></mat-divider>
     </div>
     <ng-container *ngIf="headingPositions.length">
       <div class="article__sub-box">
@@ -238,6 +236,7 @@
       </div>
     </ng-container>
   </div>
+  <app-related-article></app-related-article>
 </ng-container>
 
 <ng-template #notFoundArticle>
