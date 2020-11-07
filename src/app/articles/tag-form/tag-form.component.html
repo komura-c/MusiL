@@ -25,7 +25,7 @@
       (optionSelected)="selected($event)"
     >
       <mat-option *ngFor="let tag of allTags" [value]="tag.value">
-        {{ tag.value }}({{ tag.count }})
+        {{ tag.value }}
       </mat-option>
     </mat-autocomplete>
     <mat-hint align="end">{{ tags?.length || 0 }}/{{ tagMaxLength }}</mat-hint>

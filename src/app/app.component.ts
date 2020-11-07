@@ -37,9 +37,9 @@ export class AppComponent implements OnInit {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.showHeader =
-          this.route.snapshot.firstChild.data.showHeader !== false;
+          this.route.snapshot.firstChild.firstChild.data.showHeader !== false;
         this.showFooter =
-          this.route.snapshot.firstChild.data.showFooter !== false;
+          this.route.snapshot.firstChild.firstChild.data.showFooter !== false;
       }
     });
   }
