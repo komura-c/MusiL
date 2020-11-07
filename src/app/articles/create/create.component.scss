@@ -1,6 +1,70 @@
+@import 'src/styles/mixins';
+
+.create-page-header {
+  background-color: #ffffff;
+  position: fixed;
+  z-index: 100;
+  margin: -70px -16px 0;
+  display: flex;
+  height: 70px;
+  border-bottom: solid 1px $color-grey;
+  box-shadow: 0 0px 2px 1px #3c3c3c4d, 0 0px 4px 2px #3c3c3c26;
+  &__container {
+    max-width: 1000px;
+    height: 100%;
+    align-items: center;
+    margin: 0 auto;
+  }
+  &__actions {
+    margin-left: calc(48% - 300px);
+    width: 300px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+.mat-icon-button {
+  width: 50px;
+  height: 50px;
+}
+mat-icon {
+  font-size: 32px;
+  width: 32px;
+}
+.back-button {
+  margin-right: auto;
+}
+.logo {
+  height: 40px;
+  padding-top: 5px;
+  @include tab {
+    display: none;
+  }
+}
+.public-option {
+  font-size: 16px;
+  font-weight: bold;
+  color: #a6a6a6;
+  &--draft {
+    margin-right: 8px;
+    @include sp {
+      display: none;
+    }
+  }
+  &--active {
+    color: #000;
+  }
+}
+.save-button {
+  margin-left: 16px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 4px 16px;
+}
 .editor {
   max-width: 800px;
-  margin: 0 auto;
+  margin: 8px auto;
   &__form {
     width: 100%;
   }
@@ -21,20 +85,4 @@
   &__content {
     width: 100%;
   }
-  &__buttons {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-}
-.public-option {
-  font-weight: bold;
-}
-button {
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 32px;
-  margin: 8px;
 }
