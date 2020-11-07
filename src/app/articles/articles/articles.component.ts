@@ -29,10 +29,11 @@ export class ArticlesComponent implements OnInit {
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: `記事の管理 | MusiL`,
       description: `自分の記事を管理するページです`,
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {

@@ -9,6 +9,11 @@
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "^9.1.9",
@@ -45,6 +50,7 @@
     "@types/node": "^12.12.50",
     "codelyzer": "^5.1.2",
     "fuzzy": "^0.1.3",
+    "husky": "^4.3.0",
     "inquirer": "^6.2.2",
     "inquirer-autocomplete-prompt": "^1.0.1",
     "jasmine-core": "~3.5.0",
@@ -54,7 +60,8 @@
     "karma-coverage-istanbul-reporter": "~2.1.0",
     "karma-jasmine": "~3.0.1",
     "karma-jasmine-html-reporter": "^1.4.2",
-    "prettier": "^2.1.2",
+    "prettier": "2.1.2",
+    "pretty-quick": "^3.1.0",
     "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",

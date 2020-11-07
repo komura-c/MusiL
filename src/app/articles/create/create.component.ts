@@ -71,10 +71,11 @@ export class CreateComponent implements OnInit {
     private db: AngularFirestore,
     private ogpService: OgpService
   ) {
-    this.seoService.setTitleAndMeta({
+    this.seoService.updateTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
+    this.seoService.createLinkTagForCanonicalURL();
   }
 
   ngOnInit(): void {

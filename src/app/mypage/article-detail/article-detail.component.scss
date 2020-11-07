@@ -1,4 +1,4 @@
-@import 'mixins';
+@import 'src/styles/mixins';
 
 .article {
   margin: 12px auto;
@@ -131,14 +131,13 @@
 
 .article-content {
   padding: 20px 8px;
-  border-bottom: solid 1px $color-grey;
 }
 
 .article-footer {
-  padding: 12px 4px 0 4px;
+  padding: 0 4px;
   &__author {
-    padding: 4px;
     display: flex;
+    margin: 32px 0;
   }
   &__user-profile {
     padding: 0 12px;
@@ -164,6 +163,11 @@
   }
   &__user-description {
     margin: 0 0 8px 0;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
     @include sp {
       font-size: 14px;
     }
@@ -181,7 +185,7 @@
 }
 
 .main-actions {
-  padding: 16px 0;
+  margin: 24px 0;
   display: flex;
   justify-content: space-between;
   &__like {
