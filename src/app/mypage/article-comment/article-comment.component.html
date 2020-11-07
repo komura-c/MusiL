@@ -3,12 +3,22 @@
     <div class="comment-card fade">
       <ng-container *ngIf="comment.author; else noComment">
         <div class="comment-card__head">
-          <img
-            class="comment-card__avatar"
-            [src]="comment.author.avatarURL"
-            alt="プロフィール画像"
-          />
-          <div class="comment-card__name">{{ comment.author.userName }}</div>
+          <a
+            (click)="$event.stopPropagation()"
+            [routerLink]="'/' + comment.author.screenName"
+          >
+            <img
+              class="comment-card__avatar"
+              [src]="comment.author.avatarURL"
+              alt="プロフィール画像"
+            />
+          </a>
+          <a
+            class="comment-card__name"
+            (click)="$event.stopPropagation()"
+            [routerLink]="'/' + comment.author.screenName"
+            >{{ comment.author.userName }}</a
+          >
           <div class="comment-card__spacer"></div>
           <button
             mat-flat-button
