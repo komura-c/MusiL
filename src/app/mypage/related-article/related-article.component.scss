@@ -1,0 +1,21 @@
+@import 'src/styles/mixins';
+
+.related-article {
+  margin: 0 -16px;
+  background-color: $color-background;
+  &__body {
+    max-width: 800px;
+    padding: 32px 16px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__card {
+    width: 48%;
+    @include tab {
+      width: 100%;
+    }
+  }
+}
