@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
@@ -22,22 +22,28 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./article-detail.component.scss'],
 })
 export class ArticleDetailComponent implements OnInit, OnDestroy {
-  private screenName = this.route.snapshot.parent.paramMap.get('id');
-  private articleId$: Observable<string> = this.route.paramMap.pipe(
+  private screenName$: Observable<string> = this.route.parent.paramMap.pipe(
+    map((params) => {
+      return params.get('id');
+    })
+  );
+  articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       this.articleId = params.get('id');
       return params.get('id');
     })
   );
   private articleId: string;
-  article$: Observable<ArticleWithAuthor> = this.articleId$.pipe(
-    switchMap((articleId: string) => {
-      return this.articleService
-        .getArticleWithAuthorByArticleIdAndScreenName(
-          articleId,
-          this.screenName
-        )
-        .pipe(take(1));
+  private screenNameAndArticle$ = combineLatest([
+    this.screenName$,
+    this.articleId$,
+  ]);
+  article$: Observable<ArticleWithAuthor> = this.screenNameAndArticle$.pipe(
+    switchMap(([screenName, articleId]) => {
+      return this.articleService.getArticleWithAuthorByArticleIdAndScreenName(
+        articleId,
+        screenName
+      );
     }),
     tap((article: ArticleWithAuthor) => {
       if (article) {
@@ -120,6 +126,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   getHeading() {
+    this.headingElements = new Array();
     setTimeout(() => {
       const headingTagElements = document.querySelectorAll(
         '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
