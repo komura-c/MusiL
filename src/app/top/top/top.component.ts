@@ -6,7 +6,6 @@ import { tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserData } from '@interfaces/user';
 import { SeoService } from 'src/app/services/seo.service';
-import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-top',
@@ -38,8 +37,7 @@ export class TopComponent implements OnInit {
   constructor(
     private articleService: ArticleService,
     private seoService: SeoService,
-    public authService: AuthService,
-    analytics: AngularFireAnalytics
+    public authService: AuthService
   ) {
     this.isUserLoading = true;
     this.isPopularLoading = true;
@@ -51,7 +49,6 @@ export class TopComponent implements OnInit {
       ogType: 'website',
     });
     this.seoService.createLinkTagForCanonicalURL();
-    analytics.logEvent('top-page');
   }
 
   ngOnInit(): void {}
