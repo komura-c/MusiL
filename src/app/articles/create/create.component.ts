@@ -12,6 +12,7 @@ import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { OgpService } from 'src/app/services/ogp.service';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 @Component({
   selector: 'app-create',
@@ -69,13 +70,15 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private seoService: SeoService,
     private db: AngularFirestore,
-    private ogpService: OgpService
+    private ogpService: OgpService,
+    private analytics: AngularFireAnalytics
   ) {
     this.seoService.updateTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
     this.seoService.createLinkTagForCanonicalURL();
+    this.analytics.logEvent('create_page');
   }
 
   ngOnInit(): void {
