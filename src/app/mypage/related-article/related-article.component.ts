@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
+import { filter, map, take, tap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
@@ -10,6 +10,7 @@ import { ArticleService } from 'src/app/services/article.service';
   styleUrls: ['./related-article.component.scss'],
 })
 export class RelatedArticleComponent implements OnInit {
+  @Input() currentArticle: ArticleWithAuthor;
   articles$: Observable<ArticleWithAuthor[]>;
   isLoading: boolean;
 
@@ -23,6 +24,7 @@ export class RelatedArticleComponent implements OnInit {
 
   getArticles() {
     this.articles$ = this.articleService.getPickUpArticles().pipe(
+      take(1),
       map((articles) => {
         if (articles.length) {
           return this.shuffleArticle(articles);
@@ -41,7 +43,14 @@ export class RelatedArticleComponent implements OnInit {
       const rand = Math.floor(Math.random() * (i + 1));
       [articles[i], articles[rand]] = [articles[rand], articles[i]];
     }
-    const filteredArticle = articles.filter((_, i) => (i + 1) % 2 === 0);
+    const filteredArticle = this.filterArticle(articles);
     return filteredArticle;
+  }
+
+  filterArticle(articles: ArticleWithAuthor[]) {
+    return articles.filter(
+      (article, i) =>
+        article?.articleId !== this.currentArticle.articleId && i % 2 === 0
+    );
   }
 }

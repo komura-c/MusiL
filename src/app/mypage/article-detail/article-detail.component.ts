@@ -40,10 +40,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   ]);
   article$: Observable<ArticleWithAuthor> = this.screenNameAndArticle$.pipe(
     switchMap(([screenName, articleId]) => {
-      return this.articleService.getArticleWithAuthorByArticleIdAndScreenName(
-        articleId,
-        screenName
-      );
+      return this.articleService
+        .getArticleWithAuthorByArticleIdAndScreenName(articleId, screenName)
+        .pipe(take(1));
     }),
     tap((article: ArticleWithAuthor) => {
       if (article) {
@@ -100,9 +99,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   private initLikeStatus(article: ArticleWithAuthor) {
-    if (!this.likeCount) {
-      this.likeCount = article.likeCount;
-    }
+    this.likeCount = article.likeCount;
     this.likeService
       .isLiked(article.articleId, this.authService.uid)
       .pipe(take(1))
