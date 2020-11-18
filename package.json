@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "stats": "ng build --prod --stats-json",
+    "analyze": "webpack-bundle-analyzer dist/musil/browser/stats-es2015.json"
   },
   "husky": {
     "hooks": {
@@ -65,6 +67,7 @@
     "protractor": "^7.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "webpack-bundle-analyzer": "^4.1.0"
   }
 }
