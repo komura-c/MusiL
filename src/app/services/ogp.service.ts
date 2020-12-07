@@ -3,6 +3,7 @@ import { Article } from '@interfaces/article';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UserData } from '@interfaces/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +29,17 @@ export class OgpService {
     private storage: AngularFireStorage
   ) {}
 
+  async uploadOgp(articleId: string, ogpImage: string): Promise<string> {
+    const result = await this.storage
+      .ref(`articles/${articleId}.png`)
+      .putString(ogpImage, 'data_url');
+    return await result.ref.getDownloadURL();
+  }
+
+  async deleteOgp(articleId: string): Promise<Observable<any>> {
+    return this.storage.ref(`articles/${articleId}.png`).delete();
+  }
+
   async createOgpImageAndUpload(
     title: string,
     articleId: string,
@@ -42,7 +54,7 @@ export class OgpService {
     }
   }
 
-  async createOgp(title: string, userName: string): Promise<string> {
+  private async createOgp(title: string, userName: string): Promise<string> {
     const canvas = document.createElement('canvas');
     canvas.width = this.canvasWidth;
     canvas.height = this.canvasHeight;
@@ -96,7 +108,7 @@ export class OgpService {
     return canvas.toDataURL('image/png');
   }
 
-  loadImage(srcURL: string) {
+  private loadImage(srcURL: string) {
     return new Promise((resolve, reject) => {
       const img = new Image();
       img.onload = () => resolve(img);
@@ -105,7 +117,7 @@ export class OgpService {
     });
   }
 
-  splitByMeasureWidth(
+  private splitByMeasureWidth(
     str: string,
     maxWidth: number,
     context: CanvasRenderingContext2D
@@ -121,16 +133,5 @@ export class OgpService {
     });
     lines.push(line);
     return lines;
-  }
-
-  async uploadOgp(articleId: string, ogpImage: string): Promise<string> {
-    const result = await this.storage
-      .ref(`articles/${articleId}.png`)
-      .putString(ogpImage, 'data_url');
-    return await result.ref.getDownloadURL();
-  }
-
-  async deleteOgp(articleId: string) {
-    return this.storage.ref(`articles/${articleId}.png`).delete();
   }
 }
