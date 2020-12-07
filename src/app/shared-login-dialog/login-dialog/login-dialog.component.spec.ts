@@ -1,14 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from 'src/app/services/auth.service';
+import { AuthServiceStub } from 'src/test/service.stub';
 import { LoginDialogComponent } from './login-dialog.component';
 
 describe('LoginDialogComponent', () => {
   let component: LoginDialogComponent;
   let fixture: ComponentFixture<LoginDialogComponent>;
+  const MatDialogRefStub = {
+    close: jasmine.createSpy('close'),
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LoginDialogComponent],
+      imports: [MatDialogModule],
+      providers: [
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: MatDialogRef, useValue: MatDialogRefStub },
+      ],
     }).compileComponents();
   }));
 

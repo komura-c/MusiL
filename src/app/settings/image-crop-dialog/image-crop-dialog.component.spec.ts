@@ -1,5 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImageCropDialogComponent } from './image-crop-dialog.component';
 
 describe('ImageCropDialogComponent', () => {
@@ -9,6 +9,7 @@ describe('ImageCropDialogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ImageCropDialogComponent],
+      providers: [MatDialog, MAT_DIALOG_DATA],
     }).compileComponents();
   }));
 
