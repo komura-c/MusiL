@@ -1,5 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { RouterTestingModule } from '@angular/router/testing';
+import { UserServiceStub } from 'src/test/service.stub';
+import { UserService } from '../services/user.service';
 import { SearchInputComponent } from './search-input.component';
 
 describe('SearchInputComponent', () => {
@@ -9,6 +12,8 @@ describe('SearchInputComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [SearchInputComponent],
+      imports: [RouterTestingModule, MatAutocompleteModule],
+      providers: [{ provide: UserService, useValue: UserServiceStub }],
     }).compileComponents();
   }));
 
