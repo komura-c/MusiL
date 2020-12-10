@@ -16,6 +16,7 @@ export const countUpArticleView = functions
       articleId,
       viewCount: admin.firestore.FieldValue.increment(1),
     };
-    await db.doc(`viewCount/${articleId}`).set(viewCountData, { merge: true });
-    return viewCountData;
+    return await db
+      .doc(`viewCount/${articleId}`)
+      .set(viewCountData, { merge: true });
   });
