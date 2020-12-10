@@ -32,7 +32,10 @@ async function tweetFromBot(): Promise<Twitter.ResponseData> {
       access_token_key: config.twitter_bot.access_token_key,
       access_token_secret: config.twitter_bot.access_token_secret,
     });
-    return await tweet(twitterClient, shuffleArticles(articles)[0]);
+    const articleData = shuffleArticles(articles)[0];
+    const userData = (await db.doc(`users/${articleData.uid}`).get())?.data();
+    const tweetText = createTweetText(articleData, userData);
+    return await tweet(twitterClient, tweetText);
   } else {
     throw new Error('記事データの取得に失敗しました');
   }
@@ -46,23 +49,31 @@ function shuffleArticles(articles: DocumentData[]): DocumentData[] {
   return articles;
 }
 
+function createTweetText(
+  articleData: DocumentData,
+  userData: DocumentData | undefined
+): string {
+  if (articleData && userData) {
+    return (
+      randomEmoji() +
+      articleData.title +
+      ' by @' +
+      userData.screenName +
+      '\n' +
+      config.project.hosting_url +
+      userData.screenName +
+      '/a/' +
+      articleData.articleId
+    );
+  } else {
+    return randomEmoji();
+  }
+}
+
 async function tweet(
   twitterClient: Twitter,
-  articleData: DocumentData
+  tweetText: string
 ): Promise<Twitter.ResponseData> {
-  const tweetText =
-    randomEmoji() +
-    'ピックアップ' +
-    '\n' +
-    '\n' +
-    articleData.title +
-    ' @' +
-    articleData.screenName +
-    '\n' +
-    config.project.hosting_url +
-    articleData.screenName +
-    '/a/' +
-    articleData.articleId;
   return await twitterClient
     .post('statuses/update', {
       status: tweetText,

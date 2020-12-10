@@ -102,7 +102,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   private countUpArticleView(article: ArticleWithAuthor) {
-    const timeOnPage = 20000;
+    const timeOnPage = 10000;
     const { uid, articleId } = article;
     setTimeout(() => {
       this.viewCountService.countUpArticleView({ uid, articleId });
