@@ -5,5 +5,5 @@ export interface ArticleComment {
   uid: string;
   commentId: string;
   text: string;
-  createdAt: firebase.default.firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
 }
