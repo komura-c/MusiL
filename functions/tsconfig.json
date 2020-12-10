@@ -7,7 +7,7 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "lib": ["ESNext.AsyncIterable"]
+    "lib": ["DOM", "ESNext.AsyncIterable"]
   },
   "compileOnSave": true,
   "include": ["src"]
