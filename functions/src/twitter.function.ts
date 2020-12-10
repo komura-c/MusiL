@@ -10,14 +10,13 @@ export const tweetPickUpArticleFromBot = functions
   .region('asia-northeast1')
   .https.onRequest(async (req: any, res: any) => {
     if (req.query.access_token_key === config.twitter_bot.access_token_key) {
-      await tweetFromBot();
-      res.status(200).send('Tweet Success');
-      return;
+      const resultData = await tweetFromBot();
+      return res.status(200).send(resultData);
     }
     res.status(404).send("Forbidden you don't have permission");
   });
 
-async function tweetFromBot() {
+async function tweetFromBot(): Promise<Twitter.ResponseData> {
   const articlesQuerySnapshot = await db
     .collection(`articles`)
     .where('isPublic', '==', true)
@@ -25,7 +24,6 @@ async function tweetFromBot() {
   if (articlesQuerySnapshot) {
     const articles: DocumentData[] = [];
     articlesQuerySnapshot.forEach((articleQuerySnapshot) => {
-      functions.logger.info(articleQuerySnapshot.data());
       articles.push(articleQuerySnapshot.data());
     });
     const twitterClient = new Twitter({
@@ -51,29 +49,30 @@ function shuffleArticles(articles: DocumentData[]): DocumentData[] {
 async function tweet(
   twitterClient: Twitter,
   articleData: DocumentData
-): Promise<boolean> {
+): Promise<Twitter.ResponseData> {
   const tweetText =
     randomEmoji() +
     'ピックアップ' +
     '\n' +
+    '\n' +
     articleData.title +
+    ' @' +
+    articleData.screenName +
     '\n' +
     config.project.hosting_url +
     articleData.screenName +
     '/a/' +
     articleData.articleId;
-  await twitterClient
+  return await twitterClient
     .post('statuses/update', {
       status: tweetText,
     })
     .then((tweetData) => {
-      functions.logger.info('Tweet Success');
-      functions.logger.info(tweetData);
+      return tweetData;
     })
     .catch((error) => {
       throw error;
     });
-  return true;
 }
 
 const emojiList = ['💡', '☀️', '⛏', '🌸', '✨', '⚡️', '✏️'];
