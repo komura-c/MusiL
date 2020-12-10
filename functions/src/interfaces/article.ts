@@ -9,6 +9,6 @@ export interface Article {
   text: string;
   isPublic: boolean;
   likeCount: number;
-  createdAt: firebase.default.firestore.Timestamp;
-  updatedAt: firebase.default.firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
+  updatedAt: firebase.firestore.Timestamp;
 }
