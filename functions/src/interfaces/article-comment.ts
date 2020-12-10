@@ -1,9 +1,9 @@
-import * as firestore from '@google-cloud/firestore';
+import * as firebase from 'firebase/app';
 
 export interface ArticleComment {
   articleId: string;
   uid: string;
   commentId: string;
   text: string;
-  createdAt: firestore.Timestamp;
+  createdAt: firebase.default.firestore.Timestamp;
 }
