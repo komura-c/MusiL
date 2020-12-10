@@ -1,4 +1,4 @@
-import * as firestore from '@google-cloud/firestore';
+import * as firebase from 'firebase/app';
 
 export interface Article {
   articleId: string;
@@ -9,6 +9,6 @@ export interface Article {
   text: string;
   isPublic: boolean;
   likeCount: number;
-  createdAt: firestore.Timestamp;
-  updatedAt: firestore.Timestamp;
+  createdAt: firebase.default.firestore.Timestamp;
+  updatedAt: firebase.default.firestore.Timestamp;
 }
