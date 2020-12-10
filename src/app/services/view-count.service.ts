@@ -9,6 +9,6 @@ export class ViewCountService {
 
   countUpArticleView(sendData: { uid: string; articleId: string }): void {
     const callable = this.fns.httpsCallable('countUpArticleView');
-    callable(sendData);
+    callable(sendData).toPromise();
   }
 }

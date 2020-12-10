@@ -12,14 +12,8 @@
           (click)="clickedLike(article.articleId)"
           [class.left-actions__like--liked]="isLiked"
         >
-          <ng-container *ngIf="isLiked; else isNotLiked">
-            <mat-icon>favorite</mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-container>
-          <ng-template #isNotLiked>
-            <mat-icon>favorite_border</mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-template>
+          <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+          <span>{{ likeCount }}</span>
         </button>
         <a
           mat-icon-button
