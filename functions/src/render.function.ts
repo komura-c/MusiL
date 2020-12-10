@@ -15,10 +15,20 @@ const file = readFileSync(resolve(__dirname, 'index.html'), {
 
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
-  const description = htmlToText.fromString(articleAndScreenName.text ? articleAndScreenName.text : '')
-    .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
-  const ogURL = config.project.hosting_url + articleAndScreenName.screenName + '/a/' + articleAndScreenName.articleId;
-  const ogImage = articleAndScreenName.thumbnailURL ? articleAndScreenName.thumbnailURL : config.project.hosting_url + 'assets/images/ogp-cover.png';
+  const description = htmlToText
+    .fromString(articleAndScreenName.text ? articleAndScreenName.text : '')
+    .replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      ''
+    );
+  const ogURL =
+    config.project.hosting_url +
+    articleAndScreenName.screenName +
+    '/a/' +
+    articleAndScreenName.articleId;
+  const ogImage = articleAndScreenName.thumbnailURL
+    ? articleAndScreenName.thumbnailURL
+    : config.project.hosting_url + 'assets/images/ogp-cover.png';
   return file
     .replace(/\n/g, '')
     .replace(/ {2,}/g, ' ')
@@ -53,7 +63,9 @@ const app = express();
 app.use(useragent.express());
 app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
   if (req.useragent.isBot) {
-    const article = (await db.doc(`articles/${req.params.articleId}`).get())?.data();
+    const article = (
+      await db.doc(`articles/${req.params.articleId}`).get()
+    )?.data();
     if (article) {
       const articleAndScreenName = {
         ...article,
