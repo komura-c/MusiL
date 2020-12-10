@@ -15,6 +15,7 @@ import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ViewCountService } from 'src/app/services/view-count.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -52,6 +53,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
           description: article.text,
         });
         this.seoService.createLinkTagForCanonicalURL();
+        this.countUpArticleView(article);
       }
     }),
     tap(() => {
@@ -86,7 +88,8 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     private seoService: SeoService,
     private scrollService: ScrollService,
     public authService: AuthService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private viewCountService: ViewCountService
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
@@ -96,6 +99,14 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.scrollService.saveScrollPosition(this.articleId);
+  }
+
+  private countUpArticleView(article: ArticleWithAuthor) {
+    const timeOnPage = 20000;
+    const { uid, articleId } = article;
+    setTimeout(() => {
+      this.viewCountService.countUpArticleView({ uid, articleId });
+    }, timeOnPage);
   }
 
   private initLikeStatus(article: ArticleWithAuthor) {
