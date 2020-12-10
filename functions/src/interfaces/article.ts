@@ -1,4 +1,4 @@
-import { firestore } from 'firebase/app';
+import * as firestore from '@google-cloud/firestore';
 
 export interface Article {
   articleId: string;
