@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
