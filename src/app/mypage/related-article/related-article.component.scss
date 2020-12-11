@@ -1,12 +1,22 @@
 @import 'src/styles/mixins';
 
-.related-article {
+.related-article-wrapper {
   margin: 0 -16px;
   background-color: $color-background;
+}
+
+.related-article {
+  max-width: 800px;
+  padding: 16px;
+  margin: 0 auto;
+  &__title {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin: 4px 4px 0 0;
+    }
+  }
   &__body {
-    max-width: 800px;
-    padding: 32px 16px;
-    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
