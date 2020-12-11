@@ -75,6 +75,6 @@ async function tweet(
       return tweetData;
     })
     .catch((error) => {
-      throw error;
+      return error;
     });
 }
