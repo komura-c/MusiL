@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as Twitter from 'twitter';
 import * as admin from 'firebase-admin';
 import { DocumentData } from '@google-cloud/firestore';
+import { randomEmoji, randomArticle } from './utils/utils.function';
 
 const config = functions.config();
 const db = admin.firestore();
@@ -32,21 +33,13 @@ async function tweetFromBot(): Promise<Twitter.ResponseData> {
       access_token_key: config.twitter_bot.access_token_key,
       access_token_secret: config.twitter_bot.access_token_secret,
     });
-    const articleData = shuffleArticles(articles)[0];
+    const articleData = randomArticle(articles);
     const userData = (await db.doc(`users/${articleData.uid}`).get())?.data();
     const tweetText = createTweetText(articleData, userData);
     return await tweet(twitterClient, tweetText);
   } else {
     throw new Error('記事データの取得に失敗しました');
   }
-}
-
-function shuffleArticles(articles: DocumentData[]): DocumentData[] {
-  for (let i = articles.length - 1; i > 0; i--) {
-    const rand = Math.floor(Math.random() * (i + 1));
-    [articles[i], articles[rand]] = [articles[rand], articles[i]];
-  }
-  return articles;
 }
 
 function createTweetText(
@@ -84,10 +77,4 @@ async function tweet(
     .catch((error) => {
       throw error;
     });
-}
-
-const emojiList = ['💡', '☀️', '⛏', '🌸', '✨', '⚡️', '✏️'];
-function randomEmoji(): string {
-  const randomIndex = Math.floor(Math.random() * emojiList.length);
-  return emojiList[randomIndex];
 }
