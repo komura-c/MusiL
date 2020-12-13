@@ -4,7 +4,7 @@ import * as useragent from 'express-useragent';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as admin from 'firebase-admin';
-const htmlToText = require('html-to-text');
+import { htmlToText } from 'html-to-text';
 
 const config = functions.config();
 const db = admin.firestore();
@@ -15,12 +15,10 @@ const file = readFileSync(resolve(__dirname, 'index.html'), {
 
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
-  const description = htmlToText
-    .fromString(articleAndScreenName.text ? articleAndScreenName.text : '')
-    .replace(
-      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-      ''
-    );
+  const description = htmlToText(articleAndScreenName.text).replace(
+    /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+    ''
+  );
   const ogURL =
     config.project.hosting_url +
     articleAndScreenName.screenName +
