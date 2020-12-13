@@ -27,14 +27,12 @@ async function tweetFromBot(): Promise<Twitter.ResponseData> {
     articlesQuerySnapshot.forEach((articleQuerySnapshot) => {
       articles.push(articleQuerySnapshot.data());
     });
-    functions.logger.info(articles.length);
     const twitterClient = new Twitter({
       consumer_key: config.twitter_bot.consumer_key,
       consumer_secret: config.twitter_bot.consumer_secret,
       access_token_key: config.twitter_bot.access_token_key,
       access_token_secret: config.twitter_bot.access_token_secret,
     });
-    functions.logger.info(articles.length);
     const articleData = randomArticle(articles);
     const userData = (await db.doc(`users/${articleData.uid}`).get())?.data();
     const tweetText = createTweetText(articleData, userData);
