@@ -1,6 +1,11 @@
 import { Algolia } from './utils/algolia.function';
 import * as functions from 'firebase-functions';
-const htmlToText = require('html-to-text');
+import { htmlToText } from 'html-to-text';
+import {
+  createArticleRandomAndCountUpTotalArticleCount,
+  updateArticleRandom,
+  deleteArticleRandomAndCountDownTotalArticleCount,
+} from './article-random.function';
 
 const config = functions.config();
 const algolia = new Algolia();
@@ -10,12 +15,11 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate(async (snap) => {
     const data = snap.data();
-    data.text = await htmlToText
-      .fromString(data.text ? data.text : '')
-      .replace(
-        /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-        ''
-      );
+    await createArticleRandomAndCountUpTotalArticleCount(data);
+    data.text = htmlToText(data.text).replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      ''
+    );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
@@ -27,8 +31,9 @@ export const createPost = functions
 export const deletePost = functions
   .region('asia-northeast1')
   .firestore.document('articles/{id}')
-  .onDelete((snap) => {
+  .onDelete(async (snap) => {
     const data = snap.data();
+    await deleteArticleRandomAndCountDownTotalArticleCount(data);
     if (data) {
       return algolia.removeRecord(config.algolia.index_name, data.articleId);
     } else {
@@ -41,12 +46,11 @@ export const updatePost = functions
   .firestore.document('articles/{id}')
   .onUpdate(async (change) => {
     const data = change.after.data();
-    data.text = await htmlToText
-      .fromString(data.text ? data.text : '')
-      .replace(
-        /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-        ''
-      );
+    await updateArticleRandom(data);
+    data.text = htmlToText(data.text).replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      ''
+    );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
