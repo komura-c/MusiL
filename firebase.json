@@ -1,6 +1,5 @@
 {
   "hosting": {
-    "target": "musil",
     "public": "dist/musil/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "headers": [
