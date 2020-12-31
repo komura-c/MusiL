@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { User, auth } from 'firebase/app';
+import firebase from 'firebase/app';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -12,7 +12,7 @@ import { UserData } from 'functions/src/interfaces/user';
   providedIn: 'root',
 })
 export class AuthService {
-  afUser$: Observable<User> = this.afAuth.user;
+  afUser$: Observable<firebase.User> = this.afAuth.user;
   uid: string;
   user$: Observable<UserData> = this.afAuth.authState.pipe(
     switchMap((afUser) => {
@@ -36,7 +36,7 @@ export class AuthService {
 
   async login(): Promise<void> {
     this.loginProcessing = true;
-    const provider = new auth.TwitterAuthProvider();
+    const provider = new firebase.auth.TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
     const userCredential = await this.afAuth.signInWithPopup(provider);
     const { user, additionalUserInfo } = userCredential;
