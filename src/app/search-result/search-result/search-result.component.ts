@@ -7,7 +7,7 @@ import { map, tap, take } from 'rxjs/operators';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { PageEvent } from '@angular/material/paginator';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
@@ -143,8 +143,12 @@ export class SearchResultComponent implements OnInit, OnDestroy {
             return algoliaArticles.map((article) => {
               const result: ArticleWithAuthor = {
                 ...article,
-                createdAt: firestore.Timestamp.fromMillis(article.createdAt),
-                updatedAt: firestore.Timestamp.fromMillis(article.updatedAt),
+                createdAt: firebase.firestore.Timestamp.fromMillis(
+                  article.createdAt
+                ),
+                updatedAt: firebase.firestore.Timestamp.fromMillis(
+                  article.updatedAt
+                ),
                 author: users?.find(
                   (user: UserData) => user.uid === article.uid
                 ),
