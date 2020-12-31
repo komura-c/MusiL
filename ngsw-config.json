@@ -32,28 +32,8 @@
   ],
   "dataGroups": [
     {
-      "name": "xhr",
-      "urls": ["/**"],
-      "cacheConfig": {
-        "maxSize": 10,
-        "maxAge": "1d",
-        "timeout": "10s",
-        "strategy": "freshness"
-      }
-    },
-    {
       "name": "avatar",
       "urls": ["https://pbs.twimg.com/profile_images/**"],
-      "cacheConfig": {
-        "maxSize": 1,
-        "maxAge": "1d",
-        "timeout": "5s",
-        "strategy": "performance"
-      }
-    },
-    {
-      "name": "storage",
-      "urls": ["https://firebasestorage.googleapis.com/**"],
       "cacheConfig": {
         "maxSize": 1,
         "maxAge": "1d",
