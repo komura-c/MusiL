@@ -1,4 +1,4 @@
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import { UserData } from './user';
 
 export interface Article extends Pick<UserData, 'uid'> {
