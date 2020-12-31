@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { UserData } from '@interfaces/user';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
@@ -39,8 +39,8 @@ export class ArticleService {
       articleId,
       ...article,
       likeCount: 0,
-      createdAt: firestore.Timestamp.now(),
-      updatedAt: firestore.Timestamp.now(),
+      createdAt: firebase.firestore.Timestamp.now(),
+      updatedAt: firebase.firestore.Timestamp.now(),
     };
     return this.db.doc(`articles/${articleId}`).set(resultArticle);
   }
@@ -55,7 +55,7 @@ export class ArticleService {
     const resultArticle = {
       articleId,
       ...article,
-      updatedAt: firestore.Timestamp.now(),
+      updatedAt: firebase.firestore.Timestamp.now(),
     };
     return this.db.doc(`articles/${articleId}`).update(resultArticle);
   }
