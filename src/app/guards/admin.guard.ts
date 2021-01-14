@@ -29,8 +29,11 @@ export class AdminGuard implements CanActivate, CanLoad {
     | UrlTree {
     return this.authService.afUser$.pipe(
       switchMap(async (user) => {
-        const idTokenResult = await user.getIdTokenResult();
-        return idTokenResult.claims.admin;
+        if (user) {
+          const idTokenResult = await user.getIdTokenResult();
+          return idTokenResult.claims.admin;
+        }
+        return false;
       }),
       tap((isAdmin) => {
         if (!isAdmin) {
@@ -45,8 +48,11 @@ export class AdminGuard implements CanActivate, CanLoad {
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.afUser$.pipe(
       switchMap(async (user) => {
-        const idTokenResult = await user.getIdTokenResult();
-        return idTokenResult.claims.admin;
+        if (user) {
+          const idTokenResult = await user.getIdTokenResult();
+          return idTokenResult.claims.admin;
+        }
+        return false;
       }),
       take(1),
       tap((isAdmin) => {
