@@ -12,3 +12,9 @@ export { render } from './render.function';
 export { backup } from './backup.function';
 export { tweetPickUpArticleFromBot } from './twitter.function';
 export { countUpArticleView } from './view-count.function';
+export {
+  createArticleRandomAndCountUp,
+  deleteArticleRandomAndCountDown,
+  updateArticleRandom,
+} from './article-random.function';
+export { addAdminClaim, removeAdminClaim } from './admin.function';
