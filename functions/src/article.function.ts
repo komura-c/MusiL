@@ -1,11 +1,6 @@
 import { Algolia } from './utils/algolia.util';
 import * as functions from 'firebase-functions';
 import { htmlToText } from 'html-to-text';
-import {
-  createArticleRandomAndCountUpTotalArticleCount,
-  updateArticleRandom,
-  deleteArticleRandomAndCountDownTotalArticleCount,
-} from './utils/article-random.util';
 
 const config = functions.config();
 const algolia = new Algolia();
@@ -15,7 +10,6 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate(async (snap) => {
     const data = snap.data();
-    await createArticleRandomAndCountUpTotalArticleCount(data);
     data.text = htmlToText(data.text).replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
       ''
@@ -33,7 +27,6 @@ export const deletePost = functions
   .firestore.document('articles/{id}')
   .onDelete(async (snap) => {
     const data = snap.data();
-    await deleteArticleRandomAndCountDownTotalArticleCount(data);
     if (data) {
       return algolia.removeRecord(config.algolia.index_name, data.articleId);
     } else {
@@ -46,7 +39,6 @@ export const updatePost = functions
   .firestore.document('articles/{id}')
   .onUpdate(async (change) => {
     const data = change.after.data();
-    await updateArticleRandom(data);
     data.text = htmlToText(data.text).replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
       ''
