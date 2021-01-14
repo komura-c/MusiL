@@ -21,7 +21,6 @@ export const environment = {
   },
   key: 'p7RfnMLyx4T7LYnDbP8ZmSJBPj3GWzr4Pm76bJrSC8gvitE4c6JuzGaEKb8rS==',
   hostingURL: 'https://dtmplace-ad671.web.app',
-  hostUid: 'Ouzg9tQaIcbHFqeV3vqJv5N3haC3',
 };
 
 /*
