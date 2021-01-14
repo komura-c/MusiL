@@ -1,11 +1,11 @@
-import { Algolia } from './utils/algolia.function';
+import { Algolia } from './utils/algolia.util';
 import * as functions from 'firebase-functions';
 import { htmlToText } from 'html-to-text';
 import {
   createArticleRandomAndCountUpTotalArticleCount,
   updateArticleRandom,
   deleteArticleRandomAndCountDownTotalArticleCount,
-} from './article-random.function';
+} from './utils/article-random.util';
 
 const config = functions.config();
 const algolia = new Algolia();
