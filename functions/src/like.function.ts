@@ -1,7 +1,6 @@
-
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { shouldEventRun, markEventTried } from './utils/should.function';
+import { shouldEventRun, markEventTried } from './utils/should.util';
 
 const db = admin.firestore();
 

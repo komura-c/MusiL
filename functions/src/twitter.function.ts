@@ -2,7 +2,7 @@ import * as functions from 'firebase-functions';
 import * as Twitter from 'twitter';
 import * as admin from 'firebase-admin';
 import { DocumentData } from '@google-cloud/firestore';
-import { randomEmoji, randomArticle } from './utils/utils.function';
+import { randomEmoji, randomArticle } from './utils/random.util';
 
 const config = functions.config();
 const db = admin.firestore();
