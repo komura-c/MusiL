@@ -1,87 +1,53 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { DocumentData } from '@google-cloud/firestore';
 import { ArticleRandom } from './interfaces/article-random';
+import { Article } from './interfaces/article';
 
-const config = functions.config();
 const db = admin.firestore();
 
-export const initRandomArticle = functions
+export const createArticleRandomAndCountUp = functions
   .region('asia-northeast1')
-  .https.onRequest(async (req: any, res: any) => {
-    if (req.query.access_token_key === config.twitter_bot.access_token_key) {
-      const resultData = await initArticleRandomAndTotalArticleCount();
-      return res.status(200).send(resultData);
-    }
-    res.status(404).send("Forbidden you don't have permission");
-  });
-
-async function initArticleRandomAndTotalArticleCount(): Promise<boolean> {
-  const articlesQuerySnapshot = await db.collection(`articles`).get();
-  if (articlesQuerySnapshot) {
-    const totalArticleCount = articlesQuerySnapshot.size;
-    await db.doc(`appMeta/totalArticleCount`).set({ totalArticleCount });
-    const batch = db.batch();
-    const articles: DocumentData[] = [];
-    articlesQuerySnapshot.forEach((articleQuerySnapshot) => {
-      articles.push(articleQuerySnapshot.data());
-    });
-    articles.forEach((article, index) => {
-      const articleRandomRef = db.doc(`articleRandom/${article.articleId}`);
+  .firestore.document('articles/{id}')
+  .onCreate(async (snap) => {
+    const article = snap.data() as Article;
+    const totalArticleCountData = (
+      await db.doc(`appMeta/totalArticleCount`).get()
+    )?.data();
+    if (totalArticleCountData) {
       const articleRandomDoc: ArticleRandom = {
         articleId: article.articleId,
         isPublic: article.isPublic,
-        randomNumber: index,
+        randomNumber: totalArticleCountData.totalArticleCount,
         randomCheck: false,
       };
-      batch.set(articleRandomRef, articleRandomDoc, { merge: true });
-    });
-    await batch.commit();
-    return true;
-  } else {
-    throw new Error('記事データの取得に失敗しました');
-  }
-}
+      await db
+        .doc(`articleRandom/${article.articleId}`)
+        .set(articleRandomDoc, { merge: true });
+      return await db
+        .doc(`appMeta/totalArticleCount`)
+        .update('totalArticleCount', admin.firestore.FieldValue.increment(1));
+    }
+    functions.logger.info('totalArticleCountDataが取得できませんでした');
+    return;
+  });
 
-export async function getTotalArticleCount(): Promise<
-  DocumentData | undefined
-> {
-  return (await db.doc(`appMeta/totalArticleCount`).get())?.data();
-}
-
-export async function createArticleRandomAndCountUpTotalArticleCount(
-  article: DocumentData
-): Promise<void> {
-  const totalArticleCountData = await getTotalArticleCount();
-  if (totalArticleCountData) {
-    const articleRandomDoc: ArticleRandom = {
-      articleId: article.articleId,
-      isPublic: article.isPublic,
-      randomNumber: totalArticleCountData.totalArticleCount,
-      randomCheck: false,
-    };
-    await db
-      .doc(`articleRandom/${article.articleId}`)
-      .set(articleRandomDoc, { merge: true });
-    await db
+export const deleteArticleRandomAndCountDown = functions
+  .region('asia-northeast1')
+  .firestore.document('articles/{id}')
+  .onDelete(async (snap) => {
+    const article = snap.data() as Article;
+    await db.doc(`articleRandom/${article.articleId}`).delete();
+    return await db
       .doc(`appMeta/totalArticleCount`)
-      .update('totalArticleCount', admin.firestore.FieldValue.increment(1));
-  }
-}
+      .update('totalArticleCount', admin.firestore.FieldValue.increment(-1));
+  });
 
-export async function deleteArticleRandomAndCountDownTotalArticleCount(
-  article: DocumentData
-): Promise<void> {
-  await db.doc(`articleRandom/${article.articleId}`).delete();
-  await db
-    .doc(`appMeta/totalArticleCount`)
-    .update('totalArticleCount', admin.firestore.FieldValue.increment(-1));
-}
-
-export async function updateArticleRandom(
-  article: DocumentData
-): Promise<void> {
-  await db
-    .doc(`articleRandom/${article.articleId}`)
-    .update({ isPublic: article.isPublic });
-}
+export const updateArticleRandom = functions
+  .region('asia-northeast1')
+  .firestore.document('articles/{id}')
+  .onUpdate(async (change) => {
+    const article = change.after.data() as Article;
+    return await db
+      .doc(`articleRandom/${article.articleId}`)
+      .update({ isPublic: article.isPublic });
+  });

@@ -10,6 +10,14 @@ export { createPost, deletePost, updatePost } from './article.function';
 export { countUpLiked, countDownLiked } from './like.function';
 export { render } from './render.function';
 export { backup } from './backup.function';
-export { tweetPickUpArticleFromBot } from './twitter.function';
+export {
+  tweetPickUpArticleFromBot,
+  getTwitterProfile,
+} from './twitter.function';
 export { countUpArticleView } from './view-count.function';
-export { initRandomArticle } from './article-random.function';
+export {
+  createArticleRandomAndCountUp,
+  deleteArticleRandomAndCountDown,
+  updateArticleRandom,
+} from './article-random.function';
+export { addAdminClaim, removeAdminClaim } from './admin.function';
