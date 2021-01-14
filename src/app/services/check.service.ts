@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireFunctions } from '@angular/fire/functions';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
@@ -8,7 +9,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CheckService {
-  constructor(private db: AngularFirestore) {}
+  constructor(
+    private db: AngularFirestore,
+    private fns: AngularFireFunctions
+  ) {}
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
     return this.db
@@ -24,5 +28,10 @@ export class CheckService {
         ref.where('isPublic', '==', true).where('thumbnailURL', '==', null)
       )
       .valueChanges();
+  }
+
+  getProfile(sendData: any): Promise<string> {
+    const callable = this.fns.httpsCallable('getTwitterProfile');
+    return callable(sendData).toPromise();
   }
 }
