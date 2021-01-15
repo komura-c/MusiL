@@ -49,5 +49,5 @@ export const updateArticleRandom = functions
     const article = change.after.data() as Article;
     return await db
       .doc(`articleRandom/${article.articleId}`)
-      .update({ isPublic: article.isPublic });
+      .set({ isPublic: article.isPublic }, { merge: true });
   });
