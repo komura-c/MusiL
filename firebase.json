@@ -15,6 +15,10 @@
     ],
     "rewrites": [
       {
+        "source": "/sitemap",
+        "function": "sitemap"
+      },
+      {
         "source": "/**/a/**",
         "function": "render"
       },

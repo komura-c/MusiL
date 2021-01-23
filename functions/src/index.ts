@@ -21,3 +21,4 @@ export {
   updateArticleRandom,
 } from './article-random.function';
 export { addAdminClaim, removeAdminClaim } from './admin.function';
+export { sitemap } from './sitemap.function';
