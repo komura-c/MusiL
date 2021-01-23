@@ -60,20 +60,31 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 const app = express();
 app.use(useragent.express());
 app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+  if (req.useragent.isBot === 'google' || req.useragent.isBot === 'googlebot') {
+    return res.status(200).send(file);
+  }
   if (req.useragent.isBot) {
-    const article = (
-      await db.doc(`articles/${req.params.articleId}`).get()
-    )?.data();
-    if (article) {
-      const articleAndScreenName = {
-        ...article,
-        screenName: req.params.screenName,
-      };
-      res.send(buildHtml(articleAndScreenName));
-      return;
+    try {
+      const article = (
+        await db.doc(`articles/${req.params.articleId}`).get()
+      )?.data();
+      if (article) {
+        const articleAndScreenName = {
+          ...article,
+          screenName: req.params.screenName,
+        };
+        return res.status(200).send(buildHtml(articleAndScreenName));
+      }
+      if (!article) {
+        return res.status(404).send(file);
+      }
+    } catch (error) {
+      functions.logger.error(error);
+      return res.status(404).send(file);
     }
   }
-  res.send(file);
+  return res.status(200).send(file);
 });
 
 export const render = functions.https.onRequest(app);
