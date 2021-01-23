@@ -1,6 +1,5 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { UserData } from './interfaces/user';
 
 const config = functions.config();
 const db = admin.firestore();
@@ -18,17 +17,24 @@ export const sitemap = functions.https.onRequest(async (req: any, res: any) => {
       (article) => article.data().uid
     );
     const uniqueUserIds = Array.from(new Set(userIds));
-    const userDocs: any[] = [];
-    uniqueUserIds.forEach(async (uid) => {
-      userDocs.push((await db.doc(`users/${uid}`).get()).data());
-    });
+    const userDocs = await Promise.all(
+      uniqueUserIds.map(async (uid) => {
+        return (await db.doc(`users/${uid}`).get()).data();
+      })
+    );
 
     articleDocs.docs.map((article) => {
-      lines.push(
-        `<url><loc>${config.project.hosting_url}${userDocs.find(
-          (user: UserData) => user.uid === article.data().uid
-        )}/a/${article.data().articleId}</loc></url>`
+      const userData = userDocs.find(
+        (user) => user?.uid === article.data().uid
       );
+      if (userData) {
+        lines.push(
+          `<url><loc>${config.project.hosting_url}${userData.screenName}/a/${
+            article.data().articleId
+          }</loc></url>`
+        );
+      }
+      return;
     });
 
     lines.push(`</urlset>`);
