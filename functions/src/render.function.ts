@@ -60,7 +60,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 const app = express();
 app.use(useragent.express());
 app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
-  res.set('Cache-Control', 'public, max-age=7200, s-maxage=600');
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
   if (req.useragent.isBot === 'google' || req.useragent.isBot === 'googlebot') {
     return res.status(200).send(file);
   }
