@@ -11,7 +11,10 @@ export const sitemap = functions.https.onRequest(async (req: any, res: any) => {
     lines.push(`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`);
     lines.push(`<url><loc>${config.project.hosting_url}</loc></url>`);
 
-    const articleDocs = await db.collection('articles').get();
+    const articleDocs = await db
+      .collection('articles')
+      .where('isPublic', '==', true)
+      .get();
 
     const userIds: string[] = articleDocs.docs.map(
       (article) => article.data().uid
