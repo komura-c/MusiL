@@ -21,11 +21,11 @@
           aria-label="Twitterでシェア"
           matTooltip="Twitterでシェア"
           [href]="
-            'https://twitter.com/share?url=' +
+            'https://twitter.com/intent/tweet?url=' +
             projectURL +
             path +
             '&text=' +
-            article.title
+            (article.title | encodeUrl)
           "
           target="_blank"
           rel="nofollow noopener noreferrer"
@@ -133,11 +133,11 @@
               aria-label="Twitterでシェア"
               matTooltip="Twitterでシェア"
               [href]="
-                'https://twitter.com/share?url=' +
+                'https://twitter.com/intent/tweet?url=' +
                 projectURL +
                 path +
                 '&text=' +
-                article.title
+                (article.title | encodeUrl)
               "
               target="_blank"
               rel="nofollow noopener noreferrer"
@@ -187,7 +187,7 @@
               color="primary"
               [href]="
                 'https://twitter.com/intent/follow?screen_name=' +
-                article.author.screenName
+                (article.author.screenName | encodeUrl)
               "
               class="article-footer__twitter"
               target="_blank"

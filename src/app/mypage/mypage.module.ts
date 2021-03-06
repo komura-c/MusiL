@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { SharedLoginDialogModule } from '../shared-login-dialog/shared-login-dialog.module';
 import { RecommendArticleComponent } from './recommend-article/recommend-article.component';
+import { EncodeUrlPipe } from '../pipes/encode-url.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { RecommendArticleComponent } from './recommend-article/recommend-article
     StringToLinkPipe,
     ArticleCommentComponent,
     RecommendArticleComponent,
+    EncodeUrlPipe,
   ],
   imports: [
     CommonModule,
