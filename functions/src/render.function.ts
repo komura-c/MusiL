@@ -1,6 +1,4 @@
 import * as functions from 'firebase-functions';
-import * as express from 'express';
-import * as useragent from 'express-useragent';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import * as admin from 'firebase-admin';
@@ -15,10 +13,15 @@ const file = readFileSync(resolve(__dirname, 'index.html'), {
 
 const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
-  const description = htmlToText(articleAndScreenName.text).replace(
-    /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-    ''
-  );
+  const description = htmlToText(articleAndScreenName.text)
+    .replace(/\n/g, '')
+    .replace(/ {2,}/g, ' ')
+    .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
+    .replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      ''
+    )
+    .slice(0, 120);
   const ogURL =
     config.project.hosting_url +
     articleAndScreenName.screenName +
@@ -57,34 +60,50 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
     );
 };
 
-const app = express();
-app.use(useragent.express());
-app.get('/:screenName/a/:articleId', async (req: any, res: any) => {
+const server = async (req: any, res: any) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
-  if (req.useragent.isBot === 'google' || req.useragent.isBot === 'googlebot') {
+  const userAgent: string = req.headers['user-agent'].toLowerCase();
+  const isBot: boolean =
+    userAgent.includes('googlebot') ||
+    userAgent.includes('developers.google.com')
+      ? true
+      : false ||
+        userAgent.includes('twitterbot') ||
+        userAgent.includes('facebookexternalhit') ||
+        userAgent.includes('yahoou') ||
+        userAgent.includes('bingbot') ||
+        userAgent.includes('baiduspider') ||
+        userAgent.includes('yandex') ||
+        userAgent.includes('yeti') ||
+        userAgent.includes('yodaobot') ||
+        userAgent.includes('gigabot') ||
+        userAgent.includes('ia_archiver');
+  if (!isBot) {
     return res.status(200).send(file);
   }
-  if (req.useragent.isBot) {
+  if (isBot) {
+    const path = req.params[0].split('/');
+    const screenName = path[path.length - 3];
+    const articleId = path[path.length - 1];
     try {
-      const article = (
-        await db.doc(`articles/${req.params.articleId}`).get()
-      )?.data();
-      if (article) {
-        const articleAndScreenName = {
-          ...article,
-          screenName: req.params.screenName,
-        };
-        return res.status(200).send(buildHtml(articleAndScreenName));
-      }
+      const article = (await db.doc(`articles/${articleId}`).get())?.data();
       if (!article) {
         return res.status(404).send(file);
       }
+      if (article) {
+        const articleAndScreenName = {
+          ...article,
+          screenName,
+        };
+        return res.status(200).send(buildHtml(articleAndScreenName));
+      }
+      return res.status(200).send(file);
     } catch (error) {
       functions.logger.error(error);
       return res.status(404).send(file);
     }
   }
   return res.status(200).send(file);
-});
+};
 
-export const render = functions.https.onRequest(app);
+export const render = functions.https.onRequest(server);

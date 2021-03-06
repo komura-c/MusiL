@@ -74,6 +74,7 @@ import { RouterModule } from '@angular/router';
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
     ScreenTrackingService,
     UserTrackingService,
+    // { provide: USE_EMULATOR, useValue: ['localhost', 5001] },
   ],
   bootstrap: [AppComponent],
 })
