@@ -21,11 +21,7 @@ import {
 } from '@angular/fire/analytics';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import {
-  AngularFireFunctionsModule,
-  REGION,
-  USE_EMULATOR,
-} from '@angular/fire/functions';
+import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 import { SearchInputComponent } from './search-input/search-input.component';
@@ -78,7 +74,7 @@ import { RouterModule } from '@angular/router';
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
     ScreenTrackingService,
     UserTrackingService,
-    { provide: USE_EMULATOR, useValue: ['localhost', 5001] },
+    // { provide: USE_EMULATOR, useValue: ['localhost', 5001] },
   ],
   bootstrap: [AppComponent],
 })
