@@ -45,7 +45,7 @@ export class TopComponent implements OnInit {
     this.seoService.updateTitleAndMeta({
       title: 'MusiL | DTMや作曲の知識記録プラットフォーム',
       description:
-        'MusiLはDTMや作曲をしている人が気軽に記事などを投稿できるコミュニティです。',
+        'MusiLは、DTMや作曲をしている人が気軽に記事などを投稿できるコミュニティです。プラグインの紹介、曲分析など音楽制作に関する知識共有をテーマにしています。',
       ogType: 'website',
     });
     this.seoService.createLinkTagForCanonicalURL();

@@ -29,7 +29,8 @@
           mat-flat-button
           color="primary"
           [href]="
-            'https://twitter.com/intent/follow?screen_name=' + user.screenName
+            'https://twitter.com/intent/follow?screen_name=' +
+            (user.screenName | encodeUrl)
           "
           class="mypage__twitter"
           target="_blank"
