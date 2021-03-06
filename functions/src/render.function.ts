@@ -62,24 +62,23 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 
 const server = async (req: any, res: any) => {
   res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
-  const userAgent = req.headers['user-agent'].toLowerCase();
-  const googleBot =
+  const userAgent: string = req.headers['user-agent'].toLowerCase();
+  const isBot: boolean =
     userAgent.includes('googlebot') ||
     userAgent.includes('developers.google.com')
       ? true
-      : false;
-  const isBot =
-    userAgent.includes('twitterbot') ||
-    userAgent.includes('facebookexternalhit') ||
-    userAgent.includes('yahoou') ||
-    userAgent.includes('bingbot') ||
-    userAgent.includes('baiduspider') ||
-    userAgent.includes('yandex') ||
-    userAgent.includes('yeti') ||
-    userAgent.includes('yodaobot') ||
-    userAgent.includes('gigabot') ||
-    userAgent.includes('ia_archiver');
-  if (googleBot || !isBot) {
+      : false ||
+        userAgent.includes('twitterbot') ||
+        userAgent.includes('facebookexternalhit') ||
+        userAgent.includes('yahoou') ||
+        userAgent.includes('bingbot') ||
+        userAgent.includes('baiduspider') ||
+        userAgent.includes('yandex') ||
+        userAgent.includes('yeti') ||
+        userAgent.includes('yodaobot') ||
+        userAgent.includes('gigabot') ||
+        userAgent.includes('ia_archiver');
+  if (!isBot) {
     return res.status(200).send(file);
   }
   if (isBot) {
@@ -98,7 +97,7 @@ const server = async (req: any, res: any) => {
         };
         return res.status(200).send(buildHtml(articleAndScreenName));
       }
-      return res.status(404).send(file);
+      return res.status(200).send(file);
     } catch (error) {
       functions.logger.error(error);
       return res.status(404).send(file);
