@@ -35,12 +35,19 @@ import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouterModule } from '@angular/router';
 
+// Top
+import { SharedArticleCardModule } from './shared-article-card/shared-article-card.module';
+import { TopComponent } from './top/top/top.component';
+import { WelcomeComponent } from './top/welcome/welcome.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
     SearchInputComponent,
+    TopComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -67,6 +74,8 @@ import { RouterModule } from '@angular/router';
       enabled: environment.production,
     }),
     RouterModule,
+    // Top
+    SharedArticleCardModule,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },

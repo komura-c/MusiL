@@ -17,24 +17,24 @@ export const sitemap = functions.https.onRequest(async (req: any, res: any) => {
       .get();
 
     const userIds: string[] = articleDocs.docs.map(
-      (article) => article.data().uid
+      (article) => article.data().uid,
     );
     const uniqueUserIds = Array.from(new Set(userIds));
     const userDocs = await Promise.all(
       uniqueUserIds.map(async (uid) => {
         return (await db.doc(`users/${uid}`).get()).data();
-      })
+      }),
     );
 
     articleDocs.docs.map((article) => {
       const userData = userDocs.find(
-        (user) => user?.uid === article.data().uid
+        (user) => user?.uid === article.data().uid,
       );
       if (userData) {
         lines.push(
           `<url><loc>${config.project.hosting_url}${userData.screenName}/a/${
             article.data().articleId
-          }</loc></url>`
+          }</loc></url>`,
         );
       }
       return;
