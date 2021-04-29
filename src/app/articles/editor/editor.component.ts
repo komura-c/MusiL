@@ -5,19 +5,19 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
 import { environment } from 'src/environments/environment';
 import FroalaEditor from 'froala-editor';
-import 'froala-editor/js/plugins/char_counter.min.js';
-import 'froala-editor/js/plugins/draggable.min.js';
-import 'froala-editor/js/plugins/emoticons.min.js';
-import 'froala-editor/js/plugins/image.min.js';
-import 'froala-editor/js/plugins/image_manager.min.js';
-import 'froala-editor/js/plugins/line_breaker.min.js';
-import 'froala-editor/js/plugins/link.min.js';
-import 'froala-editor/js/plugins/paragraph_format.min.js';
-import 'froala-editor/js/plugins/quote.min.js';
-import 'froala-editor/js/plugins/url.min.js';
-import 'froala-editor/js/plugins/video.min.js';
-import 'froala-editor/js/plugins/word_paste.min.js';
-import 'froala-editor/js/languages/ja.js';
+import 'froala-editor/js/plugins/char_counter.min';
+import 'froala-editor/js/plugins/draggable.min';
+import 'froala-editor/js/plugins/emoticons.min';
+import 'froala-editor/js/plugins/image.min';
+import 'froala-editor/js/plugins/image_manager.min';
+import 'froala-editor/js/plugins/line_breaker.min';
+import 'froala-editor/js/plugins/link.min';
+import 'froala-editor/js/plugins/paragraph_format.min';
+import 'froala-editor/js/plugins/quote.min';
+import 'froala-editor/js/plugins/url.min';
+import 'froala-editor/js/plugins/video.min';
+import 'froala-editor/js/plugins/word_paste.min';
+import 'froala-editor/js/languages/ja';
 
 @Component({
   selector: 'app-editor',
