@@ -18,7 +18,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
     .replace(/ {2,}/g, ' ')
     .replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-      ''
+      '',
     )
     .slice(0, 120);
   const ogURL =
@@ -35,27 +35,27 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
     .replace(/\<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
     .replace(
       /<meta name="description" content="[^>]*>/g,
-      '<meta name="description" content="' + description + '" />'
+      '<meta name="description" content="' + description + '" />',
     )
     .replace(
       /<meta property="og:title" content="[^>]*>/g,
-      '<meta property="og:title" content="' + title + ' | MusiL" />'
+      '<meta property="og:title" content="' + title + ' | MusiL" />',
     )
     .replace(
       /<meta property="og:description" content="[^>]*>/g,
-      '<meta property="og:description" content="' + description + '" />'
+      '<meta property="og:description" content="' + description + '" />',
     )
     .replace(
       /<meta property="og:type" content="[^>]*>/g,
-      '<meta property="og:type" content="article" />'
+      '<meta property="og:type" content="article" />',
     )
     .replace(
       /<meta property="og:url" content="[^>]*>/g,
-      '<meta property="og:url" content="' + ogURL + '" />'
+      '<meta property="og:url" content="' + ogURL + '" />',
     )
     .replace(
       /<meta property="og:image" content="[^>]*>/g,
-      '<meta property="og:image" content="' + ogImage + '" />'
+      '<meta property="og:image" content="' + ogImage + '" />',
     );
 };
 

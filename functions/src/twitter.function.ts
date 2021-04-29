@@ -44,7 +44,7 @@ async function tweetFromBot(): Promise<Twitter.ResponseData> {
 
 function createTweetText(
   articleData: DocumentData,
-  userData: DocumentData | undefined
+  userData: DocumentData | undefined,
 ): string {
   if (articleData && userData) {
     return (
@@ -65,7 +65,7 @@ function createTweetText(
 
 async function tweet(
   twitterClient: Twitter,
-  tweetText: string
+  tweetText: string,
 ): Promise<Twitter.ResponseData> {
   return await twitterClient
     .post('statuses/update', {
@@ -102,5 +102,5 @@ export const getTwitterProfile = functions
           });
       }
       return "Forbidden you don't have permission";
-    }
+    },
   );
