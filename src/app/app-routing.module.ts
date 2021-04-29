@@ -4,12 +4,13 @@ import { AuthGuard } from './guards/auth.guard';
 import { SearchGuard } from './guards/search.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { NotFoundComponent } from './shared-not-found/not-found/not-found.component';
+import { TopComponent } from './top/top/top.component';
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadChildren: () => import('./top/top.module').then((m) => m.TopModule),
+    component: TopComponent,
   },
   {
     path: 'articles',
@@ -81,6 +82,7 @@ const routes: Routes = [
       anchorScrolling: 'enabled',
       useHash: false,
       scrollOffset: [0, 70],
+      relativeLinkResolution: 'legacy',
     }),
   ],
   exports: [RouterModule],
