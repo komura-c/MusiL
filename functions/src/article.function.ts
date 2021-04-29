@@ -12,7 +12,7 @@ export const createPost = functions
     const data = snap.data();
     data.text = htmlToText(data.text).replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-      ''
+      '',
     );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
@@ -41,7 +41,7 @@ export const updatePost = functions
     const data = change.after.data();
     data.text = htmlToText(data.text).replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-      ''
+      '',
     );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
