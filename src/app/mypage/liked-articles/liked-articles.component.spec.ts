@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LikedArticlesComponent } from './liked-articles.component';
 
@@ -6,11 +6,13 @@ describe('LikedArticlesComponent', () => {
   let component: LikedArticlesComponent;
   let fixture: ComponentFixture<LikedArticlesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [LikedArticlesComponent],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [LikedArticlesComponent],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LikedArticlesComponent);
