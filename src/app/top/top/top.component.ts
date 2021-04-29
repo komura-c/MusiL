@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
@@ -12,7 +12,7 @@ import { SeoService } from 'src/app/services/seo.service';
   templateUrl: './top.component.html',
   styleUrls: ['./top.component.scss'],
 })
-export class TopComponent implements OnInit {
+export class TopComponent {
   user$: Observable<UserData> = this.authService.user$.pipe(
     tap(() => (this.isUserLoading = false))
   );
@@ -50,6 +50,4 @@ export class TopComponent implements OnInit {
     });
     this.seoService.createLinkTagForCanonicalURL();
   }
-
-  ngOnInit(): void {}
 }
