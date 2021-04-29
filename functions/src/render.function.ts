@@ -16,7 +16,6 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const description = htmlToText(articleAndScreenName.text)
     .replace(/\n/g, '')
     .replace(/ {2,}/g, ' ')
-    .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
     .replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
       ''
