@@ -3,10 +3,10 @@
   "scripts": {
     "lint": "eslint \"src/**/*\"",
     "build": "tsc",
-    "serve": "npm run build && firebase emulators:start --only functions",
+    "serve": "npm run lint && npm run build && firebase emulators:start --only functions",
     "shell": "npm run build && firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
+    "start": "npm run lint && npm run shell",
+    "deploy": "npm run lint && firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
@@ -26,7 +26,6 @@
     "twitter": "^1.7.1"
   },
   "devDependencies": {
-    "@angular-eslint/eslint-plugin": "^4.2.0",
     "@types/express-useragent": "^1.0.0",
     "@types/html-to-text": "^6.0.0",
     "@types/twitter": "^1.7.0",
