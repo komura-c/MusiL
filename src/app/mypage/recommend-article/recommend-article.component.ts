@@ -1,15 +1,15 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable } from 'rxjs';
-import { filter, map, take, tap } from 'rxjs/operators';
+import { map, take, tap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 
 @Component({
-  selector: 'app-related-article',
-  templateUrl: './related-article.component.html',
-  styleUrls: ['./related-article.component.scss'],
+  selector: 'app-recommend-article',
+  templateUrl: './recommend-article.component.html',
+  styleUrls: ['./recommend-article.component.scss'],
 })
-export class RelatedArticleComponent implements OnInit {
+export class RecommendArticleComponent implements OnInit {
   @Input() currentArticle: ArticleWithAuthor;
   articles$: Observable<ArticleWithAuthor[]>;
   isLoading: boolean;

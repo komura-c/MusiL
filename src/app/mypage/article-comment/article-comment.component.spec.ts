@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
@@ -13,23 +13,25 @@ describe('ArticleCommentComponent', () => {
   let component: ArticleCommentComponent;
   let fixture: ComponentFixture<ArticleCommentComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ArticleCommentComponent],
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        MatSnackBarModule,
-        MatDialogModule,
-      ],
-      providers: [
-        MatSnackBar,
-        ActivatedRoute,
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: CommentService, useValue: CommentServiceStub },
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ArticleCommentComponent],
+        imports: [
+          ReactiveFormsModule,
+          RouterTestingModule,
+          MatSnackBarModule,
+          MatDialogModule,
+        ],
+        providers: [
+          MatSnackBar,
+          ActivatedRoute,
+          { provide: AuthService, useValue: AuthServiceStub },
+          { provide: CommentService, useValue: CommentServiceStub },
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleCommentComponent);

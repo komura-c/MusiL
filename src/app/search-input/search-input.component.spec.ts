@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { RouterTestingModule } from '@angular/router/testing';
 import { UserServiceStub } from 'src/test/service.stub';
@@ -9,13 +9,15 @@ describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
   let fixture: ComponentFixture<SearchInputComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [SearchInputComponent],
-      imports: [RouterTestingModule, MatAutocompleteModule],
-      providers: [{ provide: UserService, useValue: UserServiceStub }],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [SearchInputComponent],
+        imports: [RouterTestingModule, MatAutocompleteModule],
+        providers: [{ provide: UserService, useValue: UserServiceStub }],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchInputComponent);

@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,28 +22,30 @@ describe('CreateComponent', () => {
   let component: CreateComponent;
   let fixture: ComponentFixture<CreateComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [CreateComponent],
-      imports: [
-        FormsModule,
-        ReactiveFormsModule,
-        RouterTestingModule,
-        MatFormFieldModule,
-        MatInputModule,
-      ],
-      providers: [
-        FormBuilder,
-        MatSnackBar,
-        Overlay,
-        { provide: AngularFirestore, useValue: FirestoreStub },
-        { provide: AngularFireAnalytics, useValue: FireAnalyticsStub },
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: ArticleService, useValue: ArticleServiceStub },
-        { provide: OgpService, useValue: OgpServiceStub },
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [CreateComponent],
+        imports: [
+          FormsModule,
+          ReactiveFormsModule,
+          RouterTestingModule,
+          MatFormFieldModule,
+          MatInputModule,
+        ],
+        providers: [
+          FormBuilder,
+          MatSnackBar,
+          Overlay,
+          { provide: AngularFirestore, useValue: FirestoreStub },
+          { provide: AngularFireAnalytics, useValue: FireAnalyticsStub },
+          { provide: AuthService, useValue: AuthServiceStub },
+          { provide: ArticleService, useValue: ArticleServiceStub },
+          { provide: OgpService, useValue: OgpServiceStub },
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateComponent);

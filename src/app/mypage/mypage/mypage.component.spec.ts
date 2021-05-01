@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthServiceStub, UserServiceStub } from 'src/test/service.stub';
 import { UserService } from 'src/app/services/user.service';
@@ -10,16 +10,18 @@ describe('MypageComponent', () => {
   let component: MypageComponent;
   let fixture: ComponentFixture<MypageComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MypageComponent, StringToLinkPipe],
-      imports: [RouterTestingModule],
-      providers: [
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: UserService, useValue: UserServiceStub },
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MypageComponent, StringToLinkPipe],
+        imports: [RouterTestingModule],
+        providers: [
+          { provide: AuthService, useValue: AuthServiceStub },
+          { provide: UserService, useValue: UserServiceStub },
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MypageComponent);

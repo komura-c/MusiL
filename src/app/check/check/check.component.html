@@ -2,7 +2,7 @@
 <h2>screenName</h2>
 <ng-container *ngIf="usersScreenNameIsNull$ | async as users">
   <div *ngFor="let user of users">
-    <p>{{ user.uid }}</p>
+    <p>{{ user | json }}</p>
   </div>
 </ng-container>
 
@@ -12,3 +12,37 @@
     <p>{{ article.articleId }}</p>
   </div>
 </ng-container>
+
+<h2>twitterProfile</h2>
+<form (ngSubmit)="getProfile(accessKeyControl.value, screenNameControl.value)">
+  <mat-form-field>
+    <mat-label>AccessKey</mat-label>
+    <input
+      type="text"
+      [formControl]="accessKeyControl"
+      matInput
+      autocomplete="off"
+      required
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>ScreenName</mat-label>
+    <input
+      type="text"
+      [formControl]="screenNameControl"
+      matInput
+      autocomplete="off"
+      required
+    />
+  </mat-form-field>
+  <button mat-stroked-button>GET</button>
+</form>
+<div *ngIf="profile">
+  <p>id: {{ profile?.id_str }}</p>
+  <p>userName: {{ profile?.name }}</p>
+  <p>
+    avatarURL: {{ profile?.profile_image_url_https?.replace('_normal', '') }}
+  </p>
+  <p>description: {{ profile?.description }}</p>
+  <p>{{ profile | json }}</p>
+</div>

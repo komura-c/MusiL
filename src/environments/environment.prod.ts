@@ -13,9 +13,8 @@ export const environment = {
     storageBucket: 'musil-prod.appspot.com',
     messagingSenderId: '302603033573',
     appId: '1:302603033573:web:8926fb154f3fc311a1ed0c',
-    measurementId: 'G-2XYYKELX26'
+    measurementId: 'G-2XYYKELX26',
   },
   key: 'sZH1rC3D7B5F6C4D4iF-7bkpvA2lqC-7G-7eB-16D4E3D2B2C3I2E2B10B2A3==',
   hostingURL: 'https://musil.place',
-  hostUid: 'ymWZht4eGUTZqAmhSNhFp25nac82',
 };

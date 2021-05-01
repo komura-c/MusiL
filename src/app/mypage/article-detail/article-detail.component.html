@@ -12,14 +12,8 @@
           (click)="clickedLike(article.articleId)"
           [class.left-actions__like--liked]="isLiked"
         >
-          <ng-container *ngIf="isLiked; else isNotLiked">
-            <mat-icon>favorite</mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-container>
-          <ng-template #isNotLiked>
-            <mat-icon>favorite_border</mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-template>
+          <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+          <span>{{ likeCount }}</span>
         </button>
         <a
           mat-icon-button
@@ -27,11 +21,11 @@
           aria-label="Twitterでシェア"
           matTooltip="Twitterでシェア"
           [href]="
-            'https://twitter.com/share?url=' +
+            'https://twitter.com/intent/tweet?url=' +
             projectURL +
             path +
             '&text=' +
-            article.title
+            (article.title | encodeUrl)
           "
           target="_blank"
           rel="nofollow noopener noreferrer"
@@ -139,11 +133,11 @@
               aria-label="Twitterでシェア"
               matTooltip="Twitterでシェア"
               [href]="
-                'https://twitter.com/share?url=' +
+                'https://twitter.com/intent/tweet?url=' +
                 projectURL +
                 path +
                 '&text=' +
-                article.title
+                (article.title | encodeUrl)
               "
               target="_blank"
               rel="nofollow noopener noreferrer"
@@ -193,7 +187,7 @@
               color="primary"
               [href]="
                 'https://twitter.com/intent/follow?screen_name=' +
-                article.author.screenName
+                (article.author.screenName | encodeUrl)
               "
               class="article-footer__twitter"
               target="_blank"
@@ -234,7 +228,7 @@
       </div>
     </ng-container>
   </div>
-  <app-related-article [currentArticle]="article"></app-related-article>
+  <app-recommend-article [currentArticle]="article"></app-recommend-article>
 </ng-container>
 
 <ng-template #notFoundArticle>

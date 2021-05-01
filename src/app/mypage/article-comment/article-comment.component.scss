@@ -1,20 +1,22 @@
 @import 'mixins';
+.article-comment {
+  background: #fff;
+  margin: 32px 0;
+  &__title {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin: 4px 4px 0 0;
+    }
+  }
+}
 
 .comment-card {
-  background: #fff;
-  border-radius: 8px;
   margin: 32px 0;
-  &__form {
-    width: 100%;
-    margin: 32px 0;
-  }
   &__head {
     display: flex;
     align-items: center;
     margin-bottom: 16px;
-    mat-form-field {
-      flex: 1;
-    }
   }
   &__avatar {
     width: 50px;
@@ -23,6 +25,26 @@
     align-self: flex-start;
     margin: 16px 16px 0 0;
   }
+  &__spacer {
+    flex: 1;
+  }
+  &__comment {
+    white-space: pre-wrap;
+  }
+}
+
+.comment-form {
+  width: 100%;
+  margin-top: 32px;
+  &__head {
+    display: flex;
+    mat-form-field {
+      flex: 1;
+    }
+  }
+  &__hint {
+    margin-top: 14px;
+  }
   &__action {
     width: 100%;
     display: flex;
@@ -30,21 +52,12 @@
     flex-wrap: wrap;
     justify-content: flex-end;
   }
-  &__spacer {
-    flex: 1;
-  }
-  &__comment {
-    white-space: pre-wrap;
-  }
-  &__hint {
-    margin-top: 14px;
-  }
+}
+
+.not-login {
+  text-align: center;
 }
 
 .login-button {
   background-color: $color-twitter;
-}
-
-.no-article {
-  text-align: center;
 }

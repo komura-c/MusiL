@@ -1,14 +1,14 @@
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
+import { UserData } from './user';
 
-export interface Article {
+export interface Article extends Pick<UserData, 'uid'> {
   articleId: string;
-  uid: string;
   thumbnailURL: string;
   title: string;
   tags: string[];
   text: string;
   isPublic: boolean;
   likeCount: number;
-  createdAt: firestore.Timestamp;
-  updatedAt: firestore.Timestamp;
+  createdAt: firebase.firestore.Timestamp;
+  updatedAt: firebase.firestore.Timestamp;
 }

@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { ArticleComment } from '@interfaces/article-comment';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { UserData } from '@interfaces/user';
-import { firestore } from 'firebase/app';
+import firebase from 'firebase/app';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';
@@ -21,7 +21,7 @@ export class CommentService {
       commentId,
       uid,
       text,
-      createdAt: firestore.Timestamp.now(),
+      createdAt: firebase.firestore.Timestamp.now(),
     };
     return this.db
       .doc<ArticleComment>(`articles/${articleId}/comments/${commentId}`)
