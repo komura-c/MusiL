@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { TagFormComponent } from './tag-form.component';
 
 describe('TagFormComponent', () => {
@@ -10,6 +10,7 @@ describe('TagFormComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [TagFormComponent],
+        imports: [MatAutocompleteModule],
       }).compileComponents();
     })
   );

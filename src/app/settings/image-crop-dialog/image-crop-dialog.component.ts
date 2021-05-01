@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './image-crop-dialog.component.html',
   styleUrls: ['./image-crop-dialog.component.scss'],
 })
-export class ImageCropDialogComponent implements OnInit {
+export class ImageCropDialogComponent {
   imageChangedEvent = '';
   croppedImage = '';
   imageSelecter: any;
@@ -28,8 +28,6 @@ export class ImageCropDialogComponent implements OnInit {
     this.imageChangedEvent = this.data.event;
     this.imageSelecter = this.data.imageSelecter;
   }
-
-  ngOnInit(): void {}
 
   imageCropped(event: ImageCroppedEvent) {
     this.croppedImage = event.base64;
