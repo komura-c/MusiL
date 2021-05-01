@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
@@ -9,16 +9,18 @@ describe('MyArticlesComponent', () => {
   let component: MyArticlesComponent;
   let fixture: ComponentFixture<MyArticlesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [MyArticlesComponent],
-      imports: [RouterTestingModule],
-      providers: [
-        { provide: UserService, useValue: UserServiceStub },
-        { provide: ArticleService, useValue: ArticleServiceStub },
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [MyArticlesComponent],
+        imports: [RouterTestingModule],
+        providers: [
+          { provide: UserService, useValue: UserServiceStub },
+          { provide: ArticleService, useValue: ArticleServiceStub },
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MyArticlesComponent);

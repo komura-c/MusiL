@@ -34,7 +34,7 @@ export class Algolia {
     index: SearchIndex,
     data: any,
     isKey: string,
-    largeConcentKey: string
+    largeConcentKey: string,
   ) {
     const reg = new RegExp(`[\\s\\S]{1,${this.maxContentLength}}`, 'gm');
     const records = data[largeConcentKey]
@@ -83,7 +83,7 @@ export class Algolia {
         index,
         item,
         idKey,
-        param.largeConcentKey
+        param.largeConcentKey,
       );
     } else {
       item.objectID = item[idKey];

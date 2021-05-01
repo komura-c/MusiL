@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
   MatDialog,
   MAT_DIALOG_SCROLL_STRATEGY,
@@ -20,21 +20,23 @@ describe('ArticleDetailComponent', () => {
   let component: ArticleDetailComponent;
   let fixture: ComponentFixture<ArticleDetailComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ArticleDetailComponent],
-      imports: [RouterTestingModule],
-      providers: [
-        MatSnackBar,
-        Overlay,
-        MatDialog,
-        MAT_DIALOG_SCROLL_STRATEGY,
-        { provide: AuthService, useValue: AuthServiceStub },
-        { provide: ArticleService, useValue: ArticleServiceStub },
-        { provide: LikeService, useValue: LikeServiceStub },
-      ],
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ArticleDetailComponent],
+        imports: [RouterTestingModule],
+        providers: [
+          MatSnackBar,
+          Overlay,
+          MatDialog,
+          MAT_DIALOG_SCROLL_STRATEGY,
+          { provide: AuthService, useValue: AuthServiceStub },
+          { provide: ArticleService, useValue: ArticleServiceStub },
+          { provide: LikeService, useValue: LikeServiceStub },
+        ],
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleDetailComponent);

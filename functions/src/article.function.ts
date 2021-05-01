@@ -1,6 +1,6 @@
-import { Algolia } from './utils/algolia.function';
+import { Algolia } from './utils/algolia.util';
 import * as functions from 'firebase-functions';
-const htmlToText = require('html-to-text');
+import { htmlToText } from 'html-to-text';
 
 const config = functions.config();
 const algolia = new Algolia();
@@ -10,8 +10,10 @@ export const createPost = functions
   .firestore.document('articles/{id}')
   .onCreate(async (snap) => {
     const data = snap.data();
-    data.text = await htmlToText.fromString(data.text ? data.text : '')
-      .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
+    data.text = htmlToText(data.text).replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      '',
+    );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',
@@ -23,7 +25,7 @@ export const createPost = functions
 export const deletePost = functions
   .region('asia-northeast1')
   .firestore.document('articles/{id}')
-  .onDelete((snap) => {
+  .onDelete(async (snap) => {
     const data = snap.data();
     if (data) {
       return algolia.removeRecord(config.algolia.index_name, data.articleId);
@@ -37,8 +39,10 @@ export const updatePost = functions
   .firestore.document('articles/{id}')
   .onUpdate(async (change) => {
     const data = change.after.data();
-    data.text = await htmlToText.fromString(data.text ? data.text : '')
-      .replace(/(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g, '');
+    data.text = htmlToText(data.text).replace(
+      /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
+      '',
+    );
     return algolia.saveRecord({
       indexName: config.algolia.index_name,
       largeConcentKey: 'text',

@@ -10,8 +10,7 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, take, tap } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -29,7 +28,13 @@ export class AdminGuard implements CanActivate, CanLoad {
     | boolean
     | UrlTree {
     return this.authService.afUser$.pipe(
-      map((user) => !!(user?.uid === environment.hostUid)),
+      switchMap(async (user) => {
+        if (user) {
+          const idTokenResult = await user.getIdTokenResult();
+          return idTokenResult.claims.admin;
+        }
+        return false;
+      }),
       tap((isAdmin) => {
         if (!isAdmin) {
           this.router.navigateByUrl('/');
@@ -42,7 +47,13 @@ export class AdminGuard implements CanActivate, CanLoad {
     segments: UrlSegment[]
   ): Observable<boolean> | Promise<boolean> | boolean {
     return this.authService.afUser$.pipe(
-      map((user) => !!(user?.uid === environment.hostUid)),
+      switchMap(async (user) => {
+        if (user) {
+          const idTokenResult = await user.getIdTokenResult();
+          return idTokenResult.claims.admin;
+        }
+        return false;
+      }),
       take(1),
       tap((isAdmin) => {
         if (!isAdmin) {
