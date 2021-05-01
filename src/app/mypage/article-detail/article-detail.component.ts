@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, OnInit, HostListener, OnDestroy, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -8,7 +8,7 @@ import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author'
 import { LoadingService } from 'src/app/services/loading.service';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -89,15 +89,19 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     private scrollService: ScrollService,
     public authService: AuthService,
     private dialog: MatDialog,
-    private viewCountService: ViewCountService
+    private viewCountService: ViewCountService,
+    @Inject(DOCUMENT) private document: Document
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.document.addEventListener("scroll", this.getTableOfContents);
+  }
 
   ngOnDestroy(): void {
+    this.document.removeEventListener("scroll", this.getTableOfContents);
     this.scrollService.saveScrollPosition(this.articleId);
   }
 
@@ -120,8 +124,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  @HostListener('window:scroll', ['$event'])
-  getTableOfContents() {
+  private getTableOfContents = function () {
     if (this.headingPositions.length) {
       const buffer = 20;
       const position = window.pageYOffset + this.headerHeight + buffer;
@@ -131,9 +134,9 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
         }
       });
     }
-  }
+  }.bind(this);
 
-  getHeading() {
+  private getHeading() {
     this.headingElements = new Array();
     setTimeout(() => {
       const headingTagElements = document.querySelectorAll(

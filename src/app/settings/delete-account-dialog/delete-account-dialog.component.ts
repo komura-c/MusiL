@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -9,15 +9,13 @@ import { Router } from '@angular/router';
   templateUrl: './delete-account-dialog.component.html',
   styleUrls: ['./delete-account-dialog.component.scss'],
 })
-export class DeleteAccountDialogComponent implements OnInit {
+export class DeleteAccountDialogComponent {
   constructor(
     private snackBar: MatSnackBar,
     private userService: UserService,
     private router: Router,
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>
-  ) {}
-
-  ngOnInit(): void {}
+  ) { }
 
   deleteAccount() {
     this.dialogRef.close();
