@@ -1,5 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { RouterTestingModule } from '@angular/router/testing';
+import { UserService } from 'src/app/services/user.service';
+import { UserServiceStub } from 'src/test/service.stub';
 import { SearchResultComponent } from './search-result.component';
 
 describe('SearchResultComponent', () => {
@@ -10,6 +12,8 @@ describe('SearchResultComponent', () => {
     waitForAsync(() => {
       TestBed.configureTestingModule({
         declarations: [SearchResultComponent],
+        imports: [RouterTestingModule],
+        providers: [{ provide: UserService, useValue: UserServiceStub }],
       }).compileComponents();
     })
   );
