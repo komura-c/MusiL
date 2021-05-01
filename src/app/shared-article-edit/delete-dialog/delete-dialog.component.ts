@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -10,16 +10,14 @@ import { Router } from '@angular/router';
   templateUrl: './delete-dialog.component.html',
   styleUrls: ['./delete-dialog.component.scss'],
 })
-export class DeleteDialogComponent implements OnInit {
+export class DeleteDialogComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: Article,
     private articleService: ArticleService,
     private snackBar: MatSnackBar,
     private dialogRef: MatDialogRef<DeleteDialogComponent>,
     private router: Router
-  ) {}
-
-  ngOnInit(): void {}
+  ) { }
 
   deleteArticle() {
     this.dialogRef.close();

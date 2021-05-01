@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { SeoService } from 'src/app/services/seo.service';
   templateUrl: './terms.component.html',
   styleUrls: ['./terms.component.scss'],
 })
-export class TermsComponent implements OnInit {
+export class TermsComponent {
   constructor(private seoService: SeoService) {
     this.seoService.updateTitleAndMeta({
       title: '利用規約 | MusiL',
@@ -14,6 +14,4 @@ export class TermsComponent implements OnInit {
     });
     this.seoService.createLinkTagForCanonicalURL();
   }
-
-  ngOnInit(): void {}
 }

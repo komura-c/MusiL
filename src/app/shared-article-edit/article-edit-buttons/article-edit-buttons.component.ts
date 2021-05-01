@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
@@ -12,7 +12,7 @@ import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component'
   templateUrl: './article-edit-buttons.component.html',
   styleUrls: ['./article-edit-buttons.component.scss'],
 })
-export class ArticleEditButtonsComponent implements OnInit {
+export class ArticleEditButtonsComponent {
   @Input() article: Article | ArticleWithAuthor;
   @Input() screenName: string;
   projectURL = environment.hostingURL;
@@ -21,9 +21,7 @@ export class ArticleEditButtonsComponent implements OnInit {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private clipboard: Clipboard
-  ) {}
-
-  ngOnInit(): void {}
+  ) { }
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {
