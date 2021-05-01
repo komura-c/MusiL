@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -22,7 +22,7 @@ import { ViewCountService } from 'src/app/services/view-count.service';
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.scss'],
 })
-export class ArticleDetailComponent implements OnInit, OnDestroy {
+export class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(
     map((params) => {
       return params.get('id');
@@ -89,7 +89,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     private scrollService: ScrollService,
     public authService: AuthService,
     private dialog: MatDialog,
-    private viewCountService: ViewCountService,
+    private viewCountService: ViewCountService
   ) {
     this.loadingService.toggleLoading(true);
     this.isLoading = true;
@@ -118,7 +118,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
       });
   }
 
-  @HostListener("window:scroll", ["$event"])
+  @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
     if (this.headingPositions.length) {
       const buffer = 20;
