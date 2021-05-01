@@ -3,7 +3,6 @@ import { Article } from '@interfaces/article';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UserData } from '@interfaces/user';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +26,7 @@ export class OgpService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage
-  ) {}
+  ) { }
 
   async uploadOgp(articleId: string, ogpImage: string): Promise<string> {
     const result = await this.storage
@@ -36,7 +35,7 @@ export class OgpService {
     return await result.ref.getDownloadURL();
   }
 
-  async deleteOgp(articleId: string): Promise<Observable<any>> {
+  async deleteOgp(articleId: string): Promise<any> {
     return this.storage.ref(`articles/${articleId}.png`).delete();
   }
 
@@ -81,7 +80,7 @@ export class OgpService {
     let userNamelineY =
       this.userNameHeight / 2 -
       ((this.userNameSize + this.userNameLineMargin) / 2) *
-        (userNameLines.length - 1);
+      (userNameLines.length - 1);
     userNameLines.forEach((line) => {
       const textWidth = context.measureText(line).width;
       context.fillText(line, (this.canvasWidth - textWidth) / 2, userNamelineY);
