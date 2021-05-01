@@ -25,6 +25,19 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // iOSのAutoZoom対策
+    const ua = navigator.userAgent.toLowerCase();
+    const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
+    if (isiOS) {
+      const viewport = document.querySelector('meta[name="viewport"]');
+      if (viewport) {
+        const viewportContent = viewport.getAttribute('content');
+        viewport.setAttribute(
+          'content',
+          viewportContent + ', user-scalable=no'
+        );
+      }
+    }
     if (!environment.production) {
       this.meta.addTag({
         name: 'robots',
@@ -32,7 +45,7 @@ export class AppComponent implements OnInit {
       });
       this.rootDocument
         .querySelector('[rel=icon]')
-        .setAttribute('href', 'favicon-dev.svg');
+        ?.setAttribute('href', 'favicon-dev.svg');
     }
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {

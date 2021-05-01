@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
@@ -10,7 +10,7 @@ import { FormControl } from '@angular/forms';
   templateUrl: './check.component.html',
   styleUrls: ['./check.component.scss'],
 })
-export class CheckComponent implements OnInit {
+export class CheckComponent {
   usersScreenNameIsNull$: Observable<
     UserData[]
   > = this.checkService.getUserScreenNameIsNull();
@@ -22,9 +22,7 @@ export class CheckComponent implements OnInit {
   screenNameControl: FormControl = new FormControl();
   profile: any;
 
-  constructor(private checkService: CheckService) {}
-
-  ngOnInit(): void {}
+  constructor(private checkService: CheckService) { }
 
   async getProfile(accessKey: string, screenName: string): Promise<string> {
     if (

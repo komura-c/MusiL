@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { SeoService } from 'src/app/services/seo.service';
   templateUrl: './privacy.component.html',
   styleUrls: ['./privacy.component.scss'],
 })
-export class PrivacyComponent implements OnInit {
+export class PrivacyComponent {
   constructor(private seoService: SeoService) {
     this.seoService.updateTitleAndMeta({
       title: 'プライバシーポリシー | MusiL',
@@ -14,6 +14,4 @@ export class PrivacyComponent implements OnInit {
     });
     this.seoService.createLinkTagForCanonicalURL();
   }
-
-  ngOnInit(): void {}
 }
