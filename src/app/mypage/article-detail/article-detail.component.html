@@ -1,4 +1,4 @@
-<ng-container *ngIf="article$ | async as article;">
+<ng-container *ngIf="article$ | async as article; else articleLoading">
   <div class="article" [class.fade]="article">
     <div class="article__left-box">
       <div class="left-actions">
@@ -141,3 +141,17 @@
   </div>
   <app-recommend-article [currentArticle]="article"></app-recommend-article>
 </ng-container>
+<ng-template #articleLoading>
+  <div class="article-skelton">
+    <div class="article-skelton__main-box">
+      <div class="article-skelton__author">
+        <div class="article-skelton__user-icon"></div>
+        <div class="article-skelton__user-name"></div>
+      </div>
+      <div class="article-skelton__title"></div>
+      <div class="article-skelton__content">
+        <div class="article-skelton__content-row" *ngFor="let content of 'skelton'.repeat(4).split('s')"></div>
+      </div>
+    </div>
+  </div>
+</ng-template>

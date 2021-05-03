@@ -21,8 +21,6 @@ export class TopComponent {
   > = of([]);
   isPopularLoaded: boolean;
 
-  skeltonArticles: Array<number> = Array(20).fill(0);
-
   constructor(
     private articleService: ArticleService,
     private seoService: SeoService,
