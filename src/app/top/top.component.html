@@ -13,7 +13,7 @@
           </div>
         </ng-container>
         <ng-template #latestLoading>
-          <div class="top-main__card" *ngFor="let article of skeltonArticles">
+          <div class="top-main__card" *ngFor="let article of 'skelton'.repeat(21).split('s')">
             <app-article-card-skelton></app-article-card-skelton>
           </div>
         </ng-template>
@@ -31,7 +31,7 @@
           </div>
         </ng-container>
         <ng-template #popularLoading>
-          <div class="top-main__card" *ngFor="let article of skeltonArticles">
+          <div class="top-main__card" *ngFor="let article of 'skelton'.repeat(21).split('s')">
             <app-article-card-skelton></app-article-card-skelton>
           </div>
         </ng-template>
