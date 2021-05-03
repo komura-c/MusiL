@@ -37,8 +37,10 @@ import { RouterModule } from '@angular/router';
 
 // Top
 import { SharedArticleCardModule } from './shared-article-card/shared-article-card.module';
-import { TopComponent } from './top/top/top.component';
-import { WelcomeComponent } from './top/welcome/welcome.component';
+import { TopComponent } from './top/top.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +50,7 @@ import { WelcomeComponent } from './top/welcome/welcome.component';
     SearchInputComponent,
     TopComponent,
     WelcomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -87,4 +90,4 @@ import { WelcomeComponent } from './top/welcome/welcome.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
