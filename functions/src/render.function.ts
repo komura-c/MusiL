@@ -1,11 +1,11 @@
 import * as functions from 'firebase-functions';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
-import * as admin from 'firebase-admin';
+import { firestore } from 'firebase-admin';
 import { htmlToText } from 'html-to-text';
 
 const config = functions.config();
-const db = admin.firestore();
+const db = firestore();
 
 const file = readFileSync(resolve(__dirname, 'index.html'), {
   encoding: 'utf-8',
@@ -60,23 +60,24 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
 };
 
 const server = async (req: any, res: any) => {
-  res.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+  res.set('Cache-Control', 'public, max-age=259200, s-maxage=172800');
+
   const userAgent: string = req.headers['user-agent'].toLowerCase();
   const isBot: boolean =
     userAgent.includes('googlebot') ||
-    userAgent.includes('developers.google.com')
+      userAgent.includes('developers.google.com')
       ? true
       : false ||
-        userAgent.includes('twitterbot') ||
-        userAgent.includes('facebookexternalhit') ||
-        userAgent.includes('yahoou') ||
-        userAgent.includes('bingbot') ||
-        userAgent.includes('baiduspider') ||
-        userAgent.includes('yandex') ||
-        userAgent.includes('yeti') ||
-        userAgent.includes('yodaobot') ||
-        userAgent.includes('gigabot') ||
-        userAgent.includes('ia_archiver');
+      userAgent.includes('twitterbot') ||
+      userAgent.includes('facebookexternalhit') ||
+      userAgent.includes('yahoou') ||
+      userAgent.includes('bingbot') ||
+      userAgent.includes('baiduspider') ||
+      userAgent.includes('yandex') ||
+      userAgent.includes('yeti') ||
+      userAgent.includes('yodaobot') ||
+      userAgent.includes('gigabot') ||
+      userAgent.includes('ia_archiver');
   if (!isBot) {
     return res.status(200).send(file);
   }
@@ -105,4 +106,10 @@ const server = async (req: any, res: any) => {
   return res.status(200).send(file);
 };
 
-export const render = functions.https.onRequest(server);
+export const render = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB',
+  })
+  .region('us-central1')
+  .https.onRequest(server);
