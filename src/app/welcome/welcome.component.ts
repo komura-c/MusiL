@@ -1,8 +1,9 @@
-import { Component, isDevMode } from '@angular/core';
+import { Component } from '@angular/core';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-welcome',
@@ -14,7 +15,7 @@ export class WelcomeComponent {
     tap(() => { this.isUserLoading = false })
   );
   isUserLoading: boolean;
-  helpURL = isDevMode ? "AYgq1MiWksA2LIxP91kG" : "2a3zmsUlRyIGzV4wnkil";
+  helpURL = environment.production ? "2a3zmsUlRyIGzV4wnkil" : "AYgq1MiWksA2LIxP91kG";
 
   constructor(
     public authService: AuthService) {
