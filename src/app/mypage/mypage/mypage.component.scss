@@ -87,3 +87,53 @@
 .mat-tab-label-active {
   opacity: 1;
 }
+
+.skelton-mypage {
+  width: 610px;
+  height: 240px;
+  margin: 28px auto 16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  &__user-profile {
+    margin-top: 16px;
+    width: 100%;
+    max-width: 450px;
+  }
+  &__user-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 16px 16px 0 16px;
+    @include skelton-loading;
+    @include sp {
+      width: 80px;
+      height: 80px;
+      margin: 8px 8px 0 8px;
+    }
+  }
+  &__user-name {
+    width: 100%;
+    height: 20px;
+    margin: 0 0 8px;
+    @include skelton-loading;
+  }
+  &__user-screen-name {
+    width: 100%;
+    height: 16px;
+    margin: 0 0 8px;
+    @include skelton-loading;
+  }
+  &__user-description {
+    width: 100%;
+    height: 60px;
+    margin: 0 0 16px;
+    @include skelton-loading;
+  }
+  &__twitter {
+    width: 30%;
+    height: 36px;
+    margin: 0 0 16px;
+    @include skelton-loading;
+  }
+}
