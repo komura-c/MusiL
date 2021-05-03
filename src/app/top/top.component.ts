@@ -19,7 +19,7 @@ export class TopComponent {
   popularArticles$: Observable<
     ArticleWithAuthor[]
   > = of([]);
-  isPopularLoad: boolean = false;
+  isPopularLoaded: boolean;
 
   skeltonArticles: Array<number> = Array(20).fill(0);
 
@@ -28,6 +28,7 @@ export class TopComponent {
     private seoService: SeoService,
     public authService: AuthService
   ) {
+    this.isPopularLoaded = false;
     this.seoService.updateTitleAndMeta({
       title: 'MusiL | DTMや作曲の知識記録プラットフォーム',
       description:
@@ -39,10 +40,10 @@ export class TopComponent {
 
   @HostListener('window:scroll', ['$event'])
   getPopularArticles() {
-    if (this.isPopularLoad) {
+    if (this.isPopularLoaded) {
       return;
     }
     this.popularArticles$ = this.articleService.getPopularArticles().pipe(take(1));
-    this.isPopularLoad = true;
+    this.isPopularLoaded = true;
   }
 }
