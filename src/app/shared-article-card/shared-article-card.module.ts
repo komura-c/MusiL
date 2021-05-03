@@ -5,15 +5,16 @@ import { SharedArticleCardRoutingModule } from './shared-article-card-routing.mo
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ArticleCardComponent } from './article-card/article-card.component';
+import { ArticleCardSkeltonComponent } from './article-card-skelton/article-card-skelton.component';
 
 @NgModule({
-  declarations: [ArticleCardComponent],
+  declarations: [ArticleCardComponent, ArticleCardSkeltonComponent],
   imports: [
     CommonModule,
     SharedArticleCardRoutingModule,
     MatButtonModule,
     MatIconModule,
   ],
-  exports: [ArticleCardComponent],
+  exports: [ArticleCardComponent, ArticleCardSkeltonComponent],
 })
-export class SharedArticleCardModule {}
+export class SharedArticleCardModule { }
