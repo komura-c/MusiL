@@ -2,7 +2,7 @@
 
 .welcome {
   position: relative;
-  height: 400px;
+  height: 320px;
   margin: -16px -16px 0;
   &__bg {
     background: center/cover no-repeat;
@@ -42,6 +42,7 @@
   &__title {
     font-size: 32px;
     letter-spacing: 2px;
+    margin: 16px 0;
     @include sp {
       font-size: 28px;
     }
@@ -49,16 +50,27 @@
   &__sub-title {
     font-size: 18px;
     letter-spacing: 1.8px;
+    margin: 12px 0;
     @include sp {
       font-size: 16px;
     }
   }
+  &__user-loading {
+    height: 78px;
+  }
+  &__logged-in {
+    margin: 26px 0;
+    span {
+      margin-left: 4px;
+    }
+  }
   &__login {
-    margin: 20px 0;
+    margin: 12px 0;
   }
   &__notice {
     font-size: 12px;
     letter-spacing: 1.6px;
+    margin-top: 12px;
   }
 }
 
