@@ -1,11 +1,10 @@
 import { Component, HostListener, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { LoadingService } from 'src/app/services/loading.service';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Location } from '@angular/common';
@@ -46,6 +45,10 @@ export class ArticleDetailComponent implements OnDestroy {
         .pipe(take(1));
     }),
     tap((article: ArticleWithAuthor) => {
+      if (!article) {
+        this.router.navigateByUrl("/");
+        return;
+      }
       if (article) {
         this.initLikeStatus(article);
         this.seoService.updateTitleAndMeta({
@@ -58,8 +61,6 @@ export class ArticleDetailComponent implements OnDestroy {
     }),
     tap(() => {
       this.getHeading();
-      this.isLoading = false;
-      this.loadingService.toggleLoading(false);
       this.scrollService.restoreScrollPosition(this.articleId);
     })
   );
@@ -69,18 +70,17 @@ export class ArticleDetailComponent implements OnDestroy {
   headingElements: Element[] = [];
   headerHeight = 70;
 
-  isLoading: boolean;
-
   likeCount: number;
   isLiked: boolean;
 
   projectURL = environment.hostingURL;
   path: string = this.location.path();
 
+  isTocLoaded: boolean;
+
   constructor(
     private route: ActivatedRoute,
     private articleService: ArticleService,
-    private loadingService: LoadingService,
     private likeService: LikeService,
     private snackBar: MatSnackBar,
     private location: Location,
@@ -89,10 +89,10 @@ export class ArticleDetailComponent implements OnDestroy {
     private scrollService: ScrollService,
     public authService: AuthService,
     private dialog: MatDialog,
-    private viewCountService: ViewCountService
+    private viewCountService: ViewCountService,
+    private router: Router
   ) {
-    this.loadingService.toggleLoading(true);
-    this.isLoading = true;
+    this.isTocLoaded = false;
   }
 
   ngOnDestroy(): void {
@@ -120,6 +120,9 @@ export class ArticleDetailComponent implements OnDestroy {
 
   @HostListener('window:scroll', ['$event'])
   getTableOfContents() {
+    if (this.isTocLoaded) {
+      return;
+    }
     if (this.headingPositions.length) {
       const buffer = 20;
       const position = window.pageYOffset + this.headerHeight + buffer;
@@ -128,7 +131,9 @@ export class ArticleDetailComponent implements OnDestroy {
           this.activeHeadingIndex = index;
         }
       });
+      this.isTocLoaded = true;
     }
+    return;
   }
 
   private getHeading() {

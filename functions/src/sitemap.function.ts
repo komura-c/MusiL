@@ -1,10 +1,13 @@
 import * as functions from 'firebase-functions';
-import * as admin from 'firebase-admin';
+import { firestore } from 'firebase-admin';
 
 const config = functions.config();
-const db = admin.firestore();
+const db = firestore();
 
-export const sitemap = functions.https.onRequest(async (req: any, res: any) => {
+const server = async (req: any, res: any) => {
+  res.set('Cache-Control', 'public, max-age=259200, s-maxage=172800');
+  res.set('Content-Type', 'text/xml');
+
   try {
     const lines = [];
     lines.push(`<?xml version="1.0" encoding="UTF-8"?>`);
@@ -32,21 +35,25 @@ export const sitemap = functions.https.onRequest(async (req: any, res: any) => {
       );
       if (userData) {
         lines.push(
-          `<url><loc>${config.project.hosting_url}${userData.screenName}/a/${
-            article.data().articleId
+          `<url><loc>${config.project.hosting_url}${userData.screenName}/a/${article.data().articleId
           }</loc></url>`,
         );
       }
       return;
     });
-
     lines.push(`</urlset>`);
 
-    res.set('Cache-Control', 'public, max-age=7200, s-maxage=600');
-    res.set('Content-Type', 'text/xml');
     res.send(lines.join('\n'));
   } catch (error) {
     functions.logger.error(`Error occuered in sitemap: ${error}`, error);
     res.redirect('/sitemap.xml');
   }
-});
+};
+
+export const sitemap = functions
+  .runWith({
+    timeoutSeconds: 540,
+    memory: '2GB',
+  })
+  .region('us-central1')
+  .https.onRequest(server);

@@ -17,7 +17,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { StringToLinkPipe } from '../pipes/string-to-link.pipe';
 import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
 import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
-import { SharedNotFoundModule } from '../shared-not-found/shared-not-found.module';
 import { ArticleCommentComponent } from './article-comment/article-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -46,7 +45,6 @@ import { EncodeUrlPipe } from '../pipes/encode-url.pipe';
     MatIconModule,
     SharedArticleCardModule,
     SharedArticleEditModule,
-    SharedNotFoundModule,
     MatTabsModule,
     FroalaViewModule,
     MatChipsModule,
@@ -60,4 +58,4 @@ import { EncodeUrlPipe } from '../pipes/encode-url.pipe';
     SharedLoginDialogModule,
   ],
 })
-export class MypageModule {}
+export class MypageModule { }
