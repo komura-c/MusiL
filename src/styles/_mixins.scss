@@ -16,3 +16,29 @@ $tab: 760px;
     @content;
   }
 }
+
+@mixin skelton-loading {
+  position: relative;
+  overflow: hidden;
+  background: #d9d9d9;
+  &::before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(#fff, 0.5), transparent);
+    position: absolute;
+    top: 0;
+    left: 0;
+    animation: skeleton-animation 1.2s linear infinite;
+  }
+}
+
+@keyframes skeleton-animation {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

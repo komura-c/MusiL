@@ -1,0 +1,36 @@
+<div class="welcome">
+  <div class="welcome__bg" [style.background-image]="'url(/assets/images/hero-image.jpg)'"></div>
+  <div class="welcome__wrapper">
+    <div class="welcome__main">
+      <h1 class="welcome__title">
+        音楽の学びを<span class="new-line">記録しよう</span>
+      </h1>
+      <h2 class="welcome__sub-title">
+        MusiLは、DTMや作曲の知識を記録・共有できるサービスです。
+      </h2>
+      <ng-container *ngIf="user$ | async; else noLogin">
+        <div class="welcome__logged-in">
+          <button [routerLink]="['/MusiL_DTM', 'a', helpURL]" mat-flat-button color="primary">
+            <mat-icon>help</mat-icon>
+            <span>使い方を見る</span>
+          </button>
+        </div>
+      </ng-container>
+      <ng-template #noLogin>
+        <div class="welcome__user-loading" *ngIf="isUserLoading"></div>
+        <div class="welcome__login" *ngIf="!isUserLoading">
+          <button [disabled]="authService.loginProcessing" (click)="login()" mat-flat-button color="primary"
+            class="login-button">
+            <mat-icon><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ" /></mat-icon>
+            <span>{{
+              authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
+              }}</span>
+          </button>
+          <p class="welcome__notice">
+            <a routerLink="/terms" class="terms-link">利用規約</a>が適用されます。<span class="new-line">許可なくツイート等は行いません。</span>
+          </p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
