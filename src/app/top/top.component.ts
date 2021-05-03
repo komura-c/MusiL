@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
-import { tap, take } from 'rxjs/operators';
+import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserData } from '@interfaces/user';
 import { SeoService } from 'src/app/services/seo.service';
 
 @Component({
@@ -13,35 +12,21 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent {
-  user$: Observable<UserData> = this.authService.user$.pipe(
-    tap(() => (this.isUserLoading = false))
-  );
-  isUserLoading: boolean;
+  latestArticles$: Observable<
+    ArticleWithAuthor[]
+  > = this.articleService.getLatestArticles().pipe(take(1));
 
   popularArticles$: Observable<
     ArticleWithAuthor[]
-  > = this.articleService.getPopularArticles().pipe(
-    take(1),
-    tap(() => (this.isPopularLoading = false))
-  );
-  isPopularLoading: boolean;
-
-  latestArticles$: Observable<
-    ArticleWithAuthor[]
-  > = this.articleService.getLatestArticles().pipe(
-    take(1),
-    tap(() => (this.isLatestLoading = false))
-  );
-  isLatestLoading: boolean;
+  > = of([]);
+  isPopularLoaded: boolean;
 
   constructor(
     private articleService: ArticleService,
     private seoService: SeoService,
     public authService: AuthService
   ) {
-    this.isUserLoading = true;
-    this.isPopularLoading = true;
-    this.isLatestLoading = true;
+    this.isPopularLoaded = false;
     this.seoService.updateTitleAndMeta({
       title: 'MusiL | DTMや作曲の知識記録プラットフォーム',
       description:
@@ -49,5 +34,14 @@ export class TopComponent {
       ogType: 'website',
     });
     this.seoService.createLinkTagForCanonicalURL();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  getPopularArticles() {
+    if (this.isPopularLoaded) {
+      return;
+    }
+    this.popularArticles$ = this.articleService.getPopularArticles().pipe(take(1));
+    this.isPopularLoaded = true;
   }
 }
