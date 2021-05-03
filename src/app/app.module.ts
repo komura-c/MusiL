@@ -40,6 +40,8 @@ import { SharedArticleCardModule } from './shared-article-card/shared-article-ca
 import { TopComponent } from './top/top.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
+import { NotFoundComponent } from './not-found/not-found.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,6 +50,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     SearchInputComponent,
     TopComponent,
     WelcomeComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
