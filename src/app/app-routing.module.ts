@@ -4,7 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { SearchGuard } from './guards/search.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { NotFoundComponent } from './shared-not-found/not-found/not-found.component';
-import { TopComponent } from './top/top/top.component';
+import { TopComponent } from './top/top.component';
 
 const routes: Routes = [
   {
@@ -87,4 +87,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
