@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
@@ -9,20 +9,24 @@ import { ArticleService } from 'src/app/services/article.service';
   templateUrl: './recommend-article.component.html',
   styleUrls: ['./recommend-article.component.scss'],
 })
-export class RecommendArticleComponent implements OnInit {
+export class RecommendArticleComponent {
   @Input() currentArticle: ArticleWithAuthor;
   articles$: Observable<ArticleWithAuthor[]>;
-  isLoading: boolean;
+  isArticlesLoaded: boolean;
 
   constructor(private articleService: ArticleService) {
-    this.isLoading = true;
+    this.isArticlesLoaded = false;
   }
 
-  ngOnInit(): void {
-    this.getArticles();
+  resetArticlesLoaded() {
+    this.isArticlesLoaded = false;
   }
 
+  @HostListener('window:scroll', ['$event'])
   getArticles() {
+    if (this.isArticlesLoaded) {
+      return;
+    }
     this.articles$ = this.articleService.getPickUpArticles().pipe(
       take(1),
       map((articles) => {
@@ -33,9 +37,10 @@ export class RecommendArticleComponent implements OnInit {
         }
       }),
       tap(() => {
-        this.isLoading = false;
+        this.isArticlesLoaded = true;
       })
     );
+    return;
   }
 
   shuffleArticle(articles: ArticleWithAuthor[]) {
