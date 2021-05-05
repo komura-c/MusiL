@@ -15,12 +15,11 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   const title = articleAndScreenName.title;
   const description = htmlToText(articleAndScreenName.text)
     .replace(/\n/g, '')
-    .replace(/ {2,}/g, ' ')
+    .replace(/ /g, '')
     .replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
       '',
-    )
-    .slice(0, 120);
+    );
   const ogURL =
     config.project.hosting_url +
     articleAndScreenName.screenName +
