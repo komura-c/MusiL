@@ -8,6 +8,7 @@
     "start:dr": "node dist/musil/server.js",
     "dev:dr": "ng build && npm run server && npm run start:dr",
     "prod:dr": "ng build --prod && npm run server && npm run start:dr NODE_ENV=production",
+    "deploy": "ng build && npm run server && cp app.yaml dist/musil && gcloud app deploy dist/musil",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
