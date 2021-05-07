@@ -1,41 +1,30 @@
 import * as express from 'express';
 import * as useragent from 'express-useragent';
-import { join } from 'path';
+import { resolve } from 'path';
 import { readFileSync } from 'fs';
-import * as admin from 'firebase-admin';
 import { htmlToText } from 'html-to-text';
-import { Article } from '@interfaces/article';
+
+import * as admin from 'firebase-admin';
+admin.initializeApp();
+const db = admin.firestore();
 
 export const app = (): express.Express => {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/musil');
-  const indexHtml = readFileSync(join(distFolder, 'index.html'), {
+  const indexHtml = readFileSync(resolve(__dirname, 'index.html'), {
     encoding: 'utf-8',
-  });
-  const db = admin.firestore();
-
-  // Example Express Rest API endpoints
-  // server.get('/api/**', (req, res) => { });
-  // Serve static files from /browser
-  server.get('*.*', express.static(distFolder, {
-    maxAge: '1y'
-  }));
-
-  // All regular routes use the Universal engine
-  server.get('*', (req, res) => {
-    res.status(200).send(indexHtml);
   });
 
   server.use(useragent.express());
   server.get('/:screenName/a/:articleId', (req, res) => {
+    console.log(req.params);
     res.set('Cache-Control', 'public, max-age=7200, s-maxage=600');
     if (!req.useragent.isBot) {
       return res.status(200).send(indexHtml);
     }
     db.doc(`articles/${req.params.articleId}`).get()
       .then((docs) => {
-        const articleAndScreenName: Article & { screenName: string } = {
-          ...docs.data() as Article,
+        const articleAndScreenName: { [key: string]: string } = {
+          ...docs.data(),
           screenName: req.params.screenName,
         };
         return res.status(200).send(buildHtml(indexHtml, articleAndScreenName));
@@ -44,6 +33,11 @@ export const app = (): express.Express => {
         console.log(error);
         return res.status(404).send('サーバー側でデータを取得できませんでした');
       })
+  });
+
+  // All regular routes use the Universal engine
+  server.get('*', (req, res) => {
+    res.status(200).send(indexHtml);
   });
   return server;
 }
@@ -61,7 +55,7 @@ if (process.env.NODE_ENV !== 'production') {
   run();
 }
 
-const buildHtml = (indexHtml: string, articleAndScreenName: Article & { screenName: string }) => {
+const buildHtml = (indexHtml: string, articleAndScreenName: { [key: string]: string }) => {
   const hostingURL = process.env.URL || 'https://dtmplace-ad671.web.app/';
   const title = articleAndScreenName.title;
   const description = htmlToText(articleAndScreenName.text).replace(
