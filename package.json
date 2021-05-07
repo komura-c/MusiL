@@ -4,6 +4,10 @@
   "scripts": {
     "start": "ng serve --port 4200 --open",
     "build": "ng build",
+    "server": "tsc server.ts --outDir dist/musil",
+    "start:dr": "node dist/musil/server.js",
+    "dev:dr": "ng build && npm run server && npm run start:dr",
+    "prod:dr": "ng build --prod && npm run server && npm run start:dr NODE_ENV=production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -26,8 +30,12 @@
     "@angular/service-worker": "^11.2.12",
     "algoliasearch": "^4.8.3",
     "angular-froala-wysiwyg": "^3.2.5",
+    "express": "^4.17.1",
+    "express-useragent": "^1.0.15",
     "firebase": "^8.2.1",
+    "firebase-admin": "^9.7.0",
     "froala-editor": "^3.2.5",
+    "html-to-text": "^7.1.1",
     "ngx-image-cropper": "^3.3.2",
     "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.5.4",
@@ -67,6 +75,9 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "typescript": "~4.0.5",
-    "webpack-bundle-analyzer": "^4.4.0"
+    "webpack-bundle-analyzer": "^4.4.0",
+    "@types/express": "^4.17.11",
+    "@types/express-useragent": "^1.0.0",
+    "@types/html-to-text": "^6.0.0"
   }
 }
