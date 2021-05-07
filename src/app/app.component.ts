@@ -22,22 +22,22 @@ export class AppComponent implements OnInit {
     private loadingService: LoadingService,
     private meta: Meta,
     @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     // iOSのAutoZoom対策
-    const ua = navigator.userAgent.toLowerCase();
-    const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
-    if (isiOS) {
-      const viewport = document.querySelector('meta[name="viewport"]');
-      if (viewport) {
-        const viewportContent = viewport.getAttribute('content');
-        viewport.setAttribute(
-          'content',
-          viewportContent + ', user-scalable=no'
-        );
-      }
-    }
+    // const ua = window.navigator.userAgent.toLowerCase();
+    // const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
+    // if (isiOS) {
+    //   const viewport = document.querySelector('meta[name="viewport"]');
+    //   if (viewport) {
+    //     const viewportContent = viewport.getAttribute('content');
+    //     viewport.setAttribute(
+    //       'content',
+    //       viewportContent + ', user-scalable=no'
+    //     );
+    //   }
+    // }
     if (!environment.production) {
       this.meta.addTag({
         name: 'robots',
