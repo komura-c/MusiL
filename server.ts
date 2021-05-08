@@ -7,24 +7,16 @@ import { join } from 'path';
 import { APP_BASE_HREF } from '@angular/common';
 import { existsSync, readFileSync } from 'fs';
 
+import { AppServerModule } from './src/main.server';
+
 // Polyfills required for Firebase
 (global as any).WebSocket = require('ws');
 (global as any).XMLHttpRequest = require('xhr2');
 
-const distFolder = join(process.cwd(), 'dist/musil/browser');
-
-import * as domino from 'domino';
-const template = readFileSync(join(distFolder, 'index.html'), {
-  encoding: 'utf-8',
-});
-const mockWindow = domino.createWindow(template);
-global['window'] = mockWindow as Window & typeof globalThis;
-global['document'] = mockWindow.document;
-
-import { AppServerModule } from './src/main.server';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
+  const distFolder = join(process.cwd(), 'dist/musil/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
@@ -44,6 +36,13 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
+    const domino = require('domino');
+    const template = readFileSync(join(distFolder, 'index.html'), {
+      encoding: 'utf-8',
+    });
+    const mockWindow = domino.createWindow(template);
+    global['window'] = mockWindow as Window & typeof globalThis;
+    global['document'] = mockWindow.document;
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 
