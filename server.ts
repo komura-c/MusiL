@@ -19,6 +19,11 @@ export function app(): express.Express {
   const distFolder = join(process.cwd(), 'dist/musil/browser');
   const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
+  const domino = require('domino');
+  const template = readFileSync(join(distFolder, 'index.html'), {
+    encoding: 'utf-8',
+  });
+
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
@@ -36,13 +41,8 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    const domino = require('domino');
-    const template = readFileSync(join(distFolder, 'index.html'), {
-      encoding: 'utf-8',
-    });
-    const mockWindow = domino.createWindow(template);
-    global['window'] = mockWindow as Window & typeof globalThis;
-    global['document'] = mockWindow.document;
+    (global as any).window = domino.createWindow(template);
+    (global as any).document = domino.createDocument(template);
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 
