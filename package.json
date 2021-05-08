@@ -2,7 +2,8 @@
   "name": "musil",
   "version": "1.0.0",
   "scripts": {
-    "start": "ng serve --port 4200 --open",
+    "start": "npm run serve:ssr",
+    "dev": "ng serve --port 4200 --open",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
@@ -11,6 +12,7 @@
     "dev:ssr": "ng run musil:serve-ssr",
     "serve:ssr": "node dist/musil/server/main.js",
     "build:ssr": "ng build --prod && ng run musil:server:production",
+    "deploy": "gcloud app deploy",
     "prerender": "ng run musil:prerender"
   },
   "private": true,
