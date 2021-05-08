@@ -57,7 +57,7 @@ export class SeoService {
         property: 'og:type',
         content: metaTags.ogType ? metaTags.ogType : this.defaultMetas.ogType,
       },
-      { property: 'og:url', content: location.href },
+      { property: 'og:url', content: window.location.href },
     ];
     metaTagsArray.forEach((metaTag) => {
       this.meta.updateTag(metaTag);
