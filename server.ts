@@ -41,8 +41,10 @@ export function app(): express.Express {
 
   // All regular routes use the Universal engine
   server.get('*', (req, res) => {
-    (global as any).window = domino.createWindow(template);
-    (global as any).document = domino.createDocument(template);
+    global['window'] = domino.createWindow(template);
+    global['document'] = domino.createDocument(template);
+    global['Element'] = domino.impl.Element;
+    global['HTMLAnchorElement'] = domino.impl.HTMLAnchorElement;
     res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
   });
 
