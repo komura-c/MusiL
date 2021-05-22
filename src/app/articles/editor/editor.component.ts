@@ -1,4 +1,4 @@
-import { Component, NgZone, Input, AfterViewInit } from '@angular/core';
+import { Component, NgZone, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,7 +24,7 @@ import 'froala-editor/js/languages/ja';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements AfterViewInit {
+export class EditorComponent implements OnInit {
   @Input() parentForm: FormGroup;
   private toolbar = [
     'paragraphFormat',
@@ -41,7 +41,7 @@ export class EditorComponent implements AfterViewInit {
     'redo',
   ];
   private froalaEditor: any;
-  private options = {
+  options = {
     key: environment.key,
     toolbarSticky: true,
     toolbarStickyOffset: 70,
@@ -138,21 +138,12 @@ export class EditorComponent implements AfterViewInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {
+  ) { }
+
+  ngOnInit(): void {
     FroalaEditor.DefineIcon('paragraphFormat', {
       NAME: '見出し',
       template: 'text',
     });
   }
-
-  ngAfterViewInit() {
-    this.createEditor();
-  }
-
-  private createEditor() {
-    this.froalaEditor = new FroalaEditor(
-      '#froalaEditor',
-      this.options
-    );
-  };
 }
