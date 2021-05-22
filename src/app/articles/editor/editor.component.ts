@@ -40,7 +40,14 @@ export class EditorComponent implements OnInit {
     'undo',
     'redo',
   ];
-  private froalaEditor: any;
+  private froalaEditor: {
+    _editor: {
+      image: {
+        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
+        get: () => any;
+      };
+    };
+  };
   options = {
     key: environment.key,
     toolbarSticky: true,
@@ -76,7 +83,8 @@ export class EditorComponent implements OnInit {
     videoInsertButtons: ['videoBack', '|', 'videoByURL'],
     toolbarButtons: this.toolbar,
     events: {
-      initialized: () => {
+      initialized: (editor: any) => {
+        this.froalaEditor = editor;
         this.parentForm.patchValue({
           editorContent: ' ',
         });
