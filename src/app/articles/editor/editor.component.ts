@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, NgZone, Input, AfterViewInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -24,7 +24,7 @@ import 'froala-editor/js/languages/ja';
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent implements AfterViewInit {
   @Input() parentForm: FormGroup;
   private toolbar = [
     'paragraphFormat',
@@ -40,16 +40,8 @@ export class EditorComponent implements OnInit {
     'undo',
     'redo',
   ];
-
-  froalaEditor: {
-    _editor: {
-      image: {
-        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
-        get: () => any;
-      };
-    };
-  };
-  options = {
+  private froalaEditor: any;
+  private options = {
     key: environment.key,
     toolbarSticky: true,
     toolbarStickyOffset: 70,
@@ -84,8 +76,7 @@ export class EditorComponent implements OnInit {
     videoInsertButtons: ['videoBack', '|', 'videoByURL'],
     toolbarButtons: this.toolbar,
     events: {
-      initialized: (editor: any) => {
-        this.froalaEditor = editor;
+      initialized: () => {
         this.parentForm.patchValue({
           editorContent: ' ',
         });
@@ -147,12 +138,21 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {}
-
-  ngOnInit(): void {
+  ) {
     FroalaEditor.DefineIcon('paragraphFormat', {
       NAME: '見出し',
       template: 'text',
     });
   }
+
+  ngAfterViewInit() {
+    this.createEditor();
+  }
+
+  private createEditor() {
+    this.froalaEditor = new FroalaEditor(
+      '#froalaEditor',
+      this.options
+    );
+  };
 }
