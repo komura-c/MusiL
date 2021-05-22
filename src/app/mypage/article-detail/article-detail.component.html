@@ -63,7 +63,7 @@
           </mat-chip-list>
         </ng-container>
       </div>
-      <div class="article-content fr-view" [innerHTML]="article.text | safeHTML"></div>
+      <div class="article-content" [froalaView]="article.text"></div>
 
       <div class="article-footer">
         <div class="main-actions">

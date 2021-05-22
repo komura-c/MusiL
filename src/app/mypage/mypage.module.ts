@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
+import { FroalaViewModule } from 'angular-froala-wysiwyg';
 import { MatChipsModule } from '@angular/material/chips';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { MyArticlesComponent } from './my-articles/my-articles.component';
@@ -24,7 +25,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SharedLoginDialogModule } from '../shared-login-dialog/shared-login-dialog.module';
 import { RecommendArticleComponent } from './recommend-article/recommend-article.component';
 import { EncodeUrlPipe } from '../pipes/encode-url.pipe';
-import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,6 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
     ArticleCommentComponent,
     RecommendArticleComponent,
     EncodeUrlPipe,
-    SafeHtmlPipe
   ],
   imports: [
     CommonModule,
@@ -47,6 +46,7 @@ import { SafeHtmlPipe } from '../pipes/safe-html.pipe';
     SharedArticleCardModule,
     SharedArticleEditModule,
     MatTabsModule,
+    FroalaViewModule,
     MatChipsModule,
     ClipboardModule,
     MatProgressSpinnerModule,
