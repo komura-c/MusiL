@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, Input } from '@angular/core';
+import { Component, NgZone, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -40,8 +40,7 @@ export class EditorComponent implements OnInit {
     'undo',
     'redo',
   ];
-
-  froalaEditor: {
+  private froalaEditor: {
     _editor: {
       image: {
         insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
@@ -147,7 +146,7 @@ export class EditorComponent implements OnInit {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     FroalaEditor.DefineIcon('paragraphFormat', {
