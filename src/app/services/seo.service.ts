@@ -17,7 +17,7 @@ export class SeoService {
     private meta: Meta,
     private title: Title,
     @Inject(DOCUMENT) private doc: Document
-  ) {}
+  ) { }
 
   updateTitleAndMeta(metaTags: {
     title?: string;
@@ -26,13 +26,12 @@ export class SeoService {
   }) {
     const descriptionText = metaTags.description
       ?.replace(/\n/g, '')
-      .replace(/ {2,}/g, ' ')
+      .replace(/ /g, '')
       .replace(/<("[^"]*"|'[^']*'|[^'">])*>/g, '')
       .replace(
         /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
         ''
-      )
-      .slice(0, 120);
+      );
     this.title.setTitle(
       metaTags.title ? metaTags.title : this.defaultMetas.title
     );
