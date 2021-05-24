@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { Article } from '@interfaces/article';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { UserData } from '@interfaces/user';
+import { DOCUMENT } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class OgpService {
 
   constructor(
     private db: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    @Inject(DOCUMENT) private document: HTMLDocument
   ) { }
 
   async uploadOgp(articleId: string, ogpImage: string): Promise<string> {
@@ -54,7 +56,7 @@ export class OgpService {
   }
 
   private async createOgp(title: string, userName: string): Promise<string> {
-    const canvas = document.createElement('canvas');
+    const canvas = this.document.createElement('canvas');
     canvas.width = this.canvasWidth;
     canvas.height = this.canvasHeight;
     const context = canvas.getContext('2d');
