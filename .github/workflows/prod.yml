@@ -33,7 +33,7 @@ jobs:
           name: dist
           path: dist
       - name: Copy index.html
-        run: mkdir functions/lib && cp dist/musil/index.html functions/lib
+        run: mkdir functions/lib && cp dist/musil/browser/index.html functions/lib
       - name: Install Dependencies
         run: cd functions && npm install
       - name: Deploy to Firebase
