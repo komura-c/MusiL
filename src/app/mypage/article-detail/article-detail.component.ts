@@ -1,4 +1,4 @@
-import { Component, HostListener, OnDestroy } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Location } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -90,7 +90,8 @@ export class ArticleDetailComponent implements OnDestroy {
     public authService: AuthService,
     private dialog: MatDialog,
     private viewCountService: ViewCountService,
-    private router: Router
+    private router: Router,
+    @Inject(DOCUMENT) private document: HTMLDocument
   ) {
     this.isTocLoaded = false;
   }
@@ -139,7 +140,7 @@ export class ArticleDetailComponent implements OnDestroy {
   private getHeading() {
     this.headingElements = new Array();
     setTimeout(() => {
-      const headingTagElements = document.querySelectorAll(
+      const headingTagElements = this.document.querySelectorAll(
         '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
       );
       headingTagElements.forEach((headingTagElement, index) => {
@@ -155,7 +156,7 @@ export class ArticleDetailComponent implements OnDestroy {
   scrollToHeading(event) {
     const id = event.target.hash.replace('#', '');
     if (id !== '') {
-      const rectTop = document.getElementById(id).getBoundingClientRect().top;
+      const rectTop = this.document.getElementById(id).getBoundingClientRect().top;
       const position = window.pageYOffset;
       const top = rectTop + position - this.headerHeight;
       window.scroll({
