@@ -16,7 +16,7 @@ export class SeoService {
   constructor(
     private meta: Meta,
     private title: Title,
-    @Inject(DOCUMENT) private doc: Document
+    @Inject(DOCUMENT) private document: Document
   ) { }
 
   updateTitleAndMeta(metaTags: {
@@ -56,7 +56,7 @@ export class SeoService {
         property: 'og:type',
         content: metaTags.ogType ? metaTags.ogType : this.defaultMetas.ogType,
       },
-      { property: 'og:url', content: location.href },
+      { property: 'og:url', content: window.location.href },
     ];
     metaTagsArray.forEach((metaTag) => {
       this.meta.updateTag(metaTag);
@@ -66,18 +66,18 @@ export class SeoService {
   createLinkTagForCanonicalURL(URL?: string) {
     this.refreshLinkTagForCanonicalURL();
 
-    const canonicalURL = URL === undefined ? this.doc.URL : URL;
-    const linkTag: HTMLLinkElement = this.doc.createElement('link');
+    const canonicalURL = URL === undefined ? this.document.URL : URL;
+    const linkTag: HTMLLinkElement = this.document.createElement('link');
     linkTag.setAttribute('rel', 'canonical');
-    this.doc.head.appendChild(linkTag);
+    this.document.head.appendChild(linkTag);
     linkTag.setAttribute('href', canonicalURL);
   }
 
   private refreshLinkTagForCanonicalURL() {
-    const links = this.doc.head.getElementsByTagName('link');
+    const links = this.document.head.getElementsByTagName('link');
     Array.from(links).forEach((linkElm) => {
       if (linkElm.getAttribute('rel') === 'canonical') {
-        this.doc.head.removeChild(linkElm);
+        this.document.head.removeChild(linkElm);
       }
     });
   }
