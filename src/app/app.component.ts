@@ -21,15 +21,15 @@ export class AppComponent implements OnInit {
     private route: ActivatedRoute,
     private loadingService: LoadingService,
     private meta: Meta,
-    @Inject(DOCUMENT) private rootDocument: HTMLDocument
-  ) {}
+    @Inject(DOCUMENT) private document: HTMLDocument
+  ) { }
 
   ngOnInit(): void {
     // iOSのAutoZoom対策
-    const ua = navigator.userAgent.toLowerCase();
+    const ua = window.navigator.userAgent.toLowerCase();
     const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
     if (isiOS) {
-      const viewport = document.querySelector('meta[name="viewport"]');
+      const viewport = this.document.querySelector('meta[name="viewport"]');
       if (viewport) {
         const viewportContent = viewport.getAttribute('content');
         viewport.setAttribute(
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
         name: 'robots',
         content: 'noindex',
       });
-      this.rootDocument
+      this.document
         .querySelector('[rel=icon]')
         ?.setAttribute('href', 'favicon-dev.svg');
     }
