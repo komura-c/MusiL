@@ -35,14 +35,17 @@
     "@nguniversal/express-engine": "^11.2.1",
     "algoliasearch": "^4.8.3",
     "angular-froala-wysiwyg": "^3.2.7",
+    "express": "^4.15.2",
+    "utf-8-validate": "^5.0.5",
     "firebase": "^8.2.1",
+    "firebase-admin": "^9.11.0",
     "froala-editor": "^3.2.7",
+    "html-to-text": "^8.0.0",
     "ngx-image-cropper": "^3.3.2",
     "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "express": "^4.15.2"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.1102.11",
@@ -56,6 +59,7 @@
     "@angular/compiler-cli": "^11.2.12",
     "@angular/language-service": "^11.2.12",
     "@nguniversal/builders": "^11.2.1",
+    "@types/html-to-text": "^8.0.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.12.50",
@@ -78,7 +82,6 @@
     "protractor": "~7.0.0",
     "ts-node": "~8.3.0",
     "typescript": "~4.0.5",
-    "utf-8-validate": "^5.0.5",
     "webpack-bundle-analyzer": "^4.4.0"
   }
 }

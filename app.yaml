@@ -13,4 +13,16 @@
 
 # [START gae_quickstart_yaml]
 runtime: nodejs14
+
+env: standard
+instance_class: F1
+
+automatic_scaling:
+  min_idle_instances: automatic
+  max_idle_instances: 1
+  min_pending_latency: 3000ms
+  max_pending_latency: automatic
+  max_instances: 2
+
+entrypoint: npm run start
 # [END gae_quickstart_yaml]

@@ -1,36 +1,38 @@
-import 'zone.js/dist/zone-node';
+// import 'zone.js/dist/zone-node';
 
-import { ngExpressEngine } from '@nguniversal/express-engine';
+// import { ngExpressEngine } from '@nguniversal/express-engine';
 import * as express from 'express';
 import { join } from 'path';
 
-import { APP_BASE_HREF } from '@angular/common';
-import { existsSync, readFileSync } from 'fs';
+// import { APP_BASE_HREF } from '@angular/common';
+import { readFileSync } from 'fs';
+import render from 'render';
 
-import { AppServerModule } from './src/main.server';
+// import { AppServerModule } from './src/main.server';
 
 // Polyfills required for Firebase
-(global as any).WebSocket = require('ws');
-(global as any).XMLHttpRequest = require('xhr2');
+// (global as any).WebSocket = require('ws');
+// (global as any).XMLHttpRequest = require('xhr2');
+
 
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
   const distFolder = join(process.cwd(), 'dist/musil/browser');
-  const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
+  // const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
-  const domino = require('domino');
+  // const domino = require('domino');
   const template = readFileSync(join(distFolder, 'index.html'), {
     encoding: 'utf-8',
   });
 
   // Our Universal express-engine (found @ https://github.com/angular/universal/tree/master/modules/express-engine)
-  server.engine('html', ngExpressEngine({
-    bootstrap: AppServerModule,
-  }));
+  // server.engine('html', ngExpressEngine({
+  //   bootstrap: AppServerModule,
+  // }));
 
-  server.set('view engine', 'html');
-  server.set('views', distFolder);
+  // server.set('view engine', 'html');
+  // server.set('views', distFolder);
 
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
@@ -40,12 +42,21 @@ export function app(): express.Express {
   }));
 
   // All regular routes use the Universal engine
+  // server.get('*', (req, res) => {
+  //   global['window'] = domino.createWindow(template);
+  //   global['document'] = domino.createDocument(template);
+  //   global['Element'] = domino.impl.Element;
+  //   global['HTMLAnchorElement'] = domino.impl.HTMLAnchorElement;
+  //   res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+  // });
+
+  // All regular routes use the Express Server
+  server.use('/:screenName/a/:articleId', (req, res) => {
+    render(req, res, template);
+  });
+
   server.get('*', (req, res) => {
-    global['window'] = domino.createWindow(template);
-    global['document'] = domino.createDocument(template);
-    global['Element'] = domino.impl.Element;
-    global['HTMLAnchorElement'] = domino.impl.HTMLAnchorElement;
-    res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+    return res.status(200).send(template);
   });
 
   return server;
