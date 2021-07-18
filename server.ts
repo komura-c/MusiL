@@ -7,6 +7,7 @@ import { join } from 'path';
 // import { APP_BASE_HREF } from '@angular/common';
 import { readFileSync } from 'fs';
 import render from 'render';
+import { environment } from 'src/environments/environment';
 
 // import { AppServerModule } from './src/main.server';
 
@@ -18,7 +19,7 @@ import render from 'render';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), 'dist/musil/browser');
+  const distFolder = join(process.cwd(), environment.production ? 'musil/browser' : 'dist/musil/browser');
   // const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // const domino = require('domino');
@@ -51,7 +52,7 @@ export function app(): express.Express {
   // });
 
   // All regular routes use the Express Server
-  server.use('/:screenName/a/:articleId', (req, res) => {
+  server.get('/:screenName/a/:articleId', (req, res) => {
     render(req, res, template);
   });
 
