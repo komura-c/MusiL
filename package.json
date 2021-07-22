@@ -35,7 +35,6 @@
     "algoliasearch": "^4.8.3",
     "angular-froala-wysiwyg": "^3.2.7",
     "express": "^4.15.2",
-    "utf-8-validate": "^5.0.5",
     "firebase": "^8.2.1",
     "firebase-admin": "^9.11.0",
     "froala-editor": "^3.2.7",
@@ -44,6 +43,7 @@
     "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
+    "utf-8-validate": "^5.0.5",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {
