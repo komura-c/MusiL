@@ -6,8 +6,8 @@ import { join } from 'path';
 
 // import { APP_BASE_HREF } from '@angular/common';
 import { readFileSync } from 'fs';
-import render from 'render';
-import { environment } from 'src/environments/environment';
+import render from './render';
+// import { environment } from 'src/environments/environment';
 
 // import { AppServerModule } from './src/main.server';
 
@@ -19,7 +19,14 @@ import { environment } from 'src/environments/environment';
 // The Express app is exported so that it can be used by serverless Functions.
 export function app(): express.Express {
   const server = express();
-  const distFolder = join(process.cwd(), environment.production ? 'musil/browser' : 'dist/musil/browser');
+
+  let distFolder: string;
+  if (process.env.NODE_ENV = 'production') {
+    distFolder = join(process.cwd(), 'musil/browser');
+  } else if (process.env.NODE_ENV === 'development') {
+    // ts-node-dev set NODE_ENV to 'development' by default
+    distFolder = join(process.cwd(), 'dist/musil/browser');
+  }
   // const indexHtml = existsSync(join(distFolder, 'index.original.html')) ? 'index.original.html' : 'index';
 
   // const domino = require('domino');
@@ -76,11 +83,11 @@ function run(): void {
 // Webpack will replace 'require' with '__webpack_require__'
 // '__non_webpack_require__' is a proxy to Node 'require'
 // The below code is to ensure that the server is run only when not requiring the bundle.
-declare const __non_webpack_require__: NodeRequire;
-const mainModule = __non_webpack_require__.main;
-const moduleFilename = mainModule && mainModule.filename || '';
-if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
-  run();
-}
+// declare const __non_webpack_require__: NodeRequire;
+// const mainModule = __non_webpack_require__.main;
+// const moduleFilename = mainModule && mainModule.filename || '';
+// if (moduleFilename === __filename || moduleFilename.includes('iisnode')) {
+run();
+// }
 
-export * from './src/main.server';
+// export * from './src/main.server';

@@ -1,10 +1,11 @@
 import { htmlToText } from 'html-to-text';
 import * as admin from 'firebase-admin';
-import { environment } from 'src/environments/environment';
 
-if (environment.production) {
+if (process.env.NODE_ENV = 'production') {
   admin.initializeApp();
-} else {
+} else if (process.env.NODE_ENV = 'development') {
+  // ts-node-dev set NODE_ENV to 'development' by default
+  const environment = require('./src/environments/environment.ts');
   // export GOOGLE_APPLICATION_CREDENTIALS="/home/user/Downloads/service-account-file.json"
   admin.initializeApp({
     credential: admin.credential.applicationDefault(),
@@ -12,6 +13,7 @@ if (environment.production) {
   });
 }
 const db = admin.firestore();
+const hostingURL = 'https://musil.place';
 
 // const file = readFileSync(resolve(__dirname, 'index.html'), {
 //   encoding: 'utf-8',
@@ -74,13 +76,13 @@ const buildHtml = (file: string, articleAndScreenName: { [key: string]: string }
       '',
     );
   const ogURL =
-    environment.hostingURL +
+    hostingURL +
     articleAndScreenName.screenName +
     '/a/' +
     articleAndScreenName.articleId;
   const ogImage = articleAndScreenName.thumbnailURL
     ? articleAndScreenName.thumbnailURL
-    : environment.hostingURL + 'assets/images/ogp-cover.png';
+    : hostingURL + 'assets/images/ogp-cover.png';
   return file
     .replace(/\n/g, '')
     .replace(/ {2,}/g, ' ')

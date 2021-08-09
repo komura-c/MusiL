@@ -24,5 +24,5 @@ automatic_scaling:
   max_pending_latency: automatic
   max_instances: 2
 
-entrypoint: node musil/server/main.js
+entrypoint: npm run start:prod
 # [END gae_quickstart_yaml]
