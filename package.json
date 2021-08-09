@@ -1,6 +1,11 @@
 {
   "name": "musil",
   "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": "12.x"
+  },
   "scripts": {
     "start": "npm run serve:ssr",
     "build": "ng build",
@@ -12,7 +17,6 @@
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
     "postinstall": "ngcc"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^12.2.0",
     "@angular/cdk": "^12.2.0",
