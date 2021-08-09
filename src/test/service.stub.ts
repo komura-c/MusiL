@@ -48,18 +48,6 @@ export const CommentServiceStub = {
   allComments$: new BehaviorSubject({ id: 'xxx' }),
 };
 
-export const OgpServiceStub = {
-  createOgpImageAndUpload: jasmine
-    .createSpy('createOgpImageAndUpload')
-    .and.returnValue(new BehaviorSubject({})),
-  uploadOgp: jasmine
-    .createSpy('uploadOgp')
-    .and.returnValue(new BehaviorSubject({})),
-  deleteOgp: jasmine
-    .createSpy('deleteOgp')
-    .and.returnValue(new BehaviorSubject({})),
-};
-
 export const CheckServiceStub = {
   getUserScreenNameIsNull: jasmine
     .createSpy('getUserScreenNameIsNull')
