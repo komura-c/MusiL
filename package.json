@@ -7,9 +7,9 @@
     "node": "12.x"
   },
   "scripts": {
-    "start": "npm run serve:ssr",
+    "start": "ng serve --port 4200 --open",
+    "dev": "npm run start -- --host 0.0.0.0",
     "build": "ng build",
-    "dev": "ng serve --port 4200 --open",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
