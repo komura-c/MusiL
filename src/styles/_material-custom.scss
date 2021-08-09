@@ -1,9 +1,9 @@
-@import '~@angular/material/theming';
-@include mat-core();
+@use '~@angular/material' as mat;
+@include mat.core();
 
-$musil-primary: mat-palette($mat-deep-orange);
-$musil-accent: mat-palette($mat-indigo);
-$musil-warn: mat-palette($mat-red);
+$musil-primary: mat.define-palette(mat.$deep-orange-palette);
+$musil-accent: mat.define-palette(mat.$indigo-palette);
+$musil-warn: mat.define-palette(mat.$red-palette);
 
-$musil-theme: mat-light-theme($musil-primary, $musil-accent, $musil-warn);
-@include angular-material-theme($musil-theme);
+$musil-theme: mat.define-light-theme($musil-primary, $musil-accent, $musil-warn);
+@include mat.all-component-themes($musil-theme);
