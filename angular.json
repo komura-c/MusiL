@@ -17,12 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/musil/browser",
+            "outputPath": "dist/musil",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/favicon-dev.svg",
@@ -39,7 +38,13 @@
               "includePaths": [
                 "src/styles"
               ]
-            }
+            },
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -71,7 +76,8 @@
               "serviceWorker": true,
               "ngswConfigPath": "ngsw-config.json"
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -140,62 +146,6 @@
         "deploy": {
           "builder": "@angular/fire:deploy",
           "options": {}
-        },
-        "server": {
-          "builder": "@angular-devkit/build-angular:server",
-          "options": {
-            "outputPath": "dist/musil/server",
-            "main": "server.ts",
-            "tsConfig": "tsconfig.server.json",
-            "stylePreprocessorOptions": {
-              "includePaths": [
-                "src/styles"
-              ]
-            },
-            "externalDependencies": [
-              "@firebase/app",
-              "@firebase/firestore"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "outputHashing": "media",
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "sourceMap": false,
-              "optimization": true
-            }
-          }
-        },
-        "serve-ssr": {
-          "builder": "@nguniversal/builders:ssr-dev-server",
-          "options": {
-            "browserTarget": "musil:build",
-            "serverTarget": "musil:server"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "musil:build:production",
-              "serverTarget": "musil:server:production"
-            }
-          }
-        },
-        "prerender": {
-          "builder": "@nguniversal/builders:prerender",
-          "options": {
-            "browserTarget": "musil:build:production",
-            "serverTarget": "musil:server:production",
-            "routes": [
-              "/"
-            ]
-          },
-          "configurations": {
-            "production": {}
-          }
         }
       }
     }
