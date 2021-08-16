@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/musil/browser",
+    "public": "dist/musil",
     "ignore": [
       "firebase.json",
       "**/.*",

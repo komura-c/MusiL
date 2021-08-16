@@ -8,7 +8,6 @@ import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { OgpService } from './ogp.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +17,7 @@ export class ArticleService {
     private db: AngularFirestore,
     private storage: AngularFireStorage,
     private userService: UserService,
-    private ogpService: OgpService
-  ) {}
+  ) { }
   async uploadImage(uid: string, file: File): Promise<void> {
     const time: number = new Date().getTime();
     const result = await this.storage
@@ -61,7 +59,6 @@ export class ArticleService {
   }
 
   deleteArticle(articleId: string): Promise<void> {
-    this.ogpService.deleteOgp(articleId);
     return this.db.doc(`articles/${articleId}`).delete();
   }
 

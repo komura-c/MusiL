@@ -11,7 +11,6 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { OgpService } from 'src/app/services/ogp.service';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 @Component({
@@ -70,7 +69,6 @@ export class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private seoService: SeoService,
     private db: AngularFirestore,
-    private ogpService: OgpService,
     private analytics: AngularFireAnalytics
   ) {
     this.seoService.updateTitleAndMeta({
@@ -122,15 +120,24 @@ export class CreateComponent implements OnInit {
     this.location.back();
   }
 
+  private createOGPURL(title: string): string {
+    const baseFirstURL = 'https://res.cloudinary.com/musil/image/upload/'
+    const baseLastURL = '/v1604767919/base_ebd8yk.png'
+    const userNameText = this.user.userName + ',w_960' + (this.user.userName.length < 26 ? ',y_80' : ',y_60');
+    const contentURL = 'c_fit,co_rgb:222,g_north,l_text:a8duhpsxchugqa5gfntl.otf_37_bold:' + userNameText + '/c_fit,co_rgb:222,l_text:a8duhpsxchugqa5gfntl.otf_60_bold:' + title + ',w_1060,h_400'
+    return baseFirstURL + encodeURIComponent(contentURL) + baseLastURL;
+  }
+
   submit() {
     this.inProgress = true;
     const formData = this.form.value;
+    const thumbnailURL = this.createOGPURL(formData.title)
     const sendData: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     > = {
       uid: this.user.uid,
-      thumbnailURL: null,
+      thumbnailURL,
       title: formData.title,
       tags: this.tags,
       text: formData.editorContent,
@@ -146,7 +153,7 @@ export class CreateComponent implements OnInit {
       this.articleService
         .updateArticle(this.articleId, sendData)
         .then(() => {
-          this.succeededSubmit(msg, sendData);
+          this.succeededSubmit(msg);
         })
         .catch((error) => {
           this.failedSubmit(error);
@@ -156,7 +163,7 @@ export class CreateComponent implements OnInit {
       this.articleService
         .createArticle(this.articleId, sendData)
         .then(() => {
-          this.succeededSubmit(msg, sendData);
+          this.succeededSubmit(msg);
         })
         .catch((error) => {
           this.failedSubmit(error);
@@ -164,22 +171,11 @@ export class CreateComponent implements OnInit {
     }
   }
 
-  succeededSubmit(
-    msg: string,
-    sendData: Omit<
-      Article,
-      'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
-    >
-  ) {
+  succeededSubmit(msg: string) {
     this.router.navigateByUrl(
       '/' + this.user.screenName + '/a/' + this.articleId
     );
     this.snackBar.open(msg, '閉じる');
-    this.ogpService.createOgpImageAndUpload(
-      sendData.title,
-      this.articleId,
-      this.user
-    );
   }
 
   failedSubmit(error: { message: any }) {
