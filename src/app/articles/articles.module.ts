@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { FroalaEditorModule } from 'angular-froala-wysiwyg';
+import { QuillModule } from 'ngx-quill'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
@@ -18,6 +18,8 @@ import { TagFormComponent } from './tag-form/tag-form.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { LinkInsertDialogComponent } from './link-insert-dialog/link-insert-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     CreateComponent,
     EditorComponent,
     TagFormComponent,
+    LinkInsertDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatInputModule,
     MatFormFieldModule,
     MatButtonModule,
-    FroalaEditorModule,
+    QuillModule.forRoot(),
     MatSlideToggleModule,
     MatIconModule,
     SharedArticleEditModule,
@@ -42,6 +45,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatAutocompleteModule,
     InfiniteScrollModule,
     MatToolbarModule,
+    MatDialogModule
   ],
 })
 export class ArticlesModule { }

@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  Validators,
   AbstractControl,
 } from '@angular/forms';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
@@ -29,7 +28,7 @@ export class ArticleCommentComponent implements OnInit {
     private fb: FormBuilder,
     public commentService: CommentService,
     public authService: AuthService
-  ) {}
+  ) { }
 
   private removeSpaces(control: AbstractControl) {
     if (control && control.value && !control.value.replace(/\s/g, '').length) {
@@ -56,7 +55,7 @@ export class ArticleCommentComponent implements OnInit {
       this.processing = true;
       const comment: string = this.commentControl.value;
       this.form.reset();
-      if (comment?.replace('\n|\r', '')) {
+      if (comment) {
         this.commentService.sendComment(this.articleId, comment, uid);
       }
       setTimeout(() => {
