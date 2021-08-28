@@ -1,0 +1,9 @@
+.link-insert-dialog {
+  .link-insert-dialog-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .mat-dialog-actions {
+    justify-content: flex-end;
+  }
+}
