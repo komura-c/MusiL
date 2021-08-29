@@ -223,7 +223,7 @@ img {
       font-style: normal;
       margin: 14px 0;
     }
-    .ql-video {
+    .ql-video[src*="youtube"] {
       width: 100%;
       max-width: 640px;
       height: 360px;
