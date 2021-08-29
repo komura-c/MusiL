@@ -9,27 +9,16 @@ const routes: Routes = [
     path: ':id/edit',
     component: CreateComponent,
     canDeactivate: [FormGuard],
-    data: {
-      showHeader: false,
-      showFooter: false,
-    },
   },
   {
     path: 'create',
     component: CreateComponent,
     canDeactivate: [FormGuard],
-    data: {
-      showHeader: false,
-      showFooter: false,
-    },
   },
   {
     path: '',
     pathMatch: 'full',
     component: ArticlesComponent,
-    data: {
-      showFooter: false,
-    },
   },
 ];
 
@@ -37,4 +26,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ArticlesRoutingModule {}
+export class ArticlesRoutingModule { }
