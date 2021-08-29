@@ -35,6 +35,9 @@
     "ngx-image-cropper": "^3.3.2",
     "ngx-infinite-scroll": "^10.0.1",
     "ngx-quill": "^14.3.0",
+    "quill": "^1.3.7",
+    "quill-image-drop-and-paste": "^1.2.9",
+    "quill-image-resize": "^3.0.9",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.4"

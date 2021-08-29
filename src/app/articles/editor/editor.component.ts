@@ -6,6 +6,11 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModules } from 'ngx-quill';
+import Quill from 'quill'
+import ImageResize from 'quill-image-resize'
+import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
+Quill.register('modules/imageResize', ImageResize);
+Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 
 @Component({
   selector: 'app-editor',
@@ -15,25 +20,24 @@ import { QuillModules } from 'ngx-quill';
 export class EditorComponent {
   @Input() parentForm: FormGroup;
 
-  editorInstance: any;
-
   @ViewChild('imageInput') private imageInput: ElementRef<HTMLElement>;
+  editorInstance: any;
   quillModules: QuillModules = {
     toolbar: {
       container: [
         [{ header: [2, 3, 4, false] }, 'bold', 'italic', 'underline', 'strike', 'blockquote', { list: 'ordered' }, { list: 'bullet' }, 'link', 'image', 'video'],
       ],
       handlers: {
-        link: (() => {
-          this.openLinkInsertDialog();
-        }).bind(this),
-        image: (() => {
-          this.imageInput.nativeElement.click();
-        }).bind(this),
+        link: this.openLinkInsertDialogHandler.bind(this),
+        image: this.inputImageHandler.bind(this),
       },
     },
     clipboard: {
       matchVisual: false,
+    },
+    imageResize: {},
+    imageDropAndPaste: {
+      handler: this.dropImageHandler.bind(this)
     }
   };
 
@@ -50,13 +54,14 @@ export class EditorComponent {
   ) { }
 
   editorCreated(editorInstance: any) {
-    this.editorInstance = editorInstance;
     const editorInputDefaultLink: HTMLElement = editorInstance.theme.tooltip.root.querySelector("input[data-link]");
     editorInputDefaultLink.dataset.link = 'https://musil.place/';
     editorInputDefaultLink.dataset.video = 'https://www.youtube.com/';
+
+    this.editorInstance = editorInstance;
   }
 
-  openLinkInsertDialog() {
+  openLinkInsertDialogHandler() {
     this.ngZone.run(() => {
       const dialogRef = this.dialog.open(LinkInsertDialogComponent, {
         autoFocus: false,
@@ -69,12 +74,12 @@ export class EditorComponent {
           return;
         }
         const { linkInput, linkText } = formData;
-        this.linkInsertEvent(linkInput, linkText);
+        this.linkInsert(linkInput, linkText);
       });
     });
   }
 
-  linkInsertEvent(link: string, text?: string) {
+  linkInsert(link: string, text?: string) {
     const soundCloudReg = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
     if (soundCloudReg.test(link)) {
       const soundCloudURL = link.match(soundCloudReg);
@@ -103,13 +108,36 @@ export class EditorComponent {
     }
   }
 
-  uploadAndImageInsertEvent({ target }: { target: HTMLInputElement }) {
+  inputImageHandler() {
+    this.imageInput.nativeElement.click();
+  }
+
+  onInsertImageEvent({ target }: { target: HTMLInputElement }) {
     const file = target.files[0];
+    this.uploadImage(file);
+  }
+
+  dropImageHandler(_dataUrl: string, _type: string, imageData: QuillImageData) {
+    imageData
+      .minify({
+        maxWidth: 800,
+        quality: 0.7,
+      })
+      .then((miniImageData) => {
+        if (miniImageData instanceof QuillImageData) {
+          const file = miniImageData.toFile();
+          this.uploadImage(file);
+        }
+        return;
+      });
+  }
+
+  uploadImage(imageFile: File) {
     const fileSizeLimit = 3000000;
-    if (file.size < fileSizeLimit) {
+    if (imageFile.size < fileSizeLimit) {
       const downloadURLPromise = this.articleService.uploadImage(
         this.authService.uid,
-        file
+        imageFile
       );
       downloadURLPromise.then((downloadURL) => {
         const selection = this.editorInstance.getSelection();
