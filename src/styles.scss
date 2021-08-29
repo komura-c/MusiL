@@ -84,7 +84,7 @@ img {
   background-color: #fff;
   .ql-picker-label, button {
     height: 28px !important;
-    margin: 0 4px;
+    margin: 0 8px;
   }
   .ql-picker-label::before {
     font-size: 16px;
@@ -222,6 +222,11 @@ img {
     &.ql-blank::before{
       font-style: normal;
       margin: 14px 0;
+    }
+    .ql-video {
+      width: 100%;
+      max-width: 640px;
+      height: 360px;
     }
   }
   .ql-tooltip {
