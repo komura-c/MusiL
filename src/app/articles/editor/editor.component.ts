@@ -7,7 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModules } from 'ngx-quill';
 import Quill from 'quill'
-import ImageResize from 'quill-image-resize'
+//@ts-ignore
+import ImageResize from 'quill-image-resize';
 import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);

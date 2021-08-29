@@ -92,7 +92,7 @@ export class ArticleService {
 
   getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
     const sorted = this.db
-      .collection(`users/${uid}/likedArticles`, (ref) =>
+      .collection<{ articleId: string }>(`users/${uid}/likedArticles`, (ref) =>
         ref.orderBy('updatedAt', 'desc').limit(20)
       )
       .valueChanges()
