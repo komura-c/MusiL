@@ -1,12 +1,8 @@
-<app-header *ngIf="showHeader"></app-header>
-<div class="container">
+<app-header *ngIf="isShowHeader"></app-header>
+<div class="container" [class.container__scroll]="isScrollContainer">
   <router-outlet></router-outlet>
   <div *ngIf="loading$ | async">
-    <mat-spinner
-      class="loading-bar"
-      diameter="55"
-      strokeWidth="4"
-    ></mat-spinner>
+    <mat-spinner class="loading-bar" diameter="55" strokeWidth="4"></mat-spinner>
   </div>
 </div>
-<app-footer *ngIf="showFooter"></app-footer>
+<app-footer *ngIf="isShowFooter"></app-footer>
