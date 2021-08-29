@@ -15,7 +15,5 @@ export const environmentStub = {
     appId: 'xxx',
     measurementId: 'xxx',
   },
-  key: 'xxx',
   hostingURL: 'xxx',
-  hostUid: 'xxx',
 };
