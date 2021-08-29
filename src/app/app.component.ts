@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
 import { LoadingService } from './services/loading.service';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, Location } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
 
@@ -11,17 +11,19 @@ import { Meta } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  showHeader: boolean;
-  showFooter: boolean;
+  isShowHeader: boolean;
+  isShowFooter: boolean;
 
   loading$ = this.loadingService.loading$;
 
+  isScrollContainer: boolean;
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private loadingService: LoadingService,
     private meta: Meta,
-    @Inject(DOCUMENT) private document: HTMLDocument
+    @Inject(DOCUMENT) private document: HTMLDocument,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -49,10 +51,20 @@ export class AppComponent implements OnInit {
     }
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        this.showHeader =
-          this.route.snapshot.firstChild?.firstChild?.data.showHeader !== false;
-        this.showFooter =
-          this.route.snapshot.firstChild?.firstChild?.data.showFooter !== false;
+        const currentPath = this.location.path()
+        if (/(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)) {
+          this.isShowHeader = false;
+          this.isShowFooter = false;
+          this.isScrollContainer = true;
+        } else if (/(\/articles)/.test(currentPath)) {
+          this.isShowHeader = true;
+          this.isShowFooter = false;
+          this.isScrollContainer = false;
+        } else {
+          this.isShowHeader = true;
+          this.isShowFooter = true;
+          this.isScrollContainer = false;
+        }
       }
     });
   }
