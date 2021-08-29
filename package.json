@@ -12,7 +12,8 @@
     "build": "ng build",
     "stats": "ng build --configuration production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "postinstall": "ngcc"
   },
   "dependencies": {
     "@angular/animations": "~12.2.0",
