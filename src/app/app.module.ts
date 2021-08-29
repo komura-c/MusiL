@@ -32,7 +32,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
-import { ServiceWorkerModule } from '@angular/service-worker';
 
 // Top
 import { SharedArticleCardModule } from './shared-article-card/shared-article-card.module';
@@ -52,7 +51,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     NotFoundComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AngularFireModule.initializeApp(environment.firebase),
@@ -72,9 +71,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatAutocompleteModule,
     MatProgressSpinnerModule,
     MatDividerModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
-    }),
     // Top
     SharedArticleCardModule,
   ],
