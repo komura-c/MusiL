@@ -1,140 +1,44 @@
-import { Component, NgZone, Input, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormControl } from '@angular/forms';
-import { environment } from 'src/environments/environment';
-import FroalaEditor from 'froala-editor';
-import 'froala-editor/js/plugins/char_counter.min';
-import 'froala-editor/js/plugins/draggable.min';
-import 'froala-editor/js/plugins/emoticons.min';
-import 'froala-editor/js/plugins/image.min';
-import 'froala-editor/js/plugins/image_manager.min';
-import 'froala-editor/js/plugins/line_breaker.min';
-import 'froala-editor/js/plugins/link.min';
-import 'froala-editor/js/plugins/paragraph_format.min';
-import 'froala-editor/js/plugins/quote.min';
-import 'froala-editor/js/plugins/url.min';
-import 'froala-editor/js/plugins/video.min';
-import 'froala-editor/js/plugins/word_paste.min';
-import 'froala-editor/js/languages/ja';
+import { MatDialog } from '@angular/material/dialog';
+import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
+import { QuillModules } from 'ngx-quill';
+import Quill from 'quill'
+import ImageResize from 'quill-image-resize'
+import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
+Quill.register('modules/imageResize', ImageResize);
+Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent implements OnInit {
+export class EditorComponent {
   @Input() parentForm: FormGroup;
-  private toolbar = [
-    'paragraphFormat',
-    'bold',
-    'italic',
-    'underline',
-    'strikeThrough',
-    'quote',
-    'insertLink',
-    'insertImage',
-    'insertVideo',
-    'emoticons',
-    'undo',
-    'redo',
-  ];
-  private froalaEditor: {
-    _editor: {
-      image: {
-        insert: (arg0: void, arg1: any, arg2: any, arg3: any) => void;
-        get: () => any;
-      };
-    };
-  };
-  options = {
-    key: environment.key,
-    toolbarSticky: true,
-    toolbarStickyOffset: 70,
-    toolbarInline: false,
-    heightMin: '300',
-    placeholderText:
-      '音楽に関する知識を記録してみましょう！例：今日は〇〇の曲を自分なりに分析してみました',
-    charCounterCount: true,
-    attribution: false,
-    language: 'ja',
-    pastePlain: true,
-    imageAddNewLine: true,
-    quickInsertTags: [],
-    paragraphFormat: {
-      H2: '大見出し',
-      H3: '中見出し',
-      H4: '小見出し',
-      N: '本文',
-    },
-    linkInsertButtons: ['linkBack'],
-    linkEditButtons: ['linkEdit', 'linkRemove'],
-    imageEditButtons: [
-      'imageSize',
-      'imageAlign',
-      'imageCaption',
-      'imageLink',
-      'linkRemove',
-      'imageRemove',
-    ],
-    imageInsertButtons: ['imageBack', '|', 'imageUpload'],
-    videoEditButtons: ['videoSize', 'videoAlign', 'videoRemove'],
-    videoInsertButtons: ['videoBack', '|', 'videoByURL'],
-    toolbarButtons: this.toolbar,
-    events: {
-      initialized: (editor: any) => {
-        this.froalaEditor = editor;
-        this.parentForm.patchValue({
-          editorContent: ' ',
-        });
-      },
-      'image.beforeUpload': (images: any[]) => {
-        const file = images[0];
-        const fileSizeLimit = 3000000;
-        if (file.size < fileSizeLimit) {
-          const downloadURLPromise = this.articleService.uploadImage(
-            this.authService.uid,
-            file
-          );
-          downloadURLPromise.then((downloadURL) => {
-            this.froalaEditor._editor.image.insert(
-              downloadURL,
-              null,
-              null,
-              this.froalaEditor._editor.image.get()
-            );
-          });
-          return null;
-        } else {
-          this.ngZone.run(() => {
-            const msg = '３メガバイト未満の画像を利用してください';
-            this.snackBar.open(msg, '閉じる');
-          });
-          return null;
-        }
-      },
-      'link.beforeInsert': (link: string, text: string) => {
-        const soundCloudReg = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
-        if (soundCloudReg.test(link)) {
-          const soundCloudURL = link.match(soundCloudReg);
-          const soundCloudEmbedPlayer =
-            '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' +
-            soundCloudURL[2] +
-            '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' +
-            text;
-          const currentValue = this.editorContentControl.value;
-          this.editorContentControl.patchValue(
-            currentValue + soundCloudEmbedPlayer
-          );
-          this.ngZone.run(() => {
-            const msg = 'SoundCloudの埋め込みが完了しました';
-            this.snackBar.open(msg, '閉じる');
-          });
-          return null;
-        }
+
+  @ViewChild('imageInput') private imageInput: ElementRef<HTMLElement>;
+  editorInstance: any;
+  quillModules: QuillModules = {
+    toolbar: {
+      container: [
+        [{ header: [2, 3, 4, false] }, 'bold', 'italic', 'underline', 'strike', 'blockquote', { list: 'ordered' }, { list: 'bullet' }, 'link', 'image', 'video'],
+      ],
+      handlers: {
+        link: this.openLinkInsertDialogHandler.bind(this),
+        image: this.inputImageHandler.bind(this),
       },
     },
+    clipboard: {
+      matchVisual: false,
+    },
+    imageResize: {},
+    imageDropAndPaste: {
+      handler: this.dropImageHandler.bind(this)
+    }
   };
 
   get editorContentControl() {
@@ -145,13 +49,105 @@ export class EditorComponent implements OnInit {
     private ngZone: NgZone,
     private authService: AuthService,
     private articleService: ArticleService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog,
   ) { }
 
-  ngOnInit(): void {
-    FroalaEditor.DefineIcon('paragraphFormat', {
-      NAME: '見出し',
-      template: 'text',
+  editorCreated(editorInstance: any) {
+    const editorInputDefaultLink: HTMLElement = editorInstance.theme.tooltip.root.querySelector("input[data-link]");
+    editorInputDefaultLink.dataset.link = 'https://musil.place/';
+    editorInputDefaultLink.dataset.video = 'https://www.youtube.com/';
+
+    this.editorInstance = editorInstance;
+  }
+
+  openLinkInsertDialogHandler() {
+    this.ngZone.run(() => {
+      const dialogRef = this.dialog.open(LinkInsertDialogComponent, {
+        autoFocus: false,
+        restoreFocus: false,
+        maxWidth: 480,
+        width: '90vw'
+      });
+      dialogRef.afterClosed().subscribe(formData => {
+        if (!formData) {
+          return;
+        }
+        const { linkInput, linkText } = formData;
+        this.linkInsert(linkInput, linkText);
+      });
     });
+  }
+
+  linkInsert(link: string, text?: string) {
+    const soundCloudReg = /^(https|http):\/\/soundcloud\.com(\/.*|\?.*|$)/;
+    if (soundCloudReg.test(link)) {
+      const soundCloudURL = link.match(soundCloudReg);
+      const soundCloudEmbedPlayer =
+        '<iframe width="100%" height="166" scrolling="no" frameborder="no" allow="autoplay" src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com' +
+        soundCloudURL[2] +
+        '&color=%23ff5500&auto_play=false&hide_related=true&show_comments=true&show_user=true&show_reposts=false&show_teaser=true"></iframe>' +
+        text;
+      const currentValue = this.editorContentControl.value;
+      this.editorContentControl.patchValue(
+        currentValue + soundCloudEmbedPlayer
+      );
+      const msg = 'SoundCloudの埋め込みが完了しました';
+      this.snackBar.open(msg, '閉じる');
+      return;
+    } else {
+      if (!text) {
+        text = link;
+      }
+      const currentValue = this.editorContentControl.value;
+      this.editorContentControl.patchValue(
+        currentValue +
+        '<p>​<a href="' + link + '" rel="nofollow noopener noreferrer">' + text + '</a>​​​</p>'
+      );
+      return;
+    }
+  }
+
+  inputImageHandler() {
+    this.imageInput.nativeElement.click();
+  }
+
+  onInsertImageEvent({ target }: { target: HTMLInputElement }) {
+    const file = target.files[0];
+    this.uploadImage(file);
+  }
+
+  dropImageHandler(_dataUrl: string, _type: string, imageData: QuillImageData) {
+    imageData
+      .minify({
+        maxWidth: 800,
+        quality: 0.7,
+      })
+      .then((miniImageData) => {
+        if (miniImageData instanceof QuillImageData) {
+          const file = miniImageData.toFile();
+          this.uploadImage(file);
+        }
+        return;
+      });
+  }
+
+  uploadImage(imageFile: File) {
+    const fileSizeLimit = 3000000;
+    if (imageFile.size < fileSizeLimit) {
+      const downloadURLPromise = this.articleService.uploadImage(
+        this.authService.uid,
+        imageFile
+      );
+      downloadURLPromise.then((downloadURL) => {
+        const selection = this.editorInstance.getSelection();
+        this.editorInstance.insertEmbed(selection.index, 'image', downloadURL);
+      });
+      return;
+    } else {
+      const msg = '３メガバイト未満の画像を利用してください';
+      this.snackBar.open(msg, '閉じる');
+      return;
+    }
   }
 }

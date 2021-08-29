@@ -1,3 +1,7 @@
 <div [formGroup]="parentForm">
-  <div [froalaEditor]="options" formControlName="editorContent"></div>
+  <quill-editor formControlName="editorContent" [modules]="quillModules"
+    [styles]="{ 'min-height': '300px', 'height': '100%' }" placeholder='音楽に関する知識を記録してみましょう！例：今日は〇〇の曲を自分なりに分析してみました'
+    (onEditorCreated)="editorCreated($event)" defaultEmptyValue="" scrollingContainer=".container">
+    <input type="file" accept="image/png, image/jpeg" (input)="onInsertImageEvent($event)" #imageInput />
+  </quill-editor>
 </div>

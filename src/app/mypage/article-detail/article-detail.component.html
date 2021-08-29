@@ -63,7 +63,10 @@
           </mat-chip-list>
         </ng-container>
       </div>
-      <div class="article-content fr-view" [innerHTML]="article.text | safeHTML"></div>
+
+      <div class="article-content ql-container ql-snow" style="border-width: 0;">
+        <div class="ql-editor" [innerHTML]="article.text | safeHTML"></div>
+      </div>
 
       <div class="article-footer">
         <div class="main-actions">
