@@ -27,6 +27,16 @@ export class AppComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // PWA用のserviceWorkerが登録されていれば削除
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        if (registrations.length) {
+          for (let registration of registrations) {
+            registration.unregister();
+          }
+        }
+      });
+    }
     // iOSのAutoZoom対策
     const ua = window.navigator.userAgent.toLowerCase();
     const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
