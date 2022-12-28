@@ -4,17 +4,17 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "12"
+    "node": "14"
   },
   "scripts": {
+    "ng": "ng",
     "start": "ng serve --port 4200 --open",
     "dev": "npm run start -- --host 0.0.0.0",
     "build": "ng build",
     "stats": "ng build --configuration production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
     "test": "ng test",
-    "lint": "ng lint",
-    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
+    "lint": "ng lint"
   },
   "dependencies": {
     "@angular/animations": "~12.2.0",
