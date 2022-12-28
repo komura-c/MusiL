@@ -60,8 +60,8 @@
             placeholder="コメントしてみましょう"
             autocomplete="off"
             matInput
-            matTextareaAutosize
-            [matAutosizeMinRows]="4"
+            cdkTextareaAutosize
+            [cdkAutosizeMinRows]="4"
             #body
             (keydown.shift.enter)="
               $event.preventDefault(); $event.stopPropagation()

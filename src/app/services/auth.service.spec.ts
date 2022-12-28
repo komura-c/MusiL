@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
   AngularFirestoreModule,
-} from '@angular/fire/firestore';
+} from '@angular/fire/compat/firestore';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environmentStub } from 'src/test/environment.stub';

@@ -13,16 +13,19 @@ import {
   MAT_SNACK_BAR_DEFAULT_OPTIONS,
 } from '@angular/material/snack-bar';
 import { FooterComponent } from './footer/footer.component';
-import { AngularFireModule } from '@angular/fire';
+import { AngularFireModule } from '@angular/fire/compat';
 import {
   AngularFireAnalyticsModule,
   ScreenTrackingService,
   UserTrackingService,
-} from '@angular/fire/analytics';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireFunctionsModule, REGION } from '@angular/fire/functions';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+} from '@angular/fire/compat/analytics';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import {
+  AngularFireFunctionsModule,
+  REGION,
+} from '@angular/fire/compat/functions';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
 import { SearchInputComponent } from './search-input/search-input.component';
 import { MatListModule } from '@angular/material/list';
@@ -48,7 +51,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SearchInputComponent,
     TopComponent,
     WelcomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -84,4 +87,4 @@ import { NotFoundComponent } from './not-found/not-found.component';
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
