@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ArticleComment } from '@interfaces/article-comment';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { UserData } from '@interfaces/user';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { UserService } from './user.service';

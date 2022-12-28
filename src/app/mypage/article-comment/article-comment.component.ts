@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  FormBuilder,
-  FormControl,
+  UntypedFormBuilder,
+  UntypedFormControl,
   AbstractControl,
 } from '@angular/forms';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
@@ -25,7 +25,7 @@ export class ArticleCommentComponent implements OnInit {
   processing: boolean;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     public commentService: CommentService,
     public authService: AuthService
   ) { }
@@ -39,7 +39,7 @@ export class ArticleCommentComponent implements OnInit {
   }
 
   get commentControl() {
-    return this.form.get('comment') as FormControl;
+    return this.form.get('comment') as UntypedFormControl;
   }
 
   ngOnInit(): void {

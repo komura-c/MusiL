@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireStorage } from '@angular/fire/storage';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { UserData } from '@interfaces/user';
-import firebase from 'firebase/app';
+import firebase from 'firebase/compat/app';
 import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
@@ -16,9 +16,9 @@ export class ArticleService {
   constructor(
     private db: AngularFirestore,
     private storage: AngularFireStorage,
-    private userService: UserService,
-  ) { }
-  async uploadImage(uid: string, file: File): Promise<void> {
+    private userService: UserService
+  ) {}
+  async uploadImage(uid: string, file: File): Promise<string> {
     const time: number = new Date().getTime();
     const result = await this.storage
       .ref(`users/${uid}/images/${time}_${file.name}`)
