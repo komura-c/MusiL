@@ -1,6 +1,10 @@
 import { Location } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'functions/src/interfaces/article';
@@ -10,8 +14,8 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { AngularFireAnalytics } from '@angular/fire/analytics';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
 
 @Component({
   selector: 'app-create',
@@ -121,17 +125,25 @@ export class CreateComponent implements OnInit {
   }
 
   private createOGPURL(title: string): string {
-    const baseFirstURL = 'https://res.cloudinary.com/musil/image/upload/'
-    const baseLastURL = '/v1604767919/base_ebd8yk.png'
-    const userNameText = this.user.userName + ',w_960' + (this.user.userName.length < 26 ? ',y_80' : ',y_60');
-    const contentURL = 'c_fit,co_rgb:222,g_north,l_text:a8duhpsxchugqa5gfntl.otf_37_bold:' + userNameText + '/c_fit,co_rgb:222,l_text:a8duhpsxchugqa5gfntl.otf_60_bold:' + title + ',w_1060,h_400'
+    const baseFirstURL = 'https://res.cloudinary.com/musil/image/upload/';
+    const baseLastURL = '/v1604767919/base_ebd8yk.png';
+    const userNameText =
+      this.user.userName +
+      ',w_960' +
+      (this.user.userName.length < 26 ? ',y_80' : ',y_60');
+    const contentURL =
+      'c_fit,co_rgb:222,g_north,l_text:a8duhpsxchugqa5gfntl.otf_37_bold:' +
+      userNameText +
+      '/c_fit,co_rgb:222,l_text:a8duhpsxchugqa5gfntl.otf_60_bold:' +
+      title +
+      ',w_1060,h_400';
     return baseFirstURL + encodeURIComponent(contentURL) + baseLastURL;
   }
 
   submit() {
     this.inProgress = true;
     const formData = this.form.value;
-    const thumbnailURL = this.createOGPURL(formData.title)
+    const thumbnailURL = this.createOGPURL(formData.title);
     const sendData: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
