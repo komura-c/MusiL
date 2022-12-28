@@ -2,7 +2,7 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -32,7 +32,7 @@ describe('CreateComponent', () => {
           MatInputModule,
         ],
         providers: [
-          FormBuilder,
+          UntypedFormBuilder,
           MatSnackBar,
           Overlay,
           { provide: AngularFirestore, useValue: FirestoreStub },

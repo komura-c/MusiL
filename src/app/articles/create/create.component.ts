@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Article } from 'functions/src/interfaces/article';
@@ -52,15 +52,15 @@ export class CreateComponent implements OnInit {
   });
 
   get titleControl() {
-    return this.form.get('title') as FormControl;
+    return this.form.get('title') as UntypedFormControl;
   }
 
   get isPublicControl() {
-    return this.form.get('isPublic') as FormControl;
+    return this.form.get('isPublic') as UntypedFormControl;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private articleService: ArticleService,
     private authService: AuthService,
     private snackBar: MatSnackBar,

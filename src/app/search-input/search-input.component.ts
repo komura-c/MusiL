@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { FormControl } from '@angular/forms';
+import { UntypedFormControl } from '@angular/forms';
 import { SearchService } from '../services/search.service';
 import { startWith, debounceTime, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
@@ -22,7 +22,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
     facetFilters: ['isPublic:true'],
   };
 
-  searchControl: FormControl = new FormControl();
+  searchControl: UntypedFormControl = new UntypedFormControl();
   searchResult: {
     nbHits: number;
     hits: any[];

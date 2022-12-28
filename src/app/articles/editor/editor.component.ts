@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModules } from 'ngx-quill';
@@ -19,7 +19,7 @@ Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
   styleUrls: ['./editor.component.scss'],
 })
 export class EditorComponent {
-  @Input() parentForm: FormGroup;
+  @Input() parentForm: UntypedFormGroup;
 
   @ViewChild('imageInput') private imageInput: ElementRef<HTMLElement>;
   editorInstance: any;
@@ -43,7 +43,7 @@ export class EditorComponent {
   };
 
   get editorContentControl() {
-    return this.parentForm.get('editorContent') as FormControl;
+    return this.parentForm.get('editorContent') as UntypedFormControl;
   }
 
   constructor(

@@ -1,6 +1,6 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import {
   MatDialog,
   MAT_DIALOG_SCROLL_STRATEGY,
@@ -19,7 +19,7 @@ describe('SettingsComponent', () => {
       TestBed.configureTestingModule({
         declarations: [SettingsComponent],
         providers: [
-          FormBuilder,
+          UntypedFormBuilder,
           MatDialog,
           Overlay,
           MAT_DIALOG_SCROLL_STRATEGY,
