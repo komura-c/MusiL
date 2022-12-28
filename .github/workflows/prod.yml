@@ -41,5 +41,5 @@ jobs:
         with:
           args: deploy
         env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN_PROD }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_PROD }}
           PROJECT_ID: prod
