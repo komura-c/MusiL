@@ -19,7 +19,7 @@
     "firebase": "^9.15.0",
     "firebase-admin": "^9.2.0",
     "firebase-functions": "^3.11.0",
-    "firebase-tools": "^9.10.0",
+    "firebase-tools": "^9.23.3",
     "html-to-text": "^6.0.0",
     "twitter": "^1.7.1"
   },
