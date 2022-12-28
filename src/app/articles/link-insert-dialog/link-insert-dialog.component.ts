@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -16,11 +16,11 @@ export class LinkInsertDialogComponent {
   });
 
   get linkInputControl() {
-    return this.form.get('linkInput') as FormControl;
+    return this.form.get('linkInput') as UntypedFormControl;
   }
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<LinkInsertDialogComponent>
   ) { }
 

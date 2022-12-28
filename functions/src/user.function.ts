@@ -38,7 +38,7 @@ export const deleteUserData = functions
       yes: true,
       token: functions.config().fb.token,
     });
-    await storage.deleteFiles({ directory: `users/${user.uid}` });
+    await storage.deleteFiles({ prefix: `users/${user.uid}` });
   });
 
 export const deleteUserArticles = functions

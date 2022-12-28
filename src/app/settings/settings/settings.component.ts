@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormControl, Validators, UntypedFormBuilder } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatDialog } from '@angular/material/dialog';
@@ -30,17 +30,17 @@ export class SettingsComponent implements OnInit {
   });
 
   get userNameControl() {
-    return this.form.get('userName') as FormControl;
+    return this.form.get('userName') as UntypedFormControl;
   }
 
   get descriptionControl() {
-    return this.form.get('description') as FormControl;
+    return this.form.get('description') as UntypedFormControl;
   }
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private router: Router,
