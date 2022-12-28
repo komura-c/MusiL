@@ -6,7 +6,7 @@ import {
   ElementRef,
   OnDestroy,
 } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import {
   MatAutocomplete,
   MatAutocompleteSelectedEvent,
@@ -23,7 +23,7 @@ import { startWith, debounceTime } from 'rxjs/operators';
   styleUrls: ['./tag-form.component.scss'],
 })
 export class TagFormComponent implements OnInit, OnDestroy {
-  @Input() parentForm: FormGroup;
+  @Input() parentForm: UntypedFormGroup;
   @Input() tags: string[];
   @Input() tagMaxWordCount: number;
   @Input() tagMaxLength: number;
@@ -44,7 +44,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
   removable = true;
 
   get tagControl() {
-    return this.parentForm.get('tag') as FormControl;
+    return this.parentForm.get('tag') as UntypedFormControl;
   }
 
   constructor(private searchService: SearchService) {}
