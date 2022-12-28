@@ -50,7 +50,7 @@ function createTweetText(
     return (
       randomEmoji() +
       articleData.title +
-      ' by @' +
+      ' by ' +
       userData.screenName +
       '\n' +
       config.project.hosting_url +
