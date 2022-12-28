@@ -15,9 +15,8 @@ export {
 } from './twitter.function';
 export { countUpArticleView } from './view-count.function';
 export {
-  createArticleRandomAndCountUp,
-  deleteArticleRandomAndCountDown,
-  updateArticleRandom,
-} from './article-random.function';
+  incrementArticleCount,
+  decrementArticleCount,
+} from './count-article.function';
 export { addAdminClaim, removeAdminClaim } from './admin.function';
 export { sitemap } from './sitemap.function';
