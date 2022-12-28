@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "12.x"
+    "node": "12"
   },
   "scripts": {
     "start": "ng serve --port 4200 --open",
@@ -14,7 +14,7 @@
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
     "test": "ng test",
     "lint": "ng lint",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "dependencies": {
     "@angular/animations": "~12.2.0",
@@ -56,6 +56,7 @@
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.28.2",
     "@typescript-eslint/parser": "4.28.2",
+    "esbuild": "^0.14.5",
     "eslint": "^7.26.0",
     "firebase-tools": "^9.10.0",
     "fuzzy": "^0.1.3",
