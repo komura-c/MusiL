@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { SharedArticleEditRoutingModule } from './shared-article-edit-routing.module';
 import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
 import { DeleteDialogComponent } from './delete-dialog/delete-dialog.component';
 import { ArticleEditButtonsComponent } from './article-edit-buttons/article-edit-buttons.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatMenuModule } from '@angular/material/menu';
+import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 
 @NgModule({
   declarations: [ArticleEditButtonsComponent, DeleteDialogComponent],

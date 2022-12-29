@@ -5,7 +5,7 @@ import {
   AngularFirestore,
   AngularFirestoreModule,
 } from '@angular/fire/compat/firestore';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environmentStub } from 'src/test/environment.stub';
 import { FirestoreStub } from 'src/test/firebase.stub';

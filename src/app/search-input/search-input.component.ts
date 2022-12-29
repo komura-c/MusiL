@@ -6,7 +6,7 @@ import { startWith, debounceTime, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { UserData } from '@interfaces/user';
-import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/legacy-autocomplete';
 
 @Component({
   selector: 'app-search-input',
