@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Article } from 'functions/src/interfaces/article';
 import { Router } from '@angular/router';
 

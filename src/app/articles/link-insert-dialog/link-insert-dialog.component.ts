@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-link-insert-dialog',

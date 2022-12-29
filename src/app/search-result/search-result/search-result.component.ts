@@ -8,7 +8,7 @@ import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
 import firebase from 'firebase/compat/app';
-import { PageEvent } from '@angular/material/paginator';
+import { LegacyPageEvent as PageEvent } from '@angular/material/legacy-paginator';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 
