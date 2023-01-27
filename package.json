@@ -4,7 +4,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "scripts": {
     "ng": "ng",
@@ -28,13 +28,13 @@
     "@angular/platform-browser": "^15.0.4",
     "@angular/platform-browser-dynamic": "^15.0.4",
     "@angular/router": "^15.0.4",
-    "algoliasearch": "^4.8.3",
+    "algoliasearch": "^4.14.3",
     "firebase": "^9.15.0",
-    "ngx-image-cropper": "^3.3.2",
-    "ngx-infinite-scroll": "^10.0.1",
-    "ngx-quill": "^17.1.1",
+    "ngx-image-cropper": "^6.3.2",
+    "ngx-infinite-scroll": "^15.0.0",
+    "ngx-quill": "^20.0.1",
     "quill": "^1.3.7",
-    "quill-image-drop-and-paste": "^1.2.9",
+    "quill-image-drop-and-paste": "^1.2.14",
     "quill-image-resize": "^3.0.9",
     "rxjs": "^7.0.0",
     "tslib": "^2.3.0",
