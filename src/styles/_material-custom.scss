@@ -6,9 +6,9 @@
 //  If you specify typography styles for the components you use elsewhere, you should delete this line.
 //  If you don't need the default component typographies but still want the hierarchy styles,
 //  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
+//    `@include mat.legacy-typography-hierarchy(mat.define-typography-config());`
+@include mat.all-component-typographies();
+@include mat.core();
 
 $musil-primary: mat.define-palette(mat.$deep-orange-palette);
 $musil-accent: mat.define-palette(mat.$indigo-palette);
@@ -19,4 +19,4 @@ $musil-theme: mat.define-light-theme(
   $musil-accent,
   $musil-warn
 );
-@include mat.all-legacy-component-themes($musil-theme);
+@include mat.all-component-themes($musil-theme);

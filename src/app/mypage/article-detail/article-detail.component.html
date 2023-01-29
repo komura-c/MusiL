@@ -96,11 +96,11 @@
         </div>
         <h1 class="article-header__title">{{ article.title }}</h1>
         <ng-container *ngIf="article.tags">
-          <mat-chip-list aria-label="記事のタグ">
-            <mat-chip *ngFor="let tag of article.tags">
+          <mat-chip-listbox aria-label="記事のタグ">
+            <mat-chip-option *ngFor="let tag of article.tags">
               <a [routerLink]="'/tags/' + tag">{{ tag }}</a>
-            </mat-chip>
-          </mat-chip-list>
+            </mat-chip-option>
+          </mat-chip-listbox>
         </ng-container>
       </div>
 

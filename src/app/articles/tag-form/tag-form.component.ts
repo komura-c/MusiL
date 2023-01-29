@@ -8,15 +8,15 @@ import {
 } from '@angular/core';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import {
-  MatLegacyAutocomplete as MatAutocomplete,
-  MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
-} from '@angular/material/legacy-autocomplete';
+  MatAutocomplete,
+  MatAutocompleteSelectedEvent,
+} from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
 import {
-  MatLegacyChipInputEvent as MatChipInputEvent,
-  MatLegacyChipList as MatChipList,
-} from '@angular/material/legacy-chips';
+  MatChipInputEvent,
+  MatChipList,
+} from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 
