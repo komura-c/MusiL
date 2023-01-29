@@ -17,5 +17,4 @@ export class SearchService {
       environment.algolia.index_name + '_popular'
     ),
   };
-  constructor() {}
 }
