@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanDeactivate,
-} from '@angular/router';
+import { CanDeactivate } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { CreateComponent } from '../articles/create/create.component';
 
@@ -9,9 +7,7 @@ import { CreateComponent } from '../articles/create/create.component';
   providedIn: 'root',
 })
 export class FormGuard implements CanDeactivate<unknown> {
-  canDeactivate(
-    component: CreateComponent,
-  ): Observable<boolean> | boolean {
+  canDeactivate(component: CreateComponent): Observable<boolean> | boolean {
     if (component.form.pristine || component.isComplete) {
       return true;
     }

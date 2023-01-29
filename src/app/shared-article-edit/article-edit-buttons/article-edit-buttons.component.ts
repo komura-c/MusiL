@@ -21,7 +21,7 @@ export class ArticleEditButtonsComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private clipboard: Clipboard
-  ) { }
+  ) {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {

@@ -1,7 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar, MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
+import {
+  MatLegacySnackBar as MatSnackBar,
+  MatLegacySnackBarModule as MatSnackBarModule,
+} from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,25 +16,23 @@ describe('ArticleCommentComponent', () => {
   let component: ArticleCommentComponent;
   let fixture: ComponentFixture<ArticleCommentComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ArticleCommentComponent],
-        imports: [
-          ReactiveFormsModule,
-          RouterTestingModule,
-          MatSnackBarModule,
-          MatDialogModule,
-        ],
-        providers: [
-          MatSnackBar,
-          ActivatedRoute,
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: CommentService, useValue: CommentServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ArticleCommentComponent],
+      imports: [
+        ReactiveFormsModule,
+        RouterTestingModule,
+        MatSnackBarModule,
+        MatDialogModule,
+      ],
+      providers: [
+        MatSnackBar,
+        ActivatedRoute,
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: CommentService, useValue: CommentServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleCommentComponent);

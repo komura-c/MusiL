@@ -13,7 +13,10 @@ import {
 } from '@angular/material/legacy-autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
-import { MatLegacyChipInputEvent as MatChipInputEvent, MatLegacyChipList as MatChipList } from '@angular/material/legacy-chips';
+import {
+  MatLegacyChipInputEvent as MatChipInputEvent,
+  MatLegacyChipList as MatChipList,
+} from '@angular/material/legacy-chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 

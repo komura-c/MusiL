@@ -6,13 +6,11 @@ describe('RecommendArticleComponent', () => {
   let component: RecommendArticleComponent;
   let fixture: ComponentFixture<RecommendArticleComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [RecommendArticleComponent],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [RecommendArticleComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RecommendArticleComponent);

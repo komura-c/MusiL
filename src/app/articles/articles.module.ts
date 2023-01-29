@@ -8,7 +8,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MatLegacyInputModule as MatInputModule } from '@angular/material/legacy-input';
 import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/material/legacy-form-field';
 import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/legacy-button';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
 import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyChipsModule as MatChipsModule } from '@angular/material/legacy-chips';
@@ -45,7 +45,7 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
     MatAutocompleteModule,
     InfiniteScrollModule,
     MatToolbarModule,
-    MatDialogModule
+    MatDialogModule,
   ],
 })
-export class ArticlesModule { }
+export class ArticlesModule {}

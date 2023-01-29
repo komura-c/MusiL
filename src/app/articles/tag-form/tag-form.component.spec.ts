@@ -6,14 +6,12 @@ describe('TagFormComponent', () => {
   let component: TagFormComponent;
   let fixture: ComponentFixture<TagFormComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [TagFormComponent],
-        imports: [MatAutocompleteModule],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [TagFormComponent],
+      imports: [MatAutocompleteModule],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TagFormComponent);

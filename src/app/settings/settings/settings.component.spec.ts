@@ -14,21 +14,19 @@ describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [SettingsComponent],
-        providers: [
-          UntypedFormBuilder,
-          MatDialog,
-          Overlay,
-          MAT_DIALOG_SCROLL_STRATEGY,
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: UserService, useValue: UserServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [SettingsComponent],
+      providers: [
+        UntypedFormBuilder,
+        MatDialog,
+        Overlay,
+        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: UserService, useValue: UserServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);

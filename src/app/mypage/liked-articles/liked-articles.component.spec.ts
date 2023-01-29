@@ -10,19 +10,17 @@ describe('LikedArticlesComponent', () => {
   let component: LikedArticlesComponent;
   let fixture: ComponentFixture<LikedArticlesComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [LikedArticlesComponent],
-        imports: [RouterTestingModule],
-        providers: [
-          ActivatedRoute,
-          { provide: ArticleService, useValue: ArticleServiceStub },
-          { provide: UserService, useValue: UserServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LikedArticlesComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        ActivatedRoute,
+        { provide: ArticleService, useValue: ArticleServiceStub },
+        { provide: UserService, useValue: UserServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LikedArticlesComponent);

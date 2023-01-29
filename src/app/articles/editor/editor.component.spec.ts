@@ -10,19 +10,17 @@ describe('EditorComponent', () => {
   let component: EditorComponent;
   let fixture: ComponentFixture<EditorComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [EditorComponent],
-        providers: [
-          MatSnackBar,
-          Overlay,
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: ArticleService, useValue: ArticleServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [EditorComponent],
+      providers: [
+        MatSnackBar,
+        Overlay,
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: ArticleService, useValue: ArticleServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditorComponent);

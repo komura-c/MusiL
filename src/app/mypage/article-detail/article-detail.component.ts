@@ -46,7 +46,7 @@ export class ArticleDetailComponent implements OnDestroy {
     }),
     tap((article: ArticleWithAuthor) => {
       if (!article) {
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl('/');
         return;
       }
       if (article) {
@@ -153,10 +153,12 @@ export class ArticleDetailComponent implements OnDestroy {
     }, 100);
   }
 
-  scrollToHeading(event: { target: { hash: string; }; }) {
+  scrollToHeading(event: { target: { hash: string } }) {
     const id = event.target.hash.replace('#', '');
     if (id !== '') {
-      const rectTop = this.document.getElementById(id).getBoundingClientRect().top;
+      const rectTop = this.document
+        .getElementById(id)
+        .getBoundingClientRect().top;
       const position = window.pageYOffset;
       const top = rectTop + position - this.headerHeight;
       window.scroll({

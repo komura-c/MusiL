@@ -84,7 +84,8 @@ img {
   top: 84px;
   z-index: 1;
   background-color: #fff;
-  .ql-picker-label, button {
+  .ql-picker-label,
+  button {
     height: 28px !important;
     margin: 0 8px;
   }
@@ -93,17 +94,17 @@ img {
     line-height: 26px;
   }
   .ql-picker.ql-header {
-    .ql-picker-label[data-value="2"]::before,
-    .ql-picker-item[data-value="2"]::before {
-      content: "大見出し";
+    .ql-picker-label[data-value='2']::before,
+    .ql-picker-item[data-value='2']::before {
+      content: '大見出し';
     }
-    .ql-picker-label[data-value="3"]::before,
-    .ql-picker-item[data-value="3"]::before {
-      content: "中見出し";
+    .ql-picker-label[data-value='3']::before,
+    .ql-picker-item[data-value='3']::before {
+      content: '中見出し';
     }
-    .ql-picker-label[data-value="4"]::before,
-    .ql-picker-item[data-value="4"]::before {
-      content: "小見出し";
+    .ql-picker-label[data-value='4']::before,
+    .ql-picker-item[data-value='4']::before {
+      content: '小見出し';
     }
     .ql-picker-label::before,
     .ql-picker-item::before {
@@ -120,8 +121,8 @@ img {
         position: absolute;
         background-color: #424242;
         color: white;
-        padding: .5em;
-        border-radius: .5em;
+        padding: 0.5em;
+        border-radius: 0.5em;
         left: -50%;
         top: 100%;
         width: max-content;
@@ -163,14 +164,14 @@ img {
         }
       }
       &.ql-list {
-        &[value="ordered"] {
+        &[value='ordered'] {
           &:hover::after,
           &:active::after,
           &:focus::after {
             content: '番号付きリスト';
           }
         }
-        &[value="bullet"] {
+        &[value='bullet'] {
           &:hover::after,
           &:active::after,
           &:focus::after {
@@ -178,7 +179,7 @@ img {
           }
         }
       }
-      &.ql-link{
+      &.ql-link {
         &:hover::after,
         &:active::after,
         &:focus::after {
@@ -221,11 +222,11 @@ img {
     a {
       color: $color-primary;
     }
-    &.ql-blank::before{
+    &.ql-blank::before {
       font-style: normal;
       margin: 14px 0;
     }
-    .ql-video[src*="youtube"] {
+    .ql-video[src*='youtube'] {
       width: 100%;
       max-width: 640px;
       height: 360px;
@@ -243,7 +244,7 @@ img {
       content: '削除';
     }
   }
-  .ql-tooltip.ql-editing[data-mode="link"] {
+  .ql-tooltip.ql-editing[data-mode='link'] {
     &::before {
       content: 'リンクURL';
     }
@@ -251,7 +252,7 @@ img {
       content: '追加';
     }
   }
-  .ql-tooltip.ql-editing[data-mode="video"] {
+  .ql-tooltip.ql-editing[data-mode='video'] {
     &::before {
       content: '動画URL';
     }

@@ -8,17 +8,15 @@ describe('ArticleCardComponent', () => {
   let component: ArticleCardComponent;
   let fixture: ComponentFixture<ArticleCardComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ArticleCardComponent],
-        providers: [
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: LikeService, useValue: LikeServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ArticleCardComponent],
+      providers: [
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: LikeService, useValue: LikeServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleCardComponent);

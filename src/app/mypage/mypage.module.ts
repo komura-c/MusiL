@@ -58,4 +58,4 @@ import { SafeHTMLPipe } from '../pipes/safe-html.pipe';
     SharedLoginDialogModule,
   ],
 })
-export class MypageModule { }
+export class MypageModule {}

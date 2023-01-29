@@ -15,7 +15,7 @@ export class DeleteAccountDialogComponent {
     private userService: UserService,
     private router: Router,
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>
-  ) { }
+  ) {}
 
   deleteAccount() {
     this.dialogRef.close();

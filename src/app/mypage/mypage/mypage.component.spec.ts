@@ -10,18 +10,16 @@ describe('MypageComponent', () => {
   let component: MypageComponent;
   let fixture: ComponentFixture<MypageComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MypageComponent, StringToLinkPipe],
-        imports: [RouterTestingModule],
-        providers: [
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: UserService, useValue: UserServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MypageComponent, StringToLinkPipe],
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: UserService, useValue: UserServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MypageComponent);

@@ -23,7 +23,7 @@ export class MypageComponent implements OnInit {
     }),
     tap((user) => {
       if (!user) {
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl('/');
         return;
       }
       if (user) {
@@ -45,7 +45,7 @@ export class MypageComponent implements OnInit {
     private seoService: SeoService,
     public authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.router.events.forEach((event) => {
