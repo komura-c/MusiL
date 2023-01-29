@@ -5,7 +5,8 @@ import { SearchResultRoutingModule } from './search-result-routing.module';
 import { SearchResultComponent } from './search-result/search-result.component';
 import { MatLegacyPaginatorModule as MatPaginatorModule } from '@angular/material/legacy-paginator';
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
-import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
+import { ArticleCardComponent } from '../components/article-card/article-card.component';
+import { ArticleCardSkeltonComponent } from '../components/article-card-skelton/article-card-skelton.component';
 
 @NgModule({
   declarations: [SearchResultComponent],
@@ -13,8 +14,9 @@ import { SharedArticleCardModule } from '../shared-article-card/shared-article-c
     CommonModule,
     SearchResultRoutingModule,
     MatPaginatorModule,
-    SharedArticleCardModule,
     MatProgressSpinnerModule,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
   ],
 })
 export class SearchResultModule {}

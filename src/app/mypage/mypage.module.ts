@@ -14,7 +14,6 @@ import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { StringToLinkPipe } from '../pipes/string-to-link.pipe';
-import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
 import { SharedArticleEditModule } from '../shared-article-edit/shared-article-edit.module';
 import { ArticleCommentComponent } from './article-comment/article-comment.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,6 +24,8 @@ import { SharedLoginDialogModule } from '../shared-login-dialog/shared-login-dia
 import { RecommendArticleComponent } from './recommend-article/recommend-article.component';
 import { EncodeUrlPipe } from '../pipes/encode-url.pipe';
 import { SafeHTMLPipe } from '../pipes/safe-html.pipe';
+import { ArticleCardComponent } from '../components/article-card/article-card.component';
+import { ArticleCardSkeltonComponent } from '../components/article-card-skelton/article-card-skelton.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,6 @@ import { SafeHTMLPipe } from '../pipes/safe-html.pipe';
     MatButtonModule,
     MatTooltipModule,
     MatIconModule,
-    SharedArticleCardModule,
     SharedArticleEditModule,
     MatTabsModule,
     MatChipsModule,
@@ -56,6 +56,8 @@ import { SafeHTMLPipe } from '../pipes/safe-html.pipe';
     MatFormFieldModule,
     MatDividerModule,
     SharedLoginDialogModule,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
   ],
 })
 export class MypageModule {}

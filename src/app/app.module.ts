@@ -37,11 +37,12 @@ import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/le
 import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
 
 // Top
-import { SharedArticleCardModule } from './shared-article-card/shared-article-card.module';
 import { TopComponent } from './top/top.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 import { NotFoundComponent } from './not-found/not-found.component';
+import { ArticleCardComponent } from './components/article-card/article-card.component';
+import { ArticleCardSkeltonComponent } from './components/article-card-skelton/article-card-skelton.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     MatProgressSpinnerModule,
     MatDividerModule,
     // Top
-    SharedArticleCardModule,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
   ],
   providers: [
     { provide: REGION, useValue: 'asia-northeast1' },

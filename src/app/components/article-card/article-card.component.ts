@@ -1,10 +1,16 @@
+import { DatePipe, NgIf } from '@angular/common';
 import { Component, OnInit, Input } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LikeService } from 'src/app/services/like.service';
 
 @Component({
+  standalone: true,
+  imports: [RouterLink, NgIf, MatIconModule, MatButtonModule, DatePipe],
   selector: 'app-article-card',
   templateUrl: './article-card.component.html',
   styleUrls: ['./article-card.component.scss'],
