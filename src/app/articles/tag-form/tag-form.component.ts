@@ -13,10 +13,7 @@ import {
 } from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
-import {
-  MatChipInputEvent,
-  MatChipList,
-} from '@angular/material/chips';
+import { MatChipGrid, MatChipInputEvent } from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 
@@ -31,7 +28,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
   @Input() tagMaxWordCount: number;
   @Input() tagMaxLength: number;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('chipList') chipList: MatChipList;
+  @ViewChild('chipList') chipList: MatChipGrid;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
@@ -43,7 +40,6 @@ export class TagFormComponent implements OnInit, OnDestroy {
     count: number;
     selected?: boolean;
   }[];
-  selectable = true;
   removable = true;
 
   get tagControl() {

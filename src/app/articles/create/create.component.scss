@@ -28,8 +28,7 @@
   height: 50px;
 }
 mat-icon {
-  font-size: 32px;
-  width: 32px;
+  margin: 4px 4px 0 0;
 }
 .back-button {
   margin-right: auto;
@@ -45,15 +44,18 @@ mat-icon {
   font-size: 16px;
   font-weight: bold;
   color: #a6a6a6;
+  @include sp {
+    display: none;
+  }
   &--draft {
     margin-right: 8px;
-    @include sp {
-      display: none;
-    }
   }
   &--active {
     color: #000;
   }
+}
+.mat-mdc-slide-toggle {
+  margin-bottom: 4px;
 }
 .save-button {
   margin-left: 16px;

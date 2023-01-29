@@ -31,9 +31,7 @@
           rel="nofollow noopener noreferrer"
           matTooltipPosition="right"
         >
-          <mat-icon>
-            <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
-          </mat-icon>
+          <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
         </a>
         <button
           mat-icon-button
@@ -57,9 +55,11 @@
           </div>
         </div>
         <div class="article-header__author">
-          <a [routerLink]="'/' + article.author.screenName">
+          <a
+            class="article-header__user-icon"
+            [routerLink]="'/' + article.author.screenName"
+          >
             <img
-              class="article-header__user-icon"
               [src]="article.author.avatarURL"
               alt="プロフィール画像"
               onError="this.src='/assets/icons/no-user-icon.png'"
@@ -76,12 +76,7 @@
             target="_blank"
             rel="nofollow noopener noreferrer"
           >
-            <mat-icon>
-              <img
-                src="/assets/icons/twitter-logo-blue.svg"
-                alt="Twitterロゴ"
-              />
-            </mat-icon>
+            <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
           </a>
           <p class="article-header__updated-date">
             {{ article.updatedAt.toDate() | date : 'yyyy年MM月dd日' }}更新
@@ -145,12 +140,10 @@
               target="_blank"
               rel="nofollow noopener noreferrer"
             >
-              <mat-icon>
-                <img
-                  src="/assets/icons/twitter-logo-blue.svg"
-                  alt="Twitterロゴ"
-                />
-              </mat-icon>
+              <img
+                src="/assets/icons/twitter-logo-blue.svg"
+                alt="Twitterロゴ"
+              />
             </a>
             <button
               mat-icon-button

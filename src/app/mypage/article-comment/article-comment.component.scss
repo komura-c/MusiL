@@ -59,5 +59,9 @@
 }
 
 .login-button {
-  background-color: $color-twitter;
+  &.mdc-button {
+    text-decoration: none;
+    background-color: $color-twitter;
+    color: #fff;
+  }
 }

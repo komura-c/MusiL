@@ -3,7 +3,6 @@
     <mat-chip-grid #chipList aria-label="タグセレクション">
       <mat-chip-row
         *ngFor="let tag of tags"
-        [selectable]="selectable"
         [removable]="removable"
         (removed)="remove(tag)"
       >

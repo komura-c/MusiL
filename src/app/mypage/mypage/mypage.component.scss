@@ -51,10 +51,13 @@
     }
   }
   &__twitter {
-    text-decoration: none;
-    background-color: $color-twitter;
-    @include sp {
-      font-size: 14px;
+    &.mdc-button {
+      text-decoration: none;
+      background-color: $color-twitter;
+      color: #fff;
+      @include sp {
+        font-size: 14px;
+      }
     }
   }
   &__nav {

@@ -36,7 +36,11 @@
 }
 
 .login-button {
-  background-color: $color-twitter;
+  &.mdc-button {
+    text-decoration: none;
+    background-color: $color-twitter;
+    color: #fff;
+  }
 }
 
 .post-button {
@@ -51,12 +55,12 @@
 }
 
 .my-menu {
-  line-height: normal;
-  mat-icon {
-    height: 100%;
-    width: 100%;
-  }
-  img {
-    border-radius: 50%;
+  &.mdc-icon-button {
+    padding: 0;
+    img {
+      width: 48px;
+      height: auto;
+      border-radius: 50%;
+    }
   }
 }

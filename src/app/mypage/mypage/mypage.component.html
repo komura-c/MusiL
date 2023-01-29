@@ -44,7 +44,12 @@
       </div>
     </div>
 
-    <nav mat-tab-nav-bar disablePagination="true" class="mypage__nav">
+    <nav
+      mat-tab-nav-bar
+      disablePagination="true"
+      class="mypage__nav"
+      [tabPanel]="tabPanel"
+    >
       <a
         mat-tab-link
         [routerLink]="'/' + user.screenName"
@@ -65,6 +70,7 @@
         いいね
       </a>
     </nav>
+    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
   </ng-container>
   <ng-template #userLoading>
     <div class="skelton-mypage">

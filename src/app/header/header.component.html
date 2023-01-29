@@ -42,13 +42,11 @@
           aria-label="マイメニュー"
           class="my-menu"
         >
-          <mat-icon>
-            <img
-              [src]="user.avatarURL"
-              alt="プロフィール画像"
-              onError="this.src='/assets/icons/no-user-icon.png'"
-            />
-          </mat-icon>
+          <img
+            [src]="user.avatarURL"
+            alt="プロフィール画像"
+            onError="this.src='/assets/icons/no-user-icon.png'"
+          />
         </button>
 
         <mat-menu #menu="matMenu">

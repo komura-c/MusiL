@@ -61,22 +61,23 @@
   display: flex;
   flex-direction: column;
   &__like {
-    margin-left: -1px;
-    transform-origin: 50% 50%;
     &--liked {
       animation: like-anim 0.5s ease-out;
     }
     span {
       position: absolute;
-      top: 4px;
+      bottom: 14px;
+      right: 0px;
       font-size: 18px;
     }
   }
   &__twitter {
-    mat-icon {
-      width: 44px;
+    &.mdc-icon-button {
+      padding: 8px;
       img {
-        margin-top: -6px;
+        width: 36px;
+        height: auto;
+        border-radius: 50%;
       }
     }
   }
@@ -105,13 +106,18 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    img {
+      border-radius: 50%;
+    }
   }
   &__user-name {
     font-weight: bold;
     padding: 8px;
   }
   &__twitter {
-    margin: 0 4px -6px 0;
+    margin: 8px 4px 0 0;
+    width: 28px;
+    height: auto;
   }
   &__updated-date {
     color: #808080;
@@ -173,14 +179,14 @@
     }
   }
   &__twitter {
-    mat-icon {
-      font-size: 24px;
-      img {
-        width: 24px;
+    &.mdc-button {
+      text-decoration: none;
+      background-color: $color-twitter;
+      color: #fff;
+      mat-icon {
+        margin: 4px 4px 0 0;
       }
     }
-    text-decoration: none;
-    background-color: $color-twitter;
   }
 }
 
@@ -189,13 +195,13 @@
   display: flex;
   justify-content: space-between;
   &__like {
-    transform-origin: 50% 50%;
     &--liked {
       animation: like-anim 0.5s ease-out;
     }
     span {
       position: absolute;
-      top: 4px;
+      bottom: 14px;
+      right: 0px;
       font-size: 18px;
     }
   }
@@ -204,10 +210,12 @@
     align-items: center;
   }
   &__twitter {
-    mat-icon {
-      width: 44px;
+    &.mdc-icon-button {
+      padding: 8px;
       img {
-        margin-top: -6px;
+        width: 36px;
+        height: auto;
+        border-radius: 50%;
       }
     }
   }
@@ -221,8 +229,7 @@
   height: 50px;
 }
 mat-icon {
-  font-size: 32px;
-  width: 32px;
+  margin: 2px 2px 0 0;
 }
 
 .toc-h2 {
