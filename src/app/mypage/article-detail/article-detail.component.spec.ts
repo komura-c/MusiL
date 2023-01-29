@@ -20,23 +20,21 @@ describe('ArticleDetailComponent', () => {
   let component: ArticleDetailComponent;
   let fixture: ComponentFixture<ArticleDetailComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ArticleDetailComponent],
-        imports: [RouterTestingModule],
-        providers: [
-          MatSnackBar,
-          Overlay,
-          MatDialog,
-          MAT_DIALOG_SCROLL_STRATEGY,
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: ArticleService, useValue: ArticleServiceStub },
-          { provide: LikeService, useValue: LikeServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ArticleDetailComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        MatSnackBar,
+        Overlay,
+        MatDialog,
+        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: ArticleService, useValue: ArticleServiceStub },
+        { provide: LikeService, useValue: LikeServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleDetailComponent);

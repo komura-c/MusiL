@@ -2,7 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { UntypedFormControl, Validators, UntypedFormBuilder } from '@angular/forms';
+import {
+  UntypedFormControl,
+  Validators,
+  UntypedFormBuilder,
+} from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';

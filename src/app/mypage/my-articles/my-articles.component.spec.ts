@@ -9,18 +9,16 @@ describe('MyArticlesComponent', () => {
   let component: MyArticlesComponent;
   let fixture: ComponentFixture<MyArticlesComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [MyArticlesComponent],
-        imports: [RouterTestingModule],
-        providers: [
-          { provide: UserService, useValue: UserServiceStub },
-          { provide: ArticleService, useValue: ArticleServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [MyArticlesComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        { provide: UserService, useValue: UserServiceStub },
+        { provide: ArticleService, useValue: ArticleServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MyArticlesComponent);

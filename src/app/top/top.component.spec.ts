@@ -8,17 +8,15 @@ describe('TopComponent', () => {
   let component: TopComponent;
   let fixture: ComponentFixture<TopComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [TopComponent],
-        providers: [
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: ArticleService, useValue: ArticleServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [TopComponent],
+      providers: [
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: ArticleService, useValue: ArticleServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TopComponent);

@@ -7,14 +7,12 @@ describe('CheckComponent', () => {
   let component: CheckComponent;
   let fixture: ComponentFixture<CheckComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [CheckComponent],
-        providers: [{ provide: CheckService, useValue: CheckServiceStub }],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [CheckComponent],
+      providers: [{ provide: CheckService, useValue: CheckServiceStub }],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckComponent);

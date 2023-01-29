@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatLegacyDialogModule as MatDialogModule, MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import {
+  MatLegacyDialogModule as MatDialogModule,
+  MatLegacyDialogRef as MatDialogRef,
+} from '@angular/material/legacy-dialog';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthServiceStub } from 'src/test/service.stub';
 import { LoginDialogComponent } from './login-dialog.component';
@@ -11,18 +14,16 @@ describe('LoginDialogComponent', () => {
     close: jasmine.createSpy('close'),
   };
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [LoginDialogComponent],
-        imports: [MatDialogModule],
-        providers: [
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: MatDialogRef, useValue: MatDialogRefStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [LoginDialogComponent],
+      imports: [MatDialogModule],
+      providers: [
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: MatDialogRef, useValue: MatDialogRefStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginDialogComponent);

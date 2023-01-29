@@ -6,10 +6,12 @@ import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModules } from 'ngx-quill';
-import Quill from 'quill'
+import Quill from 'quill';
 //@ts-ignore
 import ImageResize from 'quill-image-resize';
-import QuillImageDropAndPaste, { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
+import QuillImageDropAndPaste, {
+  ImageData as QuillImageData,
+} from 'quill-image-drop-and-paste';
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 
@@ -26,7 +28,19 @@ export class EditorComponent {
   quillModules: QuillModules = {
     toolbar: {
       container: [
-        [{ header: [2, 3, 4, false] }, 'bold', 'italic', 'underline', 'strike', 'blockquote', { list: 'ordered' }, { list: 'bullet' }, 'link', 'image', 'video'],
+        [
+          { header: [2, 3, 4, false] },
+          'bold',
+          'italic',
+          'underline',
+          'strike',
+          'blockquote',
+          { list: 'ordered' },
+          { list: 'bullet' },
+          'link',
+          'image',
+          'video',
+        ],
       ],
       handlers: {
         link: this.openLinkInsertDialogHandler.bind(this),
@@ -38,8 +52,8 @@ export class EditorComponent {
     },
     imageResize: {},
     imageDropAndPaste: {
-      handler: this.dropImageHandler.bind(this)
-    }
+      handler: this.dropImageHandler.bind(this),
+    },
   };
 
   get editorContentControl() {
@@ -51,11 +65,12 @@ export class EditorComponent {
     private authService: AuthService,
     private articleService: ArticleService,
     private snackBar: MatSnackBar,
-    private dialog: MatDialog,
-  ) { }
+    private dialog: MatDialog
+  ) {}
 
   editorCreated(editorInstance: any) {
-    const editorInputDefaultLink: HTMLElement = editorInstance.theme.tooltip.root.querySelector("input[data-link]");
+    const editorInputDefaultLink: HTMLElement =
+      editorInstance.theme.tooltip.root.querySelector('input[data-link]');
     editorInputDefaultLink.dataset.link = 'https://musil.place/';
     editorInputDefaultLink.dataset.video = 'https://www.youtube.com/';
 
@@ -68,9 +83,9 @@ export class EditorComponent {
         autoFocus: false,
         restoreFocus: false,
         maxWidth: 480,
-        width: '90vw'
+        width: '90vw',
       });
-      dialogRef.afterClosed().subscribe(formData => {
+      dialogRef.afterClosed().subscribe((formData) => {
         if (!formData) {
           return;
         }
@@ -103,7 +118,11 @@ export class EditorComponent {
       const currentValue = this.editorContentControl.value;
       this.editorContentControl.patchValue(
         currentValue +
-        '<p>​<a href="' + link + '" rel="nofollow noopener noreferrer">' + text + '</a>​​​</p>'
+          '<p>​<a href="' +
+          link +
+          '" rel="nofollow noopener noreferrer">' +
+          text +
+          '</a>​​​</p>'
       );
       return;
     }

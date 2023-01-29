@@ -13,7 +13,7 @@ export class LoginDialogComponent {
     private dialogRef: MatDialogRef<LoginDialogComponent>,
     public authService: AuthService,
     private router: Router
-  ) { }
+  ) {}
 
   login() {
     this.dialogRef.close();

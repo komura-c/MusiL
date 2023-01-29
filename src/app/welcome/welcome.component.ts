@@ -12,13 +12,16 @@ import { environment } from 'src/environments/environment';
 })
 export class WelcomeComponent {
   user$: Observable<UserData> = this.authService.user$.pipe(
-    tap(() => { this.isUserLoading = false })
+    tap(() => {
+      this.isUserLoading = false;
+    })
   );
   isUserLoading: boolean;
-  helpURL = environment.production ? "2a3zmsUlRyIGzV4wnkil" : "AYgq1MiWksA2LIxP91kG";
+  helpURL = environment.production
+    ? '2a3zmsUlRyIGzV4wnkil'
+    : 'AYgq1MiWksA2LIxP91kG';
 
-  constructor(
-    public authService: AuthService) {
+  constructor(public authService: AuthService) {
     this.isUserLoading = true;
   }
 

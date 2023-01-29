@@ -9,15 +9,13 @@ describe('SearchInputComponent', () => {
   let component: SearchInputComponent;
   let fixture: ComponentFixture<SearchInputComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [SearchInputComponent],
-        imports: [RouterTestingModule, MatAutocompleteModule],
-        providers: [{ provide: UserService, useValue: UserServiceStub }],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [SearchInputComponent],
+      imports: [RouterTestingModule, MatAutocompleteModule],
+      providers: [{ provide: UserService, useValue: UserServiceStub }],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchInputComponent);

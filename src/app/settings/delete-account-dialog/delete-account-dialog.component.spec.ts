@@ -14,20 +14,18 @@ describe('DeleteAccountDialogComponent', () => {
     close: jasmine.createSpy('close'),
   };
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [DeleteAccountDialogComponent],
-        imports: [RouterTestingModule],
-        providers: [
-          MatSnackBar,
-          Overlay,
-          { provide: MatDialogRef, useValue: MatDialogRefStub },
-          { provide: UserService, useValue: UserServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [DeleteAccountDialogComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        MatSnackBar,
+        Overlay,
+        { provide: MatDialogRef, useValue: MatDialogRefStub },
+        { provide: UserService, useValue: UserServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeleteAccountDialogComponent);

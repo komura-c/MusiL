@@ -17,4 +17,4 @@ import { ArticleCardSkeltonComponent } from './article-card-skelton/article-card
   ],
   exports: [ArticleCardComponent, ArticleCardSkeltonComponent],
 })
-export class SharedArticleCardModule { }
+export class SharedArticleCardModule {}

@@ -27,7 +27,12 @@ $tab: 760px;
     display: block;
     height: 100%;
     width: 100%;
-    background: linear-gradient(90deg, transparent, rgba(#fff, 0.5), transparent);
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(#fff, 0.5),
+      transparent
+    );
     position: absolute;
     top: 0;
     left: 0;
