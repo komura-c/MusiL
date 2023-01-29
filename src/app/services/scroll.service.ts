@@ -7,8 +7,6 @@ export class ScrollService {
   scrollPosYs: { [key: string]: number } = {};
   maxAttemptCount = 5;
 
-  constructor() {}
-
   saveScrollPosition(id: string): void {
     if (id) {
       this.scrollPosYs[id] = window.pageYOffset;

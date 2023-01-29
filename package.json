@@ -15,7 +15,7 @@
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
     "test": "ng test",
     "lint": "ng lint",
-    "format": "prettier --write 'src/'"
+    "lint-fix": "eslint --cache --fix src/ && prettier --write src/"
   },
   "dependencies": {
     "@angular/animations": "^15.1.0",
@@ -53,9 +53,10 @@
     "@angular/language-service": "^15.1.0",
     "@types/jasmine": "~4.3.0",
     "@types/quill": "^2.0.10",
-    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "5.48.1",
     "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.6.0",
     "firebase-tools": "^11.21.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.0",

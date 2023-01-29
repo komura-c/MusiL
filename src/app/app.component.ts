@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         if (registrations.length) {
-          for (let registration of registrations) {
+          for (const registration of registrations) {
             registration.unregister();
           }
         }

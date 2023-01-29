@@ -7,7 +7,6 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModules } from 'ngx-quill';
 import Quill from 'quill';
-//@ts-ignore
 import ImageResize from 'quill-image-resize';
 import QuillImageDropAndPaste, {
   ImageData as QuillImageData,

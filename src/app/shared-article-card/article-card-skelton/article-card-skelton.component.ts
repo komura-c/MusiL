@@ -5,6 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './article-card-skelton.component.html',
   styleUrls: ['./article-card-skelton.component.scss'],
 })
-export class ArticleCardSkeltonComponent {
-  constructor() {}
-}
+export class ArticleCardSkeltonComponent {}

@@ -138,7 +138,7 @@ export class ArticleDetailComponent implements OnDestroy {
   }
 
   private getHeading() {
-    this.headingElements = new Array();
+    this.headingElements = [];
     setTimeout(() => {
       const headingTagElements = this.document.querySelectorAll(
         '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
