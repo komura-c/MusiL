@@ -52,3 +52,4 @@ Thumbs.db
 ui-debug.log
 
 .eslintcache
+.angular
