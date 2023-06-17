@@ -1,6 +1,6 @@
 import { Article } from './article';
-import firebase from 'firebase/compat/app';
+import type { FieldValue } from 'firebase/firestore';
 
 export interface ArticleViewCount extends Pick<Article, 'uid' | 'articleId'> {
-  viewCount: number | firebase.firestore.FieldValue;
+  viewCount: number | FieldValue;
 }

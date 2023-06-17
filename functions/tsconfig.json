@@ -1,15 +1,16 @@
 {
-  "compileOnSave": true,
-  "include": ["src/**/*"],
+  "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "CommonJS",
+    "esModuleInterop": true,
+    "moduleResolution": "nodenext",
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "outDir": "lib",
     "sourceMap": true,
     "strict": true,
-    "target": "es2017",
     "lib": ["DOM", "ESNext.AsyncIterable"]
   }
 }

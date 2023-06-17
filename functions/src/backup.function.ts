@@ -13,7 +13,7 @@ export const backup = functions
   .onRun((_) => {
     const databaseName = client.databasePath(
       config.project.project_id,
-      '(default)',
+      '(default)'
     );
 
     return client
