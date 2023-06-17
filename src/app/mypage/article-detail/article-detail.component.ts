@@ -153,8 +153,11 @@ export class ArticleDetailComponent implements OnDestroy {
     }, 100);
   }
 
-  scrollToHeading(event: { target: { hash: string } }) {
-    const id = event.target.hash.replace('#', '');
+  scrollToHeading(event: MouseEvent) {
+    const id = (event.target as EventTarget & { hash: string }).hash.replace(
+      '#',
+      ''
+    );
     if (id !== '') {
       const rectTop = this.document
         .getElementById(id)

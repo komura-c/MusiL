@@ -14,6 +14,12 @@ import QuillImageDropAndPaste, {
 Quill.register('modules/imageResize', ImageResize);
 Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
 
+type QuillEditorInstance = {
+  theme: { tooltip: { root: Document } };
+  getSelection(): { index: number };
+  insertEmbed(index: number, type: string, downloadURL: string): void;
+};
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
@@ -23,7 +29,7 @@ export class EditorComponent {
   @Input() parentForm: UntypedFormGroup;
 
   @ViewChild('imageInput') private imageInput: ElementRef<HTMLElement>;
-  editorInstance: any;
+  editorInstance: QuillEditorInstance;
   quillModules: QuillModules = {
     toolbar: {
       container: [
@@ -67,7 +73,7 @@ export class EditorComponent {
     private dialog: MatDialog
   ) {}
 
-  editorCreated(editorInstance: any) {
+  editorCreated(editorInstance: QuillEditorInstance) {
     const editorInputDefaultLink: HTMLElement =
       editorInstance.theme.tooltip.root.querySelector('input[data-link]');
     editorInputDefaultLink.dataset.link = 'https://musil.place/';
@@ -131,8 +137,8 @@ export class EditorComponent {
     this.imageInput.nativeElement.click();
   }
 
-  onInsertImageEvent({ target }: { target: HTMLInputElement }) {
-    const file = target.files[0];
+  onInsertImageEvent({ target }: { target: EventTarget }) {
+    const file = (target as HTMLInputElement).files[0];
     this.uploadImage(file);
   }
 
