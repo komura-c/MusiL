@@ -11,18 +11,16 @@ import { UntypedFormControl } from '@angular/forms';
   styleUrls: ['./check.component.scss'],
 })
 export class CheckComponent {
-  usersScreenNameIsNull$: Observable<
-    UserData[]
-  > = this.checkService.getUserScreenNameIsNull();
-  articlesThumbnailURLIsNull$: Observable<
-    Article[]
-  > = this.checkService.getArticleThumbnailURLIsNull();
+  usersScreenNameIsNull$: Observable<UserData[]> =
+    this.checkService.getUserScreenNameIsNull();
+  articlesThumbnailURLIsNull$: Observable<Article[]> =
+    this.checkService.getArticleThumbnailURLIsNull();
 
   accessKeyControl: UntypedFormControl = new UntypedFormControl();
   screenNameControl: UntypedFormControl = new UntypedFormControl();
   profile: any;
 
-  constructor(private checkService: CheckService) { }
+  constructor(private checkService: CheckService) {}
 
   async getProfile(accessKey: string, screenName: string): Promise<string> {
     if (

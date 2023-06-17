@@ -23,15 +23,15 @@ export class AppComponent implements OnInit {
     private loadingService: LoadingService,
     private meta: Meta,
     @Inject(DOCUMENT) private document: HTMLDocument,
-    private location: Location,
-  ) { }
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     // PWA用のserviceWorkerが登録されていれば削除
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         if (registrations.length) {
-          for (let registration of registrations) {
+          for (const registration of registrations) {
             registration.unregister();
           }
         }
@@ -61,8 +61,10 @@ export class AppComponent implements OnInit {
     }
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        const currentPath = this.location.path()
-        if (/(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)) {
+        const currentPath = this.location.path();
+        if (
+          /(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)
+        ) {
           this.isShowHeader = false;
           this.isShowFooter = false;
           this.isScrollContainer = true;

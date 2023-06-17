@@ -1,21 +1,51 @@
 <div class="link-insert-dialog">
   <h2 class="link-insert-dialog__title">リンクを入力</h2>
   <form class="link-insert-dialog-form" [formGroup]="form">
-    <mat-form-field class="link-insert-dialog-form__url" appearance="outline" color="accent">
+    <mat-form-field
+      class="link-insert-dialog-form__url"
+      appearance="outline"
+      color="accent"
+    >
       <mat-label>URL</mat-label>
-      <input type="url" formControlName="linkInput" matInput placeholder="https://soundcloud.com/" autocomplete="off"
-        required />
-      <mat-error *ngIf="linkInputControl.hasError('required')">必須項目です</mat-error>
-      <mat-error *ngIf="linkInputControl.hasError('linkValidator')">不正な値です</mat-error>
+      <input
+        type="url"
+        formControlName="linkInput"
+        matInput
+        placeholder="https://soundcloud.com/"
+        autocomplete="off"
+        required
+      />
+      <mat-error *ngIf="linkInputControl.hasError('required')"
+        >必須項目です</mat-error
+      >
+      <mat-error *ngIf="linkInputControl.hasError('linkValidator')"
+        >不正な値です</mat-error
+      >
     </mat-form-field>
-    <mat-form-field class="link-insert-dialog-form__text" appearance="outline" color="accent">
+    <mat-form-field
+      class="link-insert-dialog-form__text"
+      appearance="outline"
+      color="accent"
+    >
       <mat-label>テキスト</mat-label>
-      <input type="text" formControlName="linkText" matInput placeholder="テキスト" autocomplete="off" />
+      <input
+        type="text"
+        formControlName="linkText"
+        matInput
+        placeholder="テキスト"
+        autocomplete="off"
+      />
     </mat-form-field>
   </form>
   <mat-dialog-actions>
     <button mat-button mat-dialog-close>キャンセル</button>
-    <button mat-flat-button color="primary" [disabled]="form.invalid || form.pristine"
-      (click)="onInsertLink()">リンクを挿入</button>
+    <button
+      mat-flat-button
+      color="primary"
+      [disabled]="form.invalid || form.pristine"
+      (click)="onInsertLink()"
+    >
+      リンクを挿入
+    </button>
   </mat-dialog-actions>
 </div>

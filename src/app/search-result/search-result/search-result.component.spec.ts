@@ -8,15 +8,13 @@ describe('SearchResultComponent', () => {
   let component: SearchResultComponent;
   let fixture: ComponentFixture<SearchResultComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [SearchResultComponent],
-        imports: [RouterTestingModule],
-        providers: [{ provide: UserService, useValue: UserServiceStub }],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [SearchResultComponent],
+      imports: [RouterTestingModule],
+      providers: [{ provide: UserService, useValue: UserServiceStub }],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SearchResultComponent);

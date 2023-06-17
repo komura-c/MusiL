@@ -6,14 +6,14 @@ import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { DOCUMENT, Location } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ViewCountService } from 'src/app/services/view-count.service';
 
 @Component({
@@ -46,7 +46,7 @@ export class ArticleDetailComponent implements OnDestroy {
     }),
     tap((article: ArticleWithAuthor) => {
       if (!article) {
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl('/');
         return;
       }
       if (article) {
@@ -138,7 +138,7 @@ export class ArticleDetailComponent implements OnDestroy {
   }
 
   private getHeading() {
-    this.headingElements = new Array();
+    this.headingElements = [];
     setTimeout(() => {
       const headingTagElements = this.document.querySelectorAll(
         '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
@@ -153,10 +153,15 @@ export class ArticleDetailComponent implements OnDestroy {
     }, 100);
   }
 
-  scrollToHeading(event: { target: { hash: string; }; }) {
-    const id = event.target.hash.replace('#', '');
+  scrollToHeading(event: MouseEvent) {
+    const id = (event.target as EventTarget & { hash: string }).hash.replace(
+      '#',
+      ''
+    );
     if (id !== '') {
-      const rectTop = this.document.getElementById(id).getBoundingClientRect().top;
+      const rectTop = this.document
+        .getElementById(id)
+        .getBoundingClientRect().top;
       const position = window.pageYOffset;
       const top = rectTop + position - this.headerHeight;
       window.scroll({

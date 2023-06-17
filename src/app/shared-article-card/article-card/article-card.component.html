@@ -44,7 +44,9 @@
         </div>
         <div class="card__updated-date">
           <mat-icon>update</mat-icon>
-          <span>{{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}</span>
+          <span>{{
+            article.updatedAt.toDate() | date : 'yyyy年MM月dd日'
+          }}</span>
         </div>
       </div>
     </div>

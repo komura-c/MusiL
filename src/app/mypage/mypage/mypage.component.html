@@ -1,35 +1,67 @@
 <div class="mypage">
   <ng-container *ngIf="user$ | async as user; else userLoading">
     <div class="mypage__author">
-      <img [src]="user.avatarURL" class="mypage__user-icon" alt="プロフィール画像"
-        onError="this.src='/assets/icons/no-user-icon.png'" />
+      <img
+        [src]="user.avatarURL"
+        class="mypage__user-icon"
+        alt="プロフィール画像"
+        onError="this.src='/assets/icons/no-user-icon.png'"
+      />
       <div class="mypage__user-profile">
         <div class="mypage__user-header">
           <h2 class="mypage__user-name">{{ user.userName }}</h2>
           <ng-container *ngIf="user.uid === authService.uid">
-            <button mat-stroked-button class="edit-profile" routerLink="/settings">
+            <button
+              mat-stroked-button
+              class="edit-profile"
+              routerLink="/settings"
+            >
               編集
             </button>
           </ng-container>
         </div>
         <p class="mypage__user-screen-name">@{{ user.screenName }}</p>
-        <p class="mypage__user-description" [innerHTML]="user.description | stringToLink"></p>
-        <a class="mypage__twitter" mat-flat-button color="primary"
-          [href]="'https://twitter.com/intent/follow?screen_name=' + (user.screenName | encodeUrl)" target="_blank"
-          rel="nofollow noopener noreferrer">
-          <mat-icon><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ" /></mat-icon>
+        <p
+          class="mypage__user-description"
+          [innerHTML]="user.description | stringToLink"
+        ></p>
+        <a
+          class="mypage__twitter"
+          mat-flat-button
+          color="primary"
+          [href]="
+            'https://twitter.com/intent/follow?screen_name=' +
+            (user.screenName | encodeUrl)
+          "
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+        >
+          <mat-icon
+            ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
+          /></mat-icon>
           <span>Twitterを見る</span>
         </a>
       </div>
     </div>
 
     <nav mat-tab-nav-bar disablePagination="true" class="mypage__nav">
-      <a mat-tab-link [routerLink]="'/' + user.screenName" routerLinkActive [routerLinkActiveOptions]="{ exact: true }"
-        #rla1="routerLinkActive" [active]="rla1.isActive || isMyArticlesRoute">
+      <a
+        mat-tab-link
+        [routerLink]="'/' + user.screenName"
+        routerLinkActive
+        [routerLinkActiveOptions]="{ exact: true }"
+        #rla1="routerLinkActive"
+        [active]="rla1.isActive || isMyArticlesRoute"
+      >
         投稿
       </a>
-      <a mat-tab-link [routerLink]="'/' + user.screenName + '/likes'" routerLinkActive #rla2="routerLinkActive"
-        [active]="rla2.isActive">
+      <a
+        mat-tab-link
+        [routerLink]="'/' + user.screenName + '/likes'"
+        routerLinkActive
+        #rla2="routerLinkActive"
+        [active]="rla2.isActive"
+      >
         いいね
       </a>
     </nav>

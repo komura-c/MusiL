@@ -28,7 +28,7 @@ export class ArticleCommentComponent implements OnInit {
     private fb: UntypedFormBuilder,
     public commentService: CommentService,
     public authService: AuthService
-  ) { }
+  ) {}
 
   private removeSpaces(control: AbstractControl): null | undefined {
     if (control && control.value && !control.value.replace(/\s/g, '').length) {
