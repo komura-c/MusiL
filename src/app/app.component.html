@@ -2,7 +2,11 @@
 <div class="container" [class.container__scroll]="isScrollContainer">
   <router-outlet></router-outlet>
   <div *ngIf="loading$ | async">
-    <mat-spinner class="loading-bar" diameter="55" strokeWidth="4"></mat-spinner>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
   </div>
 </div>
 <app-footer *ngIf="isShowFooter"></app-footer>

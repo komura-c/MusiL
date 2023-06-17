@@ -17,7 +17,7 @@ export class SeoService {
     private meta: Meta,
     private title: Title,
     @Inject(DOCUMENT) private document: Document
-  ) { }
+  ) {}
 
   updateTitleAndMeta(metaTags: {
     title?: string;

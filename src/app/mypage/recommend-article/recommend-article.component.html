@@ -6,12 +6,22 @@
     </h2>
     <div class="recommend-article__body">
       <ng-container *ngIf="articles$ | async as articles; else loading">
-        <div class="recommend-article__card" *ngFor="let article of articles" [class.fade]="articles">
-          <app-article-card [article]="article" (click)="resetArticlesLoaded()"></app-article-card>
+        <div
+          class="recommend-article__card"
+          *ngFor="let article of articles"
+          [class.fade]="articles"
+        >
+          <app-article-card
+            [article]="article"
+            (click)="resetArticlesLoaded()"
+          ></app-article-card>
         </div>
       </ng-container>
       <ng-template #loading>
-        <div class="recommend-article__card" *ngFor="let article of 'skelton'.repeat(11).split('s')">
+        <div
+          class="recommend-article__card"
+          *ngFor="let article of 'skelton'.repeat(11).split('s')"
+        >
           <app-article-card-skelton></app-article-card-skelton>
         </div>
       </ng-template>

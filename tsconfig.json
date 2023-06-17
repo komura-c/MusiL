@@ -1,11 +1,11 @@
 /* To learn more about this file see: https://angular.io/config/tsconfig. */
 {
   "compileOnSave": false,
+  "include": ["src/**/*"],
   "compilerOptions": {
     "baseUrl": "./",
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
-    // "strict": true,
     "noImplicitAny": true,
     "alwaysStrict": false,
     "noImplicitThis": true,
@@ -23,23 +23,19 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2020",
     "module": "es2020",
-    "lib": [
-      "es2018",
-      "dom"
-    ],
+    "lib": ["es2018", "dom"],
     "paths": {
-      "@interfaces/*": [
-        "functions/src/interfaces/*"
-      ]
+      "@interfaces/*": ["functions/src/interfaces/*"]
     },
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    // "strictTemplates": true,
-    "fullTemplateTypeCheck": true,
+    "strictTemplates": true,
+    "fullTemplateTypeCheck": true
   }
 }

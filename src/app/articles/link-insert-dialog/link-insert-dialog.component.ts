@@ -1,17 +1,20 @@
 import { Component } from '@angular/core';
-import { AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import {
+  AbstractControl,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  Validators,
+} from '@angular/forms';
+import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 
 @Component({
   selector: 'app-link-insert-dialog',
   templateUrl: './link-insert-dialog.component.html',
-  styleUrls: ['./link-insert-dialog.component.scss']
+  styleUrls: ['./link-insert-dialog.component.scss'],
 })
 export class LinkInsertDialogComponent {
   form = this.fb.group({
-    linkInput: [
-      '', [Validators.required, this.linkValidator],
-    ],
+    linkInput: ['', [Validators.required, this.linkValidator]],
     linkText: [''],
   });
 
@@ -22,15 +25,16 @@ export class LinkInsertDialogComponent {
   constructor(
     private fb: UntypedFormBuilder,
     private dialogRef: MatDialogRef<LinkInsertDialogComponent>
-  ) { }
+  ) {}
 
   linkValidator(formControl: AbstractControl): { linkValidator: boolean } {
     const linkURL: string = formControl.value;
     if (!linkURL) {
       return null;
     }
-    return /http(s)?:\/\/[\w!\?/\+\-_~=;\.,\*&@#\$%\(\)'\[\]]+/gi
-      .test(linkURL) ? null : { linkValidator: true };
+    return /http(s)?:\/\/[\w!\?/\+\-_~=;\.,\*&@#\$%\(\)'\[\]]+/gi.test(linkURL)
+      ? null
+      : { linkValidator: true };
   }
 
   onInsertLink() {

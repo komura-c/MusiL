@@ -7,14 +7,12 @@ describe('WelcomeComponent', () => {
   let component: WelcomeComponent;
   let fixture: ComponentFixture<WelcomeComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [WelcomeComponent],
-        providers: [{ provide: AuthService, useValue: AuthServiceStub }],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [WelcomeComponent],
+      providers: [{ provide: AuthService, useValue: AuthServiceStub }],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(WelcomeComponent);

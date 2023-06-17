@@ -12,13 +12,11 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./top.component.scss'],
 })
 export class TopComponent {
-  latestArticles$: Observable<
-    ArticleWithAuthor[]
-  > = this.articleService.getLatestArticles().pipe(take(1));
+  latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService
+    .getLatestArticles()
+    .pipe(take(1));
 
-  popularArticles$: Observable<
-    ArticleWithAuthor[]
-  > = of([]);
+  popularArticles$: Observable<ArticleWithAuthor[]> = of([]);
   isPopularLoaded: boolean;
 
   constructor(
@@ -41,7 +39,9 @@ export class TopComponent {
     if (this.isPopularLoaded) {
       return;
     }
-    this.popularArticles$ = this.articleService.getPopularArticles().pipe(take(1));
+    this.popularArticles$ = this.articleService
+      .getPopularArticles()
+      .pipe(take(1));
     this.isPopularLoaded = true;
   }
 }

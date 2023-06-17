@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
@@ -21,7 +21,7 @@ export class ArticleEditButtonsComponent {
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
     private clipboard: Clipboard
-  ) { }
+  ) {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
     this.dialog.open(DeleteDialogComponent, {

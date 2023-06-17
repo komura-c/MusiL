@@ -1,10 +1,10 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  MatDialog,
-  MAT_DIALOG_SCROLL_STRATEGY,
-} from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
+  MatLegacyDialog as MatDialog,
+  MAT_LEGACY_DIALOG_SCROLL_STRATEGY as MAT_DIALOG_SCROLL_STRATEGY,
+} from '@angular/material/legacy-dialog';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -20,23 +20,21 @@ describe('ArticleDetailComponent', () => {
   let component: ArticleDetailComponent;
   let fixture: ComponentFixture<ArticleDetailComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        declarations: [ArticleDetailComponent],
-        imports: [RouterTestingModule],
-        providers: [
-          MatSnackBar,
-          Overlay,
-          MatDialog,
-          MAT_DIALOG_SCROLL_STRATEGY,
-          { provide: AuthService, useValue: AuthServiceStub },
-          { provide: ArticleService, useValue: ArticleServiceStub },
-          { provide: LikeService, useValue: LikeServiceStub },
-        ],
-      }).compileComponents();
-    })
-  );
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
+      declarations: [ArticleDetailComponent],
+      imports: [RouterTestingModule],
+      providers: [
+        MatSnackBar,
+        Overlay,
+        MatDialog,
+        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: AuthService, useValue: AuthServiceStub },
+        { provide: ArticleService, useValue: ArticleServiceStub },
+        { provide: LikeService, useValue: LikeServiceStub },
+      ],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleDetailComponent);

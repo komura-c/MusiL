@@ -2,25 +2,47 @@
   <div class="article" [class.fade]="article">
     <div class="article__left-box">
       <div class="left-actions">
-        <button mat-icon-button color="warn" class="left-actions__like" aria-label="いいね" matTooltip="いいね"
-          matTooltipPosition="right" (click)="clickedLike(article.articleId)"
-          [class.left-actions__like--liked]="isLiked">
+        <button
+          mat-icon-button
+          color="warn"
+          class="left-actions__like"
+          aria-label="いいね"
+          matTooltip="いいね"
+          matTooltipPosition="right"
+          (click)="clickedLike(article.articleId)"
+          [class.left-actions__like--liked]="isLiked"
+        >
           <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
           <span>{{ likeCount }}</span>
         </button>
-        <a mat-icon-button class="left-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア" [href]="
+        <a
+          mat-icon-button
+          class="left-actions__twitter"
+          aria-label="Twitterでシェア"
+          matTooltip="Twitterでシェア"
+          [href]="
             'https://twitter.com/intent/tweet?url=' +
             projectURL +
             path +
             '&text=' +
             (article.title | encodeUrl)
-          " target="_blank" rel="nofollow noopener noreferrer" matTooltipPosition="right">
+          "
+          target="_blank"
+          rel="nofollow noopener noreferrer"
+          matTooltipPosition="right"
+        >
           <mat-icon>
             <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
           </mat-icon>
         </a>
-        <button mat-icon-button class="left-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
-          matTooltipPosition="right" (click)="copyLink()">
+        <button
+          mat-icon-button
+          class="left-actions__link"
+          aria-label="リンクをコピー"
+          matTooltip="リンクをコピー"
+          matTooltipPosition="right"
+          (click)="copyLink()"
+        >
           <mat-icon>link</mat-icon>
         </button>
       </div>
@@ -36,22 +58,40 @@
         </div>
         <div class="article-header__author">
           <a [routerLink]="'/' + article.author.screenName">
-            <img class="article-header__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"
-              onError="this.src='/assets/icons/no-user-icon.png'" /></a>
+            <img
+              class="article-header__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+              onError="this.src='/assets/icons/no-user-icon.png'"
+          /></a>
 
-          <a class="article-header__user-name" [routerLink]="'/' + article.author.screenName">{{ article.author.userName
-            }}</a>
-          <a class="article-header__twitter" [href]="'https://twitter.com/' + article.author.screenName" target="_blank"
-            rel="nofollow noopener noreferrer">
+          <a
+            class="article-header__user-name"
+            [routerLink]="'/' + article.author.screenName"
+            >{{ article.author.userName }}</a
+          >
+          <a
+            class="article-header__twitter"
+            [href]="'https://twitter.com/' + article.author.screenName"
+            target="_blank"
+            rel="nofollow noopener noreferrer"
+          >
             <mat-icon>
-              <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
+              <img
+                src="/assets/icons/twitter-logo-blue.svg"
+                alt="Twitterロゴ"
+              />
             </mat-icon>
           </a>
           <p class="article-header__updated-date">
-            {{ article.updatedAt.toDate() | date: 'yyyy年MM月dd日' }}更新
+            {{ article.updatedAt.toDate() | date : 'yyyy年MM月dd日' }}更新
           </p>
-          <app-article-edit-buttons class="article-header__actions" *ngIf="article.author.uid === authService.uid"
-            [article]="article" [screenName]="article.author.screenName">
+          <app-article-edit-buttons
+            class="article-header__actions"
+            *ngIf="article.author.uid === authService.uid"
+            [article]="article"
+            [screenName]="article.author.screenName"
+          >
           </app-article-edit-buttons>
         </div>
         <h1 class="article-header__title">{{ article.title }}</h1>
@@ -64,14 +104,21 @@
         </ng-container>
       </div>
 
-      <div class="article-content ql-container ql-snow" style="border-width: 0;">
+      <div class="article-content ql-container ql-snow" style="border-width: 0">
         <div class="ql-editor" [innerHTML]="article.text | safeHTML"></div>
       </div>
 
       <div class="article-footer">
         <div class="main-actions">
-          <button mat-icon-button color="warn" class="main-actions__like" aria-label="いいね" matTooltip="いいね"
-            (click)="clickedLike(article.articleId)" [class.main-actions__like--liked]="isLiked">
+          <button
+            mat-icon-button
+            color="warn"
+            class="main-actions__like"
+            aria-label="いいね"
+            matTooltip="いいね"
+            (click)="clickedLike(article.articleId)"
+            [class.main-actions__like--liked]="isLiked"
+          >
             <ng-container *ngIf="isLiked; else isNotLiked">
               <mat-icon>favorite</mat-icon>
               <span>{{ likeCount }}</span>
@@ -83,19 +130,35 @@
           </button>
 
           <div class="main-actions__share">
-            <a mat-icon-button class="main-actions__twitter" aria-label="Twitterでシェア" matTooltip="Twitterでシェア" [href]="
+            <a
+              mat-icon-button
+              class="main-actions__twitter"
+              aria-label="Twitterでシェア"
+              matTooltip="Twitterでシェア"
+              [href]="
                 'https://twitter.com/intent/tweet?url=' +
                 projectURL +
                 path +
                 '&text=' +
                 (article.title | encodeUrl)
-              " target="_blank" rel="nofollow noopener noreferrer">
+              "
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+            >
               <mat-icon>
-                <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
+                <img
+                  src="/assets/icons/twitter-logo-blue.svg"
+                  alt="Twitterロゴ"
+                />
               </mat-icon>
             </a>
-            <button mat-icon-button class="main-actions__link" aria-label="リンクをコピー" matTooltip="リンクをコピー"
-              (click)="copyLink()">
+            <button
+              mat-icon-button
+              class="main-actions__link"
+              aria-label="リンクをコピー"
+              matTooltip="リンクをコピー"
+              (click)="copyLink()"
+            >
               <mat-icon>link</mat-icon>
             </button>
           </div>
@@ -105,19 +168,40 @@
 
         <div class="article-footer__author">
           <a [routerLink]="'/' + article.author.screenName">
-            <img class="article-footer__user-icon" [src]="article.author.avatarURL" alt="プロフィール画像"
-              onError="this.src='/assets/icons/no-user-icon.png'" /></a>
+            <img
+              class="article-footer__user-icon"
+              [src]="article.author.avatarURL"
+              alt="プロフィール画像"
+              onError="this.src='/assets/icons/no-user-icon.png'"
+          /></a>
 
           <div class="article-footer__user-profile">
-            <a class="article-footer__user-name" [routerLink]="'/' + article.author.screenName">{{
-              article.author.userName }}</a>
-            <p class="article-footer__user-description" [innerHTML]="article.author.description | stringToLink"></p>
-            <a mat-flat-button color="primary" [href]="
+            <a
+              class="article-footer__user-name"
+              [routerLink]="'/' + article.author.screenName"
+              >{{ article.author.userName }}</a
+            >
+            <p
+              class="article-footer__user-description"
+              [innerHTML]="article.author.description | stringToLink"
+            ></p>
+            <a
+              mat-flat-button
+              color="primary"
+              [href]="
                 'https://twitter.com/intent/follow?screen_name=' +
                 (article.author.screenName | encodeUrl)
-              " class="article-footer__twitter" target="_blank" rel="nofollow noopener noreferrer"
-              *ngIf="article.author.uid !== authService.uid">
-              <mat-icon><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ" /></mat-icon>
+              "
+              class="article-footer__twitter"
+              target="_blank"
+              rel="nofollow noopener noreferrer"
+              *ngIf="article.author.uid !== authService.uid"
+            >
+              <mat-icon
+                ><img
+                  src="/assets/icons/twitter-logo-white.svg"
+                  alt="Twitterロゴ"
+              /></mat-icon>
               <span>Twitterでフォロー</span>
             </a>
           </div>
@@ -133,10 +217,15 @@
         <p class="article__sub-box-title">目次</p>
         <ul class="article__sub-box-toc">
           <li *ngFor="let headingElement of headingElements; index as i">
-            <a [href]="'#' + headingElement.id" [class.active]="i === activeHeadingIndex"
-              [class.toc-h2]="headingElement.tagName === 'H2'" [class.toc-h3]="headingElement.tagName === 'H3'"
-              [class.toc-h4]="headingElement.tagName === 'H4'" (click)="scrollToHeading($event)">{{
-              headingElement.textContent }}</a>
+            <a
+              [href]="'#' + headingElement.id"
+              [class.active]="i === activeHeadingIndex"
+              [class.toc-h2]="headingElement.tagName === 'H2'"
+              [class.toc-h3]="headingElement.tagName === 'H3'"
+              [class.toc-h4]="headingElement.tagName === 'H4'"
+              (click)="scrollToHeading($event)"
+              >{{ headingElement.textContent }}</a
+            >
           </li>
         </ul>
       </div>
@@ -153,7 +242,10 @@
       </div>
       <div class="article-skelton__title"></div>
       <div class="article-skelton__content">
-        <div class="article-skelton__content-row" *ngFor="let content of 'skelton'.repeat(4).split('s')"></div>
+        <div
+          class="article-skelton__content-row"
+          *ngFor="let content of 'skelton'.repeat(4).split('s')"
+        ></div>
       </div>
     </div>
   </div>
