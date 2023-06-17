@@ -6,6 +6,9 @@
   "engines": {
     "node": "18"
   },
+  "browserslist": [
+    "defaults, last 2 versions, not dead, > 0.2%"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4200 --open",
