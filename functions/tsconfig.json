@@ -1,4 +1,6 @@
 {
+  "compileOnSave": true,
+  "include": ["src/**/*"],
   "compilerOptions": {
     "baseUrl": "./",
     "module": "commonjs",
@@ -9,7 +11,5 @@
     "strict": true,
     "target": "es2017",
     "lib": ["DOM", "ESNext.AsyncIterable"]
-  },
-  "compileOnSave": true,
-  "include": ["src"]
+  }
 }
