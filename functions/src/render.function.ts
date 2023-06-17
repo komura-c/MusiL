@@ -18,7 +18,7 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
     .replace(/ /g, '')
     .replace(
       /(https|http):\/\/firebasestorage\.googleapis\.com(\/.*|\?.*|$)/g,
-      '',
+      ''
     );
   const ogURL =
     config.project.hosting_url +
@@ -31,30 +31,30 @@ const buildHtml = (articleAndScreenName: { [key: string]: string }) => {
   return file
     .replace(/\n/g, '')
     .replace(/ {2,}/g, ' ')
-    .replace(/\<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
+    .replace(/<title>.*<\/title>/g, '<title>' + title + ' | MusiL</title>')
     .replace(
       /<meta name="description" content="[^>]*>/g,
-      '<meta name="description" content="' + description + '" />',
+      '<meta name="description" content="' + description + '" />'
     )
     .replace(
       /<meta property="og:title" content="[^>]*>/g,
-      '<meta property="og:title" content="' + title + ' | MusiL" />',
+      '<meta property="og:title" content="' + title + ' | MusiL" />'
     )
     .replace(
       /<meta property="og:description" content="[^>]*>/g,
-      '<meta property="og:description" content="' + description + '" />',
+      '<meta property="og:description" content="' + description + '" />'
     )
     .replace(
       /<meta property="og:type" content="[^>]*>/g,
-      '<meta property="og:type" content="article" />',
+      '<meta property="og:type" content="article" />'
     )
     .replace(
       /<meta property="og:url" content="[^>]*>/g,
-      '<meta property="og:url" content="' + ogURL + '" />',
+      '<meta property="og:url" content="' + ogURL + '" />'
     )
     .replace(
       /<meta property="og:image" content="[^>]*>/g,
-      '<meta property="og:image" content="' + ogImage + '" />',
+      '<meta property="og:image" content="' + ogImage + '" />'
     );
 };
 
@@ -64,19 +64,19 @@ const server = async (req: any, res: any) => {
   const userAgent: string = req.headers['user-agent'].toLowerCase();
   const isBot: boolean =
     userAgent.includes('googlebot') ||
-      userAgent.includes('developers.google.com')
+    userAgent.includes('developers.google.com')
       ? true
       : false ||
-      userAgent.includes('twitterbot') ||
-      userAgent.includes('facebookexternalhit') ||
-      userAgent.includes('yahoou') ||
-      userAgent.includes('bingbot') ||
-      userAgent.includes('baiduspider') ||
-      userAgent.includes('yandex') ||
-      userAgent.includes('yeti') ||
-      userAgent.includes('yodaobot') ||
-      userAgent.includes('gigabot') ||
-      userAgent.includes('ia_archiver');
+        userAgent.includes('twitterbot') ||
+        userAgent.includes('facebookexternalhit') ||
+        userAgent.includes('yahoou') ||
+        userAgent.includes('bingbot') ||
+        userAgent.includes('baiduspider') ||
+        userAgent.includes('yandex') ||
+        userAgent.includes('yeti') ||
+        userAgent.includes('yodaobot') ||
+        userAgent.includes('gigabot') ||
+        userAgent.includes('ia_archiver');
   if (!isBot) {
     return res.status(200).send(file);
   }
