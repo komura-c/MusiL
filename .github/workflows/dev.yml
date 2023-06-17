@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Archive Production Artifact
@@ -35,7 +35,7 @@ jobs:
       - name: Copy index.html
         run: mkdir functions/lib && cp dist/musil/index.html functions/lib
       - name: Install Dependencies
-        run: cd functions && npm install
+        run: cd functions && npm ci
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
