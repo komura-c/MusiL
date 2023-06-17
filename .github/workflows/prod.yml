@@ -38,6 +38,13 @@ jobs:
       - name: install dependencies in functions
         run: cd functions && npm ci
 
+      - name: lint
+        run: npm run lint
+
+      # TODO: テストが整ったら入れる
+      # - name: test
+      #   run: npm run test
+
       - name: deploy to firebase
         uses: w9jds/firebase-action@master
         with:
