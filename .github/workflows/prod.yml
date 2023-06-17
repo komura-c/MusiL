@@ -5,8 +5,8 @@ on:
       - main
 
 jobs:
-  deploy:
-    name: 'deploy'
+  prod:
+    name: 'prod'
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
