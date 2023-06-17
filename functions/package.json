@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "eslint --cache --fix src/",
+    "lint": "eslint --cache src/",
     "lint-fix": "eslint --cache --fix src/ && prettier --write src/",
     "build": "tsc",
     "serve": "npm run lint && npm run build && firebase emulators:start --only functions",
@@ -15,11 +15,11 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@google-cloud/firestore": "^6.4.1",
+    "@google-cloud/firestore": "^6.6.1",
     "algoliasearch": "^4.8.3",
     "firebase": "^9.15.0",
     "firebase-admin": "^11.4.1",
-    "firebase-functions": "^4.1.1",
+    "firebase-functions": "^4.4.1",
     "firebase-tools": "^11.22.0",
     "html-to-text": "^8.2.1",
     "twitter": "^1.7.1"
