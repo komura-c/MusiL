@@ -1,7 +1,7 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "ng lint",
+    "lint": "eslint --cache --fix src/",
     "lint-fix": "eslint --cache --fix src/ && prettier --write src/",
     "build": "tsc",
     "serve": "npm run lint && npm run build && firebase emulators:start --only functions",
