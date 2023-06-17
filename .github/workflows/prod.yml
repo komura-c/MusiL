@@ -22,12 +22,15 @@ jobs:
       - name: install dependencies
         run: npm ci
 
-      - name: run lint
+      - name: lint
         run: npm run lint
 
       # TODO: テストが整ったら入れる
-      # - name: run test
+      # - name: test
       #   run: npm run test
+
+      - name: build
+        run: npm run build
 
       - name: copy index.html
         run: mkdir functions/lib && cp dist/musil/index.html functions/lib
