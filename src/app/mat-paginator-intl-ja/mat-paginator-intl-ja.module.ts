@@ -7,13 +7,13 @@ import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/le
   imports: [CommonModule],
 })
 export class MatPaginatorIntlJaModule extends MatPaginatorIntl {
-  itemsPerPageLabel = '1 ページの記事数： ';
-  nextPageLabel = '次のページ';
-  previousPageLabel = '前のページ';
-  lastPageLabel = '最後のページ';
-  firstPageLabel = '最初のページ';
+  override itemsPerPageLabel = '1 ページの記事数： ';
+  override nextPageLabel = '次のページ';
+  override previousPageLabel = '前のページ';
+  override lastPageLabel = '最後のページ';
+  override firstPageLabel = '最初のページ';
 
-  getRangeLabel = (page: number, pageSize: number, length: number) => {
+  override getRangeLabel = (page: number, pageSize: number, length: number) => {
     if (length === 0 || pageSize === 0) {
       return `0 / 合計 ${length}`;
     }
