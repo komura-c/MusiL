@@ -1,8 +1,8 @@
-@import 'mixins';
+@use 'mixins';
 
 .recommend-article-wrapper {
   margin: 0 -16px;
-  background-color: $color-background;
+  background-color: mixins.$color-background;
 }
 
 .recommend-article {
@@ -24,7 +24,7 @@
   }
   &__card {
     width: 48%;
-    @include tab {
+    @include mixins.tab {
       width: 100%;
     }
   }

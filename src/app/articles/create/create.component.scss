@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .create-page-header {
   background-color: #ffffff;
@@ -37,7 +37,7 @@ mat-icon {
 .logo {
   height: 40px;
   padding-top: 5px;
-  @include tab {
+  @include mixins.tab {
     display: none;
   }
 }
@@ -47,7 +47,7 @@ mat-icon {
   color: #a6a6a6;
   &--draft {
     margin-right: 8px;
-    @include sp {
+    @include mixins.sp {
       display: none;
     }
   }

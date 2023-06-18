@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .terms {
   max-width: 800px;
@@ -13,7 +13,7 @@ p {
 }
 
 a {
-  color: $color-primary;
+  color: mixins.$color-primary;
   &:hover {
     text-decoration: underline;
   }

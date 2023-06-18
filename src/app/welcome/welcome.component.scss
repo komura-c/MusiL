@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .welcome {
   position: relative;
@@ -43,7 +43,7 @@
     font-size: 32px;
     letter-spacing: 2px;
     margin: 16px 0;
-    @include sp {
+    @include mixins.sp {
       font-size: 28px;
     }
   }
@@ -51,7 +51,7 @@
     font-size: 18px;
     letter-spacing: 1.8px;
     margin: 12px 0;
-    @include sp {
+    @include mixins.sp {
       font-size: 16px;
     }
   }
@@ -75,7 +75,7 @@
 }
 
 .login-button {
-  background-color: $color-twitter;
+  background-color: mixins.$color-twitter;
 }
 
 .terms-link {
@@ -83,7 +83,7 @@
 }
 
 .new-line::before {
-  @include sp {
+  @include mixins.sp {
     content: '\A';
     white-space: pre;
   }

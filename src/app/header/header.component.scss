@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .header {
   background-color: #ffffff;
@@ -25,7 +25,7 @@
   position: relative;
   flex: 1;
   padding: 0 24px;
-  @include sp {
+  @include mixins.sp {
     padding: 0 4px;
   }
 }
@@ -36,12 +36,12 @@
 }
 
 .login-button {
-  background-color: $color-twitter;
+  background-color: mixins.$color-twitter;
 }
 
 .post-button {
   margin-right: 24px;
-  @include sp {
+  @include mixins.sp {
     min-width: 52px;
     margin-right: 12px;
     span {

@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .top-page {
   max-width: 910px;
@@ -26,7 +26,7 @@
   }
   &__card {
     width: 48%;
-    @include tab {
+    @include mixins.tab {
       width: 100%;
     }
   }
