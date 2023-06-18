@@ -9,10 +9,15 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { UntypedFormGroup, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormGroup,
+  UntypedFormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
-import type { QuillModules, QuillEditorComponent } from 'ngx-quill';
+import { QuillModule } from 'ngx-quill';
+import type { QuillModules } from 'ngx-quill';
 import type { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 import { NgIf } from '@angular/common';
 
@@ -32,15 +37,11 @@ const dynamicImportQuill = async () => {
 };
 
 @Component({
-    selector: 'app-editor',
-    templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        ReactiveFormsModule,
-        QuillEditorComponent,
-    ],
+  selector: 'app-editor',
+  templateUrl: './editor.component.html',
+  styleUrls: ['./editor.component.scss'],
+  standalone: true,
+  imports: [NgIf, ReactiveFormsModule, QuillModule],
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: UntypedFormGroup;
