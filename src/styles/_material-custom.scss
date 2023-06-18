@@ -15,8 +15,14 @@ $musil-accent: mat.define-palette(mat.$indigo-palette);
 $musil-warn: mat.define-palette(mat.$red-palette);
 
 $musil-theme: mat.define-light-theme(
-  $musil-primary,
-  $musil-accent,
-  $musil-warn
+  (
+    color: (
+      primary: $musil-primary,
+      accent: $musil-accent,
+      warn: $musil-warn,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
 );
 @include mat.all-legacy-component-themes($musil-theme);

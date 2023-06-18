@@ -15,7 +15,7 @@
         color="primary"
         class="login-button"
       >
-        <mat-icon
+        <mat-icon aria-hidden="true"
           ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
         /></mat-icon>
         <span>{{
@@ -32,7 +32,7 @@
           class="post-button"
           routerLink="/articles/create"
         >
-          <mat-icon>post_add</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="post_add"></mat-icon>
           <span>投稿</span>
         </button>
 
@@ -42,7 +42,7 @@
           aria-label="マイメニュー"
           class="my-menu"
         >
-          <mat-icon>
+          <mat-icon aria-hidden="true">
             <img
               [src]="user.avatarURL"
               alt="プロフィール画像"
@@ -53,20 +53,20 @@
 
         <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="'/' + user.screenName">
-            <mat-icon>account_box</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="account_box"></mat-icon>
             <span>マイページ</span>
           </button>
           <button mat-menu-item routerLink="/articles">
-            <mat-icon>article</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="article"></mat-icon>
             <span>記事一覧</span>
           </button>
           <mat-divider></mat-divider>
           <button mat-menu-item routerLink="/settings">
-            <mat-icon>settings</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="settings"></mat-icon>
             <span>設定</span>
           </button>
           <button (click)="logout()" mat-menu-item class="logout-button">
-            <mat-icon>exit_to_app</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="exit_to_app"></mat-icon>
             <span>ログアウト</span>
           </button>
         </mat-menu>

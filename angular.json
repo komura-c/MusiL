@@ -34,10 +34,10 @@
               "src/sitemap.xml"
             ],
             "styles": ["src/styles.scss"],
-            "scripts": [],
             "stylePreprocessorOptions": {
               "includePaths": ["src/styles"]
-            }
+            },
+            "scripts": []
           },
           "configurations": {
             "production": {

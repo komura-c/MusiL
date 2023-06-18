@@ -1,18 +1,19 @@
-import { Component, Input, ViewChild, ElementRef, NgZone } from '@angular/core';
+import {
+  Component,
+  Input,
+  ViewChild,
+  ElementRef,
+  NgZone,
+  OnInit,
+} from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
-import { QuillModules } from 'ngx-quill';
-import Quill from 'quill';
-import ImageResize from 'quill-image-resize';
-import QuillImageDropAndPaste, {
-  ImageData as QuillImageData,
-} from 'quill-image-drop-and-paste';
-Quill.register('modules/imageResize', ImageResize);
-Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
+import type { QuillModules } from 'ngx-quill';
+import type { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 
 type QuillEditorInstance = {
   theme: { tooltip: { root: Document } };
@@ -20,15 +21,24 @@ type QuillEditorInstance = {
   insertEmbed(index: number, type: string, downloadURL: string): void;
 };
 
+const dynamicImportQuill = async () => {
+  const Quill = (await import('quill')).default;
+  const ImageResize = (await import('quill-image-resize')).default;
+  const QuillImageDropAndPaste = (await import('quill-image-drop-and-paste'))
+    .default;
+  Quill.register('modules/imageResize', ImageResize);
+  Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
+};
+
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit {
   @Input() parentForm: UntypedFormGroup;
-
   @ViewChild('imageInput') private imageInput: ElementRef<HTMLElement>;
+
   editorInstance: QuillEditorInstance;
   quillModules: QuillModules = {
     toolbar: {
@@ -60,6 +70,7 @@ export class EditorComponent {
       handler: this.dropImageHandler.bind(this),
     },
   };
+  quillLoaded = false;
 
   get editorContentControl() {
     return this.parentForm.get('editorContent') as UntypedFormControl;
@@ -72,6 +83,16 @@ export class EditorComponent {
     private snackBar: MatSnackBar,
     private dialog: MatDialog
   ) {}
+
+  ngOnInit(): void {
+    dynamicImportQuill()
+      .then(() => {
+        this.quillLoaded = true;
+      })
+      .catch((err) => {
+        console.error('dynamicImportQuillError: ', err);
+      });
+  }
 
   editorCreated(editorInstance: QuillEditorInstance) {
     const editorInputDefaultLink: HTMLElement =
@@ -149,7 +170,7 @@ export class EditorComponent {
         quality: 0.7,
       })
       .then((miniImageData) => {
-        if (miniImageData instanceof QuillImageData) {
+        if (miniImageData && 'toFile' in miniImageData) {
           const file = miniImageData.toFile();
           this.uploadImage(file);
         }

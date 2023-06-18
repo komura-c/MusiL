@@ -1,6 +1,6 @@
 <section class="article-comment">
   <h3 class="article-comment__title">
-    <mat-icon>comment</mat-icon>
+    <mat-icon aria-hidden="true" fontIcon="comment"></mat-icon>
     <span>コメント</span>
   </h3>
   <ng-container *ngIf="allComments$ | async as allComments; else noComment">
@@ -97,7 +97,7 @@
         color="primary"
         class="login-button"
       >
-        <mat-icon
+        <mat-icon aria-hidden="true"
           ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
         /></mat-icon>
         <span>{{
