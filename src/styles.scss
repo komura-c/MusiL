@@ -1,7 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+// material-icons
+@use 'node_modules/material-icons/iconfont/filled.scss';
+// quill
+@use 'node_modules/quill/dist/quill.core.css' as quillCore;
+@use 'node_modules/quill/dist/quill.snow.css' as quillSnow;
 // angular-material
-@import 'material-custom';
-@import 'mixins';
+@use 'material-custom';
+@use 'mixins';
 
 html,
 body {
@@ -35,7 +40,7 @@ img {
 .grey-container {
   margin: -70px -16px -16px -16px;
   padding: 70px 0 0;
-  background-color: $color-background;
+  background-color: mixins.$color-background;
 }
 .loading-bar {
   margin: 40px auto;
@@ -49,10 +54,10 @@ img {
 }
 
 .mypage__user-description a {
-  color: $color-primary;
+  color: mixins.$color-primary;
 }
 .article-footer__user-description a {
-  color: $color-primary;
+  color: mixins.$color-primary;
 }
 
 .mat-chip {
@@ -60,7 +65,7 @@ img {
   line-height: 100%;
 }
 .mat-simple-snackbar-action {
-  color: $color-primary;
+  color: mixins.$color-primary;
 }
 
 .fade {
@@ -77,8 +82,6 @@ img {
 }
 
 // quill-editor
-@import '~quill/dist/quill.core.css';
-@import '~quill/dist/quill.snow.css';
 .ql-toolbar {
   position: sticky;
   top: 84px;
@@ -220,7 +223,7 @@ img {
       margin: 14px 0;
     }
     a {
-      color: $color-primary;
+      color: mixins.$color-primary;
     }
     &.ql-blank::before {
       font-style: normal;
