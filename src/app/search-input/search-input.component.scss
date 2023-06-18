@@ -1,7 +1,7 @@
-@import 'mixins';
+@use 'mixins';
 
 .search {
-  @include sp {
+  @include mixins.sp {
     display: none;
     position: fixed;
     top: 65px;
@@ -21,8 +21,8 @@
     font-size: 12px;
     margin: 0;
     outline: none;
-    border: solid 1px $color-grey;
-    @include sp {
+    border: solid 1px mixins.$color-grey;
+    @include mixins.sp {
       border-radius: 4px;
       outline: none;
       height: 44px;
@@ -34,7 +34,7 @@
     position: absolute;
     color: #757575;
     right: 24px;
-    @include sp {
+    @include mixins.sp {
       display: none;
     }
   }
@@ -42,7 +42,7 @@
 
 .sp-search {
   display: none;
-  @include sp {
+  @include mixins.sp {
     display: block;
   }
 }

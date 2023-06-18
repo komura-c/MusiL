@@ -7,7 +7,7 @@
     "node": "18"
   },
   "browserslist": [
-    "defaults, last 2 versions, not dead, > 0.2%"
+    "> 0.2%, defaults, last 2 versions, not dead, not android 4.4.3-4.4.4, not kaios 2.5, not op_mini all"
   ],
   "scripts": {
     "ng": "ng",
@@ -67,6 +67,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "material-icons": "^1.13.8",
     "prettier": "^2.8.3",
     "typescript": "~4.9.4",
     "webpack-bundle-analyzer": "^4.7.0"

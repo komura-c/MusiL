@@ -22,7 +22,7 @@
           color="primary"
           class="login-button"
         >
-          <mat-icon
+          <mat-icon aria-hidden="true"
             ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
           /></mat-icon>
           <span>{{
@@ -44,7 +44,7 @@
           *ngIf="user"
           class="post-button"
         >
-          <mat-icon>post_add</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="post_add"></mat-icon>
           <span>投稿してみる</span>
         </button>
       </ng-template>

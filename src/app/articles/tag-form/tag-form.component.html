@@ -8,7 +8,13 @@
         (removed)="remove(tag)"
       >
         {{ tag }}
-        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        <mat-icon
+          matChipRemove
+          *ngIf="removable"
+          aria-hidden="false"
+          [attr.aria-label]="tag + 'をタグから除く'"
+          fontIcon="cancel"
+        ></mat-icon>
       </mat-chip>
       <input
         placeholder="タグ"

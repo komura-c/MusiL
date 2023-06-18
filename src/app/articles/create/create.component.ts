@@ -121,7 +121,18 @@ export class CreateComponent implements OnInit {
   }
 
   cancel() {
-    this.location.back();
+    // NOTE: this.location.back();を実行するとguardでconfirm:falseの時に履歴の状態に齟齬が発生するので冗長に記述
+    if (this.form.pristine || this.isComplete) {
+      this.location.back();
+      return;
+    }
+    const confirmation = window.confirm(
+      '作業中の内容が失われますがよろしいですか？'
+    );
+    if (confirmation) {
+      this.location.back();
+      return;
+    }
   }
 
   private createOGPURL(title: string): string {
