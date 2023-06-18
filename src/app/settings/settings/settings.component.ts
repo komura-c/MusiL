@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import { UntypedFormControl, Validators, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormControl,
+  Validators,
+  UntypedFormBuilder,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
@@ -19,20 +24,20 @@ import { MatIconModule } from '@angular/material/icon';
 import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.component.html',
-    styleUrls: ['./settings.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatIconModule,
-        ReactiveFormsModule,
-        MatLegacyFormFieldModule,
-        MatLegacyInputModule,
-        MatLegacyButtonModule,
-        MatLegacyProgressSpinnerModule,
-        AsyncPipe,
-    ],
+  selector: 'app-settings',
+  templateUrl: './settings.component.html',
+  styleUrls: ['./settings.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatIconModule,
+    ReactiveFormsModule,
+    MatLegacyFormFieldModule,
+    MatLegacyInputModule,
+    MatLegacyButtonModule,
+    MatLegacyProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class SettingsComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;

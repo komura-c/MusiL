@@ -12,14 +12,14 @@ describe('EditorComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [EditorComponent],
-    providers: [
+      imports: [EditorComponent],
+      providers: [
         MatSnackBar,
         Overlay,
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

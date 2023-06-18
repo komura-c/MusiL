@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router, NavigationEnd, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import {
+  ActivatedRoute,
+  Router,
+  NavigationEnd,
+  RouterLink,
+  RouterLinkActive,
+  RouterOutlet,
+} from '@angular/router';
 import { UserData } from 'functions/src/interfaces/user';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
@@ -14,22 +21,22 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-mypage',
-    templateUrl: './mypage.component.html',
-    styleUrls: ['./mypage.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatLegacyButtonModule,
-        RouterLink,
-        MatIconModule,
-        MatLegacyTabsModule,
-        RouterLinkActive,
-        RouterOutlet,
-        AsyncPipe,
-        StringToLinkPipe,
-        EncodeUrlPipe,
-    ],
+  selector: 'app-mypage',
+  templateUrl: './mypage.component.html',
+  styleUrls: ['./mypage.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatLegacyButtonModule,
+    RouterLink,
+    MatIconModule,
+    MatLegacyTabsModule,
+    RouterLinkActive,
+    RouterOutlet,
+    AsyncPipe,
+    StringToLinkPipe,
+    EncodeUrlPipe,
+  ],
 })
 export class MypageComponent implements OnInit {
   screenName$: Observable<string> = this.route.paramMap.pipe(

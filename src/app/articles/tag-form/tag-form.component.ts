@@ -6,11 +6,23 @@ import {
   ElementRef,
   OnDestroy,
 } from '@angular/core';
-import { UntypedFormGroup, UntypedFormControl, ReactiveFormsModule } from '@angular/forms';
-import { MatLegacyAutocomplete as MatAutocomplete, MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import {
+  UntypedFormGroup,
+  UntypedFormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import {
+  MatLegacyAutocomplete as MatAutocomplete,
+  MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
+  MatLegacyAutocompleteModule,
+} from '@angular/material/legacy-autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
-import { MatLegacyChipInputEvent as MatChipInputEvent, MatLegacyChipList as MatChipList, MatLegacyChipsModule } from '@angular/material/legacy-chips';
+import {
+  MatLegacyChipInputEvent as MatChipInputEvent,
+  MatLegacyChipList as MatChipList,
+  MatLegacyChipsModule,
+} from '@angular/material/legacy-chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 import { MatLegacyOptionModule } from '@angular/material/legacy-core';
@@ -19,20 +31,20 @@ import { NgFor, NgIf } from '@angular/common';
 import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 
 @Component({
-    selector: 'app-tag-form',
-    templateUrl: './tag-form.component.html',
-    styleUrls: ['./tag-form.component.scss'],
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        MatLegacyFormFieldModule,
-        MatLegacyChipsModule,
-        NgFor,
-        NgIf,
-        MatIconModule,
-        MatLegacyAutocompleteModule,
-        MatLegacyOptionModule,
-    ],
+  selector: 'app-tag-form',
+  templateUrl: './tag-form.component.html',
+  styleUrls: ['./tag-form.component.scss'],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    MatLegacyFormFieldModule,
+    MatLegacyChipsModule,
+    NgFor,
+    NgIf,
+    MatIconModule,
+    MatLegacyAutocompleteModule,
+    MatLegacyOptionModule,
+  ],
 })
 export class TagFormComponent implements OnInit, OnDestroy {
   @Input() parentForm: UntypedFormGroup;

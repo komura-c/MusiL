@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-    name: 'stringToLink',
-    standalone: true,
+  name: 'stringToLink',
+  standalone: true,
 })
 export class StringToLinkPipe implements PipeTransform {
   transform(text: string): string {

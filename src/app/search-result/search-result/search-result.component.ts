@@ -8,7 +8,10 @@ import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
 import firebase from 'firebase/compat/app';
-import { LegacyPageEvent as PageEvent, MatLegacyPaginatorModule } from '@angular/material/legacy-paginator';
+import {
+  LegacyPageEvent as PageEvent,
+  MatLegacyPaginatorModule,
+} from '@angular/material/legacy-paginator';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { ArticleCardComponent } from '../../shared-article-card/article-card/article-card.component';
@@ -16,18 +19,18 @@ import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progres
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-search-result',
-    templateUrl: './search-result.component.html',
-    styleUrls: ['./search-result.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatLegacyProgressSpinnerModule,
-        NgFor,
-        ArticleCardComponent,
-        MatLegacyPaginatorModule,
-        AsyncPipe,
-    ],
+  selector: 'app-search-result',
+  templateUrl: './search-result.component.html',
+  styleUrls: ['./search-result.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatLegacyProgressSpinnerModule,
+    NgFor,
+    ArticleCardComponent,
+    MatLegacyPaginatorModule,
+    AsyncPipe,
+  ],
 })
 export class SearchResultComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;

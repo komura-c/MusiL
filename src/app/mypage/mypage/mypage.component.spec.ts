@@ -12,12 +12,12 @@ describe('MypageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule, MypageComponent, StringToLinkPipe],
-    providers: [
+      imports: [RouterTestingModule, MypageComponent, StringToLinkPipe],
+      providers: [
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: UserService, useValue: UserServiceStub },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

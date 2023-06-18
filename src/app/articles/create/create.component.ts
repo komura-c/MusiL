@@ -1,6 +1,11 @@
 import { Location, NgIf } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Article } from 'functions/src/interfaces/article';
@@ -22,23 +27,23 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-    selector: 'app-create',
-    templateUrl: './create.component.html',
-    styleUrls: ['./create.component.scss'],
-    standalone: true,
-    imports: [
-        MatToolbarModule,
-        MatLegacyButtonModule,
-        MatIconModule,
-        RouterLink,
-        ReactiveFormsModule,
-        MatLegacySlideToggleModule,
-        MatLegacyFormFieldModule,
-        MatLegacyInputModule,
-        NgIf,
-        TagFormComponent,
-        EditorComponent,
-    ],
+  selector: 'app-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.scss'],
+  standalone: true,
+  imports: [
+    MatToolbarModule,
+    MatLegacyButtonModule,
+    MatIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatLegacySlideToggleModule,
+    MatLegacyFormFieldModule,
+    MatLegacyInputModule,
+    NgIf,
+    TagFormComponent,
+    EditorComponent,
+  ],
 })
 export class CreateComponent implements OnInit {
   private articleId$: Observable<string> = this.route.paramMap.pipe(

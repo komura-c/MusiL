@@ -7,7 +7,14 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { DOCUMENT, Location, NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import {
+  DOCUMENT,
+  Location,
+  NgIf,
+  NgFor,
+  AsyncPipe,
+  DatePipe,
+} from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -28,28 +35,28 @@ import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 
 @Component({
-    selector: 'app-article-detail',
-    templateUrl: './article-detail.component.html',
-    styleUrls: ['./article-detail.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatLegacyButtonModule,
-        MatLegacyTooltipModule,
-        MatIconModule,
-        RouterLink,
-        ArticleEditButtonsComponent,
-        MatLegacyChipsModule,
-        NgFor,
-        MatDividerModule,
-        ArticleCommentComponent,
-        RecommendArticleComponent,
-        AsyncPipe,
-        DatePipe,
-        StringToLinkPipe,
-        EncodeUrlPipe,
-        SafeHTMLPipe,
-    ],
+  selector: 'app-article-detail',
+  templateUrl: './article-detail.component.html',
+  styleUrls: ['./article-detail.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatLegacyButtonModule,
+    MatLegacyTooltipModule,
+    MatIconModule,
+    RouterLink,
+    ArticleEditButtonsComponent,
+    MatLegacyChipsModule,
+    NgFor,
+    MatDividerModule,
+    ArticleCommentComponent,
+    RecommendArticleComponent,
+    AsyncPipe,
+    DatePipe,
+    StringToLinkPipe,
+    EncodeUrlPipe,
+    SafeHTMLPipe,
+  ],
 })
 export class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(

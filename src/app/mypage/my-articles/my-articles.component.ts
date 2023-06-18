@@ -10,17 +10,17 @@ import { ArticleCardComponent } from '../../shared-article-card/article-card/art
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-my-articles',
-    templateUrl: './my-articles.component.html',
-    styleUrls: ['./my-articles.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        MatLegacyProgressSpinnerModule,
-        AsyncPipe,
-    ],
+  selector: 'app-my-articles',
+  templateUrl: './my-articles.component.html',
+  styleUrls: ['./my-articles.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    NgFor,
+    ArticleCardComponent,
+    MatLegacyProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class MyArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;

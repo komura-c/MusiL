@@ -12,19 +12,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { WelcomeComponent } from '../welcome/welcome.component';
 
 @Component({
-    selector: 'app-top',
-    templateUrl: './top.component.html',
-    styleUrls: ['./top.component.scss'],
-    standalone: true,
-    imports: [
-        WelcomeComponent,
-        MatIconModule,
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        ArticleCardSkeltonComponent,
-        AsyncPipe,
-    ],
+  selector: 'app-top',
+  templateUrl: './top.component.html',
+  styleUrls: ['./top.component.scss'],
+  standalone: true,
+  imports: [
+    WelcomeComponent,
+    MatIconModule,
+    NgIf,
+    NgFor,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
+    AsyncPipe,
+  ],
 })
 export class TopComponent {
   latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService

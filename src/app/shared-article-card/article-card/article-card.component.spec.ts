@@ -10,12 +10,12 @@ describe('ArticleCardComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ArticleCardComponent],
-    providers: [
+      imports: [ArticleCardComponent],
+      providers: [
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: LikeService, useValue: LikeServiceStub },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

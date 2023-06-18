@@ -11,9 +11,9 @@ describe('ImageCropDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [ImageCropDialogComponent],
-    providers: [MatDialog, MAT_DIALOG_DATA],
-}).compileComponents();
+      imports: [ImageCropDialogComponent],
+      providers: [MatDialog, MAT_DIALOG_DATA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

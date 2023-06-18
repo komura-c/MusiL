@@ -11,12 +11,12 @@ describe('MyArticlesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [RouterTestingModule, MyArticlesComponent],
-    providers: [
+      imports: [RouterTestingModule, MyArticlesComponent],
+      providers: [
         { provide: UserService, useValue: UserServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
-    ],
-}).compileComponents();
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
