@@ -8,14 +8,14 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        SharedLoginDialogRoutingModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule,
-        LoginDialogComponent,
-    ],
-    exports: [LoginDialogComponent],
+  imports: [
+    CommonModule,
+    SharedLoginDialogRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatDialogModule,
+    LoginDialogComponent,
+  ],
+  exports: [LoginDialogComponent],
 })
 export class SharedLoginDialogModule {}

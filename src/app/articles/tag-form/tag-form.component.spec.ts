@@ -8,8 +8,8 @@ describe('TagFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [MatAutocompleteModule, TagFormComponent],
-}).compileComponents();
+      imports: [MatAutocompleteModule, TagFormComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

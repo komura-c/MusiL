@@ -4,7 +4,7 @@ import { ActivatedRouteSnapshot, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class SearchGuard  {
+export class SearchGuard {
   constructor(private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot): boolean {

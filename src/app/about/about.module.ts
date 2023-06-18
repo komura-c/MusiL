@@ -9,14 +9,14 @@ import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@ang
 import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        AboutRoutingModule,
-        MatIconModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        MatCardModule,
-        AboutComponent,
-    ],
+  imports: [
+    CommonModule,
+    AboutRoutingModule,
+    MatIconModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    AboutComponent,
+  ],
 })
 export class AboutModule {}

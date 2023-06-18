@@ -6,7 +6,7 @@ import { CreateComponent } from '../articles/create/create.component';
 @Injectable({
   providedIn: 'root',
 })
-export class FormGuard  {
+export class FormGuard {
   canDeactivate(component: CreateComponent): Observable<boolean> | boolean {
     if (component.form.pristine || component.isComplete) {
       return true;

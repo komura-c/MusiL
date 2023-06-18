@@ -8,8 +8,8 @@ describe('PrivacyComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [PrivacyComponent],
-}).compileComponents();
+      imports: [PrivacyComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

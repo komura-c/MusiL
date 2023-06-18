@@ -8,8 +8,8 @@ describe('ArticleCardSkeltonComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [ArticleCardSkeltonComponent],
-}).compileComponents();
+      imports: [ArticleCardSkeltonComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

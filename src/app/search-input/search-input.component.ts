@@ -1,31 +1,38 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UntypedFormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {
+  UntypedFormControl,
+  ReactiveFormsModule,
+  FormsModule,
+} from '@angular/forms';
 import { SearchService } from '../services/search.service';
 import { startWith, debounceTime, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { UserData } from '@interfaces/user';
-import { MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent, MatLegacyAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import {
+  MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
+  MatLegacyAutocompleteModule,
+} from '@angular/material/legacy-autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { MatLegacyOptionModule } from '@angular/material/legacy-core';
 import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-search-input',
-    templateUrl: './search-input.component.html',
-    styleUrls: ['./search-input.component.scss'],
-    standalone: true,
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        MatLegacyAutocompleteModule,
-        NgFor,
-        MatLegacyOptionModule,
-        MatLegacyButtonModule,
-        MatIconModule,
-    ],
+  selector: 'app-search-input',
+  templateUrl: './search-input.component.html',
+  styleUrls: ['./search-input.component.scss'],
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatLegacyAutocompleteModule,
+    NgFor,
+    MatLegacyOptionModule,
+    MatLegacyButtonModule,
+    MatIconModule,
+  ],
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;

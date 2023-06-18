@@ -5,6 +5,6 @@ import { TermsRoutingModule } from './terms-routing.module';
 import { TermsComponent } from './terms/terms.component';
 
 @NgModule({
-    imports: [CommonModule, TermsRoutingModule, TermsComponent],
+  imports: [CommonModule, TermsRoutingModule, TermsComponent],
 })
 export class TermsModule {}

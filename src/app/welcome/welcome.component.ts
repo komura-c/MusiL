@@ -10,17 +10,11 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatLegacyButtonModule,
-        RouterLink,
-        MatIconModule,
-        AsyncPipe,
-    ],
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss'],
+  standalone: true,
+  imports: [NgIf, MatLegacyButtonModule, RouterLink, MatIconModule, AsyncPipe],
 })
 export class WelcomeComponent {
   user$: Observable<UserData> = this.authService.user$.pipe(

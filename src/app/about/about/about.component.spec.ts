@@ -9,9 +9,9 @@ describe('AboutComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [AboutComponent],
-    providers: [{ provide: AuthService, useValue: AuthServiceStub }],
-}).compileComponents();
+      imports: [AboutComponent],
+      providers: [{ provide: AuthService, useValue: AuthServiceStub }],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

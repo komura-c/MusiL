@@ -11,15 +11,11 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-image-crop-dialog',
-    templateUrl: './image-crop-dialog.component.html',
-    styleUrls: ['./image-crop-dialog.component.scss'],
-    standalone: true,
-    imports: [
-        ImageCropperModule,
-        NgIf,
-        MatLegacyButtonModule,
-    ],
+  selector: 'app-image-crop-dialog',
+  templateUrl: './image-crop-dialog.component.html',
+  styleUrls: ['./image-crop-dialog.component.scss'],
+  standalone: true,
+  imports: [ImageCropperModule, NgIf, MatLegacyButtonModule],
 })
 export class ImageCropDialogComponent {
   imageChangedEvent = '';

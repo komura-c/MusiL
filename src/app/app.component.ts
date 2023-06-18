@@ -9,18 +9,18 @@ import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progres
 import { HeaderComponent } from './header/header.component';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        HeaderComponent,
-        RouterOutlet,
-        MatLegacyProgressSpinnerModule,
-        FooterComponent,
-        AsyncPipe,
-    ],
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    HeaderComponent,
+    RouterOutlet,
+    MatLegacyProgressSpinnerModule,
+    FooterComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit {
   isShowHeader: boolean;

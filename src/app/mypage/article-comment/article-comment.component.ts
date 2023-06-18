@@ -1,5 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  AbstractControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -16,24 +21,24 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-article-comment',
-    templateUrl: './article-comment.component.html',
-    styleUrls: ['./article-comment.component.scss'],
-    standalone: true,
-    imports: [
-        MatIconModule,
-        NgIf,
-        NgFor,
-        RouterLink,
-        MatLegacyButtonModule,
-        MatDividerModule,
-        ReactiveFormsModule,
-        MatLegacyFormFieldModule,
-        MatLegacyInputModule,
-        TextFieldModule,
-        MatLegacyProgressSpinnerModule,
-        AsyncPipe,
-    ],
+  selector: 'app-article-comment',
+  templateUrl: './article-comment.component.html',
+  styleUrls: ['./article-comment.component.scss'],
+  standalone: true,
+  imports: [
+    MatIconModule,
+    NgIf,
+    NgFor,
+    RouterLink,
+    MatLegacyButtonModule,
+    MatDividerModule,
+    ReactiveFormsModule,
+    MatLegacyFormFieldModule,
+    MatLegacyInputModule,
+    TextFieldModule,
+    MatLegacyProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class ArticleCommentComponent implements OnInit {
   @Input() articleId$: Observable<string>;

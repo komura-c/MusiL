@@ -13,9 +13,9 @@ describe('DeleteDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-    imports: [MatSnackBarModule, DeleteDialogComponent],
-    providers: [MatDialog, Overlay, MAT_DIALOG_DATA],
-}).compileComponents();
+      imports: [MatSnackBarModule, DeleteDialogComponent],
+      providers: [MatDialog, Overlay, MAT_DIALOG_DATA],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

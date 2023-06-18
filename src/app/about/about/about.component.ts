@@ -11,18 +11,18 @@ import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progres
 import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-about',
-    templateUrl: './about.component.html',
-    styleUrls: ['./about.component.scss'],
-    standalone: true,
-    imports: [
-        NgIf,
-        MatLegacyProgressSpinnerModule,
-        MatLegacyButtonModule,
-        MatIconModule,
-        RouterLink,
-        MatLegacyCardModule,
-    ],
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    MatLegacyProgressSpinnerModule,
+    MatLegacyButtonModule,
+    MatIconModule,
+    RouterLink,
+    MatLegacyCardModule,
+  ],
 })
 export class AboutComponent implements OnInit {
   user: UserData;

@@ -9,15 +9,15 @@ import { MatLegacyFormFieldModule as MatFormFieldModule } from '@angular/materia
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        CheckRoutingModule,
-        MatButtonModule,
-        MatInputModule,
-        MatFormFieldModule,
-        FormsModule,
-        ReactiveFormsModule,
-        CheckComponent,
-    ],
+  imports: [
+    CommonModule,
+    CheckRoutingModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    ReactiveFormsModule,
+    CheckComponent,
+  ],
 })
 export class CheckModule {}
