@@ -14,7 +14,7 @@ import {
 } from '@angular/material/legacy-paginator';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
-import { ArticleCardComponent } from '../../shared-article-card/article-card/article-card.component';
+import { ArticleCardComponent } from '../../components/article-card/article-card.component';
 import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 

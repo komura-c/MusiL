@@ -19,7 +19,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
-import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
+import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import {
   MatLegacyDialogModule,
   MatLegacyDialog as MatDialog,
@@ -28,11 +28,11 @@ import { ViewCountService } from 'src/app/services/view-count.service';
 import { SafeHTMLPipe } from '../../pipes/safe-html.pipe';
 import { EncodeUrlPipe } from '../../pipes/encode-url.pipe';
 import { StringToLinkPipe } from '../../pipes/string-to-link.pipe';
-import { RecommendArticleComponent } from '../../mypage/recommend-article/recommend-article.component';
-import { ArticleCommentComponent } from '../../mypage/article-comment/article-comment.component';
+import { RecommendArticleComponent } from '../../components/recommend-article/recommend-article.component';
+import { ArticleCommentComponent } from '../../components/article-comment/article-comment.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatLegacyChipsModule } from '@angular/material/legacy-chips';
-import { ArticleEditButtonsComponent } from '../../shared-article-edit/article-edit-buttons/article-edit-buttons.component';
+import { ArticleEditButtonsComponent } from '../../components/article-edit-buttons/article-edit-buttons.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';

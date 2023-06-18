@@ -5,10 +5,10 @@ import {
   ReactiveFormsModule,
   FormsModule,
 } from '@angular/forms';
-import { SearchService } from '../services/search.service';
+import { SearchService } from '../../services/search.service';
 import { startWith, debounceTime, take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 import { UserData } from '@interfaces/user';
 import {
   MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
