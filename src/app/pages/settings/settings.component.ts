@@ -14,9 +14,9 @@ import {
   MatLegacyDialogModule,
   MatLegacyDialog as MatDialog,
 } from '@angular/material/legacy-dialog';
-import { ImageCropDialogComponent } from '../../settings/image-crop-dialog/image-crop-dialog.component';
+import { ImageCropDialogComponent } from '../../components/image-crop-dialog/image-crop-dialog.component';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { DeleteAccountDialogComponent } from '../../settings/delete-account-dialog/delete-account-dialog.component';
+import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
 import { SeoService } from 'src/app/services/seo.service';
 import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';

@@ -4,9 +4,9 @@ import { LoadingService } from './services/loading.service';
 import { DOCUMENT, Location, NgIf, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
-import { FooterComponent } from './footer/footer.component';
+import { FooterComponent } from './components/footer/footer.component';
 import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
