@@ -8,7 +8,7 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    loadComponent: () => import('./top/top.component'),
+    loadComponent: () => import('./pages/top/top.component'),
   },
   {
     path: 'articles',
@@ -16,16 +16,16 @@ export const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        loadComponent: () => import('./articles/articles/articles.component'),
+        loadComponent: () => import('./pages/articles/articles.component'),
       },
       {
         path: 'create',
-        loadComponent: () => import('./articles/create/create.component'),
+        loadComponent: () => import('./pages/create/create.component'),
         canDeactivate: [FormGuard],
       },
       {
         path: ':id/edit',
-        loadComponent: () => import('./articles/create/create.component'),
+        loadComponent: () => import('./pages/create/create.component'),
         canDeactivate: [FormGuard],
       },
     ],
@@ -34,37 +34,37 @@ export const routes: Routes = [
   },
   {
     path: 'about',
-    loadComponent: () => import('./about/about/about.component'),
+    loadComponent: () => import('./pages/about/about.component'),
   },
   {
     path: 'search',
     loadComponent: () =>
-      import('./search-result/search-result/search-result.component'),
+      import('./pages/search-result/search-result.component'),
     canActivate: [SearchGuard],
   },
   {
     path: 'tags/:id',
     loadComponent: () =>
-      import('./search-result/search-result/search-result.component'),
+      import('./pages/search-result/search-result.component'),
     canActivate: [SearchGuard],
   },
   {
     path: 'settings',
-    loadComponent: () => import('./settings/settings/settings.component'),
+    loadComponent: () => import('./pages/settings/settings.component'),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
   {
     path: 'privacy',
-    loadComponent: () => import('./privacy/privacy/privacy.component'),
+    loadComponent: () => import('./pages/privacy/privacy.component'),
   },
   {
     path: 'terms',
-    loadComponent: () => import('./terms/terms/terms.component'),
+    loadComponent: () => import('./pages/terms/terms.component'),
   },
   {
     path: 'admin/check',
-    loadComponent: () => import('./check/check/check.component'),
+    loadComponent: () => import('./pages/check/check.component'),
     canLoad: [AdminGuard],
     canActivate: [AdminGuard],
   },
@@ -74,17 +74,17 @@ export const routes: Routes = [
       {
         path: 'a/:id',
         loadComponent: () =>
-          import('./mypage/article-detail/article-detail.component'),
+          import('./pages/article-detail/article-detail.component'),
       },
       {
         path: '',
-        loadComponent: () => import('./mypage/mypage/mypage.component'),
+        loadComponent: () => import('./pages/mypage/mypage.component'),
         children: [
           {
             path: '',
             pathMatch: 'full',
             loadComponent: () =>
-              import('./mypage/my-articles/my-articles.component'),
+              import('./pages/my-articles/my-articles.component'),
             data: {
               isMyArticlesRoute: true,
             },
@@ -92,7 +92,7 @@ export const routes: Routes = [
           {
             path: 'likes',
             loadComponent: () =>
-              import('./mypage/liked-articles/liked-articles.component'),
+              import('./pages/liked-articles/liked-articles.component'),
           },
         ],
       },
@@ -100,6 +100,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    loadComponent: () => import('./not-found/not-found.component'),
+    loadComponent: () => import('./pages/not-found/not-found.component'),
   },
 ];
