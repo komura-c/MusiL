@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { CheckService } from 'src/app/services/check.service';
 import { CheckServiceStub } from 'src/test/service.stub';
-import { CheckComponent } from './check.component';
+import CheckComponent from './check.component';
 
 describe('CheckComponent', () => {
   let component: CheckComponent;

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { PrivacyComponent } from './privacy.component';
+import PrivacyComponent from './privacy.component';
 
 describe('PrivacyComponent', () => {
   let component: PrivacyComponent;

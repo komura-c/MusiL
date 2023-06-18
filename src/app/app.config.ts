@@ -20,7 +20,7 @@ import {
 import { environment } from 'src/environments/environment';
 import { routes } from './app.routes';
 
-import { MatPaginatorIntlJaModule } from './mat-paginator-intl-ja/mat-paginator-intl-ja.module';
+import { MatPaginatorIntlJaModule } from './lib/mat-paginator-intl-ja.module';
 import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/legacy-paginator';
 import {
   MatLegacySnackBarModule as MatSnackBarModule,

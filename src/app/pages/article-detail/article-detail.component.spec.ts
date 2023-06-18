@@ -14,7 +14,7 @@ import {
   AuthServiceStub,
   LikeServiceStub,
 } from 'src/test/service.stub';
-import { ArticleDetailComponent } from './article-detail.component';
+import ArticleDetailComponent from './article-detail.component';
 
 describe('ArticleDetailComponent', () => {
   let component: ArticleDetailComponent;
