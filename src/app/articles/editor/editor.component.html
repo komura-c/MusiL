@@ -1,4 +1,4 @@
-<div [formGroup]="parentForm">
+<div [formGroup]="parentForm" *ngIf="quillLoaded">
   <quill-editor
     formControlName="editorContent"
     [modules]="quillModules"
