@@ -4,11 +4,23 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from 'src/environments/environment';
+import { MatIconModule } from '@angular/material/icon';
+import { RouterLink } from '@angular/router';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-welcome',
-  templateUrl: './welcome.component.html',
-  styleUrls: ['./welcome.component.scss'],
+    selector: 'app-welcome',
+    templateUrl: './welcome.component.html',
+    styleUrls: ['./welcome.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatLegacyButtonModule,
+        RouterLink,
+        MatIconModule,
+        AsyncPipe,
+    ],
 })
 export class WelcomeComponent {
   user$: Observable<UserData> = this.authService.user$.pipe(

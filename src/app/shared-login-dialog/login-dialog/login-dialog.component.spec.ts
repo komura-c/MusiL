@@ -16,13 +16,12 @@ describe('LoginDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LoginDialogComponent],
-      imports: [MatDialogModule],
-      providers: [
+    imports: [MatDialogModule, LoginDialogComponent],
+    providers: [
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: MatDialogRef, useValue: MatDialogRefStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

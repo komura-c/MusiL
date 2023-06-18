@@ -5,11 +5,26 @@ import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author'
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
+import { ArticleCardSkeltonComponent } from '../shared-article-card/article-card-skelton/article-card-skelton.component';
+import { ArticleCardComponent } from '../shared-article-card/article-card/article-card.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { WelcomeComponent } from '../welcome/welcome.component';
 
 @Component({
-  selector: 'app-top',
-  templateUrl: './top.component.html',
-  styleUrls: ['./top.component.scss'],
+    selector: 'app-top',
+    templateUrl: './top.component.html',
+    styleUrls: ['./top.component.scss'],
+    standalone: true,
+    imports: [
+        WelcomeComponent,
+        MatIconModule,
+        NgIf,
+        NgFor,
+        ArticleCardComponent,
+        ArticleCardSkeltonComponent,
+        AsyncPipe,
+    ],
 })
 export class TopComponent {
   latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService

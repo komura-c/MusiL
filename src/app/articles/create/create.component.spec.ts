@@ -23,15 +23,15 @@ describe('CreateComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [CreateComponent],
-      imports: [
+    imports: [
         FormsModule,
         ReactiveFormsModule,
         RouterTestingModule,
         MatFormFieldModule,
         MatInputModule,
-      ],
-      providers: [
+        CreateComponent,
+    ],
+    providers: [
         UntypedFormBuilder,
         MatSnackBar,
         Overlay,
@@ -39,8 +39,8 @@ describe('CreateComponent', () => {
         { provide: AngularFireAnalytics, useValue: FireAnalyticsStub },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -7,11 +7,29 @@ import { UserData } from 'functions/src/interfaces/user';
 import { LoadingService } from 'src/app/services/loading.service';
 import { take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { ArticleEditButtonsComponent } from '../../shared-article-edit/article-edit-buttons/article-edit-buttons.component';
+import { RouterLink } from '@angular/router';
+import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-articles',
-  templateUrl: './articles.component.html',
-  styleUrls: ['./articles.component.scss'],
+    selector: 'app-articles',
+    templateUrl: './articles.component.html',
+    styleUrls: ['./articles.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        RouterLink,
+        ArticleEditButtonsComponent,
+        InfiniteScrollModule,
+        MatLegacyButtonModule,
+        MatIconModule,
+        AsyncPipe,
+        DatePipe,
+    ],
 })
 export class ArticlesComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;

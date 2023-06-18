@@ -2,11 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { UserData } from '@interfaces/user';
 import { AuthService } from 'src/app/services/auth.service';
-import {
-  UntypedFormControl,
-  Validators,
-  UntypedFormBuilder,
-} from '@angular/forms';
+import { UntypedFormControl, Validators, UntypedFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
@@ -15,11 +11,28 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
 import { SeoService } from 'src/app/services/seo.service';
+import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyInputModule } from '@angular/material/legacy-input';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss'],
+    selector: 'app-settings',
+    templateUrl: './settings.component.html',
+    styleUrls: ['./settings.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatIconModule,
+        ReactiveFormsModule,
+        MatLegacyFormFieldModule,
+        MatLegacyInputModule,
+        MatLegacyButtonModule,
+        MatLegacyProgressSpinnerModule,
+        AsyncPipe,
+    ],
 })
 export class SettingsComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;

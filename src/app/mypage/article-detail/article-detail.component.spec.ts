@@ -22,9 +22,8 @@ describe('ArticleDetailComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ArticleDetailComponent],
-      imports: [RouterTestingModule],
-      providers: [
+    imports: [RouterTestingModule, ArticleDetailComponent],
+    providers: [
         MatSnackBar,
         Overlay,
         MatDialog,
@@ -32,8 +31,8 @@ describe('ArticleDetailComponent', () => {
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: LikeService, useValue: LikeServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

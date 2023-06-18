@@ -8,13 +8,13 @@ import { MatLegacyProgressSpinnerModule as MatProgressSpinnerModule } from '@ang
 import { SharedArticleCardModule } from '../shared-article-card/shared-article-card.module';
 
 @NgModule({
-  declarations: [SearchResultComponent],
-  imports: [
-    CommonModule,
-    SearchResultRoutingModule,
-    MatPaginatorModule,
-    SharedArticleCardModule,
-    MatProgressSpinnerModule,
-  ],
+    imports: [
+        CommonModule,
+        SearchResultRoutingModule,
+        MatPaginatorModule,
+        SharedArticleCardModule,
+        MatProgressSpinnerModule,
+        SearchResultComponent,
+    ],
 })
 export class SearchResultModule {}

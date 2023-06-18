@@ -16,15 +16,14 @@ describe('DeleteAccountDialogComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [DeleteAccountDialogComponent],
-      imports: [RouterTestingModule],
-      providers: [
+    imports: [RouterTestingModule, DeleteAccountDialogComponent],
+    providers: [
         MatSnackBar,
         Overlay,
         { provide: MatDialogRef, useValue: MatDialogRefStub },
         { provide: UserService, useValue: UserServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

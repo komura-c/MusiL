@@ -1,5 +1,5 @@
 import { Component, HostListener, Inject, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT, Location, NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -15,11 +15,41 @@ import { environment } from 'src/environments/environment';
 import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { ViewCountService } from 'src/app/services/view-count.service';
+import { SafeHTMLPipe } from '../../pipes/safe-html.pipe';
+import { EncodeUrlPipe } from '../../pipes/encode-url.pipe';
+import { StringToLinkPipe } from '../../pipes/string-to-link.pipe';
+import { RecommendArticleComponent } from '../recommend-article/recommend-article.component';
+import { ArticleCommentComponent } from '../article-comment/article-comment.component';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatLegacyChipsModule } from '@angular/material/legacy-chips';
+import { ArticleEditButtonsComponent } from '../../shared-article-edit/article-edit-buttons/article-edit-buttons.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 
 @Component({
-  selector: 'app-article-detail',
-  templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss'],
+    selector: 'app-article-detail',
+    templateUrl: './article-detail.component.html',
+    styleUrls: ['./article-detail.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        MatLegacyButtonModule,
+        MatLegacyTooltipModule,
+        MatIconModule,
+        RouterLink,
+        ArticleEditButtonsComponent,
+        MatLegacyChipsModule,
+        NgFor,
+        MatDividerModule,
+        ArticleCommentComponent,
+        RecommendArticleComponent,
+        AsyncPipe,
+        DatePipe,
+        StringToLinkPipe,
+        EncodeUrlPipe,
+        SafeHTMLPipe,
+    ],
 })
 export class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(

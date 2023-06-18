@@ -8,8 +8,8 @@ describe('NotFoundComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [NotFoundComponent],
-    }).compileComponents();
+    imports: [NotFoundComponent],
+}).compileComponents();
   }));
 
   beforeEach(() => {
