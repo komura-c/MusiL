@@ -1,22 +1,33 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loading.service';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT, Location, NgIf, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
+import { FooterComponent } from './components/footer/footer.component';
+import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    HeaderComponent,
+    RouterOutlet,
+    MatLegacyProgressSpinnerModule,
+    FooterComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit {
-  isShowHeader: boolean;
-  isShowFooter: boolean;
+  isShowHeader = true;
+  isShowFooter = true;
+  isScrollContainer = false;
 
   loading$ = this.loadingService.loading$;
-
-  isScrollContainer: boolean;
 
   constructor(
     private router: Router,

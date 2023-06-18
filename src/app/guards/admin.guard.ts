@@ -15,7 +15,7 @@ export class AdminGuard {
       switchMap(async (user) => {
         if (user) {
           const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims.admin;
+          return idTokenResult.claims['admin'];
         }
         return false;
       }),
@@ -31,7 +31,7 @@ export class AdminGuard {
       switchMap(async (user) => {
         if (user) {
           const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims.admin;
+          return idTokenResult.claims['admin'];
         }
         return false;
       }),

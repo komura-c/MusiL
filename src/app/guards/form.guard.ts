@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 
 import { Observable, of } from 'rxjs';
-import { CreateComponent } from '../articles/create/create.component';
 
 @Injectable({
   providedIn: 'root',
 })
-export class FormGuard  {
-  canDeactivate(component: CreateComponent): Observable<boolean> | boolean {
+export class FormGuard {
+  canDeactivate(
+    component: Component & { form: { pristine: boolean }; isComplete: boolean }
+  ): Observable<boolean> | boolean {
     if (component.form.pristine || component.isComplete) {
       return true;
     }
