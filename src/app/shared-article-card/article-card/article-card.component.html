@@ -34,7 +34,7 @@
       <div class="card__meta">
         <div class="card__like-count">
           <ng-container *ngIf="isLiked; else isNotLiked">
-            <mat-icon aria-hidden="true" fontIcon="favorite">favorite</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="favorite"></mat-icon>
             <span>{{ likeCount }}</span>
           </ng-container>
           <ng-template #isNotLiked>
