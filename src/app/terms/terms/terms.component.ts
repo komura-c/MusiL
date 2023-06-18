@@ -9,7 +9,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
 })
-export class TermsComponent {
+export default class TermsComponent {
   constructor(private seoService: SeoService) {
     this.seoService.updateTitleAndMeta({
       title: '利用規約 | MusiL',

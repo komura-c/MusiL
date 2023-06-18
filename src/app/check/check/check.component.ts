@@ -30,7 +30,7 @@ import { NgIf, NgFor, AsyncPipe, JsonPipe } from '@angular/common';
     JsonPipe,
   ],
 })
-export class CheckComponent {
+export default class CheckComponent {
   usersScreenNameIsNull$: Observable<UserData[]> =
     this.checkService.getUserScreenNameIsNull();
   articlesThumbnailURLIsNull$: Observable<Article[]> =
@@ -42,7 +42,7 @@ export class CheckComponent {
 
   constructor(private checkService: CheckService) {}
 
-  async getProfile(accessKey: string, screenName: string): Promise<string> {
+  async getProfile(accessKey: string, screenName: string): Promise<void> {
     if (
       accessKey === null ||
       /^ {1,}$/.test(accessKey) ||

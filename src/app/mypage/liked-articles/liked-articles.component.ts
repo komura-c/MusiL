@@ -22,7 +22,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class LikedArticlesComponent implements OnInit {
+export default class LikedArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;
   isLoading: boolean;
 

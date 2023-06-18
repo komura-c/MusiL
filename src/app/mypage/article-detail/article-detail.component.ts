@@ -20,7 +20,10 @@ import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { LoginDialogComponent } from 'src/app/shared-login-dialog/login-dialog/login-dialog.component';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {
+  MatLegacyDialogModule,
+  MatLegacyDialog as MatDialog,
+} from '@angular/material/legacy-dialog';
 import { ViewCountService } from 'src/app/services/view-count.service';
 import { SafeHTMLPipe } from '../../pipes/safe-html.pipe';
 import { EncodeUrlPipe } from '../../pipes/encode-url.pipe';
@@ -56,9 +59,10 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
     StringToLinkPipe,
     EncodeUrlPipe,
     SafeHTMLPipe,
+    MatLegacyDialogModule,
   ],
 })
-export class ArticleDetailComponent implements OnDestroy {
+export default class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(
     map((params) => {
       return params.get('id');

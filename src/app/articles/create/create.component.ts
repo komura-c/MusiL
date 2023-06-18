@@ -45,7 +45,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     EditorComponent,
   ],
 })
-export class CreateComponent implements OnInit {
+export default class CreateComponent implements OnInit {
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       return params.get('id');
@@ -153,6 +153,8 @@ export class CreateComponent implements OnInit {
       '作業中の内容が失われますがよろしいですか？'
     );
     if (confirmation) {
+      // guardで反応させないために更新
+      this.isComplete = true;
       this.location.back();
       return;
     }

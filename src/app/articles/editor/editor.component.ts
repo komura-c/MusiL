@@ -14,34 +14,23 @@ import {
   UntypedFormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {
+  MatLegacyDialogModule,
+  MatLegacyDialog as MatDialog,
+} from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import { QuillModule } from 'ngx-quill';
 import type { QuillModules } from 'ngx-quill';
 import type { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 import { NgIf } from '@angular/common';
-
-type QuillEditorInstance = {
-  theme: { tooltip: { root: Document } };
-  getSelection(): { index: number };
-  insertEmbed(index: number, type: string, downloadURL: string): void;
-};
-
-const dynamicImportQuill = async () => {
-  const Quill = (await import('quill')).default;
-  const ImageResize = (await import('quill-image-resize')).default;
-  const QuillImageDropAndPaste = (await import('quill-image-drop-and-paste'))
-    .default;
-  Quill.register('modules/imageResize', ImageResize);
-  Quill.register('modules/imageDropAndPaste', QuillImageDropAndPaste);
-};
+import { QuillEditorInstance, dynamicImportQuill } from 'src/app/lib/quill';
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, QuillModule],
+  imports: [NgIf, ReactiveFormsModule, QuillModule, MatLegacyDialogModule],
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: UntypedFormGroup;
@@ -93,20 +82,16 @@ export class EditorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    dynamicImportQuill()
-      .then(() => {
-        this.quillLoaded = true;
-      })
-      .catch((err) => {
-        console.error('dynamicImportQuillError: ', err);
-      });
+    dynamicImportQuill().catch((err) => {
+      console.error('dynamicImportQuillError: ', err);
+    });
   }
 
   editorCreated(editorInstance: QuillEditorInstance) {
     const editorInputDefaultLink: HTMLElement =
       editorInstance.theme.tooltip.root.querySelector('input[data-link]');
-    editorInputDefaultLink.dataset.link = 'https://musil.place/';
-    editorInputDefaultLink.dataset.video = 'https://www.youtube.com/';
+    editorInputDefaultLink.dataset['link'] = 'https://musil.place/';
+    editorInputDefaultLink.dataset['video'] = 'https://www.youtube.com/';
 
     this.editorInstance = editorInstance;
   }

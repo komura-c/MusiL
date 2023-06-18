@@ -32,7 +32,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class SearchResultComponent implements OnInit, OnDestroy {
+export default class SearchResultComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;
 
   searchQuery: string;
