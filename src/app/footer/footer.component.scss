@@ -10,6 +10,8 @@
     a {
       margin: 0 8px 8px;
       text-align: center;
+      display: flex;
+      align-items: center;
       @include mixins.sp {
         font-size: 14px;
       }
