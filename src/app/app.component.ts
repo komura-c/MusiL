@@ -23,12 +23,11 @@ import { HeaderComponent } from './header/header.component';
   ],
 })
 export class AppComponent implements OnInit {
-  isShowHeader: boolean;
-  isShowFooter: boolean;
+  isShowHeader = true;
+  isShowFooter = true;
+  isScrollContainer = false;
 
   loading$ = this.loadingService.loading$;
-
-  isScrollContainer: boolean;
 
   constructor(
     private router: Router,

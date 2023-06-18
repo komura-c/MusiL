@@ -1,5 +1,4 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchGuard } from './guards/search.guard';
 import { AdminGuard } from './guards/admin.guard';
@@ -7,7 +6,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { TopComponent } from './top/top.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
@@ -75,17 +74,3 @@ const routes: Routes = [
     component: NotFoundComponent,
   },
 ];
-
-@NgModule({
-  imports: [
-    RouterModule.forRoot(routes, {
-      scrollPositionRestoration: 'top',
-      anchorScrolling: 'enabled',
-      useHash: false,
-      scrollOffset: [0, 70],
-      initialNavigation: 'enabledNonBlocking',
-    }),
-  ],
-  exports: [RouterModule],
-})
-export class AppRoutingModule {}
