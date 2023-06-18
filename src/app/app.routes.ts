@@ -69,27 +69,32 @@ export const routes: Routes = [
     canActivate: [AdminGuard],
   },
   {
-    path: ':id/a/:id',
-    loadComponent: () =>
-      import('./mypage/article-detail/article-detail.component'),
-  },
-  {
     path: ':id',
-    loadComponent: () => import('./mypage/mypage/mypage.component'),
     children: [
       {
-        path: '',
-        pathMatch: 'full',
+        path: 'a/:id',
         loadComponent: () =>
-          import('./mypage/my-articles/my-articles.component'),
-        data: {
-          isMyArticlesRoute: true,
-        },
+          import('./mypage/article-detail/article-detail.component'),
       },
       {
-        path: 'likes',
-        loadComponent: () =>
-          import('./mypage/liked-articles/liked-articles.component'),
+        path: '',
+        loadComponent: () => import('./mypage/mypage/mypage.component'),
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            loadComponent: () =>
+              import('./mypage/my-articles/my-articles.component'),
+            data: {
+              isMyArticlesRoute: true,
+            },
+          },
+          {
+            path: 'likes',
+            loadComponent: () =>
+              import('./mypage/liked-articles/liked-articles.component'),
+          },
+        ],
       },
     ],
   },

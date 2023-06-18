@@ -67,7 +67,7 @@ export class EditorComponent implements OnInit {
       handler: this.dropImageHandler.bind(this),
     },
   };
-  quillLoaded = false;
+  quillComponentLoaded = false;
 
   get editorContentControl() {
     return this.parentForm.get('editorContent') as UntypedFormControl;
@@ -82,9 +82,13 @@ export class EditorComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    dynamicImportQuill().catch((err) => {
-      console.error('dynamicImportQuillError: ', err);
-    });
+    dynamicImportQuill()
+      .then(() => {
+        this.quillComponentLoaded = true;
+      })
+      .catch((err) => {
+        console.error('dynamicImportQuillError: ', err);
+      });
   }
 
   editorCreated(editorInstance: QuillEditorInstance) {
