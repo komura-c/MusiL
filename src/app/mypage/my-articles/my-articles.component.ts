@@ -5,11 +5,22 @@ import { tap, take, switchMap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
+import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { ArticleCardComponent } from '../../shared-article-card/article-card/article-card.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-my-articles',
-  templateUrl: './my-articles.component.html',
-  styleUrls: ['./my-articles.component.scss'],
+    selector: 'app-my-articles',
+    templateUrl: './my-articles.component.html',
+    styleUrls: ['./my-articles.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        ArticleCardComponent,
+        MatLegacyProgressSpinnerModule,
+        AsyncPipe,
+    ],
 })
 export class MyArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;

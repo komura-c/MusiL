@@ -10,10 +10,9 @@ describe('HeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HeaderComponent],
-      imports: [MatMenuModule],
-      providers: [{ provide: AuthService, useValue: AuthServiceStub }],
-    }).compileComponents();
+    imports: [MatMenuModule, HeaderComponent],
+    providers: [{ provide: AuthService, useValue: AuthServiceStub }],
+}).compileComponents();
   }));
 
   beforeEach(() => {

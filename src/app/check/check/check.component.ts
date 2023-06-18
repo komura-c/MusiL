@@ -3,12 +3,28 @@ import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
 import { CheckService } from 'src/app/services/check.service';
-import { UntypedFormControl } from '@angular/forms';
+import { UntypedFormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatLegacyInputModule } from '@angular/material/legacy-input';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { NgIf, NgFor, AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-check',
-  templateUrl: './check.component.html',
-  styleUrls: ['./check.component.scss'],
+    selector: 'app-check',
+    templateUrl: './check.component.html',
+    styleUrls: ['./check.component.scss'],
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        ReactiveFormsModule,
+        FormsModule,
+        MatLegacyFormFieldModule,
+        MatLegacyInputModule,
+        MatLegacyButtonModule,
+        AsyncPipe,
+        JsonPipe,
+    ],
 })
 export class CheckComponent {
   usersScreenNameIsNull$: Observable<UserData[]> =

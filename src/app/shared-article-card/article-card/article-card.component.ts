@@ -3,11 +3,21 @@ import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author'
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LikeService } from 'src/app/services/like.service';
+import { MatIconModule } from '@angular/material/icon';
+import { NgIf, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-article-card',
-  templateUrl: './article-card.component.html',
-  styleUrls: ['./article-card.component.scss'],
+    selector: 'app-article-card',
+    templateUrl: './article-card.component.html',
+    styleUrls: ['./article-card.component.scss'],
+    standalone: true,
+    imports: [
+        RouterLink,
+        NgIf,
+        MatIconModule,
+        DatePipe,
+    ],
 })
 export class ArticleCardComponent implements OnInit {
   @Input() article: ArticleWithAuthor;

@@ -10,15 +10,15 @@ import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/lega
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 
 @NgModule({
-  declarations: [ArticleEditButtonsComponent, DeleteDialogComponent],
-  imports: [
-    CommonModule,
-    SharedArticleEditRoutingModule,
-    MatIconModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatMenuModule,
-  ],
-  exports: [ArticleEditButtonsComponent, DeleteDialogComponent],
+    imports: [
+        CommonModule,
+        SharedArticleEditRoutingModule,
+        MatIconModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatMenuModule,
+        ArticleEditButtonsComponent, DeleteDialogComponent,
+    ],
+    exports: [ArticleEditButtonsComponent, DeleteDialogComponent],
 })
 export class SharedArticleEditModule {}

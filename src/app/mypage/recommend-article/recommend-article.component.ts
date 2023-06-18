@@ -3,11 +3,24 @@ import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
+import { ArticleCardSkeltonComponent } from '../../shared-article-card/article-card-skelton/article-card-skelton.component';
+import { ArticleCardComponent } from '../../shared-article-card/article-card/article-card.component';
+import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-recommend-article',
-  templateUrl: './recommend-article.component.html',
-  styleUrls: ['./recommend-article.component.scss'],
+    selector: 'app-recommend-article',
+    templateUrl: './recommend-article.component.html',
+    styleUrls: ['./recommend-article.component.scss'],
+    standalone: true,
+    imports: [
+        MatIconModule,
+        NgIf,
+        NgFor,
+        ArticleCardComponent,
+        ArticleCardSkeltonComponent,
+        AsyncPipe,
+    ],
 })
 export class RecommendArticleComponent {
   @Input() currentArticle: ArticleWithAuthor;

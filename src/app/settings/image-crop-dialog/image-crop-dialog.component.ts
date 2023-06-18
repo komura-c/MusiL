@@ -4,14 +4,22 @@ import {
   MatLegacyDialogRef as MatDialogRef,
 } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { ImageCroppedEvent } from 'ngx-image-cropper';
+import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { NgIf } from '@angular/common';
 
 @Component({
-  selector: 'app-image-crop-dialog',
-  templateUrl: './image-crop-dialog.component.html',
-  styleUrls: ['./image-crop-dialog.component.scss'],
+    selector: 'app-image-crop-dialog',
+    templateUrl: './image-crop-dialog.component.html',
+    styleUrls: ['./image-crop-dialog.component.scss'],
+    standalone: true,
+    imports: [
+        ImageCropperModule,
+        NgIf,
+        MatLegacyButtonModule,
+    ],
 })
 export class ImageCropDialogComponent {
   imageChangedEvent = '';

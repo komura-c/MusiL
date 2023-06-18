@@ -16,25 +16,23 @@ import { DeleteAccountDialogComponent } from './delete-account-dialog/delete-acc
 import { MatLegacyDialogModule as MatDialogModule } from '@angular/material/legacy-dialog';
 
 @NgModule({
-  declarations: [
-    SettingsComponent,
-    ImageCropDialogComponent,
-    DeleteAccountDialogComponent,
-  ],
-  imports: [
-    CommonModule,
-    SettingsRoutingModule,
-    MatIconModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    FormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonModule,
-    ImageCropperModule,
-    MatProgressSpinnerModule,
-    MatDialogModule,
-    MatProgressSpinnerModule,
-  ],
+    imports: [
+        CommonModule,
+        SettingsRoutingModule,
+        MatIconModule,
+        MatTabsModule,
+        ReactiveFormsModule,
+        FormsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonModule,
+        ImageCropperModule,
+        MatProgressSpinnerModule,
+        MatDialogModule,
+        MatProgressSpinnerModule,
+        SettingsComponent,
+        ImageCropDialogComponent,
+        DeleteAccountDialogComponent,
+    ],
 })
 export class SettingsModule {}

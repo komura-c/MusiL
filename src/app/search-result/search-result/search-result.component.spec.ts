@@ -10,10 +10,9 @@ describe('SearchResultComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchResultComponent],
-      imports: [RouterTestingModule],
-      providers: [{ provide: UserService, useValue: UserServiceStub }],
-    }).compileComponents();
+    imports: [RouterTestingModule, SearchResultComponent],
+    providers: [{ provide: UserService, useValue: UserServiceStub }],
+}).compileComponents();
   }));
 
   beforeEach(() => {

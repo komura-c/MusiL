@@ -1,12 +1,8 @@
-import { Location } from '@angular/common';
+import { Location, NgIf } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  Validators,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Article } from 'functions/src/interfaces/article';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
@@ -16,11 +12,33 @@ import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
+import { EditorComponent } from '../editor/editor.component';
+import { TagFormComponent } from '../tag-form/tag-form.component';
+import { MatLegacyInputModule } from '@angular/material/legacy-input';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatLegacySlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-create',
-  templateUrl: './create.component.html',
-  styleUrls: ['./create.component.scss'],
+    selector: 'app-create',
+    templateUrl: './create.component.html',
+    styleUrls: ['./create.component.scss'],
+    standalone: true,
+    imports: [
+        MatToolbarModule,
+        MatLegacyButtonModule,
+        MatIconModule,
+        RouterLink,
+        ReactiveFormsModule,
+        MatLegacySlideToggleModule,
+        MatLegacyFormFieldModule,
+        MatLegacyInputModule,
+        NgIf,
+        TagFormComponent,
+        EditorComponent,
+    ],
 })
 export class CreateComponent implements OnInit {
   private articleId$: Observable<string> = this.route.paramMap.pipe(

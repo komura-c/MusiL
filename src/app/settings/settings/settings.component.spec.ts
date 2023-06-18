@@ -16,16 +16,16 @@ describe('SettingsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SettingsComponent],
-      providers: [
+    imports: [SettingsComponent],
+    providers: [
         UntypedFormBuilder,
         MatDialog,
         Overlay,
         MAT_DIALOG_SCROLL_STRATEGY,
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: UserService, useValue: UserServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

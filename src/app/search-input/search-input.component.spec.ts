@@ -11,10 +11,9 @@ describe('SearchInputComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [SearchInputComponent],
-      imports: [RouterTestingModule, MatAutocompleteModule],
-      providers: [{ provide: UserService, useValue: UserServiceStub }],
-    }).compileComponents();
+    imports: [RouterTestingModule, MatAutocompleteModule, SearchInputComponent],
+    providers: [{ provide: UserService, useValue: UserServiceStub }],
+}).compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,8 +8,8 @@ describe('RecommendArticleComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [RecommendArticleComponent],
-    }).compileComponents();
+    imports: [RecommendArticleComponent],
+}).compileComponents();
   }));
 
   beforeEach(() => {

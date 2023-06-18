@@ -8,13 +8,13 @@ import { ArticleCardComponent } from './article-card/article-card.component';
 import { ArticleCardSkeltonComponent } from './article-card-skelton/article-card-skelton.component';
 
 @NgModule({
-  declarations: [ArticleCardComponent, ArticleCardSkeltonComponent],
-  imports: [
-    CommonModule,
-    SharedArticleCardRoutingModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
-  exports: [ArticleCardComponent, ArticleCardSkeltonComponent],
+    imports: [
+        CommonModule,
+        SharedArticleCardRoutingModule,
+        MatButtonModule,
+        MatIconModule,
+        ArticleCardComponent, ArticleCardSkeltonComponent,
+    ],
+    exports: [ArticleCardComponent, ArticleCardSkeltonComponent],
 })
 export class SharedArticleCardModule {}

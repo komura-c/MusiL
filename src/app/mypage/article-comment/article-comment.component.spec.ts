@@ -18,20 +18,20 @@ describe('ArticleCommentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ArticleCommentComponent],
-      imports: [
+    imports: [
         ReactiveFormsModule,
         RouterTestingModule,
         MatSnackBarModule,
         MatDialogModule,
-      ],
-      providers: [
+        ArticleCommentComponent,
+    ],
+    providers: [
         MatSnackBar,
         ActivatedRoute,
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: CommentService, useValue: CommentServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

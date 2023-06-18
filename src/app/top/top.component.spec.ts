@@ -10,12 +10,12 @@ describe('TopComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TopComponent],
-      providers: [
+    imports: [TopComponent],
+    providers: [
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

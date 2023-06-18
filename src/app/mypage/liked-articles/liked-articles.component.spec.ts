@@ -12,14 +12,13 @@ describe('LikedArticlesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [LikedArticlesComponent],
-      imports: [RouterTestingModule],
-      providers: [
+    imports: [RouterTestingModule, LikedArticlesComponent],
+    providers: [
         ActivatedRoute,
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: UserService, useValue: UserServiceStub },
-      ],
-    }).compileComponents();
+    ],
+}).compileComponents();
   }));
 
   beforeEach(() => {

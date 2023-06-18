@@ -6,11 +6,22 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatLegacyMenuModule } from '@angular/material/legacy-menu';
+import { RouterLink } from '@angular/router';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 
 @Component({
-  selector: 'app-article-edit-buttons',
-  templateUrl: './article-edit-buttons.component.html',
-  styleUrls: ['./article-edit-buttons.component.scss'],
+    selector: 'app-article-edit-buttons',
+    templateUrl: './article-edit-buttons.component.html',
+    styleUrls: ['./article-edit-buttons.component.scss'],
+    standalone: true,
+    imports: [
+        MatLegacyButtonModule,
+        RouterLink,
+        MatLegacyMenuModule,
+        MatIconModule,
+    ],
 })
 export class ArticleEditButtonsComponent {
   @Input() article: Article | ArticleWithAuthor;

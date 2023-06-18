@@ -1,16 +1,24 @@
 import { Component } from '@angular/core';
-import {
-  AbstractControl,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  Validators,
-} from '@angular/forms';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { AbstractControl, UntypedFormBuilder, UntypedFormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { MatLegacyDialogRef as MatDialogRef, MatLegacyDialogModule } from '@angular/material/legacy-dialog';
+import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { NgIf } from '@angular/common';
+import { MatLegacyInputModule } from '@angular/material/legacy-input';
+import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
 
 @Component({
-  selector: 'app-link-insert-dialog',
-  templateUrl: './link-insert-dialog.component.html',
-  styleUrls: ['./link-insert-dialog.component.scss'],
+    selector: 'app-link-insert-dialog',
+    templateUrl: './link-insert-dialog.component.html',
+    styleUrls: ['./link-insert-dialog.component.scss'],
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        MatLegacyFormFieldModule,
+        MatLegacyInputModule,
+        NgIf,
+        MatLegacyDialogModule,
+        MatLegacyButtonModule,
+    ],
 })
 export class LinkInsertDialogComponent {
   form = this.fb.group({

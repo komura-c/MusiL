@@ -15,10 +15,9 @@ describe('ArticleEditButtonsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ArticleEditButtonsComponent],
-      imports: [MatDialogModule, MatSnackBarModule, MatMenuModule],
-      providers: [MatSnackBar],
-    }).compileComponents();
+    imports: [MatDialogModule, MatSnackBarModule, MatMenuModule, ArticleEditButtonsComponent],
+    providers: [MatSnackBar],
+}).compileComponents();
   }));
 
   beforeEach(() => {
