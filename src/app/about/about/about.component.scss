@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .about {
   margin: 0 -16px;
@@ -10,7 +10,7 @@
   &__title {
     max-width: 320px;
     margin: 0 auto;
-    @include sp {
+    @include mixins.sp {
       max-width: 220px;
     }
   }
@@ -18,7 +18,7 @@
     font-size: 20px;
     margin-bottom: 32px;
     letter-spacing: 1.8px;
-    @include sp {
+    @include mixins.sp {
       font-size: 16px;
     }
   }
@@ -29,18 +29,18 @@
 }
 
 .new-line::before {
-  @include sp {
+  @include mixins.sp {
     content: '\A';
     white-space: pre;
   }
 }
 
 .login-button {
-  background-color: $color-twitter;
+  background-color: mixins.$color-twitter;
 }
 
 .terms-link {
-  color: $color-primary;
+  color: mixins.$color-primary;
 }
 
 .post-button {
@@ -74,10 +74,10 @@
     height: 4px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: $color-primary;
+    background-color: mixins.$color-primary;
     border-radius: 4px;
   }
-  @include sp {
+  @include mixins.sp {
     font-size: 24px;
   }
 }
@@ -108,13 +108,13 @@
 }
 
 .about-concept {
-  background-color: $color-background;
+  background-color: mixins.$color-background;
   padding: 52px 16px;
   &__card {
     max-width: 610px;
     margin: 32px auto;
     padding: 40px 64px;
-    @include sp {
+    @include mixins.sp {
       padding: 40px 20px;
     }
   }

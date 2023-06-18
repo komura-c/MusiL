@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .card {
   background-color: #fff;
@@ -68,7 +68,7 @@
     align-items: center;
     margin-right: 8px;
     mat-icon {
-      color: $color-primary;
+      color: mixins.$color-primary;
       font-size: 16px;
       width: 16px;
       height: 14px;
@@ -79,7 +79,7 @@
     display: flex;
     align-items: center;
     mat-icon {
-      color: $color-primary;
+      color: mixins.$color-primary;
       font-size: 16px;
       width: 16px;
       height: 14px;

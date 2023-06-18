@@ -1,4 +1,4 @@
-@import 'mixins';
+@use 'mixins';
 
 .login-dialog {
   display: grid;
@@ -27,15 +27,15 @@
 }
 
 .login-button {
-  background-color: $color-twitter;
+  background-color: mixins.$color-twitter;
 }
 
 .terms-link {
-  color: $color-primary;
+  color: mixins.$color-primary;
 }
 
 .new-line::before {
-  @include sp {
+  @include mixins.sp {
     content: '\A';
     white-space: pre;
   }
