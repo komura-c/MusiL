@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { AuthServiceStub } from 'src/test/service.stub';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
