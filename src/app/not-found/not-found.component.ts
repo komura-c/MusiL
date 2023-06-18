@@ -11,7 +11,7 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
   standalone: true,
   imports: [MatLegacyButtonModule, RouterLink],
 })
-export class NotFoundComponent {
+export default class NotFoundComponent {
   constructor(private seoService: SeoService) {
     this.seoService.updateTitleAndMeta({
       title: 'ページが見つかりません | MusiL',

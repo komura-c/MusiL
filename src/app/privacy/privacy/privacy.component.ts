@@ -7,7 +7,7 @@ import { SeoService } from 'src/app/services/seo.service';
   styleUrls: ['./privacy.component.scss'],
   standalone: true,
 })
-export class PrivacyComponent {
+export default class PrivacyComponent {
   constructor(private seoService: SeoService) {
     this.seoService.updateTitleAndMeta({
       title: 'プライバシーポリシー | MusiL',

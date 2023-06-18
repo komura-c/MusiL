@@ -2,75 +2,99 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
 import { SearchGuard } from './guards/search.guard';
 import { AdminGuard } from './guards/admin.guard';
-
-import { TopComponent } from './top/top.component';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { FormGuard } from './guards/form.guard';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: TopComponent,
+    loadComponent: () => import('./top/top.component'),
   },
   {
     path: 'articles',
-    loadChildren: () =>
-      import('./articles/articles.module').then((m) => m.ArticlesModule),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./articles/articles/articles.component'),
+      },
+      {
+        path: 'create',
+        loadComponent: () => import('./articles/create/create.component'),
+        canDeactivate: [FormGuard],
+      },
+      {
+        path: ':id/edit',
+        loadComponent: () => import('./articles/create/create.component'),
+        canDeactivate: [FormGuard],
+      },
+    ],
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
   {
     path: 'about',
-    loadChildren: () =>
-      import('./about/about.module').then((m) => m.AboutModule),
+    loadComponent: () => import('./about/about/about.component'),
   },
   {
     path: 'search',
-    loadChildren: () =>
-      import('./search-result/search-result.module').then(
-        (m) => m.SearchResultModule
-      ),
+    loadComponent: () =>
+      import('./search-result/search-result/search-result.component'),
     canActivate: [SearchGuard],
   },
   {
     path: 'tags/:id',
-    loadChildren: () =>
-      import('./search-result/search-result.module').then(
-        (m) => m.SearchResultModule
-      ),
+    loadComponent: () =>
+      import('./search-result/search-result/search-result.component'),
     canActivate: [SearchGuard],
   },
   {
     path: 'settings',
-    loadChildren: () =>
-      import('./settings/settings.module').then((m) => m.SettingsModule),
+    loadComponent: () => import('./settings/settings/settings.component'),
     canLoad: [AuthGuard],
     canActivate: [AuthGuard],
   },
   {
     path: 'privacy',
-    loadChildren: () =>
-      import('./privacy/privacy.module').then((m) => m.PrivacyModule),
+    loadComponent: () => import('./privacy/privacy/privacy.component'),
   },
   {
     path: 'terms',
-    loadChildren: () =>
-      import('./terms/terms.module').then((m) => m.TermsModule),
+    loadComponent: () => import('./terms/terms/terms.component'),
   },
   {
     path: 'admin/check',
-    loadChildren: () =>
-      import('./check/check.module').then((m) => m.CheckModule),
+    loadComponent: () => import('./check/check/check.component'),
     canLoad: [AdminGuard],
     canActivate: [AdminGuard],
   },
   {
+    path: ':id/a/:id',
+    loadComponent: () =>
+      import('./mypage/article-detail/article-detail.component'),
+  },
+  {
     path: ':id',
-    loadChildren: () =>
-      import('./mypage/mypage.module').then((m) => m.MypageModule),
+    loadComponent: () => import('./mypage/mypage/mypage.component'),
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () =>
+          import('./mypage/my-articles/my-articles.component'),
+        data: {
+          isMyArticlesRoute: true,
+        },
+      },
+      {
+        path: 'likes',
+        loadComponent: () =>
+          import('./mypage/liked-articles/liked-articles.component'),
+      },
+    ],
   },
   {
     path: '**',
-    component: NotFoundComponent,
+    loadComponent: () => import('./not-found/not-found.component'),
   },
 ];

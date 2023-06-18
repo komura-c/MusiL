@@ -24,7 +24,7 @@ import { NgIf } from '@angular/common';
     MatLegacyCardModule,
   ],
 })
-export class AboutComponent implements OnInit {
+export default class AboutComponent implements OnInit {
   user: UserData;
   isLoading: boolean;
 

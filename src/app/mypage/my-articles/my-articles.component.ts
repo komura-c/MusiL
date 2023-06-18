@@ -22,7 +22,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     AsyncPipe,
   ],
 })
-export class MyArticlesComponent implements OnInit {
+export default class MyArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;
   isLoading: boolean;
 

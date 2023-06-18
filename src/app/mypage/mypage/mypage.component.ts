@@ -38,7 +38,7 @@ import { NgIf, AsyncPipe } from '@angular/common';
     EncodeUrlPipe,
   ],
 })
-export class MypageComponent implements OnInit {
+export default class MypageComponent implements OnInit {
   screenName$: Observable<string> = this.route.paramMap.pipe(
     map((params) => params.get('id'))
   );
@@ -77,7 +77,7 @@ export class MypageComponent implements OnInit {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this.isMyArticlesRoute =
-          this.route.snapshot.firstChild.data.isMyArticlesRoute === true;
+          this.route.snapshot.firstChild.data['isMyArticlesRoute'] === true;
       }
     });
   }

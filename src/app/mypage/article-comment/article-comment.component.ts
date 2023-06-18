@@ -55,10 +55,10 @@ export class ArticleCommentComponent implements OnInit {
     public authService: AuthService
   ) {}
 
-  private removeSpaces(control: AbstractControl): null | undefined {
+  private removeSpaces(control: AbstractControl): null {
     if (control && control.value && !control.value.replace(/\s/g, '').length) {
       control.setValue('');
-      return;
+      return null;
     }
     return null;
   }

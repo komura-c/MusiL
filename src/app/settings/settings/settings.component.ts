@@ -10,7 +10,10 @@ import {
 } from '@angular/forms';
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import {
+  MatLegacyDialogModule,
+  MatLegacyDialog as MatDialog,
+} from '@angular/material/legacy-dialog';
 import { ImageCropDialogComponent } from '../image-crop-dialog/image-crop-dialog.component';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { DeleteAccountDialogComponent } from '../delete-account-dialog/delete-account-dialog.component';
@@ -37,9 +40,10 @@ import { NgIf, AsyncPipe } from '@angular/common';
     MatLegacyButtonModule,
     MatLegacyProgressSpinnerModule,
     AsyncPipe,
+    MatLegacyDialogModule,
   ],
 })
-export class SettingsComponent implements OnInit {
+export default class SettingsComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;
   userNameMaxLength = 50;
   descriptionMaxLength = 160;

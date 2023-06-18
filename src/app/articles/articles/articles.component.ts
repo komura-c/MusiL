@@ -31,7 +31,7 @@ import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
     DatePipe,
   ],
 })
-export class ArticlesComponent implements OnInit {
+export default class ArticlesComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;
 
   lastArticle: Article;
