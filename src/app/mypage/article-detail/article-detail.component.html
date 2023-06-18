@@ -12,7 +12,10 @@
           (click)="clickedLike(article.articleId)"
           [class.left-actions__like--liked]="isLiked"
         >
-          <mat-icon>{{ isLiked ? 'favorite' : 'favorite_border' }}</mat-icon>
+          <mat-icon
+            aria-hidden="false"
+            [fontIcon]="isLiked ? 'favorite' : 'favorite_border'"
+          ></mat-icon>
           <span>{{ likeCount }}</span>
         </button>
         <a
@@ -31,7 +34,7 @@
           rel="nofollow noopener noreferrer"
           matTooltipPosition="right"
         >
-          <mat-icon>
+          <mat-icon aria-hidden="true">
             <img src="/assets/icons/twitter-logo-blue.svg" alt="Twitterロゴ" />
           </mat-icon>
         </a>
@@ -43,7 +46,7 @@
           matTooltipPosition="right"
           (click)="copyLink()"
         >
-          <mat-icon>link</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="link"></mat-icon>
         </button>
       </div>
     </div>
@@ -76,7 +79,7 @@
             target="_blank"
             rel="nofollow noopener noreferrer"
           >
-            <mat-icon>
+            <mat-icon aria-hidden="true">
               <img
                 src="/assets/icons/twitter-logo-blue.svg"
                 alt="Twitterロゴ"
@@ -120,11 +123,14 @@
             [class.main-actions__like--liked]="isLiked"
           >
             <ng-container *ngIf="isLiked; else isNotLiked">
-              <mat-icon>favorite</mat-icon>
+              <mat-icon aria-hidden="true" fontIcon="favorite"></mat-icon>
               <span>{{ likeCount }}</span>
             </ng-container>
             <ng-template #isNotLiked>
-              <mat-icon>favorite_border</mat-icon>
+              <mat-icon
+                aria-hidden="true"
+                fontIcon="favorite_border"
+              ></mat-icon>
               <span>{{ likeCount }}</span>
             </ng-template>
           </button>
@@ -145,7 +151,7 @@
               target="_blank"
               rel="nofollow noopener noreferrer"
             >
-              <mat-icon>
+              <mat-icon aria-hidden="true">
                 <img
                   src="/assets/icons/twitter-logo-blue.svg"
                   alt="Twitterロゴ"
@@ -159,7 +165,7 @@
               matTooltip="リンクをコピー"
               (click)="copyLink()"
             >
-              <mat-icon>link</mat-icon>
+              <mat-icon aria-hidden="true" fontIcon="link"></mat-icon>
             </button>
           </div>
         </div>
@@ -197,7 +203,7 @@
               rel="nofollow noopener noreferrer"
               *ngIf="article.author.uid !== authService.uid"
             >
-              <mat-icon
+              <mat-icon aria-hidden="true"
                 ><img
                   src="/assets/icons/twitter-logo-white.svg"
                   alt="Twitterロゴ"

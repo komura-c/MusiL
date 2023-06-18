@@ -34,16 +34,16 @@
       <div class="card__meta">
         <div class="card__like-count">
           <ng-container *ngIf="isLiked; else isNotLiked">
-            <mat-icon>favorite</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="favorite">favorite</mat-icon>
             <span>{{ likeCount }}</span>
           </ng-container>
           <ng-template #isNotLiked>
-            <mat-icon>favorite_border</mat-icon>
+            <mat-icon aria-hidden="true" fontIcon="favorite_border"></mat-icon>
             <span>{{ likeCount }}</span>
           </ng-template>
         </div>
         <div class="card__updated-date">
-          <mat-icon>update</mat-icon>
+          <mat-icon aria-hidden="true" fontIcon="update"></mat-icon>
           <span>{{
             article.updatedAt.toDate() | date : 'yyyy年MM月dd日'
           }}</span>

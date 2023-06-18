@@ -7,7 +7,7 @@
     "node": "18"
   },
   "browserslist": [
-    "defaults, last 2 versions, not dead, > 0.2%"
+    "> 0.2%, defaults, last 2 versions, not dead, not android 4.4.3-4.4.4, not kaios 2.5, not op_mini all"
   ],
   "scripts": {
     "ng": "ng",
