@@ -1,0 +1,89 @@
+@use 'mixins';
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.06);
+  &:hover {
+    transition: 0.3s;
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.12);
+  }
+  &__inner {
+    padding: 16px;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    align-items: center;
+    outline-style: none;
+    text-decoration: none;
+  }
+  &__user-icon {
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  &__body {
+    margin-left: 20px;
+  }
+  &__title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+  &__author-name {
+    margin: 8px 0;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 12px;
+  }
+  &__user-name {
+    font-weight: bold;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  &__screen-name {
+    margin-left: 8px;
+    word-break: break-word;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+  &__meta {
+    margin: 0;
+    display: flex;
+    font-size: 12px;
+  }
+  &__like-count {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    mat-icon {
+      color: mixins.$color-primary;
+      font-size: 16px;
+      width: 16px;
+      height: 14px;
+      margin-right: 4px;
+    }
+  }
+  &__updated-date {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      color: mixins.$color-primary;
+      font-size: 16px;
+      width: 16px;
+      height: 14px;
+      margin-right: 4px;
+    }
+  }
+}

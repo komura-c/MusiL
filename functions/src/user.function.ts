@@ -31,6 +31,7 @@ export const deleteUserData = functions
   })
   .auth.user()
   .onDelete(async (user) => {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const firebaseTools = require('firebase-tools');
     await firebaseTools.firestore.delete(`users/${user.uid}`, {
       project: process.env.GCLOUD_PROJECT,

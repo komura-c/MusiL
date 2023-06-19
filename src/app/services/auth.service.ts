@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import firebase from 'firebase/compat/app';
 import { Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UserService } from './user.service';
 import { switchMap, shareReplay, take } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';

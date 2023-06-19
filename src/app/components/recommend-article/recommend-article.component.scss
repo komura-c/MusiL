@@ -1,0 +1,31 @@
+@use 'mixins';
+
+.recommend-article-wrapper {
+  margin: 0 -16px;
+  background-color: mixins.$color-background;
+}
+
+.recommend-article {
+  max-width: 800px;
+  padding: 16px;
+  margin: 0 auto;
+  &__title {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin: 4px 4px 0 0;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__card {
+    width: 48%;
+    @include mixins.tab {
+      width: 100%;
+    }
+  }
+}

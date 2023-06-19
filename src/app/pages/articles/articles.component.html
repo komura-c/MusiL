@@ -1,0 +1,55 @@
+<div class="articles">
+  <h1 class="articles__title">自分の記事一覧</h1>
+  <ng-container *ngIf="user$ | async as user">
+    <ng-container *ngIf="articles.length; else blank">
+      <div class="articles__list-body" [class.fade]="user">
+        <div class="articles__list-item" *ngFor="let article of articles">
+          <a
+            [routerLink]="'/' + user.screenName + '/a/' + article.articleId"
+            class="list-item__body"
+          >
+            <h4 class="list-item__title">{{ article.title }}</h4>
+            <div class="list-item__description">
+              <div class="list-item__status">
+                <i
+                  class="list-item__status-icon"
+                  [class.public]="article.isPublic === true"
+                ></i>
+                <p class="list-item__status-label">
+                  {{ article.isPublic ? '公開済み' : '下書き　' }}
+                </p>
+              </div>
+              <p class="list-item__updated-date">
+                {{ article.updatedAt.toDate() | date : 'yyyy年MM月dd日 HH:mm' }}
+                更新
+              </p>
+            </div>
+          </a>
+          <app-article-edit-buttons
+            *ngIf="article"
+            [article]="article"
+            [screenName]="user.screenName"
+          >
+          </app-article-edit-buttons>
+        </div>
+      </div>
+      <div
+        infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="getArticles(user.uid)"
+      ></div>
+    </ng-container>
+    <ng-template #blank>
+      <div class="no-article" *ngIf="!isLoading">
+        <p class="no-article__text">
+          まだ、投稿した記事がありません。記事を投稿してみましょう。
+        </p>
+        <button mat-flat-button color="primary" routerLink="/articles/create">
+          <mat-icon aria-hidden="true" fontIcon="post_add"></mat-icon>
+          <span>投稿してみる</span>
+        </button>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

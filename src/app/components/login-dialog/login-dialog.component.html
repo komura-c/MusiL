@@ -1,0 +1,35 @@
+<div class="login-dialog">
+  <img
+    mat-dialog-title
+    src="/assets/icons/musil-logo.svg"
+    class="logo"
+    alt="MusiL"
+  />
+  <mat-dialog-content>
+    <p class="login-dialog__text">
+      MusiLは、DTMや作曲に関連した記事を気軽に投稿できるコミュニティです。
+    </p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      [disabled]="authService.loginProcessing"
+      (click)="login()"
+      mat-flat-button
+      color="primary"
+      class="login-button"
+    >
+      <mat-icon aria-hidden="true"
+        ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
+      /></mat-icon>
+      <span>{{
+        authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
+      }}</span>
+    </button>
+  </mat-dialog-actions>
+  <p class="login-dialog__notice">
+    <a class="terms-link" (click)="routerLinkToTerms()">利用規約</a
+    >が適用されます。<span class="new-line"
+      >許可なくツイート等は行いません。</span
+    >
+  </p>
+</div>

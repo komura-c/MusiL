@@ -1,9 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  CanActivate,
-  CanLoad,
-  Router,
-} from '@angular/router';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
@@ -11,15 +7,15 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AdminGuard implements CanActivate, CanLoad {
-  constructor(private authService: AuthService, private router: Router) { }
+export class AdminGuard {
+  constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): Observable<boolean> {
     return this.authService.afUser$.pipe(
       switchMap(async (user) => {
         if (user) {
           const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims.admin;
+          return idTokenResult.claims['admin'];
         }
         return false;
       }),
@@ -35,7 +31,7 @@ export class AdminGuard implements CanActivate, CanLoad {
       switchMap(async (user) => {
         if (user) {
           const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims.admin;
+          return idTokenResult.claims['admin'];
         }
         return false;
       }),

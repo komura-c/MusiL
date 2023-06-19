@@ -1,37 +1,48 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loading.service';
-import { DOCUMENT, Location } from '@angular/common';
+import { DOCUMENT, Location, NgIf, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
+import { FooterComponent } from './components/footer/footer.component';
+import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { HeaderComponent } from './components/header/header.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  standalone: true,
+  imports: [
+    NgIf,
+    HeaderComponent,
+    RouterOutlet,
+    MatLegacyProgressSpinnerModule,
+    FooterComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit {
-  isShowHeader: boolean;
-  isShowFooter: boolean;
+  isShowHeader = true;
+  isShowFooter = true;
+  isScrollContainer = false;
 
   loading$ = this.loadingService.loading$;
-
-  isScrollContainer: boolean;
 
   constructor(
     private router: Router,
     private loadingService: LoadingService,
     private meta: Meta,
     @Inject(DOCUMENT) private document: HTMLDocument,
-    private location: Location,
-  ) { }
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     // PWA用のserviceWorkerが登録されていれば削除
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function (registrations) {
         if (registrations.length) {
-          for (let registration of registrations) {
+          for (const registration of registrations) {
             registration.unregister();
           }
         }
@@ -61,8 +72,10 @@ export class AppComponent implements OnInit {
     }
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        const currentPath = this.location.path()
-        if (/(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)) {
+        const currentPath = this.location.path();
+        if (
+          /(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)
+        ) {
           this.isShowHeader = false;
           this.isShowFooter = false;
           this.isScrollContainer = true;
