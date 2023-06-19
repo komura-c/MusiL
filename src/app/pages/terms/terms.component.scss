@@ -1,0 +1,20 @@
+@use 'mixins';
+
+.terms {
+  max-width: 800px;
+  margin: 0 auto;
+  &__postscript {
+    font-weight: bold;
+  }
+}
+
+p {
+  padding-left: 20px;
+}
+
+a {
+  color: mixins.$color-primary;
+  &:hover {
+    text-decoration: underline;
+  }
+}

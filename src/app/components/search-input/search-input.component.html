@@ -1,0 +1,47 @@
+<form
+  class="search"
+  (ngSubmit)="routeSearch(searchControl.value)"
+  [class.active]="isSearchActive === true"
+>
+  <input
+    type="text"
+    placeholder="キーワードを入力"
+    aria-label="キーワード"
+    autocomplete="off"
+    matInput
+    [formControl]="searchControl"
+    [matAutocomplete]="search"
+    class="search__input"
+  />
+  <mat-autocomplete
+    #search="matAutocomplete"
+    (optionSelected)="selected($event)"
+  >
+    <mat-option *ngFor="let option of searchResult?.hits" [value]="option">
+      {{ option.title }}
+    </mat-option>
+  </mat-autocomplete>
+  <button
+    mat-icon-button
+    color="white"
+    aria-label="検索アイコン"
+    class="search__button"
+  >
+    <mat-icon aria-hidden="true" fontIcon="search"></mat-icon>
+  </button>
+</form>
+
+<button
+  mat-icon-button
+  color="white"
+  aria-label="検索アイコン"
+  class="sp-search"
+  (click)="isSearchActive = !isSearchActive"
+>
+  <mat-icon aria-hidden="true" fontIcon="search"></mat-icon>
+</button>
+<div
+  class="overlay"
+  (click)="isSearchActive = false"
+  [class.active]="isSearchActive === true"
+></div>

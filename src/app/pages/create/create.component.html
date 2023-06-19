@@ -1,0 +1,76 @@
+<mat-toolbar class="create-page-header fade">
+  <mat-toolbar-row class="create-page-header__container">
+    <button
+      class="back-button"
+      mat-icon-button
+      (click)="cancel()"
+      aria-label="戻る"
+    >
+      <mat-icon aria-hidden="true" fontIcon="arrow_back"></mat-icon>
+    </button>
+    <a routerLink="/">
+      <img src="/assets/icons/musil-logo.svg" class="logo" alt="MusiL"
+    /></a>
+    <div class="create-page-header__actions" [formGroup]="form">
+      <span
+        class="public-option public-option--draft"
+        [class.public-option--active]="!isPublicControl.value"
+        >下書き</span
+      >
+      <mat-slide-toggle
+        class="public-option"
+        formControlName="isPublic"
+        color="primary"
+        [class.public-option--active]="isPublicControl.value"
+        >公開</mat-slide-toggle
+      >
+      <button
+        type="button"
+        class="save-button"
+        [disabled]="form.invalid || form.pristine || inProgress"
+        mat-flat-button
+        color="primary"
+        (click)="submit()"
+      >
+        {{ isPublicControl.value ? '記事を公開' : '下書き保存' }}
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div class="editor fade">
+  <form class="editor__form" [formGroup]="form">
+    <div class="editor__header">
+      <mat-form-field class="editor__title" color="accent">
+        <input
+          type="text"
+          formControlName="title"
+          matInput
+          #titleInput
+          placeholder="タイトル"
+          autocomplete="off"
+          required
+        />
+        <mat-hint align="end"
+          >{{ titleInput.value?.length || 0 }}/{{ titleMaxLength }}</mat-hint
+        >
+        <mat-error *ngIf="titleControl.hasError('required')"
+          >必須項目です</mat-error
+        >
+        <mat-error *ngIf="titleControl.hasError('maxlength')"
+          >タイトルは{{ titleMaxLength }}文字以内です</mat-error
+        >
+      </mat-form-field>
+      <app-tag-form
+        class="editor__tags"
+        [parentForm]="form"
+        [tags]="tags"
+        [tagMaxWordCount]="tagMaxWordCount"
+        [tagMaxLength]="tagMaxLength"
+      ></app-tag-form>
+    </div>
+    <div class="editor__content">
+      <app-editor [parentForm]="form"></app-editor>
+    </div>
+  </form>
+</div>

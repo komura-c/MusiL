@@ -1,14 +1,10 @@
-import { TestBed, waitForAsync } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: [RouterTestingModule],
-        declarations: [AppComponent],
-      }).compileComponents();
+  beforeEach(() =>
+    TestBed.configureTestingModule({
+      imports: [AppComponent],
     })
   );
 
@@ -21,7 +17,7 @@ describe('AppComponent', () => {
   it('should render html', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement;
+    const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.container')).toBeTruthy();
   });
 });

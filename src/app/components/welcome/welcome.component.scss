@@ -1,0 +1,90 @@
+@use 'mixins';
+
+.welcome {
+  position: relative;
+  height: 320px;
+  margin: -16px -16px 0;
+  &__bg {
+    background: center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(#78909c, 0.75);
+      z-index: 1;
+    }
+  }
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__main {
+    color: white;
+    text-align: center;
+    margin: 0 16px;
+  }
+  &__title {
+    font-size: 32px;
+    letter-spacing: 2px;
+    margin: 16px 0;
+    @include mixins.sp {
+      font-size: 28px;
+    }
+  }
+  &__sub-title {
+    font-size: 18px;
+    letter-spacing: 1.8px;
+    margin: 12px 0;
+    @include mixins.sp {
+      font-size: 16px;
+    }
+  }
+  &__user-loading {
+    height: 78px;
+  }
+  &__logged-in {
+    margin: 26px 0;
+    span {
+      margin-left: 4px;
+    }
+  }
+  &__login {
+    margin: 12px 0;
+  }
+  &__notice {
+    font-size: 12px;
+    letter-spacing: 1.6px;
+    margin-top: 12px;
+  }
+}
+
+.login-button {
+  background-color: mixins.$color-twitter;
+}
+
+.terms-link {
+  text-decoration: underline;
+}
+
+.new-line::before {
+  @include mixins.sp {
+    content: '\A';
+    white-space: pre;
+  }
+}

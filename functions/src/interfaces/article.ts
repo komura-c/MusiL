@@ -1,4 +1,4 @@
-import firebase from 'firebase/compat/app';
+import type { Timestamp } from 'firebase/firestore';
 import { UserData } from './user';
 
 export interface Article extends Pick<UserData, 'uid'> {
@@ -9,6 +9,6 @@ export interface Article extends Pick<UserData, 'uid'> {
   text: string;
   isPublic: boolean;
   likeCount: number;
-  createdAt: firebase.firestore.Timestamp;
-  updatedAt: firebase.firestore.Timestamp;
+  createdAt: Timestamp;
+  updatedAt: Timestamp;
 }

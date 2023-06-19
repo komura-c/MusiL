@@ -1,0 +1,33 @@
+@use 'mixins';
+
+.top-page {
+  max-width: 910px;
+  margin: 0 auto;
+}
+.top-main {
+  &__title {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    padding-left: 16px;
+    margin: 20px 0;
+    mat-icon {
+      font-size: 32px;
+      margin-right: 16px;
+      margin-top: -4px;
+    }
+  }
+  &__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 16px 16px;
+  }
+  &__card {
+    width: 48%;
+    @include mixins.tab {
+      width: 100%;
+    }
+  }
+}

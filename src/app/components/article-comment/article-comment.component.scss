@@ -1,0 +1,63 @@
+@use 'mixins';
+.article-comment {
+  background: #fff;
+  margin: 32px 0;
+  &__title {
+    display: flex;
+    align-items: center;
+    mat-icon {
+      margin: 4px 4px 0 0;
+    }
+  }
+}
+
+.comment-card {
+  margin: 32px 0;
+  &__head {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  &__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    align-self: flex-start;
+    margin: 16px 16px 0 0;
+  }
+  &__spacer {
+    flex: 1;
+  }
+  &__comment {
+    white-space: pre-wrap;
+  }
+}
+
+.comment-form {
+  width: 100%;
+  margin-top: 32px;
+  &__head {
+    display: flex;
+    mat-form-field {
+      flex: 1;
+    }
+  }
+  &__hint {
+    margin-top: 14px;
+  }
+  &__action {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+}
+
+.not-login {
+  text-align: center;
+}
+
+.login-button {
+  background-color: mixins.$color-twitter;
+}

@@ -1,0 +1,117 @@
+<div class="settings">
+  <h1 class="settings__title">アカウント設定</h1>
+  <ng-container *ngIf="user$ | async as user; else loading">
+    <div [class.fade]="user">
+      <h2 class="settings__heading">プロフィール</h2>
+      <label
+        for="avatar-file"
+        [style.background-image]="'url(' + user.avatarURL + ')'"
+        class="settings__avatar-image"
+        alt="プロフィール画像"
+      >
+        <div class="settings__avatar-icon-wrap">
+          <mat-icon
+            class="settings__avatar-icon"
+            aria-hidden="true"
+            fontIcon="add_a_photo"
+          ></mat-icon>
+        </div>
+      </label>
+      <input
+        id="avatar-file"
+        type="file"
+        accept="image/*"
+        class="settings__avatar-input"
+        (change)="openImageCropDialog($event, imageSelecter)"
+        #imageSelecter
+      />
+      <form class="settings__profile-form" [formGroup]="form">
+        <mat-form-field
+          class="settings__user-name"
+          appearance="outline"
+          color="accent"
+        >
+          <mat-label>ユーザー名</mat-label>
+          <input
+            type="text"
+            formControlName="userName"
+            matInput
+            #userNameInput
+            placeholder="ユーザー名*"
+            autocomplete="off"
+            required
+          />
+          <mat-hint align="end"
+            >{{ userNameInput.value?.length || 0 }}/{{
+              userNameMaxLength
+            }}</mat-hint
+          >
+          <mat-error *ngIf="userNameControl.hasError('required')"
+            >必須項目です</mat-error
+          >
+          <mat-error *ngIf="userNameControl.hasError('maxlength')"
+            >ユーザー名は{{ userNameMaxLength }}文字以内です</mat-error
+          >
+        </mat-form-field>
+        <div class="settings__screen-name">
+          <div class="settings__screen-name-label">
+            スクリーンネーム(Twitterアカウントから更新)
+          </div>
+          <div class="settings__screen-name-text">@{{ user.screenName }}</div>
+        </div>
+        <mat-form-field
+          class="settings__description"
+          appearance="outline"
+          color="accent"
+        >
+          <mat-label>自己紹介</mat-label>
+          <textarea
+            type="text"
+            formControlName="description"
+            matInput
+            #descriptionInput
+            placeholder="自己紹介"
+            autocomplete="off"
+            class="settings__description-text"
+          ></textarea>
+          <mat-hint align="end"
+            >{{ descriptionInput.value?.length || 0 }}/{{
+              descriptionMaxLength
+            }}</mat-hint
+          >
+          <mat-error *ngIf="descriptionControl.hasError('maxlength')"
+            >自己紹介は{{ descriptionMaxLength }}文字以内です</mat-error
+          >
+        </mat-form-field>
+        <button
+          type="button"
+          [disabled]="form.invalid || form.pristine"
+          class="settings-button"
+          mat-flat-button
+          color="primary"
+          (click)="changeProfile(user.screenName)"
+        >
+          プロフィールを更新
+        </button>
+      </form>
+
+      <h2 class="settings__heading">退会</h2>
+      <p>退会するとすべてのデータが削除され、復元できません。</p>
+      <button
+        class="settings-button"
+        mat-flat-button
+        color="warn"
+        (click)="openDeleteAccountDialog()"
+      >
+        退会する
+      </button>
+    </div>
+  </ng-container>
+  <ng-template #loading>
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
+  </ng-template>
+</div>

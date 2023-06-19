@@ -2,8 +2,8 @@ import * as functions from 'firebase-functions';
 
 const config = functions.config();
 
-import * as firestore from '@google-cloud/firestore';
-const client = new firestore.v1.FirestoreAdminClient();
+import { v1 } from '@google-cloud/firestore';
+const client = new v1.FirestoreAdminClient();
 
 const bucket = 'gs://' + config.project.project_id + '-backup';
 
@@ -13,7 +13,7 @@ export const backup = functions
   .onRun((_) => {
     const databaseName = client.databasePath(
       config.project.project_id,
-      '(default)',
+      '(default)'
     );
 
     return client
