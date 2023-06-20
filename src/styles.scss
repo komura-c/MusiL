@@ -73,3 +73,187 @@ img {
     opacity: 1;
   }
 }
+
+// quill-editor
+.ql-toolbar {
+  position: sticky;
+  top: 84px;
+  z-index: 1;
+  background-color: #fff;
+  .ql-picker-label,
+  button {
+    height: 28px !important;
+    margin: 0 8px;
+  }
+  .ql-picker-label::before {
+    font-size: 16px;
+    line-height: 26px;
+  }
+  .ql-picker.ql-header {
+    .ql-picker-label[data-value='2']::before,
+    .ql-picker-item[data-value='2']::before {
+      content: '大見出し';
+    }
+    .ql-picker-label[data-value='3']::before,
+    .ql-picker-item[data-value='3']::before {
+      content: '中見出し';
+    }
+    .ql-picker-label[data-value='4']::before,
+    .ql-picker-item[data-value='4']::before {
+      content: '小見出し';
+    }
+    .ql-picker-label::before,
+    .ql-picker-item::before {
+      content: '本文';
+    }
+  }
+  // ツールチップを表示する用
+  .ql-formats {
+    button {
+      position: relative;
+      &:hover::after,
+      &:active::after,
+      &:focus::after {
+        position: absolute;
+        background-color: #424242;
+        color: white;
+        padding: 0.5em;
+        border-radius: 0.5em;
+        left: -50%;
+        top: 100%;
+        width: max-content;
+        z-index: 1;
+      }
+      &.ql-bold {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '太字';
+        }
+      }
+      &.ql-italic {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '斜体';
+        }
+      }
+      &.ql-underline {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '下線';
+        }
+      }
+      &.ql-strike {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '打ち消し線';
+        }
+      }
+      &.ql-blockquote {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '引用';
+        }
+      }
+      &.ql-list {
+        &[value='ordered'] {
+          &:hover::after,
+          &:active::after,
+          &:focus::after {
+            content: '番号付きリスト';
+          }
+        }
+        &[value='bullet'] {
+          &:hover::after,
+          &:active::after,
+          &:focus::after {
+            content: 'リスト';
+          }
+        }
+      }
+      &.ql-link {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: 'リンク';
+        }
+      }
+      &.ql-image {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '画像';
+        }
+      }
+      &.ql-video {
+        &:hover::after,
+        &:active::after,
+        &:focus::after {
+          content: '動画';
+        }
+      }
+    }
+  }
+}
+.ql-container {
+  height: auto;
+  .ql-editor {
+    font-size: 16px;
+    h2 {
+      margin: 20px 0;
+    }
+    h3 {
+      margin: 18px 0;
+    }
+    h4 {
+      margin: 16px 0;
+    }
+    p {
+      margin: 14px 0;
+    }
+    a {
+      color: mixins.$color-primary;
+    }
+    &.ql-blank::before {
+      font-style: normal;
+      margin: 14px 0;
+    }
+    .ql-video[src*='youtube'] {
+      width: 100%;
+      max-width: 640px;
+      height: 360px;
+    }
+  }
+  .ql-tooltip {
+    left: unset !important;
+    &::before {
+      content: 'リンクURL';
+    }
+    a.ql-action::after {
+      content: '編集';
+    }
+    a.ql-remove::before {
+      content: '削除';
+    }
+  }
+  .ql-tooltip.ql-editing[data-mode='link'] {
+    &::before {
+      content: 'リンクURL';
+    }
+    .ql-action::after {
+      content: '追加';
+    }
+  }
+  .ql-tooltip.ql-editing[data-mode='video'] {
+    &::before {
+      content: '動画URL';
+    }
+    .ql-action::after {
+      content: '追加';
+    }
+  }
+}
