@@ -1,11 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-// material-icons
-@use 'node_modules/material-icons/iconfont/filled.scss';
-// quill
-@use 'node_modules/quill/dist/quill.core.css' as quillCore;
-@use 'node_modules/quill/dist/quill.snow.css' as quillSnow;
-// angular-material
-@use 'material-custom';
 @use 'mixins';
 
 html,
