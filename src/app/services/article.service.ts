@@ -1,29 +1,50 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { inject, Injectable } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { UserData } from '@interfaces/user';
-import firebase from 'firebase/compat/app';
 import { Article } from 'functions/src/interfaces/article';
-import { combineLatest, Observable, of } from 'rxjs';
+import { combineLatest, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { Timestamp } from 'firebase/firestore';
+import type { CollectionReference } from 'firebase/firestore';
+import {
+  collection,
+  collectionData,
+  deleteDoc,
+  doc,
+  Firestore,
+  limit,
+  orderBy,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from '@angular/fire/firestore';
+import { Storage } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  constructor(
-    private db: AngularFirestore,
-    private storage: AngularFireStorage,
-    private userService: UserService
-  ) {}
+  private firestore: Firestore = inject(Firestore);
+  private storage: Storage = inject(Storage);
+  private userService: UserService = inject(UserService);
+
+  private articlesCollection = collection(
+    this.firestore,
+    'articles'
+  ) as CollectionReference<Article>;
+
   async uploadImage(uid: string, file: File): Promise<string> {
     const time: number = new Date().getTime();
     const result = await this.storage
       .ref(`users/${uid}/images/${time}_${file.name}`)
       .put(file);
     return await result.ref.getDownloadURL();
+  }
+
+  createId() {
+    return this.articlesCollection.id;
   }
 
   createArticle(
@@ -37,10 +58,13 @@ export class ArticleService {
       articleId,
       ...article,
       likeCount: 0,
-      createdAt: firebase.firestore.Timestamp.now(),
-      updatedAt: firebase.firestore.Timestamp.now(),
+      createdAt: Timestamp.now(),
+      updatedAt: Timestamp.now(),
     };
-    return this.db.doc(`articles/${articleId}`).set(resultArticle);
+    return setDoc(
+      doc(this.articlesCollection, articleId),
+      <Article>resultArticle
+    );
   }
 
   updateArticle(
@@ -53,81 +77,79 @@ export class ArticleService {
     const resultArticle = {
       articleId,
       ...article,
-      updatedAt: firebase.firestore.Timestamp.now(),
+      updatedAt: Timestamp.now(),
     };
-    return this.db.doc(`articles/${articleId}`).update(resultArticle);
+    return updateDoc(
+      doc(this.articlesCollection, articleId),
+      <Article>resultArticle
+    );
   }
 
   deleteArticle(articleId: string): Promise<void> {
-    return this.db.doc(`articles/${articleId}`).delete();
+    return deleteDoc(doc(this.articlesCollection, articleId));
   }
 
   getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {
-    return this.db
-      .collection<Article>(`articles`, (ref) =>
-        ref
-          .where('uid', '==', user.uid)
-          .where('isPublic', '==', true)
-          .orderBy('updatedAt', 'desc')
-          .limit(20)
-      )
-      .valueChanges()
-      .pipe(
-        take(1),
-        map((articles: Article[]) => {
-          if (articles?.length) {
-            return articles.map((article) => {
-              const result: ArticleWithAuthor = {
-                ...article,
-                author: user,
-              };
-              return result;
-            });
-          } else {
-            return null;
-          }
-        })
-      );
+    const articlesQuery = query<Article>(
+      this.articlesCollection,
+      where('uid', '==', user.uid),
+      where('isPublic', '==', true),
+      orderBy('updatedAt', 'desc'),
+      limit(20)
+    );
+    return collectionData<Article>(articlesQuery).pipe(
+      take(1),
+      map((articles: Article[]) => {
+        if (articles?.length) {
+          return articles.map((article) => {
+            const result: ArticleWithAuthor = {
+              ...article,
+              author: user,
+            };
+            return result;
+          });
+        } else {
+          return null;
+        }
+      })
+    );
   }
 
   getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
-    const sorted = this.db
-      .collection<{ articleId: string }>(`users/${uid}/likedArticles`, (ref) =>
-        ref.orderBy('updatedAt', 'desc').limit(20)
-      )
-      .valueChanges()
-      .pipe(take(1))
-      .pipe(
-        switchMap((articleIdDocs: { articleId: string }[]) => {
-          if (articleIdDocs?.length) {
-            return combineLatest(
-              articleIdDocs.map((articleIdDoc) => {
-                const articleDocs = this.db
-                  .collection<Article>(`articles`, (ref) =>
-                    ref
-                      .where('articleId', '==', articleIdDoc.articleId)
-                      .where('isPublic', '==', true)
-                  )
-                  .valueChanges();
-                return articleDocs.pipe(
-                  map((articles) => {
-                    if (articles.length) {
-                      return articles[0];
-                    } else {
-                      return null;
-                    }
-                  })
-                );
-              })
-            );
-          } else {
-            return of([]);
-          }
-        }),
-        map((articles) => {
-          return articles.filter((article) => article);
-        })
-      );
+    const likedArticlesCollection = collection(
+      this.firestore,
+      `users/${uid}/likedArticles`
+    ) as CollectionReference<{ articleId: string }>;
+
+    const articlesQuery = query<{ articleId: string }>(
+      likedArticlesCollection,
+      orderBy('updatedAt', 'desc'),
+      limit(20)
+    );
+
+    const userlikedArticles = collectionData<{ articleId: string }>(
+      articlesQuery
+    ).pipe(take(1));
+
+    const sorted = userlikedArticles.pipe(
+      switchMap((articleIdDocs: { articleId: string }[]) => {
+        const articleDocs = articleIdDocs.map((articleIdDoc) => {
+          const articlesQuery = query<Article>(
+            this.articlesCollection,
+            where('articleId', '==', articleIdDoc.articleId),
+            where('isPublic', '==', true)
+          );
+          return collectionData(articlesQuery).pipe(
+            take(1),
+            map((articles) => (articles.length ? articles[0] : null))
+          );
+        });
+        return combineLatest(articleDocs);
+      }),
+      map((articles) => {
+        return articles.filter((article) => article);
+      })
+    );
     return this.getArticlesWithAuthors(sorted);
   }
 

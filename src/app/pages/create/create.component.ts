@@ -1,5 +1,5 @@
 import { Location, NgIf } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, inject } from '@angular/core';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
@@ -15,8 +15,7 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
+import { Analytics, logEvent } from '@angular/fire/analytics';
 import { EditorComponent } from 'src/app/components/editor/editor.component';
 import { TagFormComponent } from 'src/app/components/tag-form/tag-form.component';
 import { MatLegacyInputModule } from '@angular/material/legacy-input';
@@ -46,6 +45,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
 })
 export default class CreateComponent implements OnInit {
+  private analytics: Analytics = inject(Analytics);
+
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
       return params.get('id');
@@ -94,16 +95,14 @@ export default class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
-    private seoService: SeoService,
-    private db: AngularFirestore,
-    private analytics: AngularFireAnalytics
+    private seoService: SeoService
   ) {
     this.seoService.updateTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
     this.seoService.createLinkTagForCanonicalURL();
-    this.analytics.logEvent('create_page');
+    logEvent(this.analytics, 'create_page');
   }
 
   ngOnInit(): void {
@@ -207,7 +206,7 @@ export default class CreateComponent implements OnInit {
           this.failedSubmit(error);
         });
     } else {
-      this.articleId = this.db.createId();
+      this.articleId = this.articleService.createId();
       this.articleService
         .createArticle(this.articleId, sendData)
         .then(() => {
