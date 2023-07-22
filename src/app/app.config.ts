@@ -3,19 +3,17 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { AngularFireStorageModule } from '@angular/fire/compat/storage';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import { AngularFireModule } from '@angular/fire/compat';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+import { getFunctions, provideFunctions } from '@angular/fire/functions';
 import {
   ScreenTrackingService,
   UserTrackingService,
-  AngularFireAnalyticsModule,
-} from '@angular/fire/compat/analytics';
-import {
-  REGION,
-  AngularFireFunctionsModule,
-} from '@angular/fire/compat/functions';
+  getAnalytics,
+  provideAnalytics,
+} from '@angular/fire/analytics';
 
 import { environment } from 'src/environments/environment';
 import { routes } from './app.routes';
@@ -31,18 +29,17 @@ export const appConfig: ApplicationConfig = {
   providers: [
     importProvidersFrom(
       BrowserModule,
-      AngularFireModule.initializeApp(environment.firebase),
-      AngularFireAnalyticsModule,
-      AngularFirestoreModule,
-      AngularFireStorageModule,
-      AngularFireFunctionsModule,
-      AngularFireAuthModule,
-      MatSnackBarModule
+      // SnackbarはrootのServiceで使ってるため、globalで読み込む
+      MatSnackBarModule,
+      provideFirebaseApp(() => initializeApp(environment.firebase)),
+      provideAuth(() => getAuth()),
+      provideFirestore(() => getFirestore()),
+      provideStorage(() => getStorage()),
+      provideFunctions(() => getFunctions()),
+      provideAnalytics(() => getAnalytics())
     ),
-    { provide: REGION, useValue: 'asia-northeast1' },
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 4000 } },
     { provide: MatPaginatorIntl, useClass: MatPaginatorIntlJaModule },
-    // { provide: USE_EMULATOR, useValue: ['localhost', 5001] },
     ScreenTrackingService,
     UserTrackingService,
     provideRouter(
