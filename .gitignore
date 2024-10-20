@@ -44,3 +44,5 @@ Thumbs.db
 ui-debug.log
 
 .eslintcache
+
+src/environments/
