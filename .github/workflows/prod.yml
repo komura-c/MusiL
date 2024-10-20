@@ -26,7 +26,7 @@ jobs:
         run: npm run lint
 
       - name: set frontend env
-        run: mkdir -p src/environments && echo $ENVIRONMENT_PROD > src/environments/environment.prod.ts
+        run: mkdir -p src/environments && echo ${{ vars.ENVIRONMENT_PROD }} > src/environments/environment.prod.ts
 
       - name: build
         run: npm run build -- --configuration production
