@@ -13,6 +13,11 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v3
 
+      - name: set frontend env
+        run: mkdir -p src/environments && echo $ENVIRONMENT > src/environments/environment.ts
+        env:
+          ENVIRONMENT: ${{ vars.ENVIRONMENT_DEV }}
+
       - name: update node
         uses: actions/setup-node@v3
         with:
@@ -24,9 +29,6 @@ jobs:
 
       - name: lint
         run: npm run lint
-
-      - name: set frontend env
-        run: mkdir -p src/environments && echo ${{ vars.ENVIRONMENT_DEV }} > src/environments/environment.ts
 
       - name: build
         run: npm run build
