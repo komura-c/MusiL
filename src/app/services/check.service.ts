@@ -1,6 +1,12 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { inject, Injectable } from '@angular/core';
+import {
+  collection,
+  collectionData,
+  CollectionReference,
+  Firestore,
+  query,
+  where,
+} from '@angular/fire/firestore';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
@@ -9,29 +15,30 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CheckService {
-  constructor(
-    private db: AngularFirestore,
-    private fns: AngularFireFunctions
-  ) {}
+  private readonly firestore = inject(Firestore);
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
-    return this.db
-      .collection<UserData>(`users`, (ref) =>
-        ref.where('screenName', '==', null)
-      )
-      .valueChanges();
+    const usersCollection = collection(
+      this.firestore,
+      'users'
+    ) as CollectionReference<UserData>;
+    const usersQuery = query<UserData>(
+      usersCollection,
+      where('screenName', '==', null)
+    );
+    return collectionData<UserData>(usersQuery);
   }
 
   getArticleThumbnailURLIsNull(): Observable<Article[]> {
-    return this.db
-      .collection<Article>(`articles`, (ref) =>
-        ref.where('isPublic', '==', true).where('thumbnailURL', '==', null)
-      )
-      .valueChanges();
-  }
-
-  getProfile(sendData: any): Promise<string> {
-    const callable = this.fns.httpsCallable('getTwitterProfile');
-    return callable(sendData).toPromise();
+    const articlesCollection = collection(
+      this.firestore,
+      'articles'
+    ) as CollectionReference<Article>;
+    const articlesQuery = query<Article>(
+      articlesCollection,
+      where('isPublic', '==', true),
+      where('thumbnailURL', '==', null)
+    );
+    return collectionData<Article>(articlesQuery);
   }
 }
