@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserData } from 'functions/src/interfaces/user';
-import { Auth } from '@angular/fire/auth';
 import {
   collection,
   collectionData,
@@ -26,7 +25,6 @@ import {
   providedIn: 'root',
 })
 export class UserService {
-  private readonly afAuth = inject(Auth);
   private readonly firestore = inject(Firestore);
   private readonly storage = inject(Storage);
 
@@ -101,9 +99,5 @@ export class UserService {
   ): Promise<void> {
     const docRef = doc(this.firestore, `users/${uid}`);
     return updateDoc(docRef, newUserData);
-  }
-
-  async deleteUser(): Promise<void> {
-    return this.afAuth.currentUser.delete();
   }
 }
