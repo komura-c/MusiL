@@ -6,7 +6,7 @@ import {
   MatLegacyDialogModule,
 } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { Article } from 'functions/src/interfaces/article';
+import { Article } from '@interfaces/article';
 import { Router } from '@angular/router';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 

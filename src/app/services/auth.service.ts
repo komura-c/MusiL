@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UserService } from './user.service';
 import { switchMap, shareReplay, take } from 'rxjs/operators';
-import { UserData } from 'functions/src/interfaces/user';
+import { UserData } from '@interfaces/user';
 import {
   Auth,
   authState,

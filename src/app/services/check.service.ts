@@ -22,10 +22,7 @@ export class CheckService {
       this.firestore,
       'users'
     ) as CollectionReference<UserData>;
-    const usersQuery = query<UserData>(
-      usersCollection,
-      where('screenName', '==', null)
-    );
+    const usersQuery = query(usersCollection, where('screenName', '==', null));
     return collectionData<UserData>(usersQuery);
   }
 
@@ -34,7 +31,7 @@ export class CheckService {
       this.firestore,
       'articles'
     ) as CollectionReference<Article>;
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       articlesCollection,
       where('isPublic', '==', true),
       where('thumbnailURL', '==', null)

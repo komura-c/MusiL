@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { LikeService } from 'src/app/services/like.service';
