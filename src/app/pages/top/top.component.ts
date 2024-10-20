@@ -1,7 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import { Observable, of } from 'rxjs';
-import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 import { ArticleCardSkeltonComponent } from '../../components/article-card-skelton/article-card-skelton.component';

@@ -7,7 +7,7 @@ import { map, tap, take } from 'rxjs/operators';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
-import firebase from 'firebase/compat/app';
+import { Timestamp } from '@angular/fire/firestore/lite';
 import {
   LegacyPageEvent as PageEvent,
   MatLegacyPaginatorModule,
@@ -158,12 +158,8 @@ export default class SearchResultComponent implements OnInit, OnDestroy {
             return algoliaArticles.map((article) => {
               const result: ArticleWithAuthor = {
                 ...article,
-                createdAt: firebase.firestore.Timestamp.fromMillis(
-                  article.createdAt
-                ),
-                updatedAt: firebase.firestore.Timestamp.fromMillis(
-                  article.updatedAt
-                ),
+                createdAt: Timestamp.fromMillis(article.createdAt),
+                updatedAt: Timestamp.fromMillis(article.updatedAt),
                 author: users?.find(
                   (user: UserData) => user.uid === article.uid
                 ),
