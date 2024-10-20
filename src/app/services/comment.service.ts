@@ -1,7 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ArticleComment } from '@interfaces/article-comment';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
-import { CollectionReference, Timestamp } from 'firebase/firestore';
 import { Observable, of } from 'rxjs';
 import {
   collection,
@@ -9,6 +8,8 @@ import {
   doc,
   Firestore,
   setDoc,
+  CollectionReference,
+  Timestamp,
 } from '@angular/fire/firestore';
 
 @Injectable({
