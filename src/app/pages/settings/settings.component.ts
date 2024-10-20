@@ -99,15 +99,16 @@ export default class SettingsComponent implements OnInit {
     });
   }
 
-  changeProfile(screenName: string): void {
+  async changeProfile(screenName: string) {
     const formData = this.form.value;
     const newUserData: Pick<UserData, 'userName' | 'description'> = {
       userName: formData.userName,
       description: formData.description,
     };
-    this.userService.changeUserData(this.authService.uid, newUserData);
-    this.router.navigateByUrl('/' + screenName);
+    await this.userService.changeUserData(this.authService.uid, newUserData);
     this.snackBar.open('プロフィールが更新されました', '閉じる');
+    await this.router.navigateByUrl('/' + screenName);
+    this.authService.renewSnapShotUser();
   }
 
   openDeleteAccountDialog(): void {

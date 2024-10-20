@@ -1,9 +1,9 @@
 import { inject, Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UserService } from './user.service';
-import { switchMap, shareReplay, take } from 'rxjs/operators';
+import { switchMap, shareReplay, take, mergeMap, map } from 'rxjs/operators';
 import { UserData } from '@interfaces/user';
 import {
   Auth,
@@ -25,8 +25,18 @@ export class AuthService {
   private readonly userService = inject(UserService);
 
   readonly afUser$: Observable<User> = user(this.afAuth);
+  private readonly snapShotEventSubject = new BehaviorSubject(0);
+  private readonly snapShotEvent$: Observable<number> =
+    this.snapShotEventSubject.asObservable();
   uid: string;
   user$: Observable<UserData> = authState(this.afAuth).pipe(
+    mergeMap((afUser) => {
+      return this.snapShotEvent$.pipe(
+        map(() => {
+          return afUser;
+        })
+      );
+    }),
     switchMap((afUser) => {
       if (afUser) {
         this.uid = afUser && afUser.uid;
@@ -113,5 +123,11 @@ export class AuthService {
 
   deleteUser(): Promise<void> {
     return this.afAuth.currentUser.delete();
+  }
+
+  // user$のスナップショットを更新
+  renewSnapShotUser() {
+    const count = this.snapShotEventSubject.getValue();
+    this.snapShotEventSubject.next(count + 1);
   }
 }
