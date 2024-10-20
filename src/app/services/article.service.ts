@@ -5,30 +5,37 @@ import { Article } from 'functions/src/interfaces/article';
 import { combineLatest, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
-import { Timestamp } from 'firebase/firestore';
-import type { CollectionReference } from 'firebase/firestore';
 import {
   collection,
   collectionData,
+  CollectionReference,
   deleteDoc,
   doc,
   Firestore,
+  getDoc,
   limit,
   orderBy,
   query,
   setDoc,
+  startAfter,
+  Timestamp,
   updateDoc,
   where,
 } from '@angular/fire/firestore';
-import { Storage } from '@angular/fire/storage';
+import {
+  getDownloadURL,
+  ref,
+  Storage,
+  uploadBytes,
+} from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ArticleService {
-  private firestore: Firestore = inject(Firestore);
-  private storage: Storage = inject(Storage);
-  private userService: UserService = inject(UserService);
+  private readonly firestore = inject(Firestore);
+  private readonly storage = inject(Storage);
+  private readonly userService = inject(UserService);
 
   private articlesCollection = collection(
     this.firestore,
@@ -37,10 +44,12 @@ export class ArticleService {
 
   async uploadImage(uid: string, file: File): Promise<string> {
     const time: number = new Date().getTime();
-    const result = await this.storage
-      .ref(`users/${uid}/images/${time}_${file.name}`)
-      .put(file);
-    return await result.ref.getDownloadURL();
+    const storageRef = ref(
+      this.storage,
+      `users/${uid}/images/${time}_${file.name}`
+    );
+    const result = await uploadBytes(storageRef, file);
+    return await getDownloadURL(result.ref);
   }
 
   createId() {
@@ -160,18 +169,14 @@ export class ArticleService {
     articles: Article[];
     lastArticle: Article;
   }> {
-    const articles$ = this.db
-      .collection<Article>('articles', (ref) => {
-        let query = ref
-          .where('uid', '==', uid)
-          .orderBy('updatedAt', 'desc')
-          .limit(20);
-        if (lastArticle) {
-          query = query.startAfter(lastArticle.updatedAt);
-        }
-        return query;
-      })
-      .valueChanges();
+    const articlesQuery = query<Article>(
+      this.articlesCollection,
+      where('uid', '==', uid),
+      lastArticle ? startAfter(lastArticle.updatedAt) : null,
+      orderBy('updatedAt', 'desc'),
+      limit(20)
+    );
+    const articles$ = collectionData<Article>(articlesQuery);
     return articles$.pipe(
       map((articles) => {
         return {
@@ -183,51 +188,54 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    return this.db
-      .doc<Article>(`articles/${articleId}`)
-      .valueChanges()
-      .pipe(
-        catchError((error) => {
-          console.error(error.message);
-          return of(null);
-        })
-      );
+    const docRef = doc(this.firestore, 'articles', articleId);
+    const docSnap = getDoc(docRef);
+    return from(docSnap).pipe(
+      map((doc) => {
+        if (doc.exists()) {
+          return doc.data() as Article;
+        } else {
+          return null;
+        }
+      }),
+      catchError((error) => {
+        console.error(error.message);
+        return of(null);
+      })
+    );
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted: Observable<Article[]> = this.db
-      .collection<Article>(`articles`, (ref) => {
-        return ref
-          .where('isPublic', '==', true)
-          .orderBy('likeCount', 'desc')
-          .orderBy('createdAt', 'desc')
-          .limit(20);
-      })
-      .valueChanges();
+    const articlesQuery = query<Article>(
+      this.articlesCollection,
+      where('isPublic', '==', true),
+      orderBy('likeCount', 'desc'),
+      orderBy('createdAt', 'desc'),
+      limit(20)
+    );
+    const sorted = collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted: Observable<Article[]> = this.db
-      .collection<Article>(`articles`, (ref) => {
-        return ref
-          .where('isPublic', '==', true)
-          .orderBy('updatedAt', 'desc')
-          .limit(20);
-      })
-      .valueChanges();
+    const articlesQuery = query<Article>(
+      this.articlesCollection,
+      where('isPublic', '==', true),
+      orderBy('updatedAt', 'desc'),
+      limit(20)
+    );
+    const sorted = collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 
   getPickUpArticles(): Observable<ArticleWithAuthor[]> {
-    const sorted: Observable<Article[]> = this.db
-      .collection<Article>('articles', (ref) => {
-        return ref
-          .where('isPublic', '==', true)
-          .orderBy('createdAt', 'desc')
-          .limit(20);
-      })
-      .valueChanges();
+    const articlesQuery = query<Article>(
+      this.articlesCollection,
+      where('isPublic', '==', true),
+      orderBy('createdAt', 'desc'),
+      limit(20)
+    );
+    const sorted = collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 

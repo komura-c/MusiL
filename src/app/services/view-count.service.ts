@@ -1,14 +1,14 @@
-import { Injectable } from '@angular/core';
-import { AngularFireFunctions } from '@angular/fire/compat/functions';
+import { inject, Injectable } from '@angular/core';
+import { Functions, httpsCallable } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ViewCountService {
-  constructor(private fns: AngularFireFunctions) {}
+  private readonly functions = inject(Functions);
 
   countUpArticleView(sendData: { uid: string; articleId: string }): void {
-    const callable = this.fns.httpsCallable('countUpArticleView');
-    callable(sendData).toPromise();
+    const callable = httpsCallable(this.functions, 'countUpArticleView');
+    callable(sendData);
   }
 }

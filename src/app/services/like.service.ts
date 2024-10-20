@@ -1,29 +1,43 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { inject, Injectable } from '@angular/core';
+import {
+  deleteDoc,
+  doc,
+  Firestore,
+  getDoc,
+  setDoc,
+} from '@angular/fire/firestore';
 import { Timestamp } from 'firebase/firestore';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LikeService {
-  constructor(private db: AngularFirestore) {}
+  private readonly firestore = inject(Firestore);
 
   likeArticle(articleId: string, uid: string): Promise<void> {
-    return this.db
-      .doc(`users/${uid}/likedArticles/${articleId}`)
-      .set({ articleId, updatedAt: Timestamp.now() });
+    return setDoc(
+      doc(this.firestore, `users/${uid}/likedArticles/${articleId}`),
+      {
+        articleId,
+        updatedAt: Timestamp.now(),
+      }
+    );
   }
 
   unLikeArticle(articleId: string, uid: string): Promise<void> {
-    return this.db.doc(`users/${uid}/likedArticles/${articleId}`).delete();
+    return deleteDoc(
+      doc(this.firestore, `users/${uid}/likedArticles/${articleId}`)
+    );
   }
 
   isLiked(articleId: string, uid: string): Observable<boolean> {
-    return this.db
-      .doc(`users/${uid}/likedArticles/${articleId}`)
-      .valueChanges()
-      .pipe(map((doc) => !!doc));
+    const docRef = doc(
+      this.firestore,
+      `users/${uid}/likedArticles/${articleId}`
+    );
+    const docSnap = from(getDoc(docRef));
+    return docSnap.pipe(map((doc) => !!doc));
   }
 }
