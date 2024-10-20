@@ -52,17 +52,14 @@ export class ArticleService {
     return await getDownloadURL(result.ref);
   }
 
-  createId() {
-    return this.articlesCollection.id;
-  }
-
-  createArticle(
-    articleId: string,
+  async createArticle(
     article: Omit<
       Article,
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >
-  ): Promise<void> {
+  ): Promise<string> {
+    const docRef = doc(this.articlesCollection);
+    const articleId = docRef.id;
     const resultArticle = {
       articleId,
       ...article,
@@ -70,10 +67,8 @@ export class ArticleService {
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     };
-    return setDoc(
-      doc(this.articlesCollection, articleId),
-      <Article>resultArticle
-    );
+    await setDoc(docRef, <Article>resultArticle);
+    return articleId;
   }
 
   updateArticle(
@@ -83,16 +78,18 @@ export class ArticleService {
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >
   ): Promise<void> {
+    const docRef = doc(this.articlesCollection, articleId);
     const resultArticle = {
       articleId,
       ...article,
       updatedAt: Timestamp.now(),
     };
-    return updateDoc(doc(this.articlesCollection, articleId), resultArticle);
+    return updateDoc(docRef, resultArticle);
   }
 
   deleteArticle(articleId: string): Promise<void> {
-    return deleteDoc(doc(this.articlesCollection, articleId));
+    const docRef = doc(this.articlesCollection, articleId);
+    return deleteDoc(docRef);
   }
 
   getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {

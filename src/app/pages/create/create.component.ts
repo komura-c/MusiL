@@ -106,8 +106,8 @@ export default class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserData();
-    this.getArticleAndPatchValue();
+    this.loadUserData();
+    this.loadArticleAndPatchValue();
   }
 
   @HostListener('window:beforeunload', ['$event'])
@@ -118,14 +118,14 @@ export default class CreateComponent implements OnInit {
     }
   }
 
-  getUserData() {
+  private loadUserData() {
     this.authService.user$
       .pipe(take(1))
       .toPromise()
       .then((user) => (this.user = user));
   }
 
-  getArticleAndPatchValue() {
+  private loadArticleAndPatchValue() {
     this.article$
       .pipe(take(1))
       .toPromise()
@@ -200,17 +200,16 @@ export default class CreateComponent implements OnInit {
       this.articleService
         .updateArticle(this.articleId, sendData)
         .then(() => {
-          this.succeededSubmit(msg);
+          this.succeededSubmit(this.articleId, msg);
         })
         .catch((error) => {
           this.failedSubmit(error);
         });
     } else {
-      this.articleId = this.articleService.createId();
       this.articleService
-        .createArticle(this.articleId, sendData)
-        .then(() => {
-          this.succeededSubmit(msg);
+        .createArticle(sendData)
+        .then((articleId) => {
+          this.succeededSubmit(articleId, msg);
         })
         .catch((error) => {
           this.failedSubmit(error);
@@ -218,14 +217,12 @@ export default class CreateComponent implements OnInit {
     }
   }
 
-  succeededSubmit(msg: string) {
-    this.router.navigateByUrl(
-      '/' + this.user.screenName + '/a/' + this.articleId
-    );
+  private succeededSubmit(articleId: string, msg: string) {
+    this.router.navigateByUrl('/' + this.user.screenName + '/a/' + articleId);
     this.snackBar.open(msg, '閉じる');
   }
 
-  failedSubmit(error: { message: any }) {
+  private failedSubmit(error: { message: any }) {
     console.error(error.message);
     this.snackBar.open(
       'すみません、投稿エラーです。数秒後にもう一度お試しください。',

@@ -38,6 +38,10 @@ export class LikeService {
       `users/${uid}/likedArticles/${articleId}`
     );
     const docSnap = from(getDoc(docRef));
-    return docSnap.pipe(map((doc) => !!doc));
+    return docSnap.pipe(
+      map((doc) => {
+        return doc.exists();
+      })
+    );
   }
 }
