@@ -110,4 +110,8 @@ export class AuthService {
         );
       });
   }
+
+  deleteUser(): Promise<void> {
+    return this.afAuth.currentUser.delete();
+  }
 }

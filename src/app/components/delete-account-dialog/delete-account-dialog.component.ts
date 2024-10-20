@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 import {
   MatLegacyDialogRef as MatDialogRef,
   MatLegacyDialogModule,
@@ -18,14 +18,14 @@ import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 export class DeleteAccountDialogComponent {
   constructor(
     private snackBar: MatSnackBar,
-    private userService: UserService,
+    private authService: AuthService,
     private router: Router,
     private dialogRef: MatDialogRef<DeleteAccountDialogComponent>
   ) {}
 
   deleteAccount() {
     this.dialogRef.close();
-    this.userService
+    this.authService
       .deleteUser()
       .then(() => {
         this.router.navigateByUrl('/');
