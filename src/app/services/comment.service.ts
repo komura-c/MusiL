@@ -23,7 +23,8 @@ export class CommentService {
       this.firestore,
       `articles/${articleId}/comments`
     ) as CollectionReference<ArticleComment>;
-    const commentId = commentsSubCollection.id;
+    const docRef = doc(commentsSubCollection);
+    const commentId = docRef.id;
     const newComment: ArticleComment = {
       articleId,
       commentId,
@@ -31,10 +32,6 @@ export class CommentService {
       text,
       createdAt: Timestamp.now(),
     };
-    const docRef = doc(
-      this.firestore,
-      `articles/${articleId}/comments/${commentId}`
-    );
     return setDoc(docRef, newComment);
   }
 
