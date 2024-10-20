@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { UserData } from 'functions/src/interfaces/user';
+import { UserData } from '@interfaces/user';
 import {
   collection,
   collectionData,
@@ -47,7 +47,7 @@ export class UserService {
   }
 
   getUserByScreenName(screenName: string): Observable<UserData> {
-    const usersQuery = query<UserData>(
+    const usersQuery = query(
       this.usersCollection,
       where('screenName', '==', screenName)
     );

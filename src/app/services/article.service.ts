@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { UserData } from '@interfaces/user';
-import { Article } from 'functions/src/interfaces/article';
+import { Article } from '@interfaces/article';
 import { combineLatest, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
@@ -88,10 +88,7 @@ export class ArticleService {
       ...article,
       updatedAt: Timestamp.now(),
     };
-    return updateDoc(
-      doc(this.articlesCollection, articleId),
-      <Article>resultArticle
-    );
+    return updateDoc(doc(this.articlesCollection, articleId), resultArticle);
   }
 
   deleteArticle(articleId: string): Promise<void> {
@@ -99,7 +96,7 @@ export class ArticleService {
   }
 
   getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       this.articlesCollection,
       where('uid', '==', user.uid),
       where('isPublic', '==', true),
@@ -130,7 +127,7 @@ export class ArticleService {
       `users/${uid}/likedArticles`
     ) as CollectionReference<{ articleId: string }>;
 
-    const articlesQuery = query<{ articleId: string }>(
+    const articlesQuery = query(
       likedArticlesCollection,
       orderBy('updatedAt', 'desc'),
       limit(20)
@@ -143,7 +140,7 @@ export class ArticleService {
     const sorted = userlikedArticles.pipe(
       switchMap((articleIdDocs: { articleId: string }[]) => {
         const articleDocs = articleIdDocs.map((articleIdDoc) => {
-          const articlesQuery = query<Article>(
+          const articlesQuery = query(
             this.articlesCollection,
             where('articleId', '==', articleIdDoc.articleId),
             where('isPublic', '==', true)
@@ -169,7 +166,7 @@ export class ArticleService {
     articles: Article[];
     lastArticle: Article;
   }> {
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       this.articlesCollection,
       where('uid', '==', uid),
       lastArticle ? startAfter(lastArticle.updatedAt) : null,
@@ -206,7 +203,7 @@ export class ArticleService {
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('likeCount', 'desc'),
@@ -218,7 +215,7 @@ export class ArticleService {
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('updatedAt', 'desc'),
@@ -229,7 +226,7 @@ export class ArticleService {
   }
 
   getPickUpArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query<Article>(
+    const articlesQuery = query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('createdAt', 'desc'),

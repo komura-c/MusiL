@@ -7,7 +7,7 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from '@angular/router';
-import { UserData } from 'functions/src/interfaces/user';
+import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap, take, tap } from 'rxjs/operators';
+import { from, of } from 'rxjs';
+import { map, switchMap, take, tap } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 
 @Injectable({
@@ -10,14 +10,15 @@ import { AuthService } from '../services/auth.service';
 export class AdminGuard {
   constructor(private authService: AuthService, private router: Router) {}
 
-  canActivate(): Observable<boolean> {
+  canActivate() {
     return this.authService.afUser$.pipe(
-      switchMap(async (user) => {
+      switchMap((user) => {
         if (user) {
-          const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims['admin'];
+          return from(user.getIdTokenResult()).pipe(
+            map((idTokenResult) => idTokenResult.claims['admin'])
+          );
         }
-        return false;
+        return of(false);
       }),
       tap((isAdmin) => {
         if (!isAdmin) {
@@ -26,14 +27,16 @@ export class AdminGuard {
       })
     );
   }
-  canLoad(): Observable<boolean> {
+
+  canLoad() {
     return this.authService.afUser$.pipe(
-      switchMap(async (user) => {
+      switchMap((user) => {
         if (user) {
-          const idTokenResult = await user.getIdTokenResult();
-          return idTokenResult.claims['admin'];
+          return from(user.getIdTokenResult()).pipe(
+            map((idTokenResult) => idTokenResult.claims['admin'])
+          );
         }
-        return false;
+        return of(false);
       }),
       take(1),
       tap((isAdmin) => {

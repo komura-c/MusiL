@@ -4,7 +4,7 @@ import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
 import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
-import { ArticleWithAuthor } from 'functions/src/interfaces/article-with-author';
+import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import {

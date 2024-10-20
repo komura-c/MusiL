@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Article } from 'functions/src/interfaces/article';
+import { Article } from '@interfaces/article';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
