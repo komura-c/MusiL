@@ -11,6 +11,7 @@
     "start": "ng serve --port 4200 --open",
     "dev": "npm run start -- --host 0.0.0.0",
     "build": "ng build",
+    "postbuild": "mkdir -p functions/lib && cp dist/musil/index.html functions/lib",
     "stats": "ng build --configuration production --stats-json",
     "analyze": "webpack-bundle-analyzer dist/musil/stats.json",
     "test": "ng test",
