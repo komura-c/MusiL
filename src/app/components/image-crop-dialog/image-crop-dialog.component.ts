@@ -70,6 +70,7 @@ export class ImageCropDialogComponent {
           this.imageChangedEvent = '';
           this.imageSelecter.value = '';
           this.snackBar.open('画像を変更しました。', '閉じる');
+          this.authService.renewSnapShotUser();
         });
     }
   }

@@ -1,21 +1,30 @@
-import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { inject, Injectable } from '@angular/core';
 import { ArticleComment } from '@interfaces/article-comment';
 import { ArticleCommentWithAuthor } from '@interfaces/article-comment-with-author';
-import { UserData } from '@interfaces/user';
-import { Timestamp } from 'firebase/firestore';
-import { combineLatest, Observable, of } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
-import { UserService } from './user.service';
+import { Observable, of } from 'rxjs';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  Firestore,
+  setDoc,
+  CollectionReference,
+  Timestamp,
+} from '@angular/fire/firestore/lite';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService {
-  constructor(private db: AngularFirestore, private userService: UserService) {}
+  private readonly firestore = inject(Firestore);
 
   sendComment(articleId: string, text: string, uid: string): Promise<void> {
-    const commentId = this.db.createId();
+    const commentsSubCollection = collection(
+      this.firestore,
+      `articles/${articleId}/comments`
+    ) as CollectionReference<ArticleComment>;
+    const docRef = doc(commentsSubCollection);
+    const commentId = docRef.id;
     const newComment: ArticleComment = {
       articleId,
       commentId,
@@ -23,61 +32,23 @@ export class CommentService {
       text,
       createdAt: Timestamp.now(),
     };
-    return this.db
-      .doc<ArticleComment>(`articles/${articleId}/comments/${commentId}`)
-      .set(newComment);
+    return setDoc(docRef, newComment);
   }
 
   deleteComment(articleId: string, commentId: string): Promise<void> {
-    return this.db
-      .doc<ArticleComment>(`articles/${articleId}/comments/${commentId}`)
-      .delete();
+    const docRef = doc(
+      this.firestore,
+      `articles/${articleId}/comments/${commentId}`
+    );
+    return deleteDoc(docRef);
   }
 
   getLatestArticleComments(
     articleId: string
   ): Observable<ArticleCommentWithAuthor[]> {
-    const sorted: Observable<ArticleComment[]> = this.db
-      .doc(`articles/${articleId}`)
-      .collection<ArticleComment>('comments', (ref) =>
-        ref.orderBy('createdAt', 'asc').limit(30)
-      )
-      .valueChanges();
-    return this.getArticleCommentsWithAuthors(sorted);
-  }
-
-  getArticleCommentsWithAuthors(
-    sorted: Observable<ArticleComment[]>
-  ): Observable<ArticleCommentWithAuthor[]> {
-    let comments: ArticleComment[];
-    return sorted.pipe(
-      switchMap((commentsArray: ArticleComment[]) => {
-        if (commentsArray?.length) {
-          comments = commentsArray;
-          const authorIds: string[] = commentsArray.map((post) => post.uid);
-          const authorUniqueIds: string[] = Array.from(new Set(authorIds));
-          return combineLatest(
-            authorUniqueIds.map((userId) => {
-              return this.userService.getUserData(userId);
-            })
-          );
-        } else {
-          return of([]);
-        }
-      }),
-      map((users: UserData[]) => {
-        if (comments?.length) {
-          return comments.map((comment: ArticleComment) => {
-            const result: ArticleCommentWithAuthor = {
-              ...comment,
-              author: users?.find((user: UserData) => user.uid === comment.uid),
-            };
-            return result;
-          });
-        } else {
-          return null;
-        }
-      })
-    );
+    if (!articleId) {
+      return of([]);
+    }
+    return of([]);
   }
 }

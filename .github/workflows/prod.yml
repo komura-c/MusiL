@@ -25,15 +25,11 @@ jobs:
       - name: lint
         run: npm run lint
 
-      # TODO: テストが整ったら入れる
-      # - name: test
-      #   run: npm run test
+      - name: set frontend env
+        run: echo ${{ env.ENVIRONMENT_PROD }} > src/environments/environment.prod.ts
 
       - name: build
         run: npm run build -- --configuration production
-
-      - name: copy index.html
-        run: mkdir functions/lib && cp dist/musil/index.html functions/lib
 
       - name: install dependencies in functions
         run: cd functions && npm ci

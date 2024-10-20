@@ -40,7 +40,7 @@ export default class LikedArticlesComponent implements OnInit {
     });
   }
 
-  getUserAndArticles(screenName: string): void {
+  private getUserAndArticles(screenName: string): void {
     const user$ = this.userService
       .getUserByScreenName(screenName)
       .pipe(take(1));

@@ -1,20 +1,42 @@
-import { Injectable } from '@angular/core';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import firebase from 'firebase/compat/app';
-import { Observable, of } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UserService } from './user.service';
-import { switchMap, shareReplay, take } from 'rxjs/operators';
-import { UserData } from 'functions/src/interfaces/user';
+import { switchMap, shareReplay, take, mergeMap, map } from 'rxjs/operators';
+import { UserData } from '@interfaces/user';
+import {
+  Auth,
+  authState,
+  getAdditionalUserInfo,
+  signInWithPopup,
+  TwitterAuthProvider,
+  user,
+  User,
+} from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  afUser$: Observable<firebase.User> = this.afAuth.user;
+  private readonly afAuth = inject(Auth);
+  private readonly router = inject(Router);
+  private readonly snackBar = inject(MatSnackBar);
+  private readonly userService = inject(UserService);
+
+  readonly afUser$: Observable<User> = user(this.afAuth);
+  private readonly snapShotEventSubject = new BehaviorSubject(0);
+  private readonly snapShotEvent$: Observable<number> =
+    this.snapShotEventSubject.asObservable();
   uid: string;
-  user$: Observable<UserData> = this.afAuth.authState.pipe(
+  user$: Observable<UserData> = authState(this.afAuth).pipe(
+    mergeMap((afUser) => {
+      return this.snapShotEvent$.pipe(
+        map(() => {
+          return afUser;
+        })
+      );
+    }),
     switchMap((afUser) => {
       if (afUser) {
         this.uid = afUser && afUser.uid;
@@ -27,20 +49,17 @@ export class AuthService {
   );
   loginProcessing = false;
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private router: Router,
-    private snackBar: MatSnackBar,
-    private userService: UserService
-  ) {}
-
   async login(): Promise<void> {
     this.loginProcessing = true;
-    const provider = new firebase.auth.TwitterAuthProvider();
+    const provider = new TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    const userCredential = await this.afAuth.signInWithPopup(provider);
-    const { user, additionalUserInfo } = userCredential;
-    const twitterProfile = additionalUserInfo.profile as any;
+    const userCredential = await signInWithPopup(this.afAuth, provider);
+    const user = userCredential.user;
+    const additionalUserInfo = getAdditionalUserInfo(userCredential);
+    const twitterProfile = additionalUserInfo.profile as Record<
+      'screen_name',
+      string
+    >;
     return this.userService
       .getUserData(user.uid)
       .pipe(take(1))
@@ -100,5 +119,15 @@ export class AuthService {
           '閉じる'
         );
       });
+  }
+
+  deleteUser(): Promise<void> {
+    return this.afAuth.currentUser.delete();
+  }
+
+  // user$のスナップショットを更新
+  renewSnapShotUser() {
+    const count = this.snapShotEventSubject.getValue();
+    this.snapShotEventSubject.next(count + 1);
   }
 }
