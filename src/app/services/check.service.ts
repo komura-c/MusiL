@@ -6,7 +6,7 @@ import {
   Firestore,
   query,
   where,
-} from '@angular/fire/firestore';
+} from '@angular/fire/firestore/lite';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';

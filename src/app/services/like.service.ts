@@ -6,7 +6,7 @@ import {
   getDoc,
   setDoc,
   Timestamp,
-} from '@angular/fire/firestore';
+} from '@angular/fire/firestore/lite';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 

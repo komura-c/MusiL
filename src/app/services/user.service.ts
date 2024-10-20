@@ -13,7 +13,7 @@ import {
   setDoc,
   updateDoc,
   where,
-} from '@angular/fire/firestore';
+} from '@angular/fire/firestore/lite';
 import {
   getDownloadURL,
   ref,
