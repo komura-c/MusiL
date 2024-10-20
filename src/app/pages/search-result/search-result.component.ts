@@ -7,7 +7,7 @@ import { map, tap, take } from 'rxjs/operators';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
-import { Timestamp } from '@angular/fire/firestore';
+import { Timestamp } from '@angular/fire/firestore/lite';
 import {
   LegacyPageEvent as PageEvent,
   MatLegacyPaginatorModule,

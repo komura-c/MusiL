@@ -10,7 +10,7 @@ import {
   setDoc,
   CollectionReference,
   Timestamp,
-} from '@angular/fire/firestore';
+} from '@angular/fire/firestore/lite';
 
 @Injectable({
   providedIn: 'root',
