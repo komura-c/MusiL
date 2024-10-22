@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set frontend env
         run: echo "::add-mask::$ENVIRONMENT" && mkdir -p src/environments && touch src/environments/environment.ts && echo "$ENVIRONMENT" >> src/environments/environment.prod.ts
@@ -19,7 +19,7 @@ jobs:
           ENVIRONMENT: ${{ vars.ENVIRONMENT_PROD }}
 
       - name: update node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
@@ -44,7 +44,7 @@ jobs:
       #   run: npm run test
 
       - name: deploy to firebase
-        uses: w9jds/firebase-action@master
+        uses: w9jds/firebase-action@v13
         with:
           args: deploy
         env:
