@@ -44,7 +44,7 @@ jobs:
       #   run: npm run test
 
       - name: deploy to firebase
-        uses: w9jds/firebase-action@v13
+        uses: w9jds/firebase-action@v13.22.1
         with:
           args: deploy
         env:
