@@ -16,6 +16,7 @@ import {
   limit,
   orderBy,
   query,
+  QueryConstraint,
   setDoc,
   startAfter,
   Timestamp,
@@ -163,13 +164,15 @@ export class ArticleService {
     articles: Article[];
     lastArticle: Article;
   }> {
-    const articlesQuery = query(
-      this.articlesCollection,
+    const queryOperator: QueryConstraint[] = [
       where('uid', '==', uid),
-      lastArticle ? startAfter(lastArticle.updatedAt) : null,
       orderBy('updatedAt', 'desc'),
-      limit(20)
-    );
+      limit(20),
+    ];
+    if (lastArticle) {
+      queryOperator.push(startAfter(lastArticle.updatedAt));
+    }
+    const articlesQuery = query(this.articlesCollection, ...queryOperator);
     const articles$ = collectionData<Article>(articlesQuery);
     return articles$.pipe(
       map((articles) => {
