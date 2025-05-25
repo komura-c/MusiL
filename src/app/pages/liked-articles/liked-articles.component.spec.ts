@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
 import { ArticleServiceStub, UserServiceStub } from 'src/test/service.stub';
-import { LikedArticlesComponent } from './liked-articles.component';
+import LikedArticlesComponent from './liked-articles.component';
 
 describe('LikedArticlesComponent', () => {
   let component: LikedArticlesComponent;
