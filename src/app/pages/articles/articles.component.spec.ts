@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthServiceStub, ArticleServiceStub } from 'src/test/service.stub';
-import { ArticlesComponent } from './articles.component';
+import ArticlesComponent from './articles.component';
 
 describe('ArticlesComponent', () => {
   let component: ArticlesComponent;

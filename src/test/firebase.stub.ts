@@ -4,7 +4,7 @@ export const FirestoreStub = {
   collection: (name: string) => ({
     doc: (docId: string) => ({
       valueChanges: () => new BehaviorSubject({ id: 'xxx' }),
-      set: (setId: string) => new Promise((resolve, reject) => resolve()),
+      set: (setId: string) => new Promise((resolve, reject) => resolve(undefined)),
     }),
   }),
 };
@@ -12,7 +12,7 @@ export const FirestoreStub = {
 export const FireStorageStub = {
   ref: (docId: string) => ({
     putString: () => new BehaviorSubject({ id: 'xxx' }),
-    delete: () => new Promise((resolve, reject) => resolve()),
+    delete: () => new Promise((resolve, reject) => resolve(undefined)),
   }),
 };
 
@@ -21,5 +21,5 @@ export const FireAuthStub = {
 };
 
 export const FireAnalyticsStub = {
-  logEvent: (id: string) => new Promise((resolve, reject) => resolve()),
+  logEvent: (id: string) => new Promise((resolve, reject) => resolve(undefined)),
 };
