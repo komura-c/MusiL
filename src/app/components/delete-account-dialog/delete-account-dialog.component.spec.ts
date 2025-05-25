@@ -11,7 +11,7 @@ describe('DeleteAccountDialogComponent', () => {
   let component: DeleteAccountDialogComponent;
   let fixture: ComponentFixture<DeleteAccountDialogComponent>;
   const MatDialogRefStub = {
-    close: jasmine.createSpy('close'),
+    close: jest.fn(),
   };
 
   beforeEach(waitForAsync(() => {

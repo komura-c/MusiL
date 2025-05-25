@@ -11,7 +11,7 @@ describe('LoginDialogComponent', () => {
   let component: LoginDialogComponent;
   let fixture: ComponentFixture<LoginDialogComponent>;
   const MatDialogRefStub = {
-    close: jasmine.createSpy('close'),
+    close: jest.fn(),
   };
 
   beforeEach(waitForAsync(() => {

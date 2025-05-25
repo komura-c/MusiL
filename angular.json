@@ -104,29 +104,9 @@
           }
         },
         "test": {
-          "builder": "@angular-devkit/build-angular:karma",
+          "builder": "@angular-devkit/build-angular:jest",
           "options": {
-            "polyfills": ["zone.js", "zone.js/testing"],
-            "tsConfig": "tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              "src/favicon.ico",
-              "src/favicon-dev.svg",
-              "src/assets",
-              "src/robots.txt",
-              "src/sitemap.xml"
-            ],
-            "styles": [
-              "node_modules/material-icons/iconfont/filled.scss",
-              "node_modules/quill/dist/quill.core.css",
-              "node_modules/quill/dist/quill.snow.css",
-              "src/styles/_material-custom.scss",
-              "src/styles.scss"
-            ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["src/styles"]
-            },
-            "scripts": []
+            "tsConfig": "tsconfig.spec.json"
           }
         },
         "deploy": {
