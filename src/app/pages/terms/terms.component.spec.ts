@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { TermsComponent } from './terms.component';
+import TermsComponent from './terms.component';
 
 describe('TermsComponent', () => {
   let component: TermsComponent;
