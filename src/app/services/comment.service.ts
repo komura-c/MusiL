@@ -6,21 +6,21 @@ import {
   collection,
   deleteDoc,
   doc,
-  Firestore,
   setDoc,
   CollectionReference,
   Timestamp,
 } from '@angular/fire/firestore/lite';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommentService {
-  private readonly firestore = inject(Firestore);
+  private readonly firebaseService = inject(FirebaseService);
 
   sendComment(articleId: string, text: string, uid: string): Promise<void> {
     const commentsSubCollection = collection(
-      this.firestore,
+      this.firebaseService.firestore,
       `articles/${articleId}/comments`
     ) as CollectionReference<ArticleComment>;
     const docRef = doc(commentsSubCollection);
@@ -37,7 +37,7 @@ export class CommentService {
 
   deleteComment(articleId: string, commentId: string): Promise<void> {
     const docRef = doc(
-      this.firestore,
+      this.firebaseService.firestore,
       `articles/${articleId}/comments/${commentId}`
     );
     return deleteDoc(docRef);
