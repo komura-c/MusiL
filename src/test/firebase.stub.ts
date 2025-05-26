@@ -23,3 +23,15 @@ export const FireAuthStub = {
 export const FireAnalyticsStub = {
   logEvent: (id: string) => new Promise((resolve, reject) => resolve(undefined)),
 };
+
+export const FireFunctionsStub = {
+  httpsCallable: () => () => new Promise((resolve) => resolve({ data: {} })),
+};
+
+export const FirebaseServiceStub = {
+  auth: FireAuthStub,
+  firestore: FirestoreStub,
+  storage: FireStorageStub,
+  functions: FireFunctionsStub,
+  analytics: FireAnalyticsStub,
+};
