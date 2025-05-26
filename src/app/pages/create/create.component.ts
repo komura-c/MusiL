@@ -15,7 +15,8 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
-import { Analytics, logEvent } from '@angular/fire/analytics';
+import { logEvent } from '@angular/fire/analytics';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditorComponent } from 'src/app/components/editor/editor.component';
 import { TagFormComponent } from 'src/app/components/tag-form/tag-form.component';
 import { MatLegacyInputModule } from '@angular/material/legacy-input';
@@ -45,7 +46,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
 })
 export default class CreateComponent implements OnInit {
-  private analytics: Analytics = inject(Analytics);
+  private readonly firebaseService = inject(FirebaseService);
 
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
@@ -102,7 +103,7 @@ export default class CreateComponent implements OnInit {
       description: `記事を投稿・編集するページです`,
     });
     this.seoService.createLinkTagForCanonicalURL();
-    logEvent(this.analytics, 'create_page');
+    logEvent(this.firebaseService.analytics, 'create_page');
   }
 
   ngOnInit(): void {
