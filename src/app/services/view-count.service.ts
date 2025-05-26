@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
-import { httpsCallable } from '@angular/fire/functions';
 import { FirebaseService } from './firebase.service';
+import { httpsCallable } from '@angular/fire/functions';
 
 @Injectable({
   providedIn: 'root',
