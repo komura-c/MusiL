@@ -1,4 +1,5 @@
 import { BehaviorSubject } from 'rxjs';
+import { convertToParamMap, ParamMap } from '@angular/router';
 
 export const AuthServiceStub = {
   user$: new BehaviorSubject({ id: 'xxx' }),
@@ -55,4 +56,39 @@ export const CheckServiceStub = {
   getArticleThumbnailURLIsNull: jasmine
     .createSpy('getArticleThumbnailURLIsNull')
     .and.returnValue(new BehaviorSubject({})),
+};
+
+export class ActivatedRouteStub {
+  private subject = new BehaviorSubject(convertToParamMap(this.testParamMap));
+  paramMap = this.subject.asObservable();
+
+  private _testParamMap!: ParamMap;
+  get testParamMap() {
+    return this._testParamMap;
+  }
+  set testParamMap(params: Record<string, any>) {
+    this._testParamMap = convertToParamMap(params);
+    this.subject.next(this._testParamMap);
+  }
+
+  get snapshot() {
+    return {
+      paramMap: this.testParamMap,
+      queryParamMap: this.testParamMap, // 必要に応じてqueryParamsもモックする
+    };
+  }
+}
+
+export const SearchServiceStub = {
+  searchArticles: jasmine.createSpy('searchArticles'),
+  index: {
+    search: jasmine
+      .createSpy('search')
+      .and.returnValue(Promise.resolve({ hits: [] })),
+  },
+};
+
+export const AuthStub = {
+  onAuthStateChanged: () => new BehaviorSubject(null).asObservable(),
+  // 必要に応じて他の Auth のメソッドをモックします
 };

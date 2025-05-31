@@ -4,8 +4,10 @@ import {
   AngularFirestore,
   AngularFirestoreModule,
 } from '@angular/fire/compat/firestore';
+import { Auth } from '@angular/fire/auth';
 import { environmentStub } from 'src/test/environment.stub';
 import { FirestoreStub } from 'src/test/firebase.stub';
+import { AuthStub } from 'src/test/service.stub';
 import { CommentService } from './comment.service';
 
 describe('CommentService', () => {
@@ -17,7 +19,10 @@ describe('CommentService', () => {
         AngularFireModule.initializeApp(environmentStub.firebase),
         AngularFirestoreModule,
       ],
-      providers: [{ provide: AngularFirestore, useValue: FirestoreStub }],
+      providers: [
+        { provide: AngularFirestore, useValue: FirestoreStub },
+        { provide: Auth, useValue: AuthStub },
+      ],
     });
     service = TestBed.inject(CommentService);
   });

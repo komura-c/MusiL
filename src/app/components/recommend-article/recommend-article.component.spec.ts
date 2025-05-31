@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { Auth } from '@angular/fire/auth';
+import { AuthStub } from 'src/test/service.stub';
 import { RecommendArticleComponent } from './recommend-article.component';
 
 describe('RecommendArticleComponent', () => {
@@ -9,6 +10,7 @@ describe('RecommendArticleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RecommendArticleComponent],
+      providers: [{ provide: Auth, useValue: AuthStub }],
     }).compileComponents();
   }));
 

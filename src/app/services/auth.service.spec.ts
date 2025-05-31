@@ -10,8 +10,10 @@ import {
   MatLegacySnackBarModule as MatSnackBarModule,
 } from '@angular/material/legacy-snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
+import { Auth } from '@angular/fire/auth';
 import { environmentStub } from 'src/test/environment.stub';
 import { FirestoreStub } from 'src/test/firebase.stub';
+import { AuthStub } from 'src/test/service.stub';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
@@ -29,6 +31,7 @@ describe('AuthService', () => {
       providers: [
         MatSnackBar,
         { provide: AngularFirestore, useValue: FirestoreStub },
+        { provide: Auth, useValue: AuthStub },
       ],
     });
     service = TestBed.inject(AuthService);

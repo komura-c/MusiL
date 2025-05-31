@@ -5,8 +5,10 @@ import {
   AngularFirestore,
   AngularFirestoreModule,
 } from '@angular/fire/compat/firestore';
+import { Auth } from '@angular/fire/auth';
 import { environmentStub } from 'src/test/environment.stub';
 import { FirestoreStub } from 'src/test/firebase.stub';
+import { AuthStub } from 'src/test/service.stub';
 import { CheckService } from './check.service';
 
 describe('CheckService', () => {
@@ -19,7 +21,10 @@ describe('CheckService', () => {
         AngularFirestoreModule,
         AngularFireAuthModule,
       ],
-      providers: [{ provide: AngularFirestore, useValue: FirestoreStub }],
+      providers: [
+        { provide: AngularFirestore, useValue: FirestoreStub },
+        { provide: Auth, useValue: AuthStub },
+      ],
     });
     service = TestBed.inject(CheckService);
   });

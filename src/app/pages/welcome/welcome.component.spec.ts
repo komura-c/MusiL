@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FooterComponent } from './footer.component';
+import { WelcomeComponent } from '../../components/welcome/welcome.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from 'src/test/service.stub';
 
-describe('FooterComponent', () => {
-  let component: FooterComponent;
-  let fixture: ComponentFixture<FooterComponent>;
+describe('WelcomeComponent', () => {
+  let component: WelcomeComponent;
+  let fixture: ComponentFixture<WelcomeComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [FooterComponent],
+      imports: [WelcomeComponent],
       providers: [{ provide: ActivatedRoute, useClass: ActivatedRouteStub }],
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FooterComponent);
+    fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

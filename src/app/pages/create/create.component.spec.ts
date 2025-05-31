@@ -14,8 +14,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { FireAnalyticsStub, FirestoreStub } from 'src/test/firebase.stub';
-import { ArticleServiceStub, AuthServiceStub } from 'src/test/service.stub';
+import {
+  ArticleServiceStub,
+  AuthServiceStub,
+  AuthStub,
+} from 'src/test/service.stub';
 import CreateComponent from './create.component';
+import { Auth } from '@angular/fire/auth';
 
 describe('CreateComponent', () => {
   let component: CreateComponent;
@@ -39,6 +44,7 @@ describe('CreateComponent', () => {
         { provide: AngularFireAnalytics, useValue: FireAnalyticsStub },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
+        { provide: Auth, useValue: AuthStub },
       ],
     }).compileComponents();
   }));
