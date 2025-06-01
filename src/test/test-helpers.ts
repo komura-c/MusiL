@@ -20,8 +20,15 @@ import { ActivatedRouteStub, MockWindowService, MockDocumentService } from './se
 import { of } from 'rxjs';
 import { WindowService } from '../app/services/window.service';
 import { DocumentService } from '../app/services/document.service';
+import { FirebaseService } from '../app/services/firebase.service';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
 import { environmentStub } from './environment.stub';
+import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { provideFirestore, getFirestore } from '@angular/fire/firestore/lite';
+import { provideStorage, getStorage } from '@angular/fire/storage';
+import { provideFunctions, getFunctions } from '@angular/fire/functions';
+import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
 
 // Setup AngularFire for testing
 (globalThis as any).ɵAngularfireInstanceCache = new Map();
@@ -76,6 +83,7 @@ const DocumentStub = {
   }),
   querySelectorAll: jasmine.createSpy('querySelectorAll').and.returnValue([]),
   getElementById: jasmine.createSpy('getElementById').and.returnValue(null),
+  getElementsByClassName: jasmine.createSpy('getElementsByClassName').and.returnValue([]),
   getElementsByTagName: jasmine.createSpy('getElementsByTagName').and.returnValue([]),
   createElement: jasmine.createSpy('createElement').and.callFake((tagName: string) => {
     return createMockElement(tagName);
@@ -98,6 +106,17 @@ const DocumentStub = {
   appendChild: jasmine.createSpy('appendChild'),
   removeChild: jasmine.createSpy('removeChild'),
   replaceChild: jasmine.createSpy('replaceChild'),
+  addEventListener: jasmine.createSpy('addEventListener'),
+  removeEventListener: jasmine.createSpy('removeEventListener'),
+};
+
+// Create a mock FirebaseService
+const MockFirebaseService = {
+  auth: AuthProviderStub,
+  firestore: FirestoreProviderStub,
+  storage: StorageProviderStub,
+  functions: FunctionsProviderStub,
+  analytics: AnalyticsProviderStub,
 };
 
 export const getFirebaseProviders = () => [
@@ -111,6 +130,7 @@ export const getFirebaseProviders = () => [
 export const getCommonProviders = () => [
   ...getFirebaseProviders(),
   { provide: FIREBASE_OPTIONS, useValue: environmentStub.firebase },
+  { provide: FirebaseService, useValue: MockFirebaseService },
   { provide: MatSnackBar, useValue: MatSnackBarStub },
   { provide: Router, useValue: RouterStub },
   { provide: ActivatedRoute, useClass: ActivatedRouteStub },

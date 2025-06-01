@@ -1,4 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { UserService } from 'src/app/services/user.service';
+import { UserServiceStub } from 'src/test/service.stub';
 import { getCommonProviders } from 'src/test/test-helpers';
 import { RecommendArticleComponent } from './recommend-article.component';
 
@@ -9,7 +11,10 @@ describe('RecommendArticleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RecommendArticleComponent],
-      providers: [...getCommonProviders()],
+      providers: [
+        ...getCommonProviders(),
+        { provide: UserService, useValue: UserServiceStub },
+      ],
     }).compileComponents();
   }));
 

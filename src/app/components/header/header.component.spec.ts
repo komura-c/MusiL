@@ -1,37 +1,34 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search.service';
+import { UserService } from 'src/app/services/user.service';
 import {
   AuthServiceStub,
   SearchServiceStub,
-  ActivatedRouteStub,
+  UserServiceStub,
 } from 'src/test/service.stub';
 import { getCommonProviders } from 'src/test/test-helpers';
 import { HeaderComponent } from './header.component';
-import { ActivatedRoute } from '@angular/router';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
-  let routerSpy: jasmine.SpyObj<Router>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
   beforeEach(waitForAsync(() => {
-    routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
     TestBed.configureTestingModule({
-      imports: [MatMenuModule, HeaderComponent],
+      imports: [MatMenuModule, RouterTestingModule, HeaderComponent],
       providers: [
         ...getCommonProviders(),
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: SearchService, useValue: SearchServiceStub },
-        { provide: Router, useValue: routerSpy },
+        { provide: UserService, useValue: UserServiceStub },
         { provide: MatDialog, useValue: dialogSpy },
-        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
       ],
     }).compileComponents();
   }));

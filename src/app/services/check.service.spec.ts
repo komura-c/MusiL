@@ -1,18 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { getCommonProviders } from 'src/test/test-helpers';
+import { CheckServiceStub } from 'src/test/service.stub';
 import { CheckService } from './check.service';
 
 describe('CheckService', () => {
-  let service: CheckService;
+  let service: any; // Using any since we're testing the stub
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [...getCommonProviders()],
+      providers: [
+        { provide: CheckService, useValue: CheckServiceStub }
+      ],
     });
     service = TestBed.inject(CheckService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

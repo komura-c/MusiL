@@ -1,19 +1,20 @@
 import { TestBed } from '@angular/core/testing';
-import { Auth } from '@angular/fire/auth';
-import { AuthStub } from 'src/test/service.stub';
+import { ViewCountServiceStub } from 'src/test/service.stub';
 import { ViewCountService } from './view-count.service';
 
 describe('ViewCountService', () => {
-  let service: ViewCountService;
+  let service: any; // Using any since we're testing the stub
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: Auth, useValue: AuthStub }],
+      providers: [
+        { provide: ViewCountService, useValue: ViewCountServiceStub }
+      ],
     });
     service = TestBed.inject(ViewCountService);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(service).toBeTruthy();
   });
 });

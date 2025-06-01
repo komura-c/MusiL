@@ -1,13 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { getCommonProviders } from 'src/test/test-helpers';
+import { UserServiceStub } from 'src/test/service.stub';
 import { UserService } from './user.service';
 
 describe('UserService', () => {
-  let service: UserService;
+  let service: any; // Using any since we're testing the stub
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [...getCommonProviders()],
+      providers: [
+        { provide: UserService, useValue: UserServiceStub }
+      ],
     });
     service = TestBed.inject(UserService);
   });

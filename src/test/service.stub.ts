@@ -5,6 +5,9 @@ import { MockDocumentService } from './document.service.mock';
 
 export const AuthServiceStub = {
   user$: new BehaviorSubject({ id: 'xxx' }),
+  loginProcessing: false,
+  login: jasmine.createSpy('login').and.returnValue(Promise.resolve()),
+  deleteUser: jasmine.createSpy('deleteUser').and.returnValue(Promise.resolve()),
 };
 
 export const UserServiceStub = {
@@ -32,6 +35,12 @@ export const ArticleServiceStub = {
   getPickUpArticles: jasmine
     .createSpy('getPickUpArticles ')
     .and.returnValue(new BehaviorSubject([])),
+  getArticleOnly: jasmine
+    .createSpy('getArticleOnly')
+    .and.returnValue(new BehaviorSubject({})),
+  deleteArticle: jasmine
+    .createSpy('deleteArticle')
+    .and.returnValue(Promise.resolve()),
 };
 
 export const LikeServiceStub = {
@@ -60,9 +69,16 @@ export const CheckServiceStub = {
     .and.returnValue(new BehaviorSubject([])),
 };
 
+export const ViewCountServiceStub = {
+  countUpArticleView: jasmine
+    .createSpy('countUpArticleView')
+    .and.returnValue(undefined),
+};
+
 export class ActivatedRouteStub {
   private subject = new BehaviorSubject(convertToParamMap(this.testParamMap));
   paramMap = this.subject.asObservable();
+  parent: any;
 
   private _testParamMap!: ParamMap;
   get testParamMap() {
