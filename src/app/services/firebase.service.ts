@@ -3,7 +3,7 @@ import { Auth } from '@angular/fire/auth';
 import { Firestore } from '@angular/fire/firestore/lite';
 import { Storage } from '@angular/fire/storage';
 import { Functions } from '@angular/fire/functions';
-import { Analytics } from '@angular/fire/analytics';
+import { Analytics, logEvent } from '@angular/fire/analytics';
 
 @Injectable({
   providedIn: 'root',
@@ -14,4 +14,8 @@ export class FirebaseService {
   readonly storage = inject(Storage);
   readonly functions = inject(Functions);
   readonly analytics = inject(Analytics);
+
+  logEvent(event: string) {
+    logEvent(this.analytics, event);
+  }
 }

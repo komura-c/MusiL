@@ -27,30 +27,40 @@ describe('ArticleDetailComponent', () => {
   let fixture: ComponentFixture<ArticleDetailComponent>;
   let activatedRouteStub: ActivatedRouteStub;
 
+  beforeAll(() => {
+    // Ensure global document has defaultView for @HostListener
+    if (!document.defaultView) {
+      Object.defineProperty(document, 'defaultView', {
+        value: window,
+        writable: true,
+        configurable: true,
+      });
+    }
+  });
+
   const SeoServiceStub = {
     updateTitleAndMeta: jasmine.createSpy('updateTitleAndMeta'),
-    createLinkTagForCanonicalURL: jasmine.createSpy('createLinkTagForCanonicalURL'),
+    createLinkTagForCanonicalURL: jasmine.createSpy(
+      'createLinkTagForCanonicalURL'
+    ),
   };
 
   const ScrollServiceStub = {
     scrollToTop: jasmine.createSpy('scrollToTop'),
+    saveScrollPosition: jasmine.createSpy('saveScrollPosition'),
   };
 
   beforeEach(waitForAsync(() => {
     activatedRouteStub = new ActivatedRouteStub();
     // Set up parent route with paramMap
     activatedRouteStub.parent = {
-      paramMap: activatedRouteStub.paramMap
+      paramMap: activatedRouteStub.paramMap,
     } as any;
 
     TestBed.configureTestingModule({
       imports: [ArticleDetailComponent],
       providers: [
         ...getCommonProviders(),
-        MatSnackBar,
-        Overlay,
-        MatDialog,
-        { provide: MAT_DIALOG_SCROLL_STRATEGY, useValue: {} },
         { provide: ActivatedRoute, useValue: activatedRouteStub },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },

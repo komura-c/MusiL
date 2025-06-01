@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { Meta } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
 import {
   AuthProviderStub,
   FirestoreProviderStub,
@@ -16,7 +15,11 @@ import {
   FunctionsProviderStub,
   AnalyticsProviderStub,
 } from './firebase.stub';
-import { ActivatedRouteStub, MockWindowService, MockDocumentService } from './service.stub';
+import {
+  ActivatedRouteStub,
+  MockWindowService,
+  MockDocumentService,
+} from './service.stub';
 import { of } from 'rxjs';
 import { WindowService } from '../app/services/window.service';
 import { DocumentService } from '../app/services/document.service';
@@ -32,6 +35,20 @@ import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
 
 // Setup AngularFire for testing
 (globalThis as any).ɵAngularfireInstanceCache = new Map();
+
+// Ensure document.defaultView is available for @HostListener
+if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+  // Simply ensure document.defaultView exists and points to window
+  try {
+    Object.defineProperty(document, 'defaultView', {
+      value: window,
+      writable: true,
+      configurable: true,
+    });
+  } catch (e) {
+    // Property might already exist, that's fine
+  }
+}
 
 const MatSnackBarStub = {
   open: jasmine
@@ -66,7 +83,7 @@ const createMockElement = (tagName: string) => {
   const element = document.createElement(tagName);
   // Override appendChild to handle mock elements properly
   const originalAppendChild = element.appendChild;
-  element.appendChild = function(this: any, child: any) {
+  element.appendChild = function (this: any, child: any) {
     if (child && typeof child === 'object') {
       return originalAppendChild.call(this, child);
     }
@@ -83,20 +100,30 @@ const DocumentStub = {
   }),
   querySelectorAll: jasmine.createSpy('querySelectorAll').and.returnValue([]),
   getElementById: jasmine.createSpy('getElementById').and.returnValue(null),
-  getElementsByClassName: jasmine.createSpy('getElementsByClassName').and.returnValue([]),
-  getElementsByTagName: jasmine.createSpy('getElementsByTagName').and.returnValue([]),
-  createElement: jasmine.createSpy('createElement').and.callFake((tagName: string) => {
-    return createMockElement(tagName);
-  }),
-  createComment: jasmine.createSpy('createComment').and.callFake((text: string) => {
-    return document.createComment(text);
-  }),
-  createTextNode: jasmine.createSpy('createTextNode').and.callFake((text: string) => {
-    return document.createTextNode(text);
-  }),
-  createDocumentFragment: jasmine.createSpy('createDocumentFragment').and.returnValue(
-    document.createDocumentFragment()
-  ),
+  getElementsByClassName: jasmine
+    .createSpy('getElementsByClassName')
+    .and.returnValue([]),
+  getElementsByTagName: jasmine
+    .createSpy('getElementsByTagName')
+    .and.returnValue([]),
+  createElement: jasmine
+    .createSpy('createElement')
+    .and.callFake((tagName: string) => {
+      return createMockElement(tagName);
+    }),
+  createComment: jasmine
+    .createSpy('createComment')
+    .and.callFake((text: string) => {
+      return document.createComment(text);
+    }),
+  createTextNode: jasmine
+    .createSpy('createTextNode')
+    .and.callFake((text: string) => {
+      return document.createTextNode(text);
+    }),
+  createDocumentFragment: jasmine
+    .createSpy('createDocumentFragment')
+    .and.returnValue(document.createDocumentFragment()),
   head: createMockElement('head'),
   body: createMockElement('body'),
   documentElement: document.documentElement,
@@ -136,7 +163,6 @@ export const getCommonProviders = () => [
   { provide: ActivatedRoute, useClass: ActivatedRouteStub },
   { provide: Location, useValue: LocationStub },
   { provide: Meta, useValue: MetaStub },
-  { provide: DOCUMENT, useValue: DocumentStub },
   { provide: WindowService, useClass: MockWindowService },
   { provide: DocumentService, useClass: MockDocumentService },
 ];

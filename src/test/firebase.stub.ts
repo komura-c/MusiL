@@ -54,6 +54,13 @@ export const FirestoreProviderStub = {
     update: jasmine.createSpy('update').and.returnValue(Promise.resolve(undefined)),
     delete: jasmine.createSpy('delete').and.returnValue(Promise.resolve(undefined)),
   }),
+  // Make it compatible with Firebase Firestore object structure
+  _delegate: {
+    app: {
+      name: 'test-app',
+      options: {}
+    }
+  },
 };
 
 export const AuthProviderStub = {
@@ -79,6 +86,18 @@ export const FunctionsProviderStub = {
 };
 
 export const AnalyticsProviderStub = {
-  logEvent: (id: string) =>
-    new Promise((resolve, reject) => resolve(undefined)),
+  // Create a more compatible analytics stub that works with logEvent
+  app: {
+    name: 'test-app',
+    options: {}
+  },
+  logEvent: jasmine.createSpy('logEvent').and.returnValue(Promise.resolve()),
+  // Make it compatible with Firebase Analytics object structure
+  _delegate: {
+    app: {
+      name: 'test-app',
+      options: {}
+    }
+  },
+  // Add any other properties that Firebase Analytics might expect
 };

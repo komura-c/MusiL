@@ -11,6 +11,17 @@ describe('TopComponent', () => {
   let component: TopComponent;
   let fixture: ComponentFixture<TopComponent>;
 
+  beforeAll(() => {
+    // Ensure global document has defaultView for @HostListener
+    if (!document.defaultView) {
+      Object.defineProperty(document, 'defaultView', {
+        value: window,
+        writable: true,
+        configurable: true
+      });
+    }
+  });
+
   const SeoServiceStub = {
     updateTitleAndMeta: jasmine.createSpy('updateTitleAndMeta'),
     createLinkTagForCanonicalURL: jasmine.createSpy('createLinkTagForCanonicalURL'),

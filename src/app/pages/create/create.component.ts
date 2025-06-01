@@ -15,7 +15,6 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
-import { logEvent } from '@angular/fire/analytics';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditorComponent } from 'src/app/components/editor/editor.component';
 import { TagFormComponent } from 'src/app/components/tag-form/tag-form.component';
@@ -99,16 +98,15 @@ export default class CreateComponent implements OnInit {
     private route: ActivatedRoute,
     private windowService: WindowService,
     private seoService: SeoService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.seoService.updateTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
     this.seoService.createLinkTagForCanonicalURL();
-    logEvent(this.firebaseService.analytics, 'create_page');
-  }
-
-  ngOnInit(): void {
+    this.firebaseService.logEvent('create_page');
     this.loadUserData();
     this.loadArticleAndPatchValue();
   }

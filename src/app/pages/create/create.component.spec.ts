@@ -19,7 +19,6 @@ import {
   SearchServiceStub,
 } from 'src/test/service.stub';
 import { getCommonProviders } from 'src/test/test-helpers';
-import * as analytics from '@angular/fire/analytics';
 import CreateComponent from './create.component';
 
 describe('CreateComponent', () => {
@@ -31,14 +30,8 @@ describe('CreateComponent', () => {
     createLinkTagForCanonicalURL: jasmine.createSpy('createLinkTagForCanonicalURL'),
   };
 
+
   beforeEach(waitForAsync(() => {
-    // Mock logEvent function before component creation
-    Object.defineProperty(analytics, 'logEvent', {
-      value: jasmine.createSpy('logEvent'),
-      writable: true,
-      configurable: true
-    });
-    
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
