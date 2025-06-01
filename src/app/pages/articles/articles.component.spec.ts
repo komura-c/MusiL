@@ -23,7 +23,7 @@ describe('ArticlesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticlesComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

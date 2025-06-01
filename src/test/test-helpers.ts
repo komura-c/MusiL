@@ -20,6 +20,11 @@ import { ActivatedRouteStub, MockWindowService, MockDocumentService } from './se
 import { of } from 'rxjs';
 import { WindowService } from '../app/services/window.service';
 import { DocumentService } from '../app/services/document.service';
+import { FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { environmentStub } from './environment.stub';
+
+// Setup AngularFire for testing
+(globalThis as any).ɵAngularfireInstanceCache = new Map();
 
 const MatSnackBarStub = {
   open: jasmine
@@ -49,18 +54,50 @@ const MetaStub = {
   removeTag: jasmine.createSpy('removeTag'),
 };
 
+// Create a more complete Document stub with proper DOM methods
+const createMockElement = (tagName: string) => {
+  const element = document.createElement(tagName);
+  // Override appendChild to handle mock elements properly
+  const originalAppendChild = element.appendChild;
+  element.appendChild = function(this: any, child: any) {
+    if (child && typeof child === 'object') {
+      return originalAppendChild.call(this, child);
+    }
+    return child;
+  };
+  return element;
+};
+
 const DocumentStub = {
   querySelector: jasmine.createSpy('querySelector').and.returnValue({
     getAttribute: jasmine.createSpy('getAttribute').and.returnValue(''),
     setAttribute: jasmine.createSpy('setAttribute'),
+    appendChild: jasmine.createSpy('appendChild'),
   }),
   querySelectorAll: jasmine.createSpy('querySelectorAll').and.returnValue([]),
   getElementById: jasmine.createSpy('getElementById').and.returnValue(null),
+  getElementsByTagName: jasmine.createSpy('getElementsByTagName').and.returnValue([]),
   createElement: jasmine.createSpy('createElement').and.callFake((tagName: string) => {
-    return document.createElement(tagName);
+    return createMockElement(tagName);
   }),
-  head: document.createElement('head'),
-  body: document.createElement('body'),
+  createComment: jasmine.createSpy('createComment').and.callFake((text: string) => {
+    return document.createComment(text);
+  }),
+  createTextNode: jasmine.createSpy('createTextNode').and.callFake((text: string) => {
+    return document.createTextNode(text);
+  }),
+  createDocumentFragment: jasmine.createSpy('createDocumentFragment').and.returnValue(
+    document.createDocumentFragment()
+  ),
+  head: createMockElement('head'),
+  body: createMockElement('body'),
+  documentElement: document.documentElement,
+  location: { href: 'http://localhost:4200' },
+  title: 'Test Title',
+  defaultView: window,
+  appendChild: jasmine.createSpy('appendChild'),
+  removeChild: jasmine.createSpy('removeChild'),
+  replaceChild: jasmine.createSpy('replaceChild'),
 };
 
 export const getFirebaseProviders = () => [
@@ -73,6 +110,7 @@ export const getFirebaseProviders = () => [
 
 export const getCommonProviders = () => [
   ...getFirebaseProviders(),
+  { provide: FIREBASE_OPTIONS, useValue: environmentStub.firebase },
   { provide: MatSnackBar, useValue: MatSnackBarStub },
   { provide: Router, useValue: RouterStub },
   { provide: ActivatedRoute, useClass: ActivatedRouteStub },

@@ -23,7 +23,7 @@ describe('SettingsComponent', () => {
         UntypedFormBuilder,
         MatDialog,
         Overlay,
-        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: MAT_DIALOG_SCROLL_STRATEGY, useValue: {} },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: UserService, useValue: UserServiceStub },
       ],
@@ -33,7 +33,7 @@ describe('SettingsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

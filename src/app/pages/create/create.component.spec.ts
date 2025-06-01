@@ -1,7 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { AngularFireAnalytics } from '@angular/fire/compat/analytics';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
 import {
   UntypedFormBuilder,
   FormsModule,
@@ -13,14 +11,12 @@ import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { FireAnalyticsStub, FirestoreStub } from 'src/test/firebase.stub';
 import {
   ArticleServiceStub,
   AuthServiceStub,
-  AuthStub,
 } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import CreateComponent from './create.component';
-import { Auth } from '@angular/fire/auth';
 
 describe('CreateComponent', () => {
   let component: CreateComponent;
@@ -37,14 +33,12 @@ describe('CreateComponent', () => {
         CreateComponent,
       ],
       providers: [
+        ...getCommonProviders(),
         UntypedFormBuilder,
         MatSnackBar,
         Overlay,
-        { provide: AngularFirestore, useValue: FirestoreStub },
-        { provide: AngularFireAnalytics, useValue: FireAnalyticsStub },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
-        { provide: Auth, useValue: AuthStub },
       ],
     }).compileComponents();
   }));
@@ -52,7 +46,7 @@ describe('CreateComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

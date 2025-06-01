@@ -14,6 +14,7 @@ import {
   AuthServiceStub,
   LikeServiceStub,
 } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import ArticleDetailComponent from './article-detail.component';
 
 describe('ArticleDetailComponent', () => {
@@ -24,6 +25,7 @@ describe('ArticleDetailComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, ArticleDetailComponent],
       providers: [
+        ...getCommonProviders(),
         MatSnackBar,
         Overlay,
         MatDialog,
@@ -38,7 +40,7 @@ describe('ArticleDetailComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleDetailComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

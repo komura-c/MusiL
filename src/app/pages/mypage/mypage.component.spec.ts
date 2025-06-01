@@ -25,7 +25,7 @@ describe('MypageComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MypageComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

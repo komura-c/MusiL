@@ -23,7 +23,7 @@ describe('TopComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TopComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

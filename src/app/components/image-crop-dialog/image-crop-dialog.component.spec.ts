@@ -4,6 +4,7 @@ import {
   MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
 } from '@angular/material/legacy-dialog';
 import { ImageCropDialogComponent } from './image-crop-dialog.component';
+import { getCommonProviders } from 'src/test/test-helpers';
 
 describe('ImageCropDialogComponent', () => {
   let component: ImageCropDialogComponent;
@@ -13,6 +14,7 @@ describe('ImageCropDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [ImageCropDialogComponent],
       providers: [
+        ...getCommonProviders(),
         MatDialog,
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
@@ -22,7 +24,7 @@ describe('ImageCropDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageCropDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

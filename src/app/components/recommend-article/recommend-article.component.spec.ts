@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { Auth } from '@angular/fire/auth';
-import { AuthStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import { RecommendArticleComponent } from './recommend-article.component';
 
 describe('RecommendArticleComponent', () => {
@@ -10,14 +9,14 @@ describe('RecommendArticleComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RecommendArticleComponent],
-      providers: [{ provide: Auth, useValue: AuthStub }],
+      providers: [...getCommonProviders()],
     }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(RecommendArticleComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

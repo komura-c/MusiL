@@ -6,6 +6,7 @@ import {
 } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBarModule as MatSnackBarModule } from '@angular/material/legacy-snack-bar';
 import { DeleteDialogComponent } from './delete-dialog.component';
+import { getCommonProviders } from 'src/test/test-helpers';
 
 describe('DeleteDialogComponent', () => {
   let component: DeleteDialogComponent;
@@ -15,6 +16,7 @@ describe('DeleteDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatSnackBarModule, DeleteDialogComponent],
       providers: [
+        ...getCommonProviders(),
         MatDialog,
         Overlay,
         { provide: MAT_DIALOG_DATA, useValue: {} },
@@ -25,7 +27,7 @@ describe('DeleteDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeleteDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

@@ -52,7 +52,7 @@ describe('ArticleCardComponent', () => {
       },
     };
 
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

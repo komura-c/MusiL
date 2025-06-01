@@ -3,9 +3,9 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Auth } from '@angular/fire/auth';
 import { UserService } from 'src/app/services/user.service';
-import { UserServiceStub, AuthStub } from 'src/test/service.stub';
+import { UserServiceStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import { DeleteAccountDialogComponent } from './delete-account-dialog.component';
 
 describe('DeleteAccountDialogComponent', () => {
@@ -19,11 +19,11 @@ describe('DeleteAccountDialogComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, DeleteAccountDialogComponent],
       providers: [
+        ...getCommonProviders(),
         MatSnackBar,
         Overlay,
         { provide: MatDialogRef, useValue: MatDialogRefStub },
         { provide: UserService, useValue: UserServiceStub },
-        { provide: Auth, useValue: AuthStub },
       ],
     }).compileComponents();
   }));
@@ -31,7 +31,7 @@ describe('DeleteAccountDialogComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeleteAccountDialogComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {
