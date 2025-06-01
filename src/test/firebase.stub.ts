@@ -4,7 +4,8 @@ export const FirestoreStub = {
   collection: (name: string) => ({
     doc: (docId: string) => ({
       valueChanges: () => new BehaviorSubject({ id: 'xxx' }),
-      set: (setId: string) => new Promise((resolve, reject) => resolve(undefined)),
+      set: (setId: string) =>
+        new Promise((resolve, reject) => resolve(undefined)),
     }),
   }),
 };
@@ -21,7 +22,8 @@ export const FireAuthStub = {
 };
 
 export const FireAnalyticsStub = {
-  logEvent: (id: string) => new Promise((resolve, reject) => resolve(undefined)),
+  logEvent: (id: string) =>
+    new Promise((resolve, reject) => resolve(undefined)),
 };
 
 export const FireFunctionsStub = {
@@ -34,4 +36,34 @@ export const FirebaseServiceStub = {
   storage: FireStorageStub,
   functions: FireFunctionsStub,
   analytics: FireAnalyticsStub,
+};
+
+export const FirestoreProviderStub = {
+  collection: (name: string) => ({
+    doc: (docId: string) => ({
+      valueChanges: () => new BehaviorSubject({ id: 'xxx' }),
+      set: (setId: string) =>
+        new Promise((resolve, reject) => resolve(undefined)),
+    }),
+  }),
+};
+
+export const AuthProviderStub = {
+  onAuthStateChanged: () => new BehaviorSubject(null).asObservable(),
+};
+
+export const StorageProviderStub = {
+  ref: (docId: string) => ({
+    putString: () => new BehaviorSubject({ id: 'xxx' }),
+    delete: () => new Promise((resolve, reject) => resolve(undefined)),
+  }),
+};
+
+export const FunctionsProviderStub = {
+  httpsCallable: () => () => new Promise((resolve) => resolve({ data: {} })),
+};
+
+export const AnalyticsProviderStub = {
+  logEvent: (id: string) =>
+    new Promise((resolve, reject) => resolve(undefined)),
 };

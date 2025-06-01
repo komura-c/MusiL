@@ -25,6 +25,7 @@ import { MatLegacySlideToggleModule } from '@angular/material/legacy-slide-toggl
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { WindowService } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-create',
@@ -96,6 +97,7 @@ export default class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
+    private windowService: WindowService,
     private seoService: SeoService
   ) {
     this.seoService.updateTitleAndMeta({
@@ -149,7 +151,7 @@ export default class CreateComponent implements OnInit {
       this.location.back();
       return;
     }
-    const confirmation = window.confirm(
+    const confirmation = this.windowService.confirm(
       '作業中の内容が失われますがよろしいですか？'
     );
     if (confirmation) {

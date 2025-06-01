@@ -8,6 +8,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AuthServiceStub, UserServiceStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import SettingsComponent from './settings.component';
 
 describe('SettingsComponent', () => {
@@ -18,6 +19,7 @@ describe('SettingsComponent', () => {
     TestBed.configureTestingModule({
       imports: [SettingsComponent],
       providers: [
+        ...getCommonProviders(),
         UntypedFormBuilder,
         MatDialog,
         Overlay,

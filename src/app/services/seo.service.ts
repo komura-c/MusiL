@@ -1,6 +1,7 @@
-import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { DocumentService } from './document.service';
+import { WindowService } from './window.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,8 @@ export class SeoService {
   constructor(
     private meta: Meta,
     private title: Title,
-    @Inject(DOCUMENT) private document: Document
+    private documentService: DocumentService,
+    private windowService: WindowService
   ) {}
 
   updateTitleAndMeta(metaTags: {
@@ -56,7 +58,7 @@ export class SeoService {
         property: 'og:type',
         content: metaTags.ogType ? metaTags.ogType : this.defaultMetas.ogType,
       },
-      { property: 'og:url', content: window.location.href },
+      { property: 'og:url', content: this.windowService.location?.href || '' },
     ];
     metaTagsArray.forEach((metaTag) => {
       this.meta.updateTag(metaTag);
@@ -66,18 +68,18 @@ export class SeoService {
   createLinkTagForCanonicalURL(URL?: string) {
     this.refreshLinkTagForCanonicalURL();
 
-    const canonicalURL = URL === undefined ? this.document.URL : URL;
-    const linkTag: HTMLLinkElement = this.document.createElement('link');
+    const canonicalURL = URL === undefined ? this.documentService.location.href : URL;
+    const linkTag = this.documentService.createElement('link') as HTMLLinkElement;
     linkTag.setAttribute('rel', 'canonical');
-    this.document.head.appendChild(linkTag);
+    this.documentService.head.appendChild(linkTag);
     linkTag.setAttribute('href', canonicalURL);
   }
 
   private refreshLinkTagForCanonicalURL() {
-    const links = this.document.head.getElementsByTagName('link');
+    const links = this.documentService.head.getElementsByTagName('link');
     Array.from(links).forEach((linkElm) => {
       if (linkElm.getAttribute('rel') === 'canonical') {
-        this.document.head.removeChild(linkElm);
+        this.documentService.head.removeChild(linkElm);
       }
     });
   }

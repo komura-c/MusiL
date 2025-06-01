@@ -9,6 +9,7 @@ import {
   SearchServiceStub,
   ActivatedRouteStub,
 } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import { HeaderComponent } from './header.component';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,6 +26,7 @@ describe('HeaderComponent', () => {
     TestBed.configureTestingModule({
       imports: [MatMenuModule, HeaderComponent],
       providers: [
+        ...getCommonProviders(),
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: SearchService, useValue: SearchServiceStub },
         { provide: Router, useValue: routerSpy },

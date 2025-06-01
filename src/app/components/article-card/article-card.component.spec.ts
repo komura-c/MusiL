@@ -6,6 +6,7 @@ import {
   LikeServiceStub,
   ActivatedRouteStub,
 } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import { ArticleCardComponent } from './article-card.component';
 import { ActivatedRoute } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore/lite';
@@ -18,6 +19,7 @@ describe('ArticleCardComponent', () => {
     TestBed.configureTestingModule({
       imports: [ArticleCardComponent],
       providers: [
+        ...getCommonProviders(),
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: LikeService, useValue: LikeServiceStub },
         { provide: ActivatedRoute, useClass: ActivatedRouteStub },

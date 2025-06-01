@@ -1,12 +1,14 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loading.service';
-import { DOCUMENT, Location, NgIf, AsyncPipe } from '@angular/common';
+import { Location, NgIf, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
 import { FooterComponent } from './components/footer/footer.component';
 import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
 import { HeaderComponent } from './components/header/header.component';
+import { DocumentService } from './services/document.service';
+import { WindowService } from './services/window.service';
 
 @Component({
   selector: 'app-root',
@@ -33,14 +35,15 @@ export class AppComponent implements OnInit {
     private router: Router,
     private loadingService: LoadingService,
     private meta: Meta,
-    @Inject(DOCUMENT) private document: HTMLDocument,
+    private documentService: DocumentService,
+    private windowService: WindowService,
     private location: Location
   ) {}
 
   ngOnInit(): void {
     // PWA用のserviceWorkerが登録されていれば削除
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function (registrations) {
+    if (this.windowService.navigator && 'serviceWorker' in this.windowService.navigator) {
+      this.windowService.navigator.serviceWorker.getRegistrations().then(function (registrations) {
         if (registrations.length) {
           for (const registration of registrations) {
             registration.unregister();
@@ -49,10 +52,10 @@ export class AppComponent implements OnInit {
       });
     }
     // iOSのAutoZoom対策
-    const ua = window.navigator.userAgent.toLowerCase();
+    const ua = this.windowService.navigator?.userAgent.toLowerCase() || '';
     const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
     if (isiOS) {
-      const viewport = this.document.querySelector('meta[name="viewport"]');
+      const viewport = this.documentService.querySelector('meta[name="viewport"]');
       if (viewport) {
         const viewportContent = viewport.getAttribute('content');
         viewport.setAttribute(
@@ -66,7 +69,7 @@ export class AppComponent implements OnInit {
         name: 'robots',
         content: 'noindex',
       });
-      this.document
+      this.documentService
         .querySelector('[rel=icon]')
         ?.setAttribute('href', 'favicon-dev.svg');
     }

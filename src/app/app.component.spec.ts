@@ -1,13 +1,12 @@
 import { TestBed } from '@angular/core/testing';
-import { Auth } from '@angular/fire/auth';
-import { AuthStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
       imports: [AppComponent],
-      providers: [{ provide: Auth, useValue: AuthStub }],
+      providers: [...getCommonProviders()],
     })
   );
 

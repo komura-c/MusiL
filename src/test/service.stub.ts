@@ -1,5 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import { convertToParamMap, ParamMap } from '@angular/router';
+import { MockWindowService } from './window.service.mock';
+import { MockDocumentService } from './document.service.mock';
 
 export const AuthServiceStub = {
   user$: new BehaviorSubject({ id: 'xxx' }),
@@ -8,7 +10,7 @@ export const AuthServiceStub = {
 export const UserServiceStub = {
   getUsers: jasmine
     .createSpy('getUsers')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getUserByScreenName: jasmine
     .createSpy('getUserByScreenName')
     .and.returnValue(new BehaviorSubject({})),
@@ -17,19 +19,19 @@ export const UserServiceStub = {
 export const ArticleServiceStub = {
   getMyArticles: jasmine
     .createSpy('getMyArticles ')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getPopularArticles: jasmine
     .createSpy('getPopularArticles ')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getMyArticlesPublic: jasmine
     .createSpy('getMyArticlesPublic ')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getLatestArticles: jasmine
     .createSpy('getLatestArticles ')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getPickUpArticles: jasmine
     .createSpy('getPickUpArticles ')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
 };
 
 export const LikeServiceStub = {
@@ -52,10 +54,10 @@ export const CommentServiceStub = {
 export const CheckServiceStub = {
   getUserScreenNameIsNull: jasmine
     .createSpy('getUserScreenNameIsNull')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
   getArticleThumbnailURLIsNull: jasmine
     .createSpy('getArticleThumbnailURLIsNull')
-    .and.returnValue(new BehaviorSubject({})),
+    .and.returnValue(new BehaviorSubject([])),
 };
 
 export class ActivatedRouteStub {
@@ -92,3 +94,5 @@ export const AuthStub = {
   onAuthStateChanged: () => new BehaviorSubject(null).asObservable(),
   // 必要に応じて他の Auth のメソッドをモックします
 };
+
+export { MockWindowService, MockDocumentService };

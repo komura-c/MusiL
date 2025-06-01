@@ -27,7 +27,7 @@ describe('ArticleDetailComponent', () => {
         MatSnackBar,
         Overlay,
         MatDialog,
-        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: MAT_DIALOG_SCROLL_STRATEGY, useValue: {} },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: LikeService, useValue: LikeServiceStub },
