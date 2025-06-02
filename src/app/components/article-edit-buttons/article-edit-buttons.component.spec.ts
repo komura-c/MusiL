@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { ArticleServiceStub, ActivatedRouteStub } from 'src/test/service.stub';
 import { ActivatedRoute } from '@angular/router';
+import { ExportService } from 'src/app/services/export.service';
 
 describe('ArticleEditButtonsComponent', () => {
   let component: ArticleEditButtonsComponent;
@@ -20,6 +21,7 @@ describe('ArticleEditButtonsComponent', () => {
   beforeEach(waitForAsync(() => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
+    const exportSpy = jasmine.createSpyObj('ExportService', ['exportArticle']);
     TestBed.configureTestingModule({
       imports: [MatMenuModule, ArticleEditButtonsComponent],
       providers: [
@@ -27,6 +29,7 @@ describe('ArticleEditButtonsComponent', () => {
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: Router, useValue: routerSpy },
         { provide: MatDialog, useValue: dialogSpy },
+        { provide: ExportService, useValue: exportSpy },
         { provide: ActivatedRoute, useClass: ActivatedRouteStub },
       ],
     }).compileComponents();
