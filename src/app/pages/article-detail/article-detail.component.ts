@@ -1,4 +1,4 @@
-import { Component, HostListener, Inject, OnDestroy } from '@angular/core';
+import { Component, HostListener, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ArticleService } from 'src/app/services/article.service';
 import { combineLatest, Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import {
-  DOCUMENT,
   Location,
   NgIf,
   NgFor,
@@ -36,6 +35,8 @@ import { ArticleEditButtonsComponent } from '../../components/article-edit-butto
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { DocumentService } from 'src/app/services/document.service';
+import { WindowService } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -132,7 +133,8 @@ export default class ArticleDetailComponent implements OnDestroy {
     private dialog: MatDialog,
     private viewCountService: ViewCountService,
     private router: Router,
-    @Inject(DOCUMENT) private document: HTMLDocument
+    private documentService: DocumentService,
+    private windowService: WindowService
   ) {
     this.isTocLoaded = false;
   }
@@ -167,7 +169,7 @@ export default class ArticleDetailComponent implements OnDestroy {
     }
     if (this.headingPositions.length) {
       const buffer = 20;
-      const position = window.pageYOffset + this.headerHeight + buffer;
+      const position = this.windowService.pageYOffset() + this.headerHeight + buffer;
       this.headingPositions.forEach((headingPosition, index) => {
         if (headingPosition < position) {
           this.activeHeadingIndex = index;
@@ -181,7 +183,7 @@ export default class ArticleDetailComponent implements OnDestroy {
   private getHeading() {
     this.headingElements = [];
     setTimeout(() => {
-      const headingTagElements = this.document.querySelectorAll(
+      const headingTagElements = this.documentService.querySelectorAll(
         '.article-content h1, .article-content h2, .article-content h3, .article-content h4'
       );
       headingTagElements.forEach((headingTagElement, index) => {
@@ -200,15 +202,13 @@ export default class ArticleDetailComponent implements OnDestroy {
       ''
     );
     if (id !== '') {
-      const rectTop = this.document
-        .getElementById(id)
-        .getBoundingClientRect().top;
-      const position = window.pageYOffset;
-      const top = rectTop + position - this.headerHeight;
-      window.scroll({
-        top,
-        behavior: 'smooth',
-      });
+      const element = this.documentService.getElementById(id);
+      if (element) {
+        const rectTop = element.getBoundingClientRect().top;
+        const position = this.windowService.pageYOffset();
+        const top = rectTop + position - this.headerHeight;
+        this.windowService.scrollTo(0, top);
+      }
     }
     return false;
   }

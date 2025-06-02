@@ -26,10 +26,17 @@ import {
 export class UserService {
   private readonly firebaseService = inject(FirebaseService);
 
-  private usersCollection = collection(
-    this.firebaseService.firestore,
-    'users'
-  ) as CollectionReference<UserData>;
+  private get usersCollection(): CollectionReference<UserData> {
+    try {
+      return collection(
+        this.firebaseService.firestore,
+        'users'
+      ) as CollectionReference<UserData>;
+    } catch (error) {
+      console.debug('Firestore not available:', error);
+      return null as any;
+    }
+  }
 
   getUserData(uid: string): Observable<UserData> {
     const docRef = doc(this.firebaseService.firestore, `users/${uid}`);

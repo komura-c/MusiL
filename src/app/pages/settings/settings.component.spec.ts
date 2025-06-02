@@ -8,6 +8,7 @@ import {
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { AuthServiceStub, UserServiceStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import SettingsComponent from './settings.component';
 
 describe('SettingsComponent', () => {
@@ -18,10 +19,11 @@ describe('SettingsComponent', () => {
     TestBed.configureTestingModule({
       imports: [SettingsComponent],
       providers: [
+        ...getCommonProviders(),
         UntypedFormBuilder,
         MatDialog,
         Overlay,
-        MAT_DIALOG_SCROLL_STRATEGY,
+        { provide: MAT_DIALOG_SCROLL_STRATEGY, useValue: {} },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: UserService, useValue: UserServiceStub },
       ],
@@ -31,7 +33,7 @@ describe('SettingsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

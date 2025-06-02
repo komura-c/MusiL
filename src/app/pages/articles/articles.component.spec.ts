@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { AuthServiceStub, ArticleServiceStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
 import ArticlesComponent from './articles.component';
 
 describe('ArticlesComponent', () => {
@@ -12,6 +13,7 @@ describe('ArticlesComponent', () => {
     TestBed.configureTestingModule({
       imports: [ArticlesComponent],
       providers: [
+        ...getCommonProviders(),
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: AuthService, useValue: AuthServiceStub },
       ],
@@ -21,7 +23,7 @@ describe('ArticlesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticlesComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

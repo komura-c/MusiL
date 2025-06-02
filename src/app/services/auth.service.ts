@@ -24,29 +24,43 @@ export class AuthService {
   private readonly snackBar = inject(MatSnackBar);
   private readonly userService = inject(UserService);
 
-  readonly afUser$: Observable<User> = user(this.firebaseService.auth);
+  get afUser$(): Observable<User> {
+    try {
+      return user(this.firebaseService.auth);
+    } catch (error) {
+      console.debug('Firebase auth not available:', error);
+      return of(null as any);
+    }
+  }
   private readonly snapShotEventSubject = new BehaviorSubject(0);
   private readonly snapShotEvent$: Observable<number> =
     this.snapShotEventSubject.asObservable();
   uid: string;
-  user$: Observable<UserData> = authState(this.firebaseService.auth).pipe(
-    mergeMap((afUser) => {
-      return this.snapShotEvent$.pipe(
-        map(() => {
-          return afUser;
-        })
+  get user$(): Observable<UserData> {
+    try {
+      return authState(this.firebaseService.auth).pipe(
+        mergeMap((afUser) => {
+          return this.snapShotEvent$.pipe(
+            map(() => {
+              return afUser;
+            })
+          );
+        }),
+        switchMap((afUser) => {
+          if (afUser) {
+            this.uid = afUser && afUser.uid;
+            return this.userService.getUserData(afUser.uid);
+          } else {
+            return of(null);
+          }
+        }),
+        shareReplay(1)
       );
-    }),
-    switchMap((afUser) => {
-      if (afUser) {
-        this.uid = afUser && afUser.uid;
-        return this.userService.getUserData(afUser.uid);
-      } else {
-        return of(null);
-      }
-    }),
-    shareReplay(1)
-  );
+    } catch (error) {
+      console.debug('Firebase auth not available:', error);
+      return of(null as any);
+    }
+  }
   loginProcessing = false;
 
   async login(): Promise<void> {

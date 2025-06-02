@@ -1,34 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import {
-  AngularFirestore,
-  AngularFirestoreModule,
-} from '@angular/fire/compat/firestore';
-import {
-  MatLegacySnackBar as MatSnackBar,
-  MatLegacySnackBarModule as MatSnackBarModule,
-} from '@angular/material/legacy-snack-bar';
-import { RouterTestingModule } from '@angular/router/testing';
-import { environmentStub } from 'src/test/environment.stub';
-import { FirestoreStub } from 'src/test/firebase.stub';
+import { AuthServiceStub } from 'src/test/service.stub';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
-  let service: AuthService;
+  let service: any; // Using any since we're testing the stub
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AngularFireModule.initializeApp(environmentStub.firebase),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        RouterTestingModule,
-        MatSnackBarModule,
-      ],
       providers: [
-        MatSnackBar,
-        { provide: AngularFirestore, useValue: FirestoreStub },
+        { provide: AuthService, useValue: AuthServiceStub }
       ],
     });
     service = TestBed.inject(AuthService);
