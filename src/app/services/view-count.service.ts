@@ -23,7 +23,10 @@ export class ViewCountService {
   getViewCount(articleId: string): Observable<number> {
     const viewCountDocRef = doc(this.firebaseService.firestore, `viewCount/${articleId}`);
     return docData(viewCountDocRef).pipe(
-      map((data: ArticleViewCount) => data?.viewCount as number || 0)
+      map((data: any) => {
+        const viewCountData = data as ArticleViewCount;
+        return typeof viewCountData?.viewCount === 'number' ? viewCountData.viewCount : 0;
+      })
     );
   }
 }

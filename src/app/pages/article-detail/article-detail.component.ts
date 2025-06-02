@@ -159,7 +159,9 @@ export default class ArticleDetailComponent implements OnDestroy {
   }
 
   private initViewCount(article: ArticleWithAuthor) {
-    this.viewCount$ = this.viewCountService.getViewCount(article.articleId);
+    if (article.author.uid === this.authService.uid) {
+      this.viewCount$ = this.viewCountService.getViewCount(article.articleId);
+    }
   }
 
   @HostListener('window:scroll', ['$event'])

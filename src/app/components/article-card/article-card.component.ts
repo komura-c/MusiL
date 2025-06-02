@@ -24,14 +24,16 @@ export class ArticleCardComponent implements OnInit {
 
   constructor(
     private likeService: LikeService,
-    private authService: AuthService,
+    public authService: AuthService,
     private viewCountService: ViewCountService
   ) {}
 
   ngOnInit() {
     this.likeCount = this.article.likeCount;
     this.updateLikeCount();
-    this.viewCount$ = this.viewCountService.getViewCount(this.article.articleId);
+    if (this.article.author.uid === this.authService.uid) {
+      this.viewCount$ = this.viewCountService.getViewCount(this.article.articleId);
+    }
   }
 
   updateLikeCount() {
