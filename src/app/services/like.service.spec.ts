@@ -7,9 +7,7 @@ describe('LikeService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: LikeService, useValue: LikeServiceStub }
-      ],
+      providers: [{ provide: LikeService, useValue: LikeServiceStub }],
     });
     service = TestBed.inject(LikeService);
   });

@@ -23,11 +23,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore/lite';
-import {
-  getDownloadURL,
-  ref,
-  uploadBytes,
-} from '@angular/fire/storage';
+import { getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',

@@ -12,9 +12,7 @@ describe('LinkInsertDialogComponent', () => {
 
     await TestBed.configureTestingModule({
       imports: [LinkInsertDialogComponent],
-      providers: [
-        { provide: MatDialogRef, useValue: dialogRefSpy }
-      ],
+      providers: [{ provide: MatDialogRef, useValue: dialogRefSpy }],
     }).compileComponents();
   });
 

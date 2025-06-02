@@ -9,7 +9,10 @@ export class ViewCountService {
   private readonly firebaseService = inject(FirebaseService);
 
   countUpArticleView(sendData: { uid: string; articleId: string }): void {
-    const callable = httpsCallable(this.firebaseService.functions, 'countUpArticleView');
+    const callable = httpsCallable(
+      this.firebaseService.functions,
+      'countUpArticleView'
+    );
     callable(sendData);
   }
 }

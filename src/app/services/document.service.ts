@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DocumentService {
   constructor(@Inject(DOCUMENT) private document: Document) {}
@@ -55,7 +55,9 @@ export class DocumentService {
     return this.document.querySelectorAll(selectors);
   }
 
-  createElement<K extends keyof HTMLElementTagNameMap>(tagName: K): HTMLElementTagNameMap[K];
+  createElement<K extends keyof HTMLElementTagNameMap>(
+    tagName: K
+  ): HTMLElementTagNameMap[K];
   createElement(tagName: string): HTMLElement {
     return this.document.createElement(tagName);
   }
@@ -68,11 +70,19 @@ export class DocumentService {
     return this.document.createDocumentFragment();
   }
 
-  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions
+  ): void {
     this.document.addEventListener(type, listener, options);
   }
 
-  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void {
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions
+  ): void {
     this.document.removeEventListener(type, listener, options);
   }
 
@@ -125,11 +135,19 @@ export class DocumentService {
     return (this.document as any).caretPositionFromPoint?.(x, y) || null;
   }
 
-  createNodeIterator(root: Node, whatToShow?: number, filter?: NodeFilter | null): NodeIterator {
+  createNodeIterator(
+    root: Node,
+    whatToShow?: number,
+    filter?: NodeFilter | null
+  ): NodeIterator {
     return this.document.createNodeIterator(root, whatToShow, filter);
   }
 
-  createTreeWalker(root: Node, whatToShow?: number, filter?: NodeFilter | null): TreeWalker {
+  createTreeWalker(
+    root: Node,
+    whatToShow?: number,
+    filter?: NodeFilter | null
+  ): TreeWalker {
     return this.document.createTreeWalker(root, whatToShow, filter);
   }
 }

@@ -14,11 +14,7 @@ import {
   updateDoc,
   where,
 } from '@angular/fire/firestore/lite';
-import {
-  getDownloadURL,
-  ref,
-  uploadString,
-} from '@angular/fire/storage';
+import { getDownloadURL, ref, uploadString } from '@angular/fire/storage';
 
 @Injectable({
   providedIn: 'root',
@@ -91,7 +87,10 @@ export class UserService {
 
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
-    const storageRef = ref(this.firebaseService.storage, `users/${uid}/avatar/${time}.png`);
+    const storageRef = ref(
+      this.firebaseService.storage,
+      `users/${uid}/avatar/${time}.png`
+    );
     const result = await uploadString(storageRef, avatar, 'data_url');
     const avatarURL = await getDownloadURL(result.ref);
     const docRef = doc(this.firebaseService.firestore, `users/${uid}`);

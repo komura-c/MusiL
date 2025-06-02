@@ -42,20 +42,27 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     // PWA用のserviceWorkerが登録されていれば削除
-    if (this.windowService.navigator && 'serviceWorker' in this.windowService.navigator) {
-      this.windowService.navigator.serviceWorker.getRegistrations().then(function (registrations) {
-        if (registrations.length) {
-          for (const registration of registrations) {
-            registration.unregister();
+    if (
+      this.windowService.navigator &&
+      'serviceWorker' in this.windowService.navigator
+    ) {
+      this.windowService.navigator.serviceWorker
+        .getRegistrations()
+        .then(function (registrations) {
+          if (registrations.length) {
+            for (const registration of registrations) {
+              registration.unregister();
+            }
           }
-        }
-      });
+        });
     }
     // iOSのAutoZoom対策
     const ua = this.windowService.navigator?.userAgent.toLowerCase() || '';
     const isiOS = ua.indexOf('iphone') > -1 || ua.indexOf('ipad') > -1;
     if (isiOS) {
-      const viewport = this.documentService.querySelector('meta[name="viewport"]');
+      const viewport = this.documentService.querySelector(
+        'meta[name="viewport"]'
+      );
       if (viewport) {
         const viewportContent = viewport.getAttribute('content');
         viewport.setAttribute(

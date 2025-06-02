@@ -8,7 +8,7 @@ describe('ViewCountService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        { provide: ViewCountService, useValue: ViewCountServiceStub }
+        { provide: ViewCountService, useValue: ViewCountServiceStub },
       ],
     });
     service = TestBed.inject(ViewCountService);

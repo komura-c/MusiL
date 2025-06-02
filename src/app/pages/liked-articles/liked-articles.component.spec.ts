@@ -3,7 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
-import { ArticleServiceStub, UserServiceStub, ActivatedRouteStub } from 'src/test/service.stub';
+import {
+  ArticleServiceStub,
+  UserServiceStub,
+  ActivatedRouteStub,
+} from 'src/test/service.stub';
 import { getCommonProviders } from 'src/test/test-helpers';
 import LikedArticlesComponent from './liked-articles.component';
 

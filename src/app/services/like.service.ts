@@ -18,7 +18,10 @@ export class LikeService {
 
   likeArticle(articleId: string, uid: string): Promise<void> {
     return setDoc(
-      doc(this.firebaseService.firestore, `users/${uid}/likedArticles/${articleId}`),
+      doc(
+        this.firebaseService.firestore,
+        `users/${uid}/likedArticles/${articleId}`
+      ),
       {
         articleId,
         updatedAt: Timestamp.now(),
@@ -28,7 +31,10 @@ export class LikeService {
 
   unLikeArticle(articleId: string, uid: string): Promise<void> {
     return deleteDoc(
-      doc(this.firebaseService.firestore, `users/${uid}/likedArticles/${articleId}`)
+      doc(
+        this.firebaseService.firestore,
+        `users/${uid}/likedArticles/${articleId}`
+      )
     );
   }
 

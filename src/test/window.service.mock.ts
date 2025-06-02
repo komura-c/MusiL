@@ -1,6 +1,9 @@
 export class MockWindowService {
   private _window = {
-    location: { href: 'http://localhost:4200', reload: jasmine.createSpy('reload') },
+    location: {
+      href: 'http://localhost:4200',
+      reload: jasmine.createSpy('reload'),
+    },
     localStorage: {},
     sessionStorage: {},
     navigator: { userAgent: 'test-user-agent' },
@@ -8,7 +11,7 @@ export class MockWindowService {
     innerWidth: 1024,
     innerHeight: 768,
     pageXOffset: 0,
-    pageYOffset: 0
+    pageYOffset: 0,
   };
 
   get nativeWindow() {
@@ -42,7 +45,9 @@ export class MockWindowService {
   confirm = jasmine.createSpy('confirm').and.returnValue(true);
   prompt = jasmine.createSpy('prompt').and.returnValue(null);
   getComputedStyle = jasmine.createSpy('getComputedStyle').and.returnValue({});
-  matchMedia = jasmine.createSpy('matchMedia').and.returnValue({ matches: false });
+  matchMedia = jasmine
+    .createSpy('matchMedia')
+    .and.returnValue({ matches: false });
   addEventListener = jasmine.createSpy('addEventListener');
   removeEventListener = jasmine.createSpy('removeEventListener');
   dispatchEvent = jasmine.createSpy('dispatchEvent').and.returnValue(true);
