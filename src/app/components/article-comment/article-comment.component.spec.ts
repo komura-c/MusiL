@@ -9,8 +9,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
-import { AuthServiceStub, CommentServiceStub } from 'src/test/service.stub';
+import { AuthServiceStub, CommentServiceStub, ActivatedRouteStub } from 'src/test/service.stub';
 import { ArticleCommentComponent } from './article-comment.component';
+import { getCommonProviders } from 'src/test/test-helpers';
 
 describe('ArticleCommentComponent', () => {
   let component: ArticleCommentComponent;
@@ -26,8 +27,9 @@ describe('ArticleCommentComponent', () => {
         ArticleCommentComponent,
       ],
       providers: [
+        ...getCommonProviders(),
         MatSnackBar,
-        ActivatedRoute,
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: CommentService, useValue: CommentServiceStub },
       ],
@@ -37,7 +39,7 @@ describe('ArticleCommentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleCommentComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

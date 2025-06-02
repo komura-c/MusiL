@@ -2,7 +2,7 @@ name: deploy to dev
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   deploy:
@@ -27,6 +27,9 @@ jobs:
 
       - name: lint
         run: npm run lint
+
+      - name: test
+        run: npm run test
 
       - name: build
         run: npm run build

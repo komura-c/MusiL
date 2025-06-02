@@ -1,8 +1,8 @@
 name: deploy to prod
 on:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   prod:
@@ -27,6 +27,9 @@ jobs:
 
       - name: lint
         run: npm run lint
+
+      - name: test
+        run: npm run test
 
       - name: build
         run: npm run build -- --configuration production
