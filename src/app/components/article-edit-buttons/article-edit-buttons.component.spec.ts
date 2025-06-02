@@ -3,7 +3,6 @@ import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
 import {
   MatLegacySnackBar as MatSnackBar,
-  MatLegacySnackBarModule as MatSnackBarModule,
 } from '@angular/material/legacy-snack-bar';
 import { Article } from '@interfaces/article';
 import { ArticleEditButtonsComponent } from './article-edit-buttons.component';
