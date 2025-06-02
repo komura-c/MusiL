@@ -89,6 +89,10 @@
           <p class="article-header__updated-date">
             {{ article.updatedAt.toDate() | date : 'yyyy年MM月dd日' }}更新
           </p>
+          <p class="article-header__view-count" *ngIf="article.author.uid === authService.uid">
+            <mat-icon aria-hidden="true" fontIcon="visibility"></mat-icon>
+            <span>{{ viewCount$ | async }}回表示</span>
+          </p>
           <app-article-edit-buttons
             class="article-header__actions"
             *ngIf="article.author.uid === authService.uid"
