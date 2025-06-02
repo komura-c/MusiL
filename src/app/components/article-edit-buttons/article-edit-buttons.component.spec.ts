@@ -18,7 +18,18 @@ describe('ArticleEditButtonsComponent', () => {
   let fixture: ComponentFixture<ArticleEditButtonsComponent>;
   let exportSpy: jasmine.SpyObj<ExportService>;
   let snackBarSpy: jasmine.SpyObj<MatSnackBar>;
-  const article: Partial<Article> = { articleId: 'xxx' };
+  const article: Article = { 
+    articleId: 'xxx',
+    uid: 'test-uid',
+    thumbnailURL: 'test-thumbnail.jpg',
+    title: 'Test Article',
+    tags: ['test'],
+    text: '<p>Test content</p>',
+    isPublic: true,
+    likeCount: 0,
+    createdAt: { toDate: () => new Date() } as any,
+    updatedAt: { toDate: () => new Date() } as any
+  };
 
   beforeEach(waitForAsync(() => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);

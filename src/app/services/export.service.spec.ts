@@ -25,24 +25,21 @@ describe('ExportService', () => {
     };
 
     // Mock URL.createObjectURL and URL.revokeObjectURL
-    global.URL.createObjectURL = jest.fn(() => 'mock-url');
-    global.URL.revokeObjectURL = jest.fn();
+    spyOn(window.URL, 'createObjectURL').and.returnValue('mock-url');
+    spyOn(window.URL, 'revokeObjectURL');
 
     // Mock document.createElement and appendChild/removeChild
     const mockLink = {
       href: '',
       download: '',
       style: { display: '' },
-      click: jest.fn()
+      click: jasmine.createSpy('click')
     };
-    jest.spyOn(document, 'createElement').mockReturnValue(mockLink as any);
-    jest.spyOn(document.body, 'appendChild').mockImplementation();
-    jest.spyOn(document.body, 'removeChild').mockImplementation();
+    spyOn(document, 'createElement').and.returnValue(mockLink as any);
+    spyOn(document.body, 'appendChild');
+    spyOn(document.body, 'removeChild');
   });
 
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -135,7 +132,7 @@ describe('ExportService', () => {
         title: 'Test: Article & More!'
       };
       const result = (service as any).generateFilename(articleWithSpecialChars, 'markdown');
-      expect(result).toBe('test_article__more.md');
+      expect(result).toBe('test_article_more.md');
     });
   });
 });

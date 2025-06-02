@@ -69,7 +69,7 @@ export class ExportService {
     
     content = content.replace(/<ol[^>]*>(.*?)<\/ol>/gis, (match, listContent) => {
       let counter = 1;
-      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch, itemContent) => {
+      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch: string, itemContent: string) => {
         return `${counter++}. ${itemContent}\n`;
       }) + '\n';
     });
@@ -80,7 +80,7 @@ export class ExportService {
     
     // Convert HTML blockquotes
     content = content.replace(/<blockquote[^>]*>(.*?)<\/blockquote>/gis, (match, quote) => {
-      return quote.split('\n').map(line => `> ${line}`).join('\n') + '\n\n';
+      return quote.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n';
     });
     
     // Remove remaining HTML tags
@@ -211,7 +211,7 @@ ${article.text}
     
     content = content.replace(/<ol[^>]*>(.*?)<\/ol>/gis, (match, listContent) => {
       let counter = 1;
-      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch, itemContent) => {
+      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch: string, itemContent: string) => {
         return `${counter++}. ${itemContent}\n`;
       }) + '\n';
     });
@@ -222,7 +222,7 @@ ${article.text}
     
     // Convert blockquotes
     content = content.replace(/<blockquote[^>]*>(.*?)<\/blockquote>/gis, (match, quote) => {
-      return quote.split('\n').map(line => `> ${line}`).join('\n') + '\n\n';
+      return quote.split('\n').map((line: string) => `> ${line}`).join('\n') + '\n\n';
     });
     
     // Remove all remaining HTML tags
