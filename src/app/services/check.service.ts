@@ -3,23 +3,23 @@ import {
   collection,
   collectionData,
   CollectionReference,
-  Firestore,
   query,
   where,
 } from '@angular/fire/firestore/lite';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
+import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CheckService {
-  private readonly firestore = inject(Firestore);
+  private readonly firebaseService = inject(FirebaseService);
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
     const usersCollection = collection(
-      this.firestore,
+      this.firebaseService.firestore,
       'users'
     ) as CollectionReference<UserData>;
     const usersQuery = query(usersCollection, where('screenName', '==', null));
@@ -28,7 +28,7 @@ export class CheckService {
 
   getArticleThumbnailURLIsNull(): Observable<Article[]> {
     const articlesCollection = collection(
-      this.firestore,
+      this.firebaseService.firestore,
       'articles'
     ) as CollectionReference<Article>;
     const articlesQuery = query(

@@ -5,13 +5,13 @@ import { Article } from '@interfaces/article';
 import { combineLatest, from, Observable, of } from 'rxjs';
 import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
+import { FirebaseService } from './firebase.service';
 import {
   collection,
   collectionData,
   CollectionReference,
   deleteDoc,
   doc,
-  Firestore,
   getDoc,
   limit,
   orderBy,
@@ -26,7 +26,6 @@ import {
 import {
   getDownloadURL,
   ref,
-  Storage,
   uploadBytes,
 } from '@angular/fire/storage';
 
@@ -34,19 +33,18 @@ import {
   providedIn: 'root',
 })
 export class ArticleService {
-  private readonly firestore = inject(Firestore);
-  private readonly storage = inject(Storage);
+  private readonly firebaseService = inject(FirebaseService);
   private readonly userService = inject(UserService);
 
   private articlesCollection = collection(
-    this.firestore,
+    this.firebaseService.firestore,
     'articles'
   ) as CollectionReference<Article>;
 
   async uploadImage(uid: string, file: File): Promise<string> {
     const time: number = new Date().getTime();
     const storageRef = ref(
-      this.storage,
+      this.firebaseService.storage,
       `users/${uid}/images/${time}_${file.name}`
     );
     const result = await uploadBytes(storageRef, file);
@@ -121,7 +119,7 @@ export class ArticleService {
 
   getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
     const likedArticlesCollection = collection(
-      this.firestore,
+      this.firebaseService.firestore,
       `users/${uid}/likedArticles`
     ) as CollectionReference<{ articleId: string }>;
 
@@ -145,13 +143,13 @@ export class ArticleService {
           );
           return collectionData(articlesQuery).pipe(
             take(1),
-            map((articles) => (articles.length ? articles[0] : null))
+            map((articles: any[]) => (articles.length ? articles[0] : null))
           );
         });
         return combineLatest(articleDocs);
       }),
-      map((articles) => {
-        return articles.filter((article) => article);
+      map((articles: any[]) => {
+        return articles.filter((article: any) => article);
       })
     );
     return this.getArticlesWithAuthors(sorted);
@@ -175,7 +173,7 @@ export class ArticleService {
     const articlesQuery = query(this.articlesCollection, ...queryOperator);
     const articles$ = collectionData<Article>(articlesQuery);
     return articles$.pipe(
-      map((articles) => {
+      map((articles: Article[]) => {
         return {
           articles,
           lastArticle: articles[articles.length - 1],
@@ -185,17 +183,17 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    const docRef = doc(this.firestore, 'articles', articleId);
+    const docRef = doc(this.firebaseService.firestore, 'articles', articleId);
     const docSnap = getDoc(docRef);
     return from(docSnap).pipe(
-      map((doc) => {
+      map((doc: any) => {
         if (doc.exists()) {
           return doc.data() as Article;
         } else {
           return null;
         }
       }),
-      catchError((error) => {
+      catchError((error: any) => {
         console.error(error.message);
         return of(null);
       })
@@ -282,7 +280,7 @@ export class ArticleService {
           this.userService.getUserData(article?.uid),
         ]);
       }),
-      map(([article, author]) => {
+      map(([article, author]: [Article, UserData]) => {
         if (article && author && author.screenName === screenName) {
           const result: ArticleWithAuthor = {
             ...article,
