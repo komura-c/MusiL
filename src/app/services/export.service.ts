@@ -69,8 +69,8 @@ export class ExportService {
     
     content = content.replace(/<ol[^>]*>(.*?)<\/ol>/gis, (match, listContent) => {
       let counter = 1;
-      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, () => {
-        return `${counter++}. $1\n`;
+      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch, itemContent) => {
+        return `${counter++}. ${itemContent}\n`;
       }) + '\n';
     });
     
@@ -170,7 +170,7 @@ export class ExportService {
         ${tags ? `<div style="margin-top: 10px;">タグ: ${tags}</div>` : ''}
     </div>
     <div class="content">
-        ${article.text}
+${article.text}
     </div>
 </body>
 </html>`;
@@ -211,8 +211,8 @@ export class ExportService {
     
     content = content.replace(/<ol[^>]*>(.*?)<\/ol>/gis, (match, listContent) => {
       let counter = 1;
-      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, () => {
-        return `${counter++}. $1\n`;
+      return listContent.replace(/<li[^>]*>(.*?)<\/li>/gi, (_itemMatch, itemContent) => {
+        return `${counter++}. ${itemContent}\n`;
       }) + '\n';
     });
     
