@@ -7,7 +7,9 @@ export const AuthServiceStub = {
   user$: new BehaviorSubject({ id: 'xxx' }),
   loginProcessing: false,
   login: jasmine.createSpy('login').and.returnValue(Promise.resolve()),
-  deleteUser: jasmine.createSpy('deleteUser').and.returnValue(Promise.resolve()),
+  deleteUser: jasmine
+    .createSpy('deleteUser')
+    .and.returnValue(Promise.resolve()),
 };
 
 export const UserServiceStub = {

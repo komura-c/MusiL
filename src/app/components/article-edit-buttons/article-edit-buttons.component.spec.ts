@@ -35,11 +35,11 @@ describe('ArticleEditButtonsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleEditButtonsComponent);
     component = fixture.componentInstance;
-    
+
     // Set required input properties
     component.article = article as Article;
     component.screenName = 'test-user';
-    
+
     // Don't call detectChanges() yet
   });
 

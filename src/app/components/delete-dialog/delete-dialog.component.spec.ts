@@ -25,7 +25,10 @@ describe('DeleteDialogComponent', () => {
         Overlay,
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: UserService, useValue: UserServiceStub },
-        { provide: MatDialogRef, useValue: { close: jasmine.createSpy('close') } },
+        {
+          provide: MatDialogRef,
+          useValue: { close: jasmine.createSpy('close') },
+        },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();

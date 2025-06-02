@@ -22,7 +22,10 @@ describe('ImageCropDialogComponent', () => {
         MatDialog,
         { provide: UserService, useValue: UserServiceStub },
         { provide: AuthService, useValue: AuthServiceStub },
-        { provide: MatDialogRef, useValue: { close: jasmine.createSpy('close') } },
+        {
+          provide: MatDialogRef,
+          useValue: { close: jasmine.createSpy('close') },
+        },
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();

@@ -13,7 +13,7 @@ describe('WelcomeComponent', () => {
       imports: [WelcomeComponent],
       providers: [
         ...getCommonProviders(),
-        { provide: ActivatedRoute, useClass: ActivatedRouteStub }
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
       ],
     }).compileComponents();
   }));

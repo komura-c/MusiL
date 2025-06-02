@@ -67,7 +67,10 @@ export class AuthService {
     this.loginProcessing = true;
     const provider = new TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    const userCredential = await signInWithPopup(this.firebaseService.auth, provider);
+    const userCredential = await signInWithPopup(
+      this.firebaseService.auth,
+      provider
+    );
     const user = userCredential.user;
     const additionalUserInfo = getAdditionalUserInfo(userCredential);
     const twitterProfile = additionalUserInfo.profile as Record<

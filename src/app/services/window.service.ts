@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class WindowService {
   private _window: Window | undefined;
@@ -58,7 +58,10 @@ export class WindowService {
     return this._window?.prompt(message, defaultText) || null;
   }
 
-  getComputedStyle(element: Element, pseudoElt?: string | null): CSSStyleDeclaration | null {
+  getComputedStyle(
+    element: Element,
+    pseudoElt?: string | null
+  ): CSSStyleDeclaration | null {
     return this._window?.getComputedStyle(element, pseudoElt) || null;
   }
 
@@ -66,11 +69,19 @@ export class WindowService {
     return this._window?.matchMedia(query) || null;
   }
 
-  addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void {
+  addEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | AddEventListenerOptions
+  ): void {
     this._window?.addEventListener(type, listener, options);
   }
 
-  removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void {
+  removeEventListener(
+    type: string,
+    listener: EventListenerOrEventListenerObject,
+    options?: boolean | EventListenerOptions
+  ): void {
     this._window?.removeEventListener(type, listener, options);
   }
 

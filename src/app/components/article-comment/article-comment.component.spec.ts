@@ -9,7 +9,11 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
 import { CommentService } from 'src/app/services/comment.service';
-import { AuthServiceStub, CommentServiceStub, ActivatedRouteStub } from 'src/test/service.stub';
+import {
+  AuthServiceStub,
+  CommentServiceStub,
+  ActivatedRouteStub,
+} from 'src/test/service.stub';
 import { ArticleCommentComponent } from './article-comment.component';
 import { getCommonProviders } from 'src/test/test-helpers';
 

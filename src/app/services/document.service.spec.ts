@@ -15,21 +15,27 @@ describe('DocumentService', () => {
       title: 'Test Title',
       getElementById: jasmine.createSpy('getElementById').and.returnValue(null),
       querySelector: jasmine.createSpy('querySelector').and.returnValue(null),
-      querySelectorAll: jasmine.createSpy('querySelectorAll').and.returnValue([]),
-      createElement: jasmine.createSpy('createElement').and.returnValue(document.createElement('div')),
-      createTextNode: jasmine.createSpy('createTextNode').and.returnValue(document.createTextNode('test')),
+      querySelectorAll: jasmine
+        .createSpy('querySelectorAll')
+        .and.returnValue([]),
+      createElement: jasmine
+        .createSpy('createElement')
+        .and.returnValue(document.createElement('div')),
+      createTextNode: jasmine
+        .createSpy('createTextNode')
+        .and.returnValue(document.createTextNode('test')),
       addEventListener: jasmine.createSpy('addEventListener'),
       removeEventListener: jasmine.createSpy('removeEventListener'),
       cookie: 'test=value',
       hasFocus: jasmine.createSpy('hasFocus').and.returnValue(true),
-      getSelection: jasmine.createSpy('getSelection').and.returnValue(null)
+      getSelection: jasmine.createSpy('getSelection').and.returnValue(null),
     };
 
     TestBed.configureTestingModule({
       providers: [
         DocumentService,
-        { provide: DOCUMENT, useValue: mockDocument }
-      ]
+        { provide: DOCUMENT, useValue: mockDocument },
+      ],
     });
     service = TestBed.inject(DocumentService);
   });
@@ -65,13 +71,15 @@ describe('DocumentService', () => {
     service.createElement('div');
     expect(mockDocument.createElement).toHaveBeenCalledWith('div');
 
-    service.addEventListener('click', () => {});
+    service.addEventListener('click', () => {
+      // Test event listener
+    });
     expect(mockDocument.addEventListener).toHaveBeenCalled();
   });
 
   it('should handle cookie operations', () => {
     expect(service.cookie()).toBe('test=value');
-    
+
     service.setCookie('new=cookie');
     expect(mockDocument.cookie).toBe('new=cookie');
   });

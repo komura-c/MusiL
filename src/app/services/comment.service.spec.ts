@@ -7,9 +7,7 @@ describe('CommentService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [
-        { provide: CommentService, useValue: CommentServiceStub }
-      ],
+      providers: [{ provide: CommentService, useValue: CommentServiceStub }],
     });
     service = TestBed.inject(CommentService);
   });

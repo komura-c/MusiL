@@ -27,9 +27,10 @@ describe('CreateComponent', () => {
 
   const SeoServiceStub = {
     updateTitleAndMeta: jasmine.createSpy('updateTitleAndMeta'),
-    createLinkTagForCanonicalURL: jasmine.createSpy('createLinkTagForCanonicalURL'),
+    createLinkTagForCanonicalURL: jasmine.createSpy(
+      'createLinkTagForCanonicalURL'
+    ),
   };
-
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({

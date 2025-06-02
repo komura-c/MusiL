@@ -41,36 +41,44 @@ export const FirebaseServiceStub = {
 export const FirestoreProviderStub = {
   collection: jasmine.createSpy('collection').and.returnValue({
     doc: jasmine.createSpy('doc').and.returnValue({
-      valueChanges: jasmine.createSpy('valueChanges').and.returnValue(new BehaviorSubject({ id: 'xxx' })),
+      valueChanges: jasmine
+        .createSpy('valueChanges')
+        .and.returnValue(new BehaviorSubject({ id: 'xxx' })),
       set: jasmine.createSpy('set').and.returnValue(Promise.resolve(undefined)),
     }),
   }),
   doc: jasmine.createSpy('doc').and.returnValue({
-    get: jasmine.createSpy('get').and.returnValue(Promise.resolve({
-      exists: jasmine.createSpy('exists').and.returnValue(true),
-      data: jasmine.createSpy('data').and.returnValue({ id: 'xxx' }),
-    })),
+    get: jasmine.createSpy('get').and.returnValue(
+      Promise.resolve({
+        exists: jasmine.createSpy('exists').and.returnValue(true),
+        data: jasmine.createSpy('data').and.returnValue({ id: 'xxx' }),
+      })
+    ),
     set: jasmine.createSpy('set').and.returnValue(Promise.resolve(undefined)),
-    update: jasmine.createSpy('update').and.returnValue(Promise.resolve(undefined)),
-    delete: jasmine.createSpy('delete').and.returnValue(Promise.resolve(undefined)),
+    update: jasmine
+      .createSpy('update')
+      .and.returnValue(Promise.resolve(undefined)),
+    delete: jasmine
+      .createSpy('delete')
+      .and.returnValue(Promise.resolve(undefined)),
   }),
   // Make it compatible with Firebase Firestore object structure
   _delegate: {
     app: {
       name: 'test-app',
-      options: {}
-    }
+      options: {},
+    },
   },
 };
 
 export const AuthProviderStub = {
-  onAuthStateChanged: jasmine.createSpy('onAuthStateChanged').and.returnValue(
-    jasmine.createSpy('unsubscribe')
-  ),
+  onAuthStateChanged: jasmine
+    .createSpy('onAuthStateChanged')
+    .and.returnValue(jasmine.createSpy('unsubscribe')),
   currentUser: null as any,
-  signInWithPopup: jasmine.createSpy('signInWithPopup').and.returnValue(
-    Promise.resolve({ user: { uid: 'test-uid' } })
-  ),
+  signInWithPopup: jasmine
+    .createSpy('signInWithPopup')
+    .and.returnValue(Promise.resolve({ user: { uid: 'test-uid' } })),
   signOut: jasmine.createSpy('signOut').and.returnValue(Promise.resolve()),
 };
 
@@ -89,15 +97,15 @@ export const AnalyticsProviderStub = {
   // Create a more compatible analytics stub that works with logEvent
   app: {
     name: 'test-app',
-    options: {}
+    options: {},
   },
   logEvent: jasmine.createSpy('logEvent').and.returnValue(Promise.resolve()),
   // Make it compatible with Firebase Analytics object structure
   _delegate: {
     app: {
       name: 'test-app',
-      options: {}
-    }
+      options: {},
+    },
   },
   // Add any other properties that Firebase Analytics might expect
 };

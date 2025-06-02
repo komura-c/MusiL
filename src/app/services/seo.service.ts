@@ -68,8 +68,11 @@ export class SeoService {
   createLinkTagForCanonicalURL(URL?: string) {
     this.refreshLinkTagForCanonicalURL();
 
-    const canonicalURL = URL === undefined ? this.documentService.location.href : URL;
-    const linkTag = this.documentService.createElement('link') as HTMLLinkElement;
+    const canonicalURL =
+      URL === undefined ? this.documentService.location.href : URL;
+    const linkTag = this.documentService.createElement(
+      'link'
+    ) as HTMLLinkElement;
     linkTag.setAttribute('rel', 'canonical');
     this.documentService.head.appendChild(linkTag);
     linkTag.setAttribute('href', canonicalURL);

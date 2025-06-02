@@ -3,7 +3,11 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { SeoService } from 'src/app/services/seo.service';
-import { ArticleServiceStub, AuthServiceStub, UserServiceStub } from 'src/test/service.stub';
+import {
+  ArticleServiceStub,
+  AuthServiceStub,
+  UserServiceStub,
+} from 'src/test/service.stub';
 import { getCommonProviders } from 'src/test/test-helpers';
 import TopComponent from './top.component';
 
@@ -17,14 +21,16 @@ describe('TopComponent', () => {
       Object.defineProperty(document, 'defaultView', {
         value: window,
         writable: true,
-        configurable: true
+        configurable: true,
       });
     }
   });
 
   const SeoServiceStub = {
     updateTitleAndMeta: jasmine.createSpy('updateTitleAndMeta'),
-    createLinkTagForCanonicalURL: jasmine.createSpy('createLinkTagForCanonicalURL'),
+    createLinkTagForCanonicalURL: jasmine.createSpy(
+      'createLinkTagForCanonicalURL'
+    ),
   };
 
   beforeEach(waitForAsync(() => {

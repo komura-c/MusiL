@@ -7,13 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import {
-  Location,
-  NgIf,
-  NgFor,
-  AsyncPipe,
-  DatePipe,
-} from '@angular/common';
+import { Location, NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -169,7 +163,8 @@ export default class ArticleDetailComponent implements OnDestroy {
     }
     if (this.headingPositions.length) {
       const buffer = 20;
-      const position = this.windowService.pageYOffset() + this.headerHeight + buffer;
+      const position =
+        this.windowService.pageYOffset() + this.headerHeight + buffer;
       this.headingPositions.forEach((headingPosition, index) => {
         if (headingPosition < position) {
           this.activeHeadingIndex = index;

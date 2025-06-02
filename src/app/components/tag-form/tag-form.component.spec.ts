@@ -1,5 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { UntypedFormBuilder, UntypedFormGroup, ReactiveFormsModule } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
 import { SearchService } from 'src/app/services/search.service';
 import { SearchServiceStub } from 'src/test/service.stub';
@@ -24,15 +28,15 @@ describe('TagFormComponent', () => {
     fixture = TestBed.createComponent(TagFormComponent);
     component = fixture.componentInstance;
     formBuilder = TestBed.inject(UntypedFormBuilder);
-    
+
     // Set up required inputs
     component.parentForm = formBuilder.group({
-      tag: ['']
+      tag: [''],
     });
     component.tags = [];
     component.tagMaxWordCount = 50;
     component.tagMaxLength = 10;
-    
+
     // Don't call detectChanges() yet
   });
 
