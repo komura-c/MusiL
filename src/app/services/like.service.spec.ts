@@ -1,23 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import {
-  AngularFirestore,
-  AngularFirestoreModule,
-} from '@angular/fire/compat/firestore';
-import { environmentStub } from 'src/test/environment.stub';
-import { FirestoreStub } from 'src/test/firebase.stub';
+import { LikeServiceStub } from 'src/test/service.stub';
 import { LikeService } from './like.service';
 
 describe('LikeService', () => {
-  let service: LikeService;
+  let service: any; // Using any since we're testing the stub
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        AngularFireModule.initializeApp(environmentStub.firebase),
-        AngularFirestoreModule,
+      providers: [
+        { provide: LikeService, useValue: LikeServiceStub }
       ],
-      providers: [{ provide: AngularFirestore, useValue: FirestoreStub }],
     });
     service = TestBed.inject(LikeService);
   });

@@ -15,7 +15,7 @@ import { ArticleService } from 'src/app/services/article.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { UserData } from '@interfaces/user';
-import { Analytics, logEvent } from '@angular/fire/analytics';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditorComponent } from 'src/app/components/editor/editor.component';
 import { TagFormComponent } from 'src/app/components/tag-form/tag-form.component';
 import { MatLegacyInputModule } from '@angular/material/legacy-input';
@@ -24,6 +24,7 @@ import { MatLegacySlideToggleModule } from '@angular/material/legacy-slide-toggl
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { WindowService } from 'src/app/services/window.service';
 
 @Component({
   selector: 'app-create',
@@ -45,7 +46,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
   ],
 })
 export default class CreateComponent implements OnInit {
-  private analytics: Analytics = inject(Analytics);
+  private readonly firebaseService = inject(FirebaseService);
 
   private articleId$: Observable<string> = this.route.paramMap.pipe(
     map((params) => {
@@ -95,17 +96,17 @@ export default class CreateComponent implements OnInit {
     private router: Router,
     private location: Location,
     private route: ActivatedRoute,
+    private windowService: WindowService,
     private seoService: SeoService
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.seoService.updateTitleAndMeta({
       title: `記事の編集 | MusiL`,
       description: `記事を投稿・編集するページです`,
     });
     this.seoService.createLinkTagForCanonicalURL();
-    logEvent(this.analytics, 'create_page');
-  }
-
-  ngOnInit(): void {
+    this.firebaseService.logEvent('create_page');
     this.loadUserData();
     this.loadArticleAndPatchValue();
   }
@@ -148,7 +149,7 @@ export default class CreateComponent implements OnInit {
       this.location.back();
       return;
     }
-    const confirmation = window.confirm(
+    const confirmation = this.windowService.confirm(
       '作業中の内容が失われますがよろしいですか？'
     );
     if (confirmation) {

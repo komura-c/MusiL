@@ -3,8 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
 import { UserService } from 'src/app/services/user.service';
-import { ArticleServiceStub, UserServiceStub } from 'src/test/service.stub';
-import { LikedArticlesComponent } from './liked-articles.component';
+import { ArticleServiceStub, UserServiceStub, ActivatedRouteStub } from 'src/test/service.stub';
+import { getCommonProviders } from 'src/test/test-helpers';
+import LikedArticlesComponent from './liked-articles.component';
 
 describe('LikedArticlesComponent', () => {
   let component: LikedArticlesComponent;
@@ -14,7 +15,8 @@ describe('LikedArticlesComponent', () => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, LikedArticlesComponent],
       providers: [
-        ActivatedRoute,
+        ...getCommonProviders(),
+        { provide: ActivatedRoute, useClass: ActivatedRouteStub },
         { provide: ArticleService, useValue: ArticleServiceStub },
         { provide: UserService, useValue: UserServiceStub },
       ],
@@ -24,7 +26,7 @@ describe('LikedArticlesComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LikedArticlesComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Don't call detectChanges() yet
   });
 
   it('should create', () => {

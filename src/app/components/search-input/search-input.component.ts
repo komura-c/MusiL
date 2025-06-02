@@ -74,7 +74,7 @@ export class SearchInputComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.subscription?.unsubscribe();
   }
 
   routeSearch(keyword: string): void {

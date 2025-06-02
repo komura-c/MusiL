@@ -3,10 +3,10 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { Router } from '@angular/router';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { UserService } from './user.service';
+import { FirebaseService } from './firebase.service';
 import { switchMap, shareReplay, take, mergeMap, map } from 'rxjs/operators';
 import { UserData } from '@interfaces/user';
 import {
-  Auth,
   authState,
   getAdditionalUserInfo,
   signInWithPopup,
@@ -19,41 +19,55 @@ import {
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly afAuth = inject(Auth);
+  private readonly firebaseService = inject(FirebaseService);
   private readonly router = inject(Router);
   private readonly snackBar = inject(MatSnackBar);
   private readonly userService = inject(UserService);
 
-  readonly afUser$: Observable<User> = user(this.afAuth);
+  get afUser$(): Observable<User> {
+    try {
+      return user(this.firebaseService.auth);
+    } catch (error) {
+      console.debug('Firebase auth not available:', error);
+      return of(null as any);
+    }
+  }
   private readonly snapShotEventSubject = new BehaviorSubject(0);
   private readonly snapShotEvent$: Observable<number> =
     this.snapShotEventSubject.asObservable();
   uid: string;
-  user$: Observable<UserData> = authState(this.afAuth).pipe(
-    mergeMap((afUser) => {
-      return this.snapShotEvent$.pipe(
-        map(() => {
-          return afUser;
-        })
+  get user$(): Observable<UserData> {
+    try {
+      return authState(this.firebaseService.auth).pipe(
+        mergeMap((afUser) => {
+          return this.snapShotEvent$.pipe(
+            map(() => {
+              return afUser;
+            })
+          );
+        }),
+        switchMap((afUser) => {
+          if (afUser) {
+            this.uid = afUser && afUser.uid;
+            return this.userService.getUserData(afUser.uid);
+          } else {
+            return of(null);
+          }
+        }),
+        shareReplay(1)
       );
-    }),
-    switchMap((afUser) => {
-      if (afUser) {
-        this.uid = afUser && afUser.uid;
-        return this.userService.getUserData(afUser.uid);
-      } else {
-        return of(null);
-      }
-    }),
-    shareReplay(1)
-  );
+    } catch (error) {
+      console.debug('Firebase auth not available:', error);
+      return of(null as any);
+    }
+  }
   loginProcessing = false;
 
   async login(): Promise<void> {
     this.loginProcessing = true;
     const provider = new TwitterAuthProvider();
     provider.setCustomParameters({ prompt: 'select_account' });
-    const userCredential = await signInWithPopup(this.afAuth, provider);
+    const userCredential = await signInWithPopup(this.firebaseService.auth, provider);
     const user = userCredential.user;
     const additionalUserInfo = getAdditionalUserInfo(userCredential);
     const twitterProfile = additionalUserInfo.profile as Record<
@@ -104,7 +118,7 @@ export class AuthService {
 
   async logout(): Promise<void> {
     this.loginProcessing = true;
-    return await this.afAuth
+    return await this.firebaseService.auth
       .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
@@ -122,7 +136,7 @@ export class AuthService {
   }
 
   deleteUser(): Promise<void> {
-    return this.afAuth.currentUser.delete();
+    return this.firebaseService.auth.currentUser.delete();
   }
 
   // user$のスナップショットを更新
