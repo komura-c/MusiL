@@ -23,5 +23,9 @@ service cloud.firestore {
         allow write: if request.auth.uid == userId;
       }
     }
+    match /viewCount/{articleId} {
+      allow read: if request.auth != null && request.auth.uid == resource.data.uid;
+      allow write: if false;
+    }
   }
 }
