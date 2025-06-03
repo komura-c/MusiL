@@ -1,0 +1,37 @@
+# https://github.com/qodo-ai/pr-agent/blob/main/pr_agent/settings/configuration.toml
+
+[config]
+# auto approval 💎
+enable_auto_approval=true # Set to true to enable auto-approval of PRs under certain conditions
+
+[ignore]
+glob = [
+    # Ignore files and directories matching these glob patterns.
+    # See https://docs.python.org/3/library/glob.html
+    'vendor/**','*.toml',
+]
+
+[pr_reviewer]
+require_tests_review = false
+require_can_be_split_review	= true
+extra_instructions="""\
+Emphasize the following:
+- Please use Japanese for everything.
+"""
+
+[pr_description]
+generate_ai_title = true
+extra_instructions="""\
+Emphasize the following:
+- Please use Japanese for everything.
+- Titles should have a prefix following the commitlint pattern, such as feat:, chore:, test:, fix:, docs:, style:, refactor:, perf:, etc.
+"""
+
+[pr_code_suggestions]
+commitable_code_suggestions = true
+# self-review checkbox
+demand_code_suggestions_self_review=true # add a checkbox for the author to self-review the code suggestions
+extra_instructions="""\
+Emphasize the following:
+- Please use Japanese for everything.
+"""
