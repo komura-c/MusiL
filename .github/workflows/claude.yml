@@ -35,4 +35,5 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           timeout_minutes: '60'
           direct_prompt: |
-            Please use Japanese for everything.
+            Emphasize the following:
+            - Please use Japanese for everything.
