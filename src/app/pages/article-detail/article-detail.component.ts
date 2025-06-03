@@ -87,6 +87,7 @@ export default class ArticleDetailComponent implements OnDestroy {
       }
       if (article) {
         this.initLikeStatus(article);
+        this.initViewCount(article);
         this.seoService.updateTitleAndMeta({
           title: `${article.title}`,
           description: article.text,
@@ -108,6 +109,7 @@ export default class ArticleDetailComponent implements OnDestroy {
 
   likeCount: number;
   isLiked: boolean;
+  viewCount$: Observable<number>;
 
   projectURL = environment.hostingURL;
   path: string = this.location.path();
@@ -154,6 +156,12 @@ export default class ArticleDetailComponent implements OnDestroy {
       .then((result) => {
         this.isLiked = result;
       });
+  }
+
+  private initViewCount(article: ArticleWithAuthor) {
+    if (article.author.uid === this.authService.uid) {
+      this.viewCount$ = this.viewCountService.getViewCount(article.articleId);
+    }
   }
 
   @HostListener('window:scroll', ['$event'])

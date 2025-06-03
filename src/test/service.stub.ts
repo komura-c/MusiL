@@ -75,6 +75,9 @@ export const ViewCountServiceStub = {
   countUpArticleView: jasmine
     .createSpy('countUpArticleView')
     .and.returnValue(undefined),
+  getViewCount: jasmine
+    .createSpy('getViewCount')
+    .and.returnValue(new BehaviorSubject(0)),
 };
 
 export class ActivatedRouteStub {

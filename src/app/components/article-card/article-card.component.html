@@ -42,6 +42,10 @@
             <span>{{ likeCount }}</span>
           </ng-template>
         </div>
+        <div class="card__view-count" *ngIf="article.author.uid === authService.uid">
+          <mat-icon aria-hidden="true" fontIcon="visibility"></mat-icon>
+          <span>{{ viewCount$ | async }}</span>
+        </div>
         <div class="card__updated-date">
           <mat-icon aria-hidden="true" fontIcon="update"></mat-icon>
           <span>{{
