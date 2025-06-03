@@ -19,8 +19,27 @@
     <mat-icon aria-hidden="true" fontIcon="link"></mat-icon>
     <span>共有リンク</span>
   </button>
+  <button mat-menu-item [matMenuTriggerFor]="exportMenu">
+    <mat-icon aria-hidden="true" fontIcon="download"></mat-icon>
+    <span>エクスポート</span>
+  </button>
   <button mat-menu-item class="delete" (click)="openDeleteDialog(article)">
     <mat-icon aria-hidden="true" fontIcon="delete_forever"></mat-icon>
     <span>削除</span>
+  </button>
+</mat-menu>
+
+<mat-menu #exportMenu="matMenu">
+  <button mat-menu-item (click)="exportArticle('markdown')">
+    <mat-icon aria-hidden="true" fontIcon="text_snippet"></mat-icon>
+    <span>Markdown (.md)</span>
+  </button>
+  <button mat-menu-item (click)="exportArticle('html')">
+    <mat-icon aria-hidden="true" fontIcon="code"></mat-icon>
+    <span>HTML (.html)</span>
+  </button>
+  <button mat-menu-item (click)="exportArticle('text')">
+    <mat-icon aria-hidden="true" fontIcon="description"></mat-icon>
+    <span>テキスト (.txt)</span>
   </button>
 </mat-menu>

@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyMenuModule } from '@angular/material/legacy-menu';
 import { RouterLink } from '@angular/router';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { ExportService, ExportFormat } from 'src/app/services/export.service';
 
 @Component({
   selector: 'app-article-edit-buttons',
@@ -35,7 +36,8 @@ export class ArticleEditButtonsComponent {
   constructor(
     private dialog: MatDialog,
     private snackBar: MatSnackBar,
-    private clipboard: Clipboard
+    private clipboard: Clipboard,
+    private exportService: ExportService
   ) {}
 
   openDeleteDialog(article: Article | ArticleWithAuthor) {
@@ -54,6 +56,30 @@ export class ArticleEditButtonsComponent {
       this.snackBar.open('URLがコピーされました！', '閉じる');
     } else {
       this.snackBar.open('URLのコピーに失敗しました。', '閉じる');
+    }
+  }
+
+  exportArticle(format: ExportFormat): void {
+    try {
+      this.exportService.exportArticle(this.article, format);
+      const formatName = this.getFormatDisplayName(format);
+      this.snackBar.open(`記事を${formatName}形式でエクスポートしました！`, '閉じる');
+    } catch (error) {
+      console.error('Export failed:', error);
+      this.snackBar.open('エクスポートに失敗しました。', '閉じる');
+    }
+  }
+
+  private getFormatDisplayName(format: ExportFormat): string {
+    switch (format) {
+      case 'markdown':
+        return 'Markdown';
+      case 'html':
+        return 'HTML';
+      case 'text':
+        return 'テキスト';
+      default:
+        return '';
     }
   }
 }
