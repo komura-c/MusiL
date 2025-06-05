@@ -62,21 +62,23 @@ const server = async (req: any, res: any) => {
   res.set('Cache-Control', 'public, max-age=259200, s-maxage=172800');
 
   const userAgent: string = req.headers['user-agent'].toLowerCase();
-  const isBot: boolean =
-    userAgent.includes('googlebot') ||
-    userAgent.includes('developers.google.com')
-      ? true
-      : false ||
-        userAgent.includes('twitterbot') ||
-        userAgent.includes('facebookexternalhit') ||
-        userAgent.includes('yahoou') ||
-        userAgent.includes('bingbot') ||
-        userAgent.includes('baiduspider') ||
-        userAgent.includes('yandex') ||
-        userAgent.includes('yeti') ||
-        userAgent.includes('yodaobot') ||
-        userAgent.includes('gigabot') ||
-        userAgent.includes('ia_archiver');
+  const botKeywords = [
+    'googlebot',
+    'developers.google.com',
+    'twitterbot',
+    'facebookexternalhit',
+    'yahoou',
+    'bingbot',
+    'baiduspider',
+    'yandex',
+    'yeti',
+    'yodaobot',
+    'gigabot',
+    'ia_archiver',
+  ];
+  const isBot: boolean = botKeywords.some((keyword) =>
+    userAgent.includes(keyword)
+  );
   if (!isBot) {
     return res.status(200).send(file);
   }
