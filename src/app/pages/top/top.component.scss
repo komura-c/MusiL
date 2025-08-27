@@ -1,33 +1,431 @@
 @use 'mixins';
 
-.top-page {
-  max-width: 910px;
-  margin: 0 auto;
+.top-container {
+  background: #ffffff;
+  min-height: 100vh;
 }
-.top-main {
-  &__title {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    padding-left: 16px;
-    margin: 40px 0 20px;
+
+// ヒーローセクション
+.hero-section {
+  position: relative;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 60px;
+
+  @include mixins.tab {
+    height: 400px;
+    margin-bottom: 40px;
+  }
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+}
+
+.hero-gradient {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #ffa0c9 75%, #fed7aa 100%);
+  opacity: 0.9;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  33% {
+    transform: scale(1.1) rotate(1deg);
+  }
+  66% {
+    transform: scale(1.05) rotate(-1deg);
+  }
+}
+
+.hero-pattern {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.05) 35px, rgba(255, 255, 255, 0.05) 70px),
+    repeating-linear-gradient(-45deg, transparent, transparent 35px, rgba(255, 255, 255, 0.03) 35px, rgba(255, 255, 255, 0.03) 70px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding: 0 20px;
+  max-width: 800px;
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-title {
+  margin-bottom: 20px;
+
+  &__main {
+    display: block;
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    letter-spacing: -2px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &__sub {
+    display: block;
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-weight: 400;
+    opacity: 0.95;
+  }
+}
+
+.hero-description {
+  font-size: 1.1rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  line-height: 1.6;
+  
+  @include mixins.tab {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+}
+
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+
+  @include mixins.tab {
+    gap: 20px;
+  }
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 30px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+
+  mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .stat-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+}
+
+// Welcome wrapper
+.welcome-wrapper {
+  margin: -40px 20px 40px;
+  position: relative;
+  z-index: 2;
+}
+
+// メインコンテンツ
+.top-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// コンテンツセクション共通
+.content-section {
+  margin-bottom: 80px;
+
+  @include mixins.tab {
+    margin-bottom: 60px;
+  }
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 0 10px;
+
+  @include mixins.tab {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
+
+.section-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.section-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+  
+  &.popular {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    box-shadow: 0 8px 24px rgba(240, 147, 251, 0.3);
+  }
+
+  mat-icon {
+    color: white;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+.section-title-content {
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #2c3e50;
+  }
+
+  .section-subtitle {
+    font-size: 0.95rem;
+    color: #718096;
+    margin: 0;
+  }
+}
+
+.section-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background: #f7fafc;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #4a5568;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #edf2f7;
+    transform: translateX(4px);
+
     mat-icon {
-      font-size: 32px;
-      margin-right: 16px;
-      margin-top: -4px;
+      transform: translateX(2px);
     }
   }
-  &__body {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px 16px;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+    transition: transform 0.3s ease;
   }
-  &__card {
-    width: 48%;
-    @include mixins.tab {
-      width: 100%;
+}
+
+// 記事グリッド
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  
+  @include mixins.pc {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  @include mixins.tab {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article-card-wrapper {
+  opacity: 0;
+  transform: translateY(20px);
+  
+  &.fade-in {
+    animation: fadeInCard 0.6s ease forwards;
+  }
+}
+
+@keyframes fadeInCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// CTAセクション
+.cta-section {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 24px;
+  padding: 60px 40px;
+  margin: 80px 0 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+
+  @include mixins.tab {
+    padding: 40px 20px;
+    margin: 60px 0 30px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+    animation: rotate 25s linear reverse infinite;
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+.cta-title {
+  color: white;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+
+  @include mixins.tab {
+    font-size: 1.5rem;
+  }
+}
+
+.cta-description {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin-bottom: 32px;
+  line-height: 1.6;
+
+  @include mixins.tab {
+    font-size: 1rem;
+    margin-bottom: 24px;
+  }
+}
+
+.cta-button {
+  padding: 14px 32px !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  border-radius: 30px !important;
+  background: white !important;
+  color: #667eea !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1) !important;
+
+  &:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  mat-icon {
+    font-size: 20px !important;
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+// レスポンシブ調整
+@media (max-width: 480px) {
+  .hero-section {
+    height: 350px;
+  }
+
+  .section-header {
+    padding: 0;
+  }
+
+  .section-icon-wrapper {
+    width: 50px;
+    height: 50px;
+
+    mat-icon {
+      font-size: 24px;
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .section-title-content {
+    .section-title {
+      font-size: 1.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.9rem;
     }
   }
 }

@@ -1,26 +1,74 @@
-<div class="grey-container">
-  <app-welcome></app-welcome>
+<div class="top-container">
+  <!-- ヒーローセクション -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <div class="hero-gradient"></div>
+      <div class="hero-pattern"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span class="hero-title__main">MusiL</span>
+        <span class="hero-title__sub">DTMや作曲の知識記録プラットフォーム</span>
+      </h1>
+      <p class="hero-description">
+        音楽制作の知識を共有し、創造性を育むコミュニティ
+      </p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <mat-icon fontIcon="article"></mat-icon>
+          <span class="stat-label">記事を探す</span>
+        </div>
+        <div class="stat-item">
+          <mat-icon fontIcon="people"></mat-icon>
+          <span class="stat-label">コミュニティに参加</span>
+        </div>
+        <div class="stat-item">
+          <mat-icon fontIcon="school"></mat-icon>
+          <span class="stat-label">知識を共有</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome バナー -->
+  <div class="welcome-wrapper">
+    <app-welcome></app-welcome>
+  </div>
+
   <div class="top-page">
-    <section class="top-main">
-      <h2 class="top-main__title">
-        <mat-icon aria-hidden="true" fontIcon="library_books"></mat-icon>
-        <span>最新の投稿</span>
-      </h2>
-      <div class="top-main__body">
+    <!-- 最新の投稿セクション -->
+    <section class="content-section latest-section">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <div class="section-icon-wrapper">
+            <mat-icon aria-hidden="true" fontIcon="library_books"></mat-icon>
+          </div>
+          <div class="section-title-content">
+            <h2 class="section-title">最新の投稿</h2>
+            <p class="section-subtitle">新しく投稿された記事をチェック</p>
+          </div>
+        </div>
+        <a class="section-link" href="/articles">
+          <span>すべて見る</span>
+          <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </a>
+      </div>
+      <div class="articles-grid">
         <ng-container
           *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
         >
           <div
-            class="top-main__card"
-            *ngFor="let article of latestArticles"
-            [class.fade]="latestArticles"
+            class="article-card-wrapper"
+            *ngFor="let article of latestArticles; let i = index"
+            [class.fade-in]="latestArticles"
+            [style.animation-delay]="i * 0.05 + 's'"
           >
             <app-article-card [article]="article"></app-article-card>
           </div>
         </ng-container>
         <ng-template #latestLoading>
           <div
-            class="top-main__card"
+            class="article-card-wrapper"
             *ngFor="let article of 'skelton'.repeat(21).split('s')"
           >
             <app-article-card-skelton></app-article-card-skelton>
@@ -28,12 +76,25 @@
         </ng-template>
       </div>
     </section>
-    <section class="top-main">
-      <h2 class="top-main__title">
-        <mat-icon aria-hidden="true" fontIcon="trending_up"></mat-icon>
-        <span>人気の投稿</span>
-      </h2>
-      <div class="top-main__body">
+
+    <!-- 人気の投稿セクション -->
+    <section class="content-section popular-section">
+      <div class="section-header">
+        <div class="section-title-wrapper">
+          <div class="section-icon-wrapper popular">
+            <mat-icon aria-hidden="true" fontIcon="trending_up"></mat-icon>
+          </div>
+          <div class="section-title-content">
+            <h2 class="section-title">人気の投稿</h2>
+            <p class="section-subtitle">よく読まれている記事をピックアップ</p>
+          </div>
+        </div>
+        <a class="section-link" href="/articles?sort=popular">
+          <span>すべて見る</span>
+          <mat-icon fontIcon="arrow_forward"></mat-icon>
+        </a>
+      </div>
+      <div class="articles-grid">
         <ng-container
           *ngIf="
             popularArticles$ | async as popularArticles;
@@ -41,21 +102,36 @@
           "
         >
           <div
-            class="top-main__card"
-            *ngFor="let article of popularArticles"
-            [class.fade]="popularArticles"
+            class="article-card-wrapper"
+            *ngFor="let article of popularArticles; let i = index"
+            [class.fade-in]="popularArticles"
+            [style.animation-delay]="i * 0.05 + 's'"
           >
             <app-article-card [article]="article"></app-article-card>
           </div>
         </ng-container>
         <ng-template #popularLoading>
           <div
-            class="top-main__card"
+            class="article-card-wrapper"
             *ngFor="let article of 'skelton'.repeat(21).split('s')"
           >
             <app-article-card-skelton></app-article-card-skelton>
           </div>
         </ng-template>
+      </div>
+    </section>
+
+    <!-- CTAセクション -->
+    <section class="cta-section">
+      <div class="cta-content">
+        <h3 class="cta-title">音楽制作の知識を共有しよう</h3>
+        <p class="cta-description">
+          あなたの経験や知識が、誰かの創造性を育むきっかけになります
+        </p>
+        <button mat-raised-button color="primary" class="cta-button" routerLink="/create">
+          <mat-icon fontIcon="edit"></mat-icon>
+          <span>記事を書く</span>
+        </button>
       </div>
     </section>
   </div>

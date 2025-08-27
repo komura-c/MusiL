@@ -8,6 +8,8 @@ import { ArticleCardSkeltonComponent } from '../../components/article-card-skelt
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterLink } from '@angular/router';
 import { WelcomeComponent } from '../../components/welcome/welcome.component';
 
 @Component({
@@ -18,6 +20,8 @@ import { WelcomeComponent } from '../../components/welcome/welcome.component';
   imports: [
     WelcomeComponent,
     MatIconModule,
+    MatButtonModule,
+    RouterLink,
     NgIf,
     NgFor,
     ArticleCardComponent,
