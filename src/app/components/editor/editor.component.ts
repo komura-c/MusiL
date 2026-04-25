@@ -19,18 +19,24 @@ import {
   MatLegacyDialog as MatDialog,
 } from '@angular/material/legacy-dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
-import { QuillModule } from 'ngx-quill';
-import type { QuillModules } from 'ngx-quill';
 import type { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 import { NgIf } from '@angular/common';
 import { QuillEditorInstance, dynamicImportQuill } from 'src/app/lib/quill';
+import { QuillEditorComponent } from './quill-editor/quill-editor.component';
+
+type QuillModules = Record<string, unknown>;
 
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
   styleUrls: ['./editor.component.scss'],
   standalone: true,
-  imports: [NgIf, ReactiveFormsModule, QuillModule, MatLegacyDialogModule],
+  imports: [
+    NgIf,
+    ReactiveFormsModule,
+    QuillEditorComponent,
+    MatLegacyDialogModule,
+  ],
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: UntypedFormGroup;
