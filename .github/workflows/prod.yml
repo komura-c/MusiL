@@ -14,38 +14,45 @@ jobs:
         uses: actions/checkout@v4
 
       - name: set frontend env
-        run: mkdir -p src/environments && touch src/environments/environment.ts && echo "${{ secrets.ENV_PROD }}" >> src/environments/environment.prod.ts
+        run: mkdir -p src/environments && echo "${{ secrets.ENV_PROD }}" > src/environments/environment.prod.ts
+
+      - name: setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
 
       - name: update node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
-          cache: 'npm'
+          node-version: '20'
+          cache: 'pnpm'
 
       - name: install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
       - name: lint
-        run: npm run lint
+        run: pnpm lint
 
       - name: test
-        run: npm run test
+        run: pnpm test
 
       - name: build
-        run: npm run build -- --configuration production
+        run: pnpm build --configuration production
 
       - name: install dependencies in functions
-        run: cd functions && npm ci
+        working-directory: functions
+        run: pnpm install --frozen-lockfile
 
-      - name: lint
-        run: npm run lint
+      - name: lint functions
+        working-directory: functions
+        run: pnpm lint
 
       # TODO: テストが整ったら入れる
       # - name: test
-      #   run: npm run test
+      #   run: pnpm test
 
       - name: deploy to firebase
-        uses: w9jds/firebase-action@v13.22.1
+        uses: w9jds/firebase-action@v14.10.1
         with:
           args: deploy
         env:

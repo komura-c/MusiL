@@ -1,0 +1,9 @@
+packages: []
+
+onlyBuiltDependencies:
+  - protobufjs
+  - re2
+strictDepBuilds: true
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
+verifyDepsBeforeRun: error
