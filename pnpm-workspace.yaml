@@ -1,0 +1,9 @@
+packages: []
+
+onlyBuiltDependencies:
+  - esbuild
+  - "@parcel/watcher"
+strictDepBuilds: true
+minimumReleaseAge: 4320
+blockExoticSubdeps: true
+verifyDepsBeforeRun: error

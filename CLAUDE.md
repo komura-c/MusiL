@@ -10,24 +10,24 @@ MusiL is a DTM (Desktop Music) and music composition knowledge recording platfor
 
 ### Frontend (Angular)
 ```bash
-npm start              # Start dev server on port 4200 with auto-open
-npm run dev           # Start dev server accessible from all hosts  
-npm run build         # Build for production
-npm run test          # Run unit tests with Karma/Jasmine
-npm run lint          # ESLint check
-npm run lint-fix      # Auto-fix ESLint issues + Prettier formatting
+pnpm start            # Start dev server on port 4200 with auto-open
+pnpm dev              # Start dev server accessible from all hosts
+pnpm build            # Build for production
+pnpm test             # Run unit tests with Karma/Jasmine
+pnpm lint             # ESLint check
+pnpm lint-fix         # Auto-fix ESLint issues + Prettier formatting
 ```
 
 ### Firebase Functions
 ```bash
 cd functions/
-npm run build         # Compile TypeScript to JavaScript
-npm run serve         # Start Firebase emulators (functions only)
-npm run start         # Lint + build + start functions shell
-npm run deploy        # Deploy functions to Firebase
-npm run logs          # View function logs
-npm run lint          # ESLint for functions
-npm run lint-fix      # Auto-fix functions code
+pnpm build            # Compile TypeScript to JavaScript
+pnpm serve            # Start Firebase emulators (functions only)
+pnpm start            # Lint + build + start functions shell
+pnpm deploy           # Deploy functions to Firebase
+pnpm logs             # View function logs
+pnpm lint             # ESLint for functions
+pnpm lint-fix         # Auto-fix functions code
 ```
 
 ## Architecture
@@ -41,7 +41,7 @@ npm run lint-fix      # Auto-fix functions code
 - **`lib/`** - Custom configurations (Quill editor, Material i18n)
 
 ### Firebase Functions (`/functions/src/`)
-- **Runtime**: Node.js 18 with TypeScript compilation to `/functions/lib/`
+- **Runtime**: Node.js 20 with TypeScript compilation to `/functions/lib/`
 - **Functions**: user management, articles, likes, view counts, Twitter integration, admin operations, sitemap generation, backup
 - **Shared Interfaces**: Type definitions used by both frontend and backend
 
@@ -68,6 +68,7 @@ npm run lint-fix      # Auto-fix functions code
 
 ## Development Setup Requirements
 
-- **Node.js 18** (required for Firebase Functions)
+- **Node.js 20** (required for Firebase Functions)
+- **pnpm 10** (package manager)
 - **Angular CLI 16**
 - **Firebase CLI** for deployment and local emulation
