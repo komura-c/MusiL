@@ -1,14 +1,12 @@
-<image-cropper
+<app-image-cropper
   [imageChangedEvent]="imageChangedEvent"
-  [maintainAspectRatio]="true"
-  [aspectRatio]="1 / 1"
-  format="png"
   [resizeToWidth]="300"
+  format="png"
   (imageLoaded)="imageLoaded()"
   (imageCropped)="imageCropped($event)"
   (loadImageFailed)="loadImageFailed()"
 >
-</image-cropper>
+</app-image-cropper>
 <div class="actions">
   <button
     class="actions__cancel-button"
