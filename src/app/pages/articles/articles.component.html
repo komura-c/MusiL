@@ -34,9 +34,9 @@
         </div>
       </div>
       <div
-        infiniteScroll
-        [infiniteScrollDistance]="2"
-        [infiniteScrollThrottle]="50"
+        appInfiniteScroll
+        [throttleMs]="50"
+        rootMargin="200px"
         (scrolled)="getArticles(user.uid)"
       ></div>
     </ng-container>
