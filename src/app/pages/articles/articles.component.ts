@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
-import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { ArticleEditButtonsComponent } from '../../components/article-edit-buttons/article-edit-buttons.component';
 import { RouterLink } from '@angular/router';
 import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
@@ -24,7 +24,7 @@ import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
     NgFor,
     RouterLink,
     ArticleEditButtonsComponent,
-    InfiniteScrollModule,
+    InfiniteScrollDirective,
     MatLegacyButtonModule,
     MatIconModule,
     AsyncPipe,
