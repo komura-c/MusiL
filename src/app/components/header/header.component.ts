@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { tap } from 'rxjs/operators';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf, AsyncPipe } from '@angular/common';
 import { SearchInputComponent } from 'src/app/components/search-input/search-input.component';
 import { RouterLink } from '@angular/router';
@@ -20,9 +20,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     RouterLink,
     SearchInputComponent,
     NgIf,
-    MatLegacyButtonModule,
+    MatButtonModule,
     MatIconModule,
-    MatLegacyMenuModule,
+    MatMenuModule,
     MatDividerModule,
     AsyncPipe,
   ],

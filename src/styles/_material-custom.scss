@@ -1,28 +1,21 @@
 @use '@angular/material' as mat;
-// TODO(v15): As of v15 mat.legacy-core no longer includes default typography styles.
-//  The following line adds:
-//    1. Default typography styles for all components
-//    2. Styles for typography hierarchy classes (e.g. .mat-headline-1)
-//  If you specify typography styles for the components you use elsewhere, you should delete this line.
-//  If you don't need the default component typographies but still want the hierarchy styles,
-//  you can delete this line and instead use:
-//    `@include mat.legacy-typography-hierarchy(mat.define-legacy-typography-config());`
-@include mat.all-legacy-component-typographies();
-@include mat.legacy-core();
 
-$musil-primary: mat.define-palette(mat.$deep-orange-palette);
-$musil-accent: mat.define-palette(mat.$indigo-palette);
-$musil-warn: mat.define-palette(mat.$red-palette);
+@include mat.all-component-typographies();
+@include mat.core();
 
-$musil-theme: mat.define-light-theme(
+$musil-primary: mat.m2-define-palette(mat.$m2-deep-orange-palette);
+$musil-accent: mat.m2-define-palette(mat.$m2-indigo-palette);
+$musil-warn: mat.m2-define-palette(mat.$m2-red-palette);
+
+$musil-theme: mat.m2-define-light-theme(
   (
     color: (
       primary: $musil-primary,
       accent: $musil-accent,
       warn: $musil-warn,
     ),
-    typography: mat.define-typography-config(),
+    typography: mat.m2-define-typography-config(),
     density: 0,
   )
 );
-@include mat.all-legacy-component-themes($musil-theme);
+@include mat.all-component-themes($musil-theme);

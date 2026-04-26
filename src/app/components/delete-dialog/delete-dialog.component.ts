@@ -1,21 +1,21 @@
 import { Component, Inject } from '@angular/core';
 import { ArticleService } from 'src/app/services/article.service';
 import {
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-  MatLegacyDialogRef as MatDialogRef,
-  MatLegacyDialogModule,
-} from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+  MAT_DIALOG_DATA as MAT_DIALOG_DATA,
+  MatDialogRef as MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { Article } from '@interfaces/article';
 import { Router } from '@angular/router';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-delete-dialog',
   templateUrl: './delete-dialog.component.html',
   styleUrls: ['./delete-dialog.component.scss'],
   standalone: true,
-  imports: [MatLegacyDialogModule, MatLegacyButtonModule],
+  imports: [MatDialogModule, MatButtonModule],
 })
 export class DeleteDialogComponent {
   constructor(

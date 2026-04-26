@@ -12,23 +12,23 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  MatLegacyAutocomplete as MatAutocomplete,
-  MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
-  MatLegacyAutocompleteModule,
-} from '@angular/material/legacy-autocomplete';
+  MatAutocomplete as MatAutocomplete,
+  MatAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
+  MatAutocompleteModule,
+} from '@angular/material/autocomplete';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { SearchService } from 'src/app/services/search.service';
 import {
-  MatLegacyChipInputEvent as MatChipInputEvent,
-  MatLegacyChipList as MatChipList,
-  MatLegacyChipsModule,
-} from '@angular/material/legacy-chips';
+  MatChipInputEvent,
+  MatChipGrid,
+  MatChipsModule,
+} from '@angular/material/chips';
 import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
-import { MatLegacyOptionModule } from '@angular/material/legacy-core';
+import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { NgFor, NgIf } from '@angular/common';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-tag-form',
@@ -37,13 +37,13 @@ import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatLegacyFormFieldModule,
-    MatLegacyChipsModule,
+    MatFormFieldModule,
+    MatChipsModule,
     NgFor,
     NgIf,
     MatIconModule,
-    MatLegacyAutocompleteModule,
-    MatLegacyOptionModule,
+    MatAutocompleteModule,
+    MatOptionModule,
   ],
 })
 export class TagFormComponent implements OnInit, OnDestroy {
@@ -52,7 +52,7 @@ export class TagFormComponent implements OnInit, OnDestroy {
   @Input() tagMaxWordCount: number;
   @Input() tagMaxLength: number;
   @ViewChild('tagInput') tagInput: ElementRef<HTMLInputElement>;
-  @ViewChild('chipList') chipList: MatChipList;
+  @ViewChild('chipList') chipList: MatChipGrid;
   @ViewChild('auto') matAutocomplete: MatAutocomplete;
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 

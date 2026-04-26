@@ -6,7 +6,7 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Article } from '@interfaces/article';
 import { Observable, of } from 'rxjs';
@@ -18,11 +18,11 @@ import { UserData } from '@interfaces/user';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { EditorComponent } from 'src/app/components/editor/editor.component';
 import { TagFormComponent } from 'src/app/components/tag-form/tag-form.component';
-import { MatLegacyInputModule } from '@angular/material/legacy-input';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
-import { MatLegacySlideToggleModule } from '@angular/material/legacy-slide-toggle';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { WindowService } from 'src/app/services/window.service';
 
@@ -33,13 +33,13 @@ import { WindowService } from 'src/app/services/window.service';
   standalone: true,
   imports: [
     MatToolbarModule,
-    MatLegacyButtonModule,
+    MatButtonModule,
     MatIconModule,
     RouterLink,
     ReactiveFormsModule,
-    MatLegacySlideToggleModule,
-    MatLegacyFormFieldModule,
-    MatLegacyInputModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgIf,
     TagFormComponent,
     EditorComponent,

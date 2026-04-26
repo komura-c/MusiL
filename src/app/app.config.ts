@@ -6,11 +6,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { routes } from './app.routes';
 
 import { MatPaginatorIntlJaModule } from './lib/mat-paginator-intl-ja.module';
-import { MatLegacyPaginatorIntl as MatPaginatorIntl } from '@angular/material/legacy-paginator';
+import { MatPaginatorIntl as MatPaginatorIntl } from '@angular/material/paginator';
 import {
-  MatLegacySnackBarModule as MatSnackBarModule,
-  MAT_LEGACY_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS,
-} from '@angular/material/legacy-snack-bar';
+  MatSnackBarModule as MatSnackBarModule,
+  MAT_SNACK_BAR_DEFAULT_OPTIONS as MAT_SNACK_BAR_DEFAULT_OPTIONS,
+} from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: [

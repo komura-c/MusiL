@@ -4,7 +4,7 @@ import {
   UntypedFormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { MatLegacyAutocompleteModule as MatAutocompleteModule } from '@angular/material/legacy-autocomplete';
+import { MatAutocompleteModule as MatAutocompleteModule } from '@angular/material/autocomplete';
 import { SearchService } from 'src/app/services/search.service';
 import { SearchServiceStub } from 'src/test/service.stub';
 import { TagFormComponent } from './tag-form.component';

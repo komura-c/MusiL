@@ -11,12 +11,12 @@ import { Subscription } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { UserData } from '@interfaces/user';
 import {
-  MatLegacyAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
-  MatLegacyAutocompleteModule,
-} from '@angular/material/legacy-autocomplete';
+  MatAutocompleteSelectedEvent as MatAutocompleteSelectedEvent,
+  MatAutocompleteModule,
+} from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyOptionModule } from '@angular/material/legacy-core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
 import { NgFor } from '@angular/common';
 
 @Component({
@@ -27,10 +27,10 @@ import { NgFor } from '@angular/common';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    MatLegacyAutocompleteModule,
+    MatAutocompleteModule,
     NgFor,
-    MatLegacyOptionModule,
-    MatLegacyButtonModule,
+    MatOptionModule,
+    MatButtonModule,
     MatIconModule,
   ],
 })

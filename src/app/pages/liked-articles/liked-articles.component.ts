@@ -5,7 +5,7 @@ import { tap, take, switchMap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
-import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
@@ -18,7 +18,7 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
     NgIf,
     NgFor,
     ArticleCardComponent,
-    MatLegacyProgressSpinnerModule,
+    MatProgressSpinnerModule,
     AsyncPipe,
   ],
 })

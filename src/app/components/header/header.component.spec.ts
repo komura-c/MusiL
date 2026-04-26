@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
+import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AuthService } from 'src/app/services/auth.service';
 import { SearchService } from 'src/app/services/search.service';

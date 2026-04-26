@@ -6,7 +6,7 @@ import { map, switchMap, tap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { Location, NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
@@ -14,9 +14,9 @@ import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { LoginDialogComponent } from 'src/app/components/login-dialog/login-dialog.component';
 import {
-  MatLegacyDialogModule,
-  MatLegacyDialog as MatDialog,
-} from '@angular/material/legacy-dialog';
+  MatDialogModule,
+  MatDialog as MatDialog,
+} from '@angular/material/dialog';
 import { ViewCountService } from 'src/app/services/view-count.service';
 import { SafeHTMLPipe } from '../../pipes/safe-html.pipe';
 import { EncodeUrlPipe } from '../../pipes/encode-url.pipe';
@@ -24,11 +24,11 @@ import { StringToLinkPipe } from '../../pipes/string-to-link.pipe';
 import { RecommendArticleComponent } from '../../components/recommend-article/recommend-article.component';
 import { ArticleCommentComponent } from '../../components/article-comment/article-comment.component';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatLegacyChipsModule } from '@angular/material/legacy-chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { ArticleEditButtonsComponent } from '../../components/article-edit-buttons/article-edit-buttons.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyTooltipModule } from '@angular/material/legacy-tooltip';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatButtonModule } from '@angular/material/button';
 import { DocumentService } from 'src/app/services/document.service';
 import { WindowService } from 'src/app/services/window.service';
 
@@ -39,12 +39,12 @@ import { WindowService } from 'src/app/services/window.service';
   standalone: true,
   imports: [
     NgIf,
-    MatLegacyButtonModule,
-    MatLegacyTooltipModule,
+    MatButtonModule,
+    MatTooltipModule,
     MatIconModule,
     RouterLink,
     ArticleEditButtonsComponent,
-    MatLegacyChipsModule,
+    MatChipsModule,
     NgFor,
     MatDividerModule,
     ArticleCommentComponent,
@@ -54,7 +54,7 @@ import { WindowService } from 'src/app/services/window.service';
     StringToLinkPipe,
     EncodeUrlPipe,
     SafeHTMLPipe,
-    MatLegacyDialogModule,
+    MatDialogModule,
   ],
 })
 export default class ArticleDetailComponent implements OnDestroy {

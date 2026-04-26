@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { AuthService } from 'src/app/services/auth.service';
 import {
-  MatLegacyDialogRef as MatDialogRef,
-  MatLegacyDialogModule,
-} from '@angular/material/legacy-dialog';
+  MatDialogRef as MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-delete-account-dialog',
   templateUrl: './delete-account-dialog.component.html',
   styleUrls: ['./delete-account-dialog.component.scss'],
   standalone: true,
-  imports: [MatLegacyDialogModule, MatLegacyButtonModule],
+  imports: [MatDialogModule, MatButtonModule],
 })
 export class DeleteAccountDialogComponent {
   constructor(

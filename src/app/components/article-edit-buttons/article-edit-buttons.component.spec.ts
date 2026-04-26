@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
-import { MatLegacyMenuModule as MatMenuModule } from '@angular/material/legacy-menu';
+import { MatDialog as MatDialog } from '@angular/material/dialog';
+import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
 import {
-  MatLegacySnackBar as MatSnackBar,
-} from '@angular/material/legacy-snack-bar';
+  MatSnackBar as MatSnackBar,
+} from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Article } from '@interfaces/article';
 import { ArticleEditButtonsComponent } from './article-edit-buttons.component';

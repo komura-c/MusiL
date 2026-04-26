@@ -1,17 +1,17 @@
 import { Component, Inject } from '@angular/core';
 import {
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-  MatLegacyDialogRef as MatDialogRef,
-  MatLegacyDialogModule,
-} from '@angular/material/legacy-dialog';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+  MAT_DIALOG_DATA as MAT_DIALOG_DATA,
+  MatDialogRef as MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import {
   ImageCroppedResult,
   ImageCropperComponent,
 } from '../image-cropper/image-cropper.component';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -22,8 +22,8 @@ import { NgIf } from '@angular/common';
   imports: [
     ImageCropperComponent,
     NgIf,
-    MatLegacyButtonModule,
-    MatLegacyDialogModule,
+    MatButtonModule,
+    MatDialogModule,
   ],
 })
 export class ImageCropDialogComponent {

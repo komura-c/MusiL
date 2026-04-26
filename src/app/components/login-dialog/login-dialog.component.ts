@@ -1,19 +1,19 @@
 import { Component } from '@angular/core';
 import {
-  MatLegacyDialogRef as MatDialogRef,
-  MatLegacyDialogModule,
-} from '@angular/material/legacy-dialog';
+  MatDialogRef as MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-login-dialog',
   templateUrl: './login-dialog.component.html',
   styleUrls: ['./login-dialog.component.scss'],
   standalone: true,
-  imports: [MatLegacyDialogModule, MatLegacyButtonModule, MatIconModule],
+  imports: [MatDialogModule, MatButtonModule, MatIconModule],
 })
 export class LoginDialogComponent {
   constructor(

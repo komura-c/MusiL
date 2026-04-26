@@ -9,13 +9,13 @@ import { UserService } from 'src/app/services/user.service';
 import { UserData } from '@interfaces/user';
 import { Timestamp } from 'firebase/firestore/lite';
 import {
-  LegacyPageEvent as PageEvent,
-  MatLegacyPaginatorModule,
-} from '@angular/material/legacy-paginator';
+  PageEvent as PageEvent,
+  MatPaginatorModule,
+} from '@angular/material/paginator';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
-import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
@@ -25,10 +25,10 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [
     NgIf,
-    MatLegacyProgressSpinnerModule,
+    MatProgressSpinnerModule,
     NgFor,
     ArticleCardComponent,
-    MatLegacyPaginatorModule,
+    MatPaginatorModule,
     AsyncPipe,
   ],
 })

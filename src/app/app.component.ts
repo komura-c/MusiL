@@ -5,7 +5,7 @@ import { Location, NgIf, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
 import { FooterComponent } from './components/footer/footer.component';
-import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HeaderComponent } from './components/header/header.component';
 import { DocumentService } from './services/document.service';
 import { WindowService } from './services/window.service';
@@ -19,7 +19,7 @@ import { WindowService } from './services/window.service';
     NgIf,
     HeaderComponent,
     RouterOutlet,
-    MatLegacyProgressSpinnerModule,
+    MatProgressSpinnerModule,
     FooterComponent,
     AsyncPipe,
   ],
