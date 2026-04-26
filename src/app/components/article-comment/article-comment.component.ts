@@ -21,24 +21,23 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-article-comment',
-  templateUrl: './article-comment.component.html',
-  styleUrls: ['./article-comment.component.scss'],
-  standalone: true,
-  imports: [
-    MatIconModule,
-    NgIf,
-    NgFor,
-    RouterLink,
-    MatButtonModule,
-    MatDividerModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    TextFieldModule,
-    MatProgressSpinnerModule,
-    AsyncPipe,
-  ],
+    selector: 'app-article-comment',
+    templateUrl: './article-comment.component.html',
+    styleUrls: ['./article-comment.component.scss'],
+    imports: [
+        MatIconModule,
+        NgIf,
+        NgFor,
+        RouterLink,
+        MatButtonModule,
+        MatDividerModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        TextFieldModule,
+        MatProgressSpinnerModule,
+        AsyncPipe,
+    ]
 })
 export class ArticleCommentComponent implements OnInit {
   @Input() articleId$: Observable<string>;

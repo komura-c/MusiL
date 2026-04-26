@@ -27,16 +27,15 @@ import { QuillEditorComponent } from './quill-editor/quill-editor.component';
 type QuillModules = Record<string, unknown>;
 
 @Component({
-  selector: 'app-editor',
-  templateUrl: './editor.component.html',
-  styleUrls: ['./editor.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    ReactiveFormsModule,
-    QuillEditorComponent,
-    MatDialogModule,
-  ],
+    selector: 'app-editor',
+    templateUrl: './editor.component.html',
+    styleUrls: ['./editor.component.scss'],
+    imports: [
+        NgIf,
+        ReactiveFormsModule,
+        QuillEditorComponent,
+        MatDialogModule,
+    ]
 })
 export class EditorComponent implements OnInit {
   @Input() parentForm: UntypedFormGroup;

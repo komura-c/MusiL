@@ -3,11 +3,10 @@ import { SeoService } from 'src/app/services/seo.service';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-terms',
-  templateUrl: './terms.component.html',
-  styleUrls: ['./terms.component.scss'],
-  standalone: true,
-  imports: [RouterLink],
+    selector: 'app-terms',
+    templateUrl: './terms.component.html',
+    styleUrls: ['./terms.component.scss'],
+    imports: [RouterLink]
 })
 export default class TermsComponent {
   constructor(private seoService: SeoService) {

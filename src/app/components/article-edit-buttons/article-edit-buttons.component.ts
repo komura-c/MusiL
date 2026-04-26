@@ -16,17 +16,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { ExportService, ExportFormat } from 'src/app/services/export.service';
 
 @Component({
-  selector: 'app-article-edit-buttons',
-  templateUrl: './article-edit-buttons.component.html',
-  styleUrls: ['./article-edit-buttons.component.scss'],
-  standalone: true,
-  imports: [
-    MatButtonModule,
-    RouterLink,
-    MatMenuModule,
-    MatIconModule,
-    MatDialogModule,
-  ],
+    selector: 'app-article-edit-buttons',
+    templateUrl: './article-edit-buttons.component.html',
+    styleUrls: ['./article-edit-buttons.component.scss'],
+    imports: [
+        MatButtonModule,
+        RouterLink,
+        MatMenuModule,
+        MatIconModule,
+        MatDialogModule,
+    ]
 })
 export class ArticleEditButtonsComponent {
   @Input() article: Article | ArticleWithAuthor;

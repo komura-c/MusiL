@@ -33,29 +33,28 @@ import { DocumentService } from 'src/app/services/document.service';
 import { WindowService } from 'src/app/services/window.service';
 
 @Component({
-  selector: 'app-article-detail',
-  templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    MatButtonModule,
-    MatTooltipModule,
-    MatIconModule,
-    RouterLink,
-    ArticleEditButtonsComponent,
-    MatChipsModule,
-    NgFor,
-    MatDividerModule,
-    ArticleCommentComponent,
-    RecommendArticleComponent,
-    AsyncPipe,
-    DatePipe,
-    StringToLinkPipe,
-    EncodeUrlPipe,
-    SafeHTMLPipe,
-    MatDialogModule,
-  ],
+    selector: 'app-article-detail',
+    templateUrl: './article-detail.component.html',
+    styleUrls: ['./article-detail.component.scss'],
+    imports: [
+        NgIf,
+        MatButtonModule,
+        MatTooltipModule,
+        MatIconModule,
+        RouterLink,
+        ArticleEditButtonsComponent,
+        MatChipsModule,
+        NgFor,
+        MatDividerModule,
+        ArticleCommentComponent,
+        RecommendArticleComponent,
+        AsyncPipe,
+        DatePipe,
+        StringToLinkPipe,
+        EncodeUrlPipe,
+        SafeHTMLPipe,
+        MatDialogModule,
+    ]
 })
 export default class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(

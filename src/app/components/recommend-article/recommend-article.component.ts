@@ -9,18 +9,17 @@ import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-recommend-article',
-  templateUrl: './recommend-article.component.html',
-  styleUrls: ['./recommend-article.component.scss'],
-  standalone: true,
-  imports: [
-    MatIconModule,
-    NgIf,
-    NgFor,
-    ArticleCardComponent,
-    ArticleCardSkeltonComponent,
-    AsyncPipe,
-  ],
+    selector: 'app-recommend-article',
+    templateUrl: './recommend-article.component.html',
+    styleUrls: ['./recommend-article.component.scss'],
+    imports: [
+        MatIconModule,
+        NgIf,
+        NgFor,
+        ArticleCardComponent,
+        ArticleCardSkeltonComponent,
+        AsyncPipe,
+    ]
 })
 export class RecommendArticleComponent {
   @Input() currentArticle: ArticleWithAuthor;

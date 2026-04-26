@@ -35,18 +35,17 @@ interface QuillLike extends QuillEditorInstance {
 }
 
 @Component({
-  selector: 'app-quill-editor',
-  standalone: true,
-  template: `<div #host [ngStyle]="hostStyles"></div>`,
-  styles: [':host { display: block; width: 100%; }'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => QuillEditorComponent),
-      multi: true,
-    },
-  ],
-  imports: [NgStyle],
+    selector: 'app-quill-editor',
+    template: `<div #host [ngStyle]="hostStyles"></div>`,
+    styles: [':host { display: block; width: 100%; }'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: forwardRef(() => QuillEditorComponent),
+            multi: true,
+        },
+    ],
+    imports: [NgStyle]
 })
 export class QuillEditorComponent
   implements AfterViewInit, OnDestroy, ControlValueAccessor

@@ -16,10 +16,9 @@ export interface ImageCroppedResult {
 }
 
 @Component({
-  selector: 'app-image-cropper',
-  standalone: true,
-  imports: [NgIf],
-  template: `
+    selector: 'app-image-cropper',
+    imports: [NgIf],
+    template: `
     <div
       class="cropper-host"
       *ngIf="!hasError"
@@ -45,8 +44,8 @@ export interface ImageCroppedResult {
       ></div>
     </div>
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: block;
       }
@@ -71,7 +70,7 @@ export interface ImageCroppedResult {
         box-sizing: border-box;
       }
     `,
-  ],
+    ]
 })
 export class ImageCropperComponent implements AfterViewInit, OnChanges {
   @Input() imageChangedEvent: Event | string | null = null;
