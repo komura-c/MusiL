@@ -1,15 +1,13 @@
-<ng-container *ngIf="articles$ | async as articles; else notFound">
-  <div class="my-articles" [class.fade]="articles">
-    <ng-container *ngFor="let article of articles">
-      <app-article-card *ngIf="article" [article]="article"></app-article-card>
-    </ng-container>
-  </div>
-</ng-container>
-<ng-container *ngIf="isLoading">
-  <mat-spinner class="loading-bar" diameter="55" strokeWidth="4"></mat-spinner>
-</ng-container>
-<ng-template #notFound>
-  <div class="no-article" *ngIf="!isLoading">
-    <p>まだ、投稿した記事はありません。</p>
-  </div>
-</ng-template>
+@if (articles$ | async; as articles) {
+<div class="my-articles" [class.fade]="articles">
+  @for (article of articles; track article) { @if (article) {
+  <app-article-card [article]="article"></app-article-card>
+  } }
+</div>
+} @else { @if (!isLoading) {
+<div class="no-article">
+  <p>まだ、投稿した記事はありません。</p>
+</div>
+} } @if (isLoading) {
+<mat-spinner class="loading-bar" diameter="55" strokeWidth="4"></mat-spinner>
+}

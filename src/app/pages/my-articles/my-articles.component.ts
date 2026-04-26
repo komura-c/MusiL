@@ -7,19 +7,13 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-my-articles',
-    templateUrl: './my-articles.component.html',
-    styleUrls: ['./my-articles.component.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        MatProgressSpinnerModule,
-        AsyncPipe,
-    ]
+  selector: 'app-my-articles',
+  templateUrl: './my-articles.component.html',
+  styleUrls: ['./my-articles.component.scss'],
+  imports: [ArticleCardComponent, MatProgressSpinnerModule, AsyncPipe],
 })
 export default class MyArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;

@@ -8,14 +8,11 @@
 >
 </app-image-cropper>
 <div class="actions">
-  <button
-    class="actions__cancel-button"
-    *ngIf="imageChangedEvent"
-    mat-button
-    (click)="resetInput()"
-  >
+  @if (imageChangedEvent) {
+  <button class="actions__cancel-button" mat-button (click)="resetInput()">
     キャンセル
   </button>
+  }
   <button
     class="actions__change-button"
     [disabled]="!croppedImage"

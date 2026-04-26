@@ -1,4 +1,4 @@
-import { Location, NgIf } from '@angular/common';
+import { Location } from '@angular/common';
 import { Component, HostListener, OnInit, inject } from '@angular/core';
 import {
   UntypedFormBuilder,
@@ -27,22 +27,21 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { WindowService } from 'src/app/services/window.service';
 
 @Component({
-    selector: 'app-create',
-    templateUrl: './create.component.html',
-    styleUrls: ['./create.component.scss'],
-    imports: [
-        MatToolbarModule,
-        MatButtonModule,
-        MatIconModule,
-        RouterLink,
-        ReactiveFormsModule,
-        MatSlideToggleModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgIf,
-        TagFormComponent,
-        EditorComponent,
-    ]
+  selector: 'app-create',
+  templateUrl: './create.component.html',
+  styleUrls: ['./create.component.scss'],
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TagFormComponent,
+    EditorComponent,
+  ],
 })
 export default class CreateComponent implements OnInit {
   private readonly firebaseService = inject(FirebaseService);

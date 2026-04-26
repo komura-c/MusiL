@@ -5,26 +5,20 @@
       <span>他のおすすめ記事</span>
     </h2>
     <div class="recommend-article__body">
-      <ng-container *ngIf="articles$ | async as articles; else loading">
-        <div
-          class="recommend-article__card"
-          *ngFor="let article of articles"
-          [class.fade]="articles"
-        >
-          <app-article-card
-            [article]="article"
-            (click)="resetArticlesLoaded()"
-          ></app-article-card>
-        </div>
-      </ng-container>
-      <ng-template #loading>
-        <div
-          class="recommend-article__card"
-          *ngFor="let article of 'skelton'.repeat(11).split('s')"
-        >
-          <app-article-card-skelton></app-article-card-skelton>
-        </div>
-      </ng-template>
+      @if (articles$ | async; as articles) { @for (article of articles; track
+      article) {
+      <div class="recommend-article__card" [class.fade]="articles">
+        <app-article-card
+          [article]="article"
+          (click)="resetArticlesLoaded()"
+        ></app-article-card>
+      </div>
+      } } @else { @for (article of 'skelton'.repeat(11).split('s'); track
+      article) {
+      <div class="recommend-article__card">
+        <app-article-card-skelton></app-article-card-skelton>
+      </div>
+      } }
     </div>
   </div>
 </div>

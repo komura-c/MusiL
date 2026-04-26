@@ -17,21 +17,19 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
-import { NgFor } from '@angular/common';
 
 @Component({
-    selector: 'app-search-input',
-    templateUrl: './search-input.component.html',
-    styleUrls: ['./search-input.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        FormsModule,
-        MatAutocompleteModule,
-        NgFor,
-        MatOptionModule,
-        MatButtonModule,
-        MatIconModule,
-    ]
+  selector: 'app-search-input',
+  templateUrl: './search-input.component.html',
+  styleUrls: ['./search-input.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatIconModule,
+  ],
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;

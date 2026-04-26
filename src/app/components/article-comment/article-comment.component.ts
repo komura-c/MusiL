@@ -17,27 +17,25 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-article-comment',
-    templateUrl: './article-comment.component.html',
-    styleUrls: ['./article-comment.component.scss'],
-    imports: [
-        MatIconModule,
-        NgIf,
-        NgFor,
-        RouterLink,
-        MatButtonModule,
-        MatDividerModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        TextFieldModule,
-        MatProgressSpinnerModule,
-        AsyncPipe,
-    ]
+  selector: 'app-article-comment',
+  templateUrl: './article-comment.component.html',
+  styleUrls: ['./article-comment.component.scss'],
+  imports: [
+    MatIconModule,
+    RouterLink,
+    MatButtonModule,
+    MatDividerModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    TextFieldModule,
+    MatProgressSpinnerModule,
+    AsyncPipe,
+  ],
 })
 export class ArticleCommentComponent implements OnInit {
   @Input() articleId$: Observable<string>;

@@ -3,13 +3,13 @@ import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
 import { CheckService } from 'src/app/services/check.service';
-import { NgIf, NgFor, AsyncPipe, JsonPipe } from '@angular/common';
+import { AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-check',
-    templateUrl: './check.component.html',
-    styleUrls: ['./check.component.scss'],
-    imports: [NgIf, NgFor, AsyncPipe, JsonPipe]
+  selector: 'app-check',
+  templateUrl: './check.component.html',
+  styleUrls: ['./check.component.scss'],
+  imports: [AsyncPipe, JsonPipe],
 })
 export default class CheckComponent {
   private readonly checkService = inject(CheckService);

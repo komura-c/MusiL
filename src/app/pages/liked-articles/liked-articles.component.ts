@@ -7,19 +7,13 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-liked-articles',
-    templateUrl: './liked-articles.component.html',
-    styleUrls: ['./liked-articles.component.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        MatProgressSpinnerModule,
-        AsyncPipe,
-    ]
+  selector: 'app-liked-articles',
+  templateUrl: './liked-articles.component.html',
+  styleUrls: ['./liked-articles.component.scss'],
+  imports: [ArticleCardComponent, MatProgressSpinnerModule, AsyncPipe],
 })
 export default class LikedArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;

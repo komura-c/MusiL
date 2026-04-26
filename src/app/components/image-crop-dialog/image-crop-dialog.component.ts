@@ -12,18 +12,12 @@ import {
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-image-crop-dialog',
-    templateUrl: './image-crop-dialog.component.html',
-    styleUrls: ['./image-crop-dialog.component.scss'],
-    imports: [
-        ImageCropperComponent,
-        NgIf,
-        MatButtonModule,
-        MatDialogModule,
-    ]
+  selector: 'app-image-crop-dialog',
+  templateUrl: './image-crop-dialog.component.html',
+  styleUrls: ['./image-crop-dialog.component.scss'],
+  imports: [ImageCropperComponent, MatButtonModule, MatDialogModule],
 })
 export class ImageCropDialogComponent {
   imageChangedEvent = '';

@@ -5,21 +5,19 @@ import { map, take, tap } from 'rxjs/operators';
 import { ArticleService } from 'src/app/services/article.service';
 import { ArticleCardSkeltonComponent } from 'src/app/components/article-card-skelton/article-card-skelton.component';
 import { ArticleCardComponent } from '../article-card/article-card.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-    selector: 'app-recommend-article',
-    templateUrl: './recommend-article.component.html',
-    styleUrls: ['./recommend-article.component.scss'],
-    imports: [
-        MatIconModule,
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        ArticleCardSkeltonComponent,
-        AsyncPipe,
-    ]
+  selector: 'app-recommend-article',
+  templateUrl: './recommend-article.component.html',
+  styleUrls: ['./recommend-article.component.scss'],
+  imports: [
+    MatIconModule,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
+    AsyncPipe,
+  ],
 })
 export class RecommendArticleComponent {
   @Input() currentArticle: ArticleWithAuthor;
@@ -34,7 +32,7 @@ export class RecommendArticleComponent {
     this.isArticlesLoaded = false;
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   getArticles() {
     if (this.isArticlesLoaded) {
       return;

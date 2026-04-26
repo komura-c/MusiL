@@ -18,24 +18,23 @@ import { StringToLinkPipe } from '../../pipes/string-to-link.pipe';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-mypage',
-    templateUrl: './mypage.component.html',
-    styleUrls: ['./mypage.component.scss'],
-    imports: [
-        NgIf,
-        MatButtonModule,
-        RouterLink,
-        MatIconModule,
-        MatTabsModule,
-        RouterLinkActive,
-        RouterOutlet,
-        AsyncPipe,
-        StringToLinkPipe,
-        EncodeUrlPipe,
-    ]
+  selector: 'app-mypage',
+  templateUrl: './mypage.component.html',
+  styleUrls: ['./mypage.component.scss'],
+  imports: [
+    MatButtonModule,
+    RouterLink,
+    MatIconModule,
+    MatTabsModule,
+    RouterLinkActive,
+    RouterOutlet,
+    AsyncPipe,
+    StringToLinkPipe,
+    EncodeUrlPipe,
+  ],
 })
 export default class MypageComponent implements OnInit {
   screenName$: Observable<string> = this.route.paramMap.pipe(

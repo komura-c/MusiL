@@ -1,4 +1,3 @@
-import { NgIf } from '@angular/common';
 import {
   AfterViewInit,
   Component,
@@ -16,36 +15,38 @@ export interface ImageCroppedResult {
 }
 
 @Component({
-    selector: 'app-image-cropper',
-    imports: [NgIf],
-    template: `
+  selector: 'app-image-cropper',
+  imports: [],
+  template: `
+    @if (!hasError) {
     <div
       class="cropper-host"
-      *ngIf="!hasError"
       #host
       (mousedown)="onPointerDown($event)"
       (touchstart)="onPointerDown($event)"
     >
+      @if (objectUrl) {
       <img
         #img
-        *ngIf="objectUrl"
         [src]="objectUrl"
         (load)="onImageLoaded()"
         (error)="onImageError()"
         draggable="false"
       />
+      } @if (ready) {
       <div
         class="crop-frame"
-        *ngIf="ready"
         [style.left.px]="frame.x"
         [style.top.px]="frame.y"
         [style.width.px]="frame.size"
         [style.height.px]="frame.size"
       ></div>
+      }
     </div>
+    }
   `,
-    styles: [
-        `
+  styles: [
+    `
       :host {
         display: block;
       }
@@ -70,7 +71,7 @@ export interface ImageCroppedResult {
         box-sizing: border-box;
       }
     `,
-    ]
+  ],
 })
 export class ImageCropperComponent implements AfterViewInit, OnChanges {
   @Input() imageChangedEvent: Event | string | null = null;
@@ -199,9 +200,9 @@ export class ImageCropperComponent implements AfterViewInit, OnChanges {
     const source =
       'touches' in event && event.touches.length
         ? event.touches[0]
-        : ('clientX' in event
+        : (('clientX' in event
             ? event
-            : (event as TouchEvent).changedTouches[0]) as MouseEvent | Touch;
+            : (event as TouchEvent).changedTouches[0]) as MouseEvent | Touch);
     return {
       x: source.clientX - rect.left,
       y: source.clientY - rect.top,

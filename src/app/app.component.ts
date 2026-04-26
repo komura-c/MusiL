@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { LoadingService } from './services/loading.service';
-import { Location, NgIf, AsyncPipe } from '@angular/common';
+import { Location, AsyncPipe } from '@angular/common';
 import { environment } from 'src/environments/environment';
 import { Meta } from '@angular/platform-browser';
 import { FooterComponent } from './components/footer/footer.component';
@@ -11,17 +11,16 @@ import { DocumentService } from './services/document.service';
 import { WindowService } from './services/window.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    imports: [
-        NgIf,
-        HeaderComponent,
-        RouterOutlet,
-        MatProgressSpinnerModule,
-        FooterComponent,
-        AsyncPipe,
-    ]
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
+  imports: [
+    HeaderComponent,
+    RouterOutlet,
+    MatProgressSpinnerModule,
+    FooterComponent,
+    AsyncPipe,
+  ],
 })
 export class AppComponent implements OnInit {
   isShowHeader = true;
@@ -82,9 +81,7 @@ export class AppComponent implements OnInit {
     this.router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         const currentPath = this.location.path();
-        if (
-          /(\/articles\/create)|(\/articles\/\w+\/edit)/.test(currentPath)
-        ) {
+        if (/(\/articles\/create)|(\/articles\/\w+\/edit)/.test(currentPath)) {
           this.isShowHeader = false;
           this.isShowFooter = false;
           this.isScrollContainer = true;
