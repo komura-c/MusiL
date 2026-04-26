@@ -71,7 +71,6 @@
     "zone.js": "~0.15.1"
   },
   "dependencies": {
-    "@angular/material": "^16.2.0",
     "firebase": "^12.12.1",
     "tslib": "^2.8.1"
   }
