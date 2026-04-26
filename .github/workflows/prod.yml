@@ -56,7 +56,7 @@ jobs:
       - name: deploy to firebase
         uses: w9jds/firebase-action@v14.10.1
         with:
-          args: deploy
+          args: deploy --force
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_PROD }}
           PROJECT_ID: prod
