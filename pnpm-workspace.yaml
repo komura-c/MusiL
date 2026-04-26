@@ -6,6 +6,8 @@ onlyBuiltDependencies:
   - "@firebase/util"
   - nice-napi
   - protobufjs
+  - lmdb
+  - msgpackr-extract
 strictDepBuilds: true
 minimumReleaseAge: 4320
 blockExoticSubdeps: true
