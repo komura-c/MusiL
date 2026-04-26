@@ -49,8 +49,8 @@
     "@angular/router": "^19.2.21",
     "@types/jasmine": "~4.3.0",
     "@types/quill": "^2.0.14",
-    "@typescript-eslint/eslint-plugin": "^5.59.2",
-    "@typescript-eslint/parser": "^5.59.2",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
     "algoliasearch": "^4.14.3",
     "eslint": "^9.39.4",
     "eslint-config-prettier": "^8.6.0",
@@ -71,6 +71,7 @@
     "zone.js": "~0.15.1"
   },
   "dependencies": {
+    "@angular/material": "^16.2.0",
     "firebase": "^12.12.1",
     "tslib": "^2.8.1"
   }
