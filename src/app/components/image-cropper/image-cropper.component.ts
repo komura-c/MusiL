@@ -45,8 +45,8 @@ export interface ImageCroppedResult {
     </div>
     }
   `,
-  styles: [
-    `
+    styles: [
+        `
       :host {
         display: block;
       }
@@ -71,7 +71,7 @@ export interface ImageCroppedResult {
         box-sizing: border-box;
       }
     `,
-  ],
+    ]
 })
 export class ImageCropperComponent implements AfterViewInit, OnChanges {
   @Input() imageChangedEvent: Event | string | null = null;

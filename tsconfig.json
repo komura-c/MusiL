@@ -28,7 +28,9 @@
     "target": "ES2022",
     "module": "ES2022",
     "paths": {
-      "@interfaces/*": ["functions/src/interfaces/*"]
+      "@interfaces/*": [
+        "functions/src/interfaces/*"
+      ]
     },
     "useDefineForClassFields": false
   },
