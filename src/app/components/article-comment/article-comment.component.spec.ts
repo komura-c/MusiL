@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule as MatDialogModule } from '@angular/material/dialog';
 import {
@@ -21,8 +21,8 @@ describe('ArticleCommentComponent', () => {
   let component: ArticleCommentComponent;
   let fixture: ComponentFixture<ArticleCommentComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,
         RouterTestingModule,
@@ -38,7 +38,7 @@ describe('ArticleCommentComponent', () => {
         { provide: CommentService, useValue: CommentServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleCommentComponent);

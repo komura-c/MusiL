@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 
 @Component({
@@ -13,11 +13,11 @@ class HostComponent {
 describe('InfiniteScrollDirective', () => {
   let fixture: ComponentFixture<HostComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [HostComponent],
     }).compileComponents();
-  }));
+    });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HostComponent);

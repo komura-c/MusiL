@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialogModule as MatDialogModule,
   MatDialogRef as MatDialogRef,
@@ -14,15 +14,15 @@ describe('LoginDialogComponent', () => {
     close: jasmine.createSpy('close'),
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [MatDialogModule, LoginDialogComponent],
       providers: [
         { provide: AuthService, useValue: AuthServiceStub },
         { provide: MatDialogRef, useValue: MatDialogRefStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginDialogComponent);

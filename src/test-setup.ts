@@ -1,21 +1,32 @@
+// @angular/build:unit-test (runner: vitest) は internal の `angular:test-bed-init`
+// で TestBed/platformBrowserDynamicTesting を初期化する。ここでは providers の
+// 追加と jasmine 互換 shim だけを担当する（initTestEnvironment は呼ばない）。
 import 'zone.js';
 import 'zone.js/testing';
 import { provideZoneChangeDetection } from '@angular/core';
-import { getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
 import { expect, vi } from 'vitest';
 
-try {
-  getTestBed().initTestEnvironment(
-    BrowserDynamicTestingModule,
-    platformBrowserDynamicTesting(),
-    { teardown: { destroyAfterEach: true } }
-  );
-} catch {
-  // already initialized — vitest worker pool が同じプロセスで複数 spec を回す場合
+// jsdom 未対応 API のスタブ
+if (typeof globalThis.IntersectionObserver === 'undefined') {
+  class MockIntersectionObserver {
+    observe(): void {
+      // noop
+    }
+    unobserve(): void {
+      // noop
+    }
+    disconnect(): void {
+      // noop
+    }
+    takeRecords(): IntersectionObserverEntry[] {
+      return [];
+    }
+    root: Element | null = null;
+    rootMargin = '';
+    thresholds: number[] = [];
+  }
+  (globalThis as unknown as { IntersectionObserver: typeof MockIntersectionObserver }).IntersectionObserver =
+    MockIntersectionObserver;
 }
 
 // vitest の expect を jasmine 風 matcher で拡張

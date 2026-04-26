@@ -6,6 +6,13 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
   test: {
     globals: true,
+    // Angular の platform (initTestEnvironment) は単一プロセスで一度しか初期化できない
+    // ため、worker 並列を抑えて単一プロセス + シーケンシャル実行にする。
+    pool: 'threads',
+    poolOptions: {
+      threads: { singleThread: true },
+    },
+    fileParallelism: false,
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],

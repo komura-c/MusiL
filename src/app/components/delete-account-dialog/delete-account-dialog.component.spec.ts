@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialogRef as MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -16,8 +16,8 @@ describe('DeleteAccountDialogComponent', () => {
     close: jasmine.createSpy('close'),
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [RouterTestingModule, DeleteAccountDialogComponent],
       providers: [
         ...getCommonProviders(),
@@ -28,7 +28,7 @@ describe('DeleteAccountDialogComponent', () => {
         { provide: UserService, useValue: UserServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeleteAccountDialogComponent);

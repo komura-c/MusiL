@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
 import {
@@ -31,13 +31,13 @@ describe('ArticleEditButtonsComponent', () => {
     updatedAt: { toDate: () => new Date() } as any
   };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
     const dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
     exportSpy = jasmine.createSpyObj('ExportService', ['exportArticle']);
     const clipboardSpy = jasmine.createSpyObj('Clipboard', ['copy']);
     snackBarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [MatMenuModule, ArticleEditButtonsComponent],
       providers: [
         { provide: MatSnackBar, useValue: snackBarSpy },
@@ -49,7 +49,7 @@ describe('ArticleEditButtonsComponent', () => {
         { provide: ActivatedRoute, useClass: ActivatedRouteStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleEditButtonsComponent);
