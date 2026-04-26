@@ -3,9 +3,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { InfiniteScrollDirective } from './infinite-scroll.directive';
 
 @Component({
-  standalone: true,
-  imports: [InfiniteScrollDirective],
-  template: `<div appInfiniteScroll></div>`,
+    imports: [InfiniteScrollDirective],
+    template: `<div appInfiniteScroll></div>`
 })
 class HostComponent {
   @ViewChild(InfiniteScrollDirective) directive!: InfiniteScrollDirective;

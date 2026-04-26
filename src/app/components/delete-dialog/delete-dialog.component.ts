@@ -11,11 +11,10 @@ import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-delete-dialog',
-  templateUrl: './delete-dialog.component.html',
-  styleUrls: ['./delete-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
+    selector: 'app-delete-dialog',
+    templateUrl: './delete-dialog.component.html',
+    styleUrls: ['./delete-dialog.component.scss'],
+    imports: [MatDialogModule, MatButtonModule]
 })
 export class DeleteDialogComponent {
   constructor(

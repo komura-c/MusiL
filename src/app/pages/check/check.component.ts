@@ -6,11 +6,10 @@ import { CheckService } from 'src/app/services/check.service';
 import { NgIf, NgFor, AsyncPipe, JsonPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-check',
-  templateUrl: './check.component.html',
-  styleUrls: ['./check.component.scss'],
-  standalone: true,
-  imports: [NgIf, NgFor, AsyncPipe, JsonPipe],
+    selector: 'app-check',
+    templateUrl: './check.component.html',
+    styleUrls: ['./check.component.scss'],
+    imports: [NgIf, NgFor, AsyncPipe, JsonPipe]
 })
 export default class CheckComponent {
   private readonly checkService = inject(CheckService);

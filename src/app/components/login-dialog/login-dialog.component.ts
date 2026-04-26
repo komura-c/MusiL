@@ -9,11 +9,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-login-dialog',
-  templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.scss'],
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatIconModule],
+    selector: 'app-login-dialog',
+    templateUrl: './login-dialog.component.html',
+    styleUrls: ['./login-dialog.component.scss'],
+    imports: [MatDialogModule, MatButtonModule, MatIconModule]
 })
 export class LoginDialogComponent {
   constructor(

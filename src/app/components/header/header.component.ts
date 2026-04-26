@@ -11,21 +11,20 @@ import { RouterLink } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss'],
-  standalone: true,
-  imports: [
-    MatToolbarModule,
-    RouterLink,
-    SearchInputComponent,
-    NgIf,
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatDividerModule,
-    AsyncPipe,
-  ],
+    selector: 'app-header',
+    templateUrl: './header.component.html',
+    styleUrls: ['./header.component.scss'],
+    imports: [
+        MatToolbarModule,
+        RouterLink,
+        SearchInputComponent,
+        NgIf,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        MatDividerModule,
+        AsyncPipe,
+    ]
 })
 export class HeaderComponent {
   user$ = this.authService.user$.pipe(tap(() => (this.isLoading = false)));

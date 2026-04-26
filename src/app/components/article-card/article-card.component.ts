@@ -10,11 +10,10 @@ import { NgIf, DatePipe, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-article-card',
-  templateUrl: './article-card.component.html',
-  styleUrls: ['./article-card.component.scss'],
-  standalone: true,
-  imports: [RouterLink, NgIf, MatIconModule, DatePipe, AsyncPipe],
+    selector: 'app-article-card',
+    templateUrl: './article-card.component.html',
+    styleUrls: ['./article-card.component.scss'],
+    imports: [RouterLink, NgIf, MatIconModule, DatePipe, AsyncPipe]
 })
 export class ArticleCardComponent implements OnInit {
   @Input() article: ArticleWithAuthor;

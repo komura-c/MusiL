@@ -10,17 +10,16 @@ import { ArticleCardComponent } from '../../components/article-card/article-card
 import { NgIf, NgFor, AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'app-liked-articles',
-  templateUrl: './liked-articles.component.html',
-  styleUrls: ['./liked-articles.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    NgFor,
-    ArticleCardComponent,
-    MatProgressSpinnerModule,
-    AsyncPipe,
-  ],
+    selector: 'app-liked-articles',
+    templateUrl: './liked-articles.component.html',
+    styleUrls: ['./liked-articles.component.scss'],
+    imports: [
+        NgIf,
+        NgFor,
+        ArticleCardComponent,
+        MatProgressSpinnerModule,
+        AsyncPipe,
+    ]
 })
 export default class LikedArticlesComponent implements OnInit {
   articles$: Observable<ArticleWithAuthor[]>;

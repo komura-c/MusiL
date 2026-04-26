@@ -20,19 +20,18 @@ import { MatOptionModule } from '@angular/material/core';
 import { NgFor } from '@angular/common';
 
 @Component({
-  selector: 'app-search-input',
-  templateUrl: './search-input.component.html',
-  styleUrls: ['./search-input.component.scss'],
-  standalone: true,
-  imports: [
-    ReactiveFormsModule,
-    FormsModule,
-    MatAutocompleteModule,
-    NgFor,
-    MatOptionModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+    selector: 'app-search-input',
+    templateUrl: './search-input.component.html',
+    styleUrls: ['./search-input.component.scss'],
+    imports: [
+        ReactiveFormsModule,
+        FormsModule,
+        MatAutocompleteModule,
+        NgFor,
+        MatOptionModule,
+        MatButtonModule,
+        MatIconModule,
+    ]
 })
 export class SearchInputComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;

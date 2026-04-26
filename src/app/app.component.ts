@@ -11,18 +11,17 @@ import { DocumentService } from './services/document.service';
 import { WindowService } from './services/window.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [
-    NgIf,
-    HeaderComponent,
-    RouterOutlet,
-    MatProgressSpinnerModule,
-    FooterComponent,
-    AsyncPipe,
-  ],
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    imports: [
+        NgIf,
+        HeaderComponent,
+        RouterOutlet,
+        MatProgressSpinnerModule,
+        FooterComponent,
+        AsyncPipe,
+    ]
 })
 export class AppComponent implements OnInit {
   isShowHeader = true;
@@ -84,7 +83,7 @@ export class AppComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const currentPath = this.location.path();
         if (
-          /(\/articles\/create)|(\/articles\/[\u\l\d]+\/edit)/.test(currentPath)
+          /(\/articles\/create)|(\/articles\/\w+\/edit)/.test(currentPath)
         ) {
           this.isShowHeader = false;
           this.isShowFooter = false;
