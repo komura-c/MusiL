@@ -3,6 +3,7 @@ packages: []
 onlyBuiltDependencies:
   - esbuild
   - "@parcel/watcher"
+  - "@firebase/util"
 strictDepBuilds: true
 minimumReleaseAge: 4320
 blockExoticSubdeps: true
