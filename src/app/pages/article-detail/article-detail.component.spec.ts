@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialog as MatDialog,
   MAT_DIALOG_SCROLL_STRATEGY as MAT_DIALOG_SCROLL_STRATEGY,
@@ -50,14 +50,14 @@ describe('ArticleDetailComponent', () => {
     saveScrollPosition: jasmine.createSpy('saveScrollPosition'),
   };
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     activatedRouteStub = new ActivatedRouteStub();
     // Set up parent route with paramMap
     activatedRouteStub.parent = {
       paramMap: activatedRouteStub.paramMap,
     } as any;
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [ArticleDetailComponent],
       providers: [
         ...getCommonProviders(),
@@ -70,7 +70,7 @@ describe('ArticleDetailComponent', () => {
         { provide: ViewCountService, useValue: ViewCountServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ArticleDetailComponent);

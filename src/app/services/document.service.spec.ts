@@ -84,4 +84,50 @@ describe('DocumentService', () => {
     service.setCookie('new=cookie');
     expect(mockDocument.cookie).toBe('new=cookie');
   });
+
+  it('delegates remaining DOM methods', () => {
+    mockDocument.querySelectorAll = vi.fn().mockReturnValue([]);
+    mockDocument.createTextNode = vi
+      .fn()
+      .mockReturnValue(document.createTextNode('x'));
+    mockDocument.createDocumentFragment = vi
+      .fn()
+      .mockReturnValue(document.createDocumentFragment());
+    mockDocument.removeEventListener = vi.fn();
+    mockDocument.dispatchEvent = vi.fn().mockReturnValue(true);
+    mockDocument.createEvent = vi.fn().mockReturnValue({} as Event);
+    mockDocument.execCommand = vi.fn().mockReturnValue(true);
+    mockDocument.getElementsByClassName = vi.fn().mockReturnValue([]);
+    mockDocument.getElementsByTagName = vi.fn().mockReturnValue([]);
+    mockDocument.createRange = vi.fn().mockReturnValue({} as Range);
+    mockDocument.adoptNode = vi.fn((n: Node) => n);
+    mockDocument.importNode = vi.fn((n: Node) => n);
+    mockDocument.elementFromPoint = vi.fn().mockReturnValue(null);
+    mockDocument.createNodeIterator = vi.fn().mockReturnValue({});
+    mockDocument.createTreeWalker = vi.fn().mockReturnValue({});
+
+    expect(service.querySelectorAll('*')).toEqual([]);
+    expect(service.createTextNode('x')).toBeTruthy();
+    expect(service.createDocumentFragment()).toBeTruthy();
+    service.removeEventListener('x', () => undefined);
+    expect(service.dispatchEvent(new Event('x'))).toBe(true);
+    expect(service.createEvent('Event')).toBeTruthy();
+    expect(service.execCommand('copy')).toBe(true);
+    expect(service.getElementsByClassName('c')).toEqual([]);
+    expect(service.getElementsByTagName('div')).toEqual([]);
+    expect(service.hasFocus()).toBe(true);
+    expect(service.getSelection()).toBe(null);
+    expect(service.createRange()).toBeTruthy();
+    expect(service.adoptNode(document.createElement('div'))).toBeTruthy();
+    expect(
+      service.importNode(document.createElement('div'), false)
+    ).toBeTruthy();
+    expect(service.elementFromPoint(0, 0)).toBe(null);
+    expect(service.createNodeIterator(document.createElement('div'))).toBeTruthy();
+    expect(service.createTreeWalker(document.createElement('div'))).toBeTruthy();
+  });
+
+  it('caretPositionFromPoint returns null when API unavailable', () => {
+    expect(service.caretPositionFromPoint(0, 0)).toBe(null);
+  });
 });

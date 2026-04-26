@@ -36,8 +36,10 @@ describe('ExportService', () => {
       click: jasmine.createSpy('click')
     };
     spyOn(document, 'createElement').and.returnValue(mockLink as any);
-    spyOn(document.body, 'appendChild');
-    spyOn(document.body, 'removeChild');
+    // jsdom strict mode で fake Node の appendChild が型チェックで弾かれるため
+    // mock 実装を渡して noop にする
+    spyOn(document.body, 'appendChild').and.callFake((n: any) => n);
+    spyOn(document.body, 'removeChild').and.callFake((n: any) => n);
   });
 
 

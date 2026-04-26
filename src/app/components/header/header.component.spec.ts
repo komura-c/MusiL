@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatMenuModule as MatMenuModule } from '@angular/material/menu';
 import { MatDialog as MatDialog } from '@angular/material/dialog';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,10 +18,10 @@ describe('HeaderComponent', () => {
   let fixture: ComponentFixture<HeaderComponent>;
   let dialogSpy: jasmine.SpyObj<MatDialog>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(async () => {
     dialogSpy = jasmine.createSpyObj('MatDialog', ['open']);
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
       imports: [MatMenuModule, RouterTestingModule, HeaderComponent],
       providers: [
         ...getCommonProviders(),
@@ -31,7 +31,7 @@ describe('HeaderComponent', () => {
         { provide: MatDialog, useValue: dialogSpy },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);

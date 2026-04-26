@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialog as MatDialog,
   MatDialogRef as MatDialogRef,
@@ -16,8 +16,8 @@ describe('DeleteDialogComponent', () => {
   let component: DeleteDialogComponent;
   let fixture: ComponentFixture<DeleteDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [MatSnackBarModule, DeleteDialogComponent],
       providers: [
         ...getCommonProviders(),
@@ -32,7 +32,7 @@ describe('DeleteDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DeleteDialogComponent);
