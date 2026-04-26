@@ -7,13 +7,13 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  MatLegacyDialogRef as MatDialogRef,
-  MatLegacyDialogModule,
-} from '@angular/material/legacy-dialog';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+  MatDialogRef as MatDialogRef,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
-import { MatLegacyInputModule } from '@angular/material/legacy-input';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-link-insert-dialog',
@@ -22,11 +22,11 @@ import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    MatLegacyFormFieldModule,
-    MatLegacyInputModule,
+    MatFormFieldModule,
+    MatInputModule,
     NgIf,
-    MatLegacyDialogModule,
-    MatLegacyButtonModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
 })
 export class LinkInsertDialogComponent {

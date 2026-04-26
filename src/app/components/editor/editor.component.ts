@@ -8,16 +8,16 @@ import {
 } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { ArticleService } from 'src/app/services/article.service';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import {
   UntypedFormGroup,
   UntypedFormControl,
   ReactiveFormsModule,
 } from '@angular/forms';
 import {
-  MatLegacyDialogModule,
-  MatLegacyDialog as MatDialog,
-} from '@angular/material/legacy-dialog';
+  MatDialogModule,
+  MatDialog as MatDialog,
+} from '@angular/material/dialog';
 import { LinkInsertDialogComponent } from '../link-insert-dialog/link-insert-dialog.component';
 import type { ImageData as QuillImageData } from 'quill-image-drop-and-paste';
 import { NgIf } from '@angular/common';
@@ -35,7 +35,7 @@ type QuillModules = Record<string, unknown>;
     NgIf,
     ReactiveFormsModule,
     QuillEditorComponent,
-    MatLegacyDialogModule,
+    MatDialogModule,
   ],
 })
 export class EditorComponent implements OnInit {

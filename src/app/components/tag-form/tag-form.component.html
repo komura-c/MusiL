@@ -1,9 +1,8 @@
 <div [formGroup]="parentForm">
   <mat-form-field class="tag-form" color="accent">
-    <mat-chip-list #chipList aria-label="タグセレクション">
-      <mat-chip
+    <mat-chip-grid #chipList aria-label="タグセレクション">
+      <mat-chip-row
         *ngFor="let tag of tags"
-        [selectable]="selectable"
         [removable]="removable"
         (removed)="remove(tag)"
       >
@@ -15,7 +14,7 @@
           [attr.aria-label]="tag + 'をタグから除く'"
           fontIcon="cancel"
         ></mat-icon>
-      </mat-chip>
+      </mat-chip-row>
       <input
         placeholder="タグ"
         #tagInput
@@ -25,7 +24,7 @@
         [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
         (matChipInputTokenEnd)="add($event)"
       />
-    </mat-chip-list>
+    </mat-chip-grid>
     <mat-autocomplete
       #auto="matAutocomplete"
       (optionSelected)="selected($event)"

@@ -1,9 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import {
-  MatLegacyDialog as MatDialog,
-  MatLegacyDialogRef as MatDialogRef,
-  MAT_LEGACY_DIALOG_DATA as MAT_DIALOG_DATA,
-} from '@angular/material/legacy-dialog';
+  MatDialog as MatDialog,
+  MatDialogRef as MatDialogRef,
+  MAT_DIALOG_DATA as MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserServiceStub, AuthServiceStub } from 'src/test/service.stub';

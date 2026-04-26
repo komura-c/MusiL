@@ -11,18 +11,18 @@ import {
 import { take } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
 import {
-  MatLegacyDialogModule,
-  MatLegacyDialog as MatDialog,
-} from '@angular/material/legacy-dialog';
+  MatDialogModule,
+  MatDialog as MatDialog,
+} from '@angular/material/dialog';
 import { ImageCropDialogComponent } from '../../components/image-crop-dialog/image-crop-dialog.component';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteAccountDialogComponent } from '../../components/delete-account-dialog/delete-account-dialog.component';
 import { Router } from '@angular/router';
 import { SeoService } from 'src/app/services/seo.service';
-import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyInputModule } from '@angular/material/legacy-input';
-import { MatLegacyFormFieldModule } from '@angular/material/legacy-form-field';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { NgIf, AsyncPipe } from '@angular/common';
 
@@ -35,12 +35,12 @@ import { NgIf, AsyncPipe } from '@angular/common';
     NgIf,
     MatIconModule,
     ReactiveFormsModule,
-    MatLegacyFormFieldModule,
-    MatLegacyInputModule,
-    MatLegacyButtonModule,
-    MatLegacyProgressSpinnerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
     AsyncPipe,
-    MatLegacyDialogModule,
+    MatDialogModule,
   ],
 })
 export default class SettingsComponent implements OnInit {

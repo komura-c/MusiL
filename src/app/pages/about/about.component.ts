@@ -3,11 +3,11 @@ import { AuthService } from 'src/app/services/auth.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { take } from 'rxjs/operators';
 import { UserData } from '@interfaces/user';
-import { MatLegacyCardModule } from '@angular/material/legacy-card';
+import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
-import { MatLegacyProgressSpinnerModule } from '@angular/material/legacy-progress-spinner';
+import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -17,11 +17,11 @@ import { NgIf } from '@angular/common';
   standalone: true,
   imports: [
     NgIf,
-    MatLegacyProgressSpinnerModule,
-    MatLegacyButtonModule,
+    MatProgressSpinnerModule,
+    MatButtonModule,
     MatIconModule,
     RouterLink,
-    MatLegacyCardModule,
+    MatCardModule,
   ],
 })
 export default class AboutComponent implements OnInit {

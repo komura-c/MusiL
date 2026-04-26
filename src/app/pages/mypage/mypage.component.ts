@@ -15,9 +15,9 @@ import { UserService } from 'src/app/services/user.service';
 import { SeoService } from 'src/app/services/seo.service';
 import { EncodeUrlPipe } from '../../pipes/encode-url.pipe';
 import { StringToLinkPipe } from '../../pipes/string-to-link.pipe';
-import { MatLegacyTabsModule } from '@angular/material/legacy-tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { NgIf, AsyncPipe } from '@angular/common';
 
 @Component({
@@ -27,10 +27,10 @@ import { NgIf, AsyncPipe } from '@angular/common';
   standalone: true,
   imports: [
     NgIf,
-    MatLegacyButtonModule,
+    MatButtonModule,
     RouterLink,
     MatIconModule,
-    MatLegacyTabsModule,
+    MatTabsModule,
     RouterLinkActive,
     RouterOutlet,
     AsyncPipe,

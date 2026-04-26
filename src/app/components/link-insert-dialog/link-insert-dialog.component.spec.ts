@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MatLegacyDialogRef as MatDialogRef } from '@angular/material/legacy-dialog';
+import { MatDialogRef as MatDialogRef } from '@angular/material/dialog';
 import { LinkInsertDialogComponent } from './link-insert-dialog.component';
 
 describe('LinkInsertDialogComponent', () => {

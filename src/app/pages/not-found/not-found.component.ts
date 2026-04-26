@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { RouterLink } from '@angular/router';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-not-found',
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
   standalone: true,
-  imports: [MatLegacyButtonModule, RouterLink],
+  imports: [MatButtonModule, RouterLink],
 })
 export default class NotFoundComponent {
   constructor(private seoService: SeoService) {

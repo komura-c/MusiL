@@ -1,18 +1,18 @@
 import { Component, Input } from '@angular/core';
 import {
-  MatLegacyDialogModule,
-  MatLegacyDialog as MatDialog,
-} from '@angular/material/legacy-dialog';
+  MatDialogModule,
+  MatDialog as MatDialog,
+} from '@angular/material/dialog';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { Article } from '@interfaces/article';
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { environment } from 'src/environments/environment';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 import { MatIconModule } from '@angular/material/icon';
-import { MatLegacyMenuModule } from '@angular/material/legacy-menu';
+import { MatMenuModule } from '@angular/material/menu';
 import { RouterLink } from '@angular/router';
-import { MatLegacyButtonModule } from '@angular/material/legacy-button';
+import { MatButtonModule } from '@angular/material/button';
 import { ExportService, ExportFormat } from 'src/app/services/export.service';
 
 @Component({
@@ -21,11 +21,11 @@ import { ExportService, ExportFormat } from 'src/app/services/export.service';
   styleUrls: ['./article-edit-buttons.component.scss'],
   standalone: true,
   imports: [
-    MatLegacyButtonModule,
+    MatButtonModule,
     RouterLink,
-    MatLegacyMenuModule,
+    MatMenuModule,
     MatIconModule,
-    MatLegacyDialogModule,
+    MatDialogModule,
   ],
 })
 export class ArticleEditButtonsComponent {
