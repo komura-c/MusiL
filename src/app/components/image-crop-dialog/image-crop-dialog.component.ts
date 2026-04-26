@@ -5,7 +5,10 @@ import {
   MatLegacyDialogModule,
 } from '@angular/material/legacy-dialog';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
-import { ImageCroppedEvent, ImageCropperModule } from 'ngx-image-cropper';
+import {
+  ImageCroppedResult,
+  ImageCropperComponent,
+} from '../image-cropper/image-cropper.component';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { MatLegacyButtonModule } from '@angular/material/legacy-button';
@@ -17,7 +20,7 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./image-crop-dialog.component.scss'],
   standalone: true,
   imports: [
-    ImageCropperModule,
+    ImageCropperComponent,
     NgIf,
     MatLegacyButtonModule,
     MatLegacyDialogModule,
@@ -42,7 +45,7 @@ export class ImageCropDialogComponent {
     this.imageSelecter = this.data.imageSelecter;
   }
 
-  imageCropped(event: ImageCroppedEvent) {
+  imageCropped(event: ImageCroppedResult) {
     this.croppedImage = event.base64;
   }
 
