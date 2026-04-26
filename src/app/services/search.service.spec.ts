@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import algoliasearch from 'algoliasearch';
-import { Auth } from '@angular/fire/auth';
 import { environmentStub } from 'src/test/environment.stub';
-import { AuthStub } from 'src/test/service.stub';
 import { SearchService } from './search.service';
 
 describe('SearchService', () => {
@@ -19,9 +17,7 @@ describe('SearchService', () => {
   };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({
-      providers: [{ provide: Auth, useValue: AuthStub }],
-    });
+    TestBed.configureTestingModule({});
     service = TestBed.inject(SearchService);
     service.index = indexStub;
   });

@@ -9,7 +9,7 @@ import {
 import { getCommonProviders } from 'src/test/test-helpers';
 import { ArticleCardComponent } from './article-card.component';
 import { ActivatedRoute } from '@angular/router';
-import { Timestamp } from '@angular/fire/firestore/lite';
+import { Timestamp } from 'firebase/firestore/lite';
 
 describe('ArticleCardComponent', () => {
   let component: ArticleCardComponent;
