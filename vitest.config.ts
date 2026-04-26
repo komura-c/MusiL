@@ -25,6 +25,9 @@ export default defineConfig({
         'src/**/*.spec.ts',
         'src/app/app.routes.ts',
         'src/app/app.config.ts',
+        // Firebase ラッパー: モジュール関数の薄いラッパーで、firebase JS SDK の
+        // モック化が他 spec と競合しやすいため統合テストで担保（カバレッジ対象外）
+        'src/app/services/firebase.service.ts',
       ],
       // 閾値はカバレッジ充実フェーズで設定（Stage 4）
     },
