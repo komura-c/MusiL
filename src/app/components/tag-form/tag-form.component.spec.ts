@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   UntypedFormBuilder,
   UntypedFormGroup,
@@ -14,15 +14,15 @@ describe('TagFormComponent', () => {
   let fixture: ComponentFixture<TagFormComponent>;
   let formBuilder: UntypedFormBuilder;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [MatAutocompleteModule, ReactiveFormsModule, TagFormComponent],
       providers: [
         UntypedFormBuilder,
         { provide: SearchService, useValue: SearchServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(TagFormComponent);

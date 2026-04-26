@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ArticleService } from 'src/app/services/article.service';
@@ -15,8 +15,8 @@ describe('LikedArticlesComponent', () => {
   let component: LikedArticlesComponent;
   let fixture: ComponentFixture<LikedArticlesComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [RouterTestingModule, LikedArticlesComponent],
       providers: [
         ...getCommonProviders(),
@@ -25,7 +25,7 @@ describe('LikedArticlesComponent', () => {
         { provide: UserService, useValue: UserServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LikedArticlesComponent);

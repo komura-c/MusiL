@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   MatDialog as MatDialog,
   MatDialogRef as MatDialogRef,
@@ -14,8 +14,8 @@ describe('ImageCropDialogComponent', () => {
   let component: ImageCropDialogComponent;
   let fixture: ComponentFixture<ImageCropDialogComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [ImageCropDialogComponent],
       providers: [
         ...getCommonProviders(),
@@ -29,7 +29,7 @@ describe('ImageCropDialogComponent', () => {
         { provide: MAT_DIALOG_DATA, useValue: {} },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ImageCropDialogComponent);

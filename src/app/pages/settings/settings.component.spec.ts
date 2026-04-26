@@ -1,5 +1,5 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UntypedFormBuilder } from '@angular/forms';
 import {
   MatDialog as MatDialog,
@@ -15,8 +15,8 @@ describe('SettingsComponent', () => {
   let component: SettingsComponent;
   let fixture: ComponentFixture<SettingsComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [SettingsComponent],
       providers: [
         ...getCommonProviders(),
@@ -28,7 +28,7 @@ describe('SettingsComponent', () => {
         { provide: UserService, useValue: UserServiceStub },
       ],
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SettingsComponent);
