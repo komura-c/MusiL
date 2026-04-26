@@ -16,20 +16,30 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov'],
+      // ロジック層 (services / pipes / guards / directives / lib) のみを
+      // カバレッジ対象とする。components / pages はテンプレートと外部依存
+      // (Material / Quill / Firebase) が支配的でユニットテスト ROI が低い
+      // ため、機能確認用 spec は維持しつつカバレッジメトリクスからは除外。
+      include: [
+        'src/app/services/**/*.ts',
+        'src/app/pipes/**/*.ts',
+        'src/app/guards/**/*.ts',
+        'src/app/directives/**/*.ts',
+        'src/app/lib/**/*.ts',
+      ],
       exclude: [
         '**/*.d.ts',
-        'src/test-setup.ts',
-        'src/test/**',
-        'src/main.ts',
-        'src/environments/**',
         'src/**/*.spec.ts',
-        'src/app/app.routes.ts',
-        'src/app/app.config.ts',
         // Firebase ラッパー: モジュール関数の薄いラッパーで、firebase JS SDK の
-        // モック化が他 spec と競合しやすいため統合テストで担保（カバレッジ対象外）
+        // モック化が他 spec と競合しやすいため統合テストで担保（対象外）
         'src/app/services/firebase.service.ts',
       ],
-      // 閾値はカバレッジ充実フェーズで設定（Stage 4）
+      thresholds: {
+        lines: 80,
+        functions: 80,
+        statements: 80,
+        branches: 70,
+      },
     },
   },
 });

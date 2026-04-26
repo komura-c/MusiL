@@ -109,7 +109,20 @@
             "tsConfig": "tsconfig.spec.json",
             "buildTarget": "musil:build:development",
             "runner": "vitest",
-            "providersFile": "src/test-setup.ts"
+            "providersFile": "src/test-setup.ts",
+            "coverage": true,
+            "coverageInclude": [
+              "src/app/services/**/*.ts",
+              "src/app/pipes/**/*.ts",
+              "src/app/guards/**/*.ts",
+              "src/app/directives/**/*.ts",
+              "src/app/lib/**/*.ts"
+            ],
+            "coverageExclude": [
+              "**/*.d.ts",
+              "src/**/*.spec.ts",
+              "src/app/services/firebase.service.ts"
+            ]
           }
         },
         "deploy": {
