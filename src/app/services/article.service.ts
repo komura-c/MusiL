@@ -7,23 +7,14 @@ import { map, switchMap, take, catchError } from 'rxjs/operators';
 import { UserService } from './user.service';
 import { FirebaseService } from './firebase.service';
 import {
-  collection,
-  collectionData,
   CollectionReference,
-  deleteDoc,
-  doc,
-  getDoc,
   limit,
   orderBy,
-  query,
   QueryConstraint,
-  setDoc,
   startAfter,
   Timestamp,
-  updateDoc,
   where,
-} from '@angular/fire/firestore/lite';
-import { getDownloadURL, ref, uploadBytes } from '@angular/fire/storage';
+} from 'firebase/firestore/lite';
 
 @Injectable({
   providedIn: 'root',
@@ -32,19 +23,16 @@ export class ArticleService {
   private readonly firebaseService = inject(FirebaseService);
   private readonly userService = inject(UserService);
 
-  private articlesCollection = collection(
-    this.firebaseService.firestore,
+  private articlesCollection = this.firebaseService.collection<Article>(
     'articles'
-  ) as CollectionReference<Article>;
+  );
 
-  async uploadImage(uid: string, file: File): Promise<string> {
+  uploadImage(uid: string, file: File): Promise<string> {
     const time: number = new Date().getTime();
-    const storageRef = ref(
-      this.firebaseService.storage,
-      `users/${uid}/images/${time}_${file.name}`
+    return this.firebaseService.uploadBytes(
+      `users/${uid}/images/${time}_${file.name}`,
+      file
     );
-    const result = await uploadBytes(storageRef, file);
-    return await getDownloadURL(result.ref);
   }
 
   async createArticle(
@@ -53,7 +41,7 @@ export class ArticleService {
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >
   ): Promise<string> {
-    const docRef = doc(this.articlesCollection);
+    const docRef = this.firebaseService.doc<Article>(this.articlesCollection);
     const articleId = docRef.id;
     const resultArticle = {
       articleId,
@@ -62,7 +50,7 @@ export class ArticleService {
       createdAt: Timestamp.now(),
       updatedAt: Timestamp.now(),
     };
-    await setDoc(docRef, <Article>resultArticle);
+    await this.firebaseService.setDoc(docRef, <Article>resultArticle);
     return articleId;
   }
 
@@ -73,29 +61,35 @@ export class ArticleService {
       'articleId' | 'createdAt' | 'updatedAt' | 'likeCount'
     >
   ): Promise<void> {
-    const docRef = doc(this.articlesCollection, articleId);
+    const docRef = this.firebaseService.doc<Article>(
+      this.articlesCollection,
+      articleId
+    );
     const resultArticle = {
       articleId,
       ...article,
       updatedAt: Timestamp.now(),
     };
-    return updateDoc(docRef, resultArticle);
+    return this.firebaseService.updateDoc(docRef, resultArticle);
   }
 
   deleteArticle(articleId: string): Promise<void> {
-    const docRef = doc(this.articlesCollection, articleId);
-    return deleteDoc(docRef);
+    const docRef = this.firebaseService.doc<Article>(
+      this.articlesCollection,
+      articleId
+    );
+    return this.firebaseService.deleteDoc(docRef);
   }
 
   getMyArticlesPublic(user: UserData): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query(
+    const articlesQuery = this.firebaseService.query(
       this.articlesCollection,
       where('uid', '==', user.uid),
       where('isPublic', '==', true),
       orderBy('updatedAt', 'desc'),
       limit(20)
     );
-    return collectionData<Article>(articlesQuery).pipe(
+    return this.firebaseService.collectionData<Article>(articlesQuery).pipe(
       take(1),
       map((articles: Article[]) => {
         if (articles?.length) {
@@ -114,38 +108,37 @@ export class ArticleService {
   }
 
   getMyLikedArticles(uid: string): Observable<ArticleWithAuthor[]> {
-    const likedArticlesCollection = collection(
-      this.firebaseService.firestore,
-      `users/${uid}/likedArticles`
-    ) as CollectionReference<{ articleId: string }>;
+    const likedArticlesCollection = this.firebaseService.collection<{
+      articleId: string;
+    }>(`users/${uid}/likedArticles`);
 
-    const articlesQuery = query(
+    const articlesQuery = this.firebaseService.query(
       likedArticlesCollection,
       orderBy('updatedAt', 'desc'),
       limit(20)
     );
 
-    const userlikedArticles = collectionData<{ articleId: string }>(
-      articlesQuery
-    ).pipe(take(1));
+    const userlikedArticles = this.firebaseService
+      .collectionData<{ articleId: string }>(articlesQuery)
+      .pipe(take(1));
 
     const sorted = userlikedArticles.pipe(
       switchMap((articleIdDocs: { articleId: string }[]) => {
         const articleDocs = articleIdDocs.map((articleIdDoc) => {
-          const articlesQuery = query(
+          const q = this.firebaseService.query(
             this.articlesCollection,
             where('articleId', '==', articleIdDoc.articleId),
             where('isPublic', '==', true)
           );
-          return collectionData(articlesQuery).pipe(
+          return this.firebaseService.collectionData<Article>(q).pipe(
             take(1),
-            map((articles: any[]) => (articles.length ? articles[0] : null))
+            map((articles: Article[]) => (articles.length ? articles[0] : null))
           );
         });
         return combineLatest(articleDocs);
       }),
-      map((articles: any[]) => {
-        return articles.filter((article: any) => article);
+      map((articles: Article[]) => {
+        return articles.filter((article: Article) => article);
       })
     );
     return this.getArticlesWithAuthors(sorted);
@@ -166,8 +159,12 @@ export class ArticleService {
     if (lastArticle) {
       queryOperator.push(startAfter(lastArticle.updatedAt));
     }
-    const articlesQuery = query(this.articlesCollection, ...queryOperator);
-    const articles$ = collectionData<Article>(articlesQuery);
+    const articlesQuery = this.firebaseService.query(
+      this.articlesCollection,
+      ...queryOperator
+    );
+    const articles$ =
+      this.firebaseService.collectionData<Article>(articlesQuery);
     return articles$.pipe(
       map((articles: Article[]) => {
         return {
@@ -179,10 +176,11 @@ export class ArticleService {
   }
 
   getArticleOnly(articleId: string): Observable<Article> {
-    const docRef = doc(this.firebaseService.firestore, 'articles', articleId);
-    const docSnap = getDoc(docRef);
-    return from(docSnap).pipe(
-      map((doc: any) => {
+    const docRef = this.firebaseService.doc<Article>(
+      `articles/${articleId}`
+    );
+    return from(this.firebaseService.getDoc(docRef)).pipe(
+      map((doc) => {
         if (doc.exists()) {
           return doc.data() as Article;
         } else {
@@ -197,36 +195,39 @@ export class ArticleService {
   }
 
   getPopularArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query(
+    const articlesQuery = this.firebaseService.query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('likeCount', 'desc'),
       orderBy('createdAt', 'desc'),
       limit(20)
     );
-    const sorted = collectionData<Article>(articlesQuery);
+    const sorted =
+      this.firebaseService.collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 
   getLatestArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query(
+    const articlesQuery = this.firebaseService.query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('updatedAt', 'desc'),
       limit(20)
     );
-    const sorted = collectionData<Article>(articlesQuery);
+    const sorted =
+      this.firebaseService.collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 
   getPickUpArticles(): Observable<ArticleWithAuthor[]> {
-    const articlesQuery = query(
+    const articlesQuery = this.firebaseService.query(
       this.articlesCollection,
       where('isPublic', '==', true),
       orderBy('createdAt', 'desc'),
       limit(20)
     );
-    const sorted = collectionData<Article>(articlesQuery);
+    const sorted =
+      this.firebaseService.collectionData<Article>(articlesQuery);
     return this.getArticlesWithAuthors(sorted);
   }
 

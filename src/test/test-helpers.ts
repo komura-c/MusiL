@@ -1,8 +1,3 @@
-import { Auth } from '@angular/fire/auth';
-import { Firestore } from '@angular/fire/firestore/lite';
-import { Storage } from '@angular/fire/storage';
-import { Functions } from '@angular/fire/functions';
-import { Analytics } from '@angular/fire/analytics';
 import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -24,17 +19,6 @@ import { of } from 'rxjs';
 import { WindowService } from '../app/services/window.service';
 import { DocumentService } from '../app/services/document.service';
 import { FirebaseService } from '../app/services/firebase.service';
-import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { environmentStub } from './environment.stub';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFirestore, getFirestore } from '@angular/fire/firestore/lite';
-import { provideStorage, getStorage } from '@angular/fire/storage';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
-import { provideAnalytics, getAnalytics } from '@angular/fire/analytics';
-
-// Setup AngularFire for testing
-(globalThis as any).ɵAngularfireInstanceCache = new Map();
 
 // Ensure document.defaultView is available for @HostListener
 if (typeof window !== 'undefined' && typeof document !== 'undefined') {
@@ -137,27 +121,69 @@ const DocumentStub = {
   removeEventListener: jasmine.createSpy('removeEventListener'),
 };
 
-// Create a mock FirebaseService
+// Mock FirebaseService — メソッド単位でスパイ可能なよう全ラッパー API をスタブ化
 const MockFirebaseService = {
   auth: AuthProviderStub,
   firestore: FirestoreProviderStub,
   storage: StorageProviderStub,
   functions: FunctionsProviderStub,
   analytics: AnalyticsProviderStub,
+
+  // Firestore wrappers
+  collection: jasmine.createSpy('collection').and.returnValue({}),
+  doc: jasmine.createSpy('doc').and.returnValue({ id: 'mock-doc-id' }),
+  query: jasmine.createSpy('query').and.returnValue({}),
+  getDoc: jasmine.createSpy('getDoc').and.returnValue(
+    Promise.resolve({
+      exists: () => true,
+      data: () => ({}),
+    })
+  ),
+  collectionData: jasmine
+    .createSpy('collectionData')
+    .and.returnValue(of([])),
+  setDoc: jasmine.createSpy('setDoc').and.returnValue(Promise.resolve()),
+  updateDoc: jasmine.createSpy('updateDoc').and.returnValue(Promise.resolve()),
+  deleteDoc: jasmine.createSpy('deleteDoc').and.returnValue(Promise.resolve()),
+
+  // Storage wrappers
+  storageRef: jasmine.createSpy('storageRef').and.returnValue({}),
+  uploadBytes: jasmine
+    .createSpy('uploadBytes')
+    .and.returnValue(Promise.resolve('https://example.com/image.png')),
+  uploadString: jasmine
+    .createSpy('uploadString')
+    .and.returnValue(Promise.resolve('https://example.com/image.png')),
+
+  // Auth wrappers
+  authState$: jasmine.createSpy('authState$').and.returnValue(of(null)),
+  signOut: jasmine.createSpy('signOut').and.returnValue(Promise.resolve()),
+  deleteCurrentUser: jasmine
+    .createSpy('deleteCurrentUser')
+    .and.returnValue(Promise.resolve()),
+  signInWithTwitter: jasmine
+    .createSpy('signInWithTwitter')
+    .and.returnValue(Promise.resolve({ user: { uid: 'test-uid' } })),
+  getAdditionalUserInfo: jasmine
+    .createSpy('getAdditionalUserInfo')
+    .and.returnValue({ profile: {} }),
+
+  // Functions
+  callFunction: jasmine
+    .createSpy('callFunction')
+    .and.returnValue(Promise.resolve({ data: {} })),
+
+  // Analytics
+  logEvent: jasmine.createSpy('logEvent'),
+  setUserId: jasmine.createSpy('setUserId'),
 };
 
 export const getFirebaseProviders = () => [
-  { provide: Auth, useValue: AuthProviderStub },
-  { provide: Firestore, useValue: FirestoreProviderStub },
-  { provide: Storage, useValue: StorageProviderStub },
-  { provide: Functions, useValue: FunctionsProviderStub },
-  { provide: Analytics, useValue: AnalyticsProviderStub },
+  { provide: FirebaseService, useValue: MockFirebaseService },
 ];
 
 export const getCommonProviders = () => [
   ...getFirebaseProviders(),
-  { provide: FIREBASE_OPTIONS, useValue: environmentStub.firebase },
-  { provide: FirebaseService, useValue: MockFirebaseService },
   { provide: MatSnackBar, useValue: MatSnackBarStub },
   { provide: Router, useValue: RouterStub },
   { provide: ActivatedRoute, useClass: ActivatedRouteStub },

@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { ExportService } from './export.service';
 import { Article } from '@interfaces/article';
-import { Timestamp } from '@angular/fire/firestore/lite';
+import { Timestamp } from 'firebase/firestore/lite';
 
 describe('ExportService', () => {
   let service: ExportService;

@@ -1,11 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import {
-  collection,
-  collectionData,
-  CollectionReference,
-  query,
-  where,
-} from '@angular/fire/firestore/lite';
+import { where } from 'firebase/firestore/lite';
 import { Article } from '@interfaces/article';
 import { UserData } from '@interfaces/user';
 import { Observable } from 'rxjs';
@@ -18,24 +12,22 @@ export class CheckService {
   private readonly firebaseService = inject(FirebaseService);
 
   getUserScreenNameIsNull(): Observable<UserData[]> {
-    const usersCollection = collection(
-      this.firebaseService.firestore,
-      'users'
-    ) as CollectionReference<UserData>;
-    const usersQuery = query(usersCollection, where('screenName', '==', null));
-    return collectionData<UserData>(usersQuery);
+    const usersCollection = this.firebaseService.collection<UserData>('users');
+    const usersQuery = this.firebaseService.query(
+      usersCollection,
+      where('screenName', '==', null)
+    );
+    return this.firebaseService.collectionData<UserData>(usersQuery);
   }
 
   getArticleThumbnailURLIsNull(): Observable<Article[]> {
-    const articlesCollection = collection(
-      this.firebaseService.firestore,
-      'articles'
-    ) as CollectionReference<Article>;
-    const articlesQuery = query(
+    const articlesCollection =
+      this.firebaseService.collection<Article>('articles');
+    const articlesQuery = this.firebaseService.query(
       articlesCollection,
       where('isPublic', '==', true),
       where('thumbnailURL', '==', null)
     );
-    return collectionData<Article>(articlesQuery);
+    return this.firebaseService.collectionData<Article>(articlesQuery);
   }
 }

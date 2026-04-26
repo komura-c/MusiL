@@ -6,14 +6,7 @@ import { UserService } from './user.service';
 import { FirebaseService } from './firebase.service';
 import { switchMap, shareReplay, take, mergeMap, map } from 'rxjs/operators';
 import { UserData } from '@interfaces/user';
-import {
-  authState,
-  getAdditionalUserInfo,
-  signInWithPopup,
-  TwitterAuthProvider,
-  user,
-  User,
-} from '@angular/fire/auth';
+import { User } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +19,7 @@ export class AuthService {
 
   get afUser$(): Observable<User> {
     try {
-      return user(this.firebaseService.auth);
+      return this.firebaseService.authState$() as Observable<User>;
     } catch (error) {
       console.debug('Firebase auth not available:', error);
       return of(null as any);
@@ -38,7 +31,7 @@ export class AuthService {
   uid: string;
   get user$(): Observable<UserData> {
     try {
-      return authState(this.firebaseService.auth).pipe(
+      return this.firebaseService.authState$().pipe(
         mergeMap((afUser) => {
           return this.snapShotEvent$.pipe(
             map(() => {
@@ -65,14 +58,10 @@ export class AuthService {
 
   async login(): Promise<void> {
     this.loginProcessing = true;
-    const provider = new TwitterAuthProvider();
-    provider.setCustomParameters({ prompt: 'select_account' });
-    const userCredential = await signInWithPopup(
-      this.firebaseService.auth,
-      provider
-    );
+    const userCredential = await this.firebaseService.signInWithTwitter();
     const user = userCredential.user;
-    const additionalUserInfo = getAdditionalUserInfo(userCredential);
+    const additionalUserInfo =
+      this.firebaseService.getAdditionalUserInfo(userCredential);
     const twitterProfile = additionalUserInfo.profile as Record<
       'screen_name',
       string
@@ -121,7 +110,7 @@ export class AuthService {
 
   async logout(): Promise<void> {
     this.loginProcessing = true;
-    return await this.firebaseService.auth
+    return this.firebaseService
       .signOut()
       .then(() => {
         this.router.navigateByUrl('/');
@@ -139,7 +128,7 @@ export class AuthService {
   }
 
   deleteUser(): Promise<void> {
-    return this.firebaseService.auth.currentUser.delete();
+    return this.firebaseService.deleteCurrentUser();
   }
 
   // user$のスナップショットを更新

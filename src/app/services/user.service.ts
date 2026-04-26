@@ -3,18 +3,7 @@ import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { UserData } from '@interfaces/user';
 import { FirebaseService } from './firebase.service';
-import {
-  collection,
-  collectionData,
-  CollectionReference,
-  doc,
-  getDoc,
-  query,
-  setDoc,
-  updateDoc,
-  where,
-} from '@angular/fire/firestore/lite';
-import { getDownloadURL, ref, uploadString } from '@angular/fire/storage';
+import { CollectionReference, where } from 'firebase/firestore/lite';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +13,7 @@ export class UserService {
 
   private get usersCollection(): CollectionReference<UserData> {
     try {
-      return collection(
-        this.firebaseService.firestore,
-        'users'
-      ) as CollectionReference<UserData>;
+      return this.firebaseService.collection<UserData>('users');
     } catch (error) {
       console.debug('Firestore not available:', error);
       return null as any;
@@ -35,9 +21,8 @@ export class UserService {
   }
 
   getUserData(uid: string): Observable<UserData> {
-    const docRef = doc(this.firebaseService.firestore, `users/${uid}`);
-    const docSnap = from(getDoc(docRef));
-    return docSnap.pipe(
+    const docRef = this.firebaseService.doc<UserData>(`users/${uid}`);
+    return from(this.firebaseService.getDoc(docRef)).pipe(
       map((doc) => {
         if (doc.exists()) {
           return doc.data() as UserData;
@@ -48,11 +33,11 @@ export class UserService {
   }
 
   getUserByScreenName(screenName: string): Observable<UserData> {
-    const usersQuery = query(
+    const usersQuery = this.firebaseService.query(
       this.usersCollection,
       where('screenName', '==', screenName)
     );
-    return collectionData<UserData>(usersQuery).pipe(
+    return this.firebaseService.collectionData<UserData>(usersQuery).pipe(
       map((users) => {
         if (users.length) {
           return users[0];
@@ -62,7 +47,7 @@ export class UserService {
     );
   }
 
-  async createUser(uid: string, twitterProfile: any): Promise<void> {
+  createUser(uid: string, twitterProfile: any): Promise<void> {
     const userData: UserData = {
       uid,
       userName: twitterProfile.name,
@@ -70,38 +55,37 @@ export class UserService {
       screenName: twitterProfile.screen_name,
       description: twitterProfile.description,
     };
-    const docRef = doc(this.firebaseService.firestore, `users/${uid}`);
-    return await setDoc(docRef, userData);
+    const docRef = this.firebaseService.doc<UserData>(`users/${uid}`);
+    return this.firebaseService.setDoc(docRef, userData);
   }
 
-  async updateUser(
+  updateUser(
     uid: string,
     twitterProfile: Record<'screen_name', string>
   ): Promise<void> {
     const userData: Pick<UserData, 'screenName'> = {
       screenName: twitterProfile.screen_name,
     };
-    const docRef = doc(this.firebaseService.firestore, `users/${uid}`);
-    return await updateDoc(docRef, userData);
+    const docRef = this.firebaseService.doc<UserData>(`users/${uid}`);
+    return this.firebaseService.updateDoc(docRef, userData);
   }
 
   async uploadAvatar(uid: string, avatar: string): Promise<void> {
     const time: number = new Date().getTime();
-    const storageRef = ref(
-      this.firebaseService.storage,
-      `users/${uid}/avatar/${time}.png`
+    const avatarURL = await this.firebaseService.uploadString(
+      `users/${uid}/avatar/${time}.png`,
+      avatar,
+      'data_url'
     );
-    const result = await uploadString(storageRef, avatar, 'data_url');
-    const avatarURL = await getDownloadURL(result.ref);
-    const docRef = doc(this.firebaseService.firestore, `users/${uid}`);
-    return updateDoc(docRef, { avatarURL });
+    const docRef = this.firebaseService.doc<UserData>(`users/${uid}`);
+    return this.firebaseService.updateDoc(docRef, { avatarURL });
   }
 
   changeUserData(
     uid: string,
     newUserData: Pick<UserData, 'userName' | 'description'>
   ): Promise<void> {
-    const docRef = doc(this.firebaseService.firestore, `users/${uid}`);
-    return updateDoc(docRef, newUserData);
+    const docRef = this.firebaseService.doc<UserData>(`users/${uid}`);
+    return this.firebaseService.updateDoc(docRef, newUserData);
   }
 }
