@@ -16,20 +16,18 @@ import { SeoService } from 'src/app/services/seo.service';
 import { environment } from 'src/environments/environment';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-search-result',
-    templateUrl: './search-result.component.html',
-    styleUrls: ['./search-result.component.scss'],
-    imports: [
-        NgIf,
-        MatProgressSpinnerModule,
-        NgFor,
-        ArticleCardComponent,
-        MatPaginatorModule,
-        AsyncPipe,
-    ]
+  selector: 'app-search-result',
+  templateUrl: './search-result.component.html',
+  styleUrls: ['./search-result.component.scss'],
+  imports: [
+    MatProgressSpinnerModule,
+    ArticleCardComponent,
+    MatPaginatorModule,
+    AsyncPipe,
+  ],
 })
 export default class SearchResultComponent implements OnInit, OnDestroy {
   private readonly index = this.searchService.index.popular;

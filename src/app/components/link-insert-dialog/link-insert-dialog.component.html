@@ -15,12 +15,11 @@
         autocomplete="off"
         required
       />
-      <mat-error *ngIf="linkInputControl.hasError('required')"
-        >必須項目です</mat-error
-      >
-      <mat-error *ngIf="linkInputControl.hasError('linkValidator')"
-        >不正な値です</mat-error
-      >
+      @if (linkInputControl.hasError('required')) {
+      <mat-error>必須項目です</mat-error>
+      } @if (linkInputControl.hasError('linkValidator')) {
+      <mat-error>不正な値です</mat-error>
+      }
     </mat-form-field>
     <mat-form-field
       class="link-insert-dialog-form__text"

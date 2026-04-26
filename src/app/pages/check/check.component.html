@@ -1,14 +1,16 @@
 <h1>check</h1>
 <h2>screenName</h2>
-<ng-container *ngIf="usersScreenNameIsNull$ | async as users">
-  <div *ngFor="let user of users">
-    <p>{{ user | json }}</p>
-  </div>
-</ng-container>
+@if (usersScreenNameIsNull$ | async; as users) { @for (user of users; track
+user) {
+<div>
+  <p>{{ user | json }}</p>
+</div>
+} }
 
 <h2>thumbnailURL</h2>
-<ng-container *ngIf="articlesThumbnailURLIsNull$ | async as articles">
-  <div *ngFor="let article of articles">
-    <p>{{ article.articleId }}</p>
-  </div>
-</ng-container>
+@if (articlesThumbnailURLIsNull$ | async; as articles) { @for (article of
+articles; track article) {
+<div>
+  <p>{{ article.articleId }}</p>
+</div>
+} }

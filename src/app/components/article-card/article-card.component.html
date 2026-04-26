@@ -33,19 +33,20 @@
       </div>
       <div class="card__meta">
         <div class="card__like-count">
-          <ng-container *ngIf="isLiked; else isNotLiked">
-            <mat-icon aria-hidden="true" fontIcon="favorite"></mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-container>
-          <ng-template #isNotLiked>
-            <mat-icon aria-hidden="true" fontIcon="favorite_border"></mat-icon>
-            <span>{{ likeCount }}</span>
-          </ng-template>
+          @if (isLiked) {
+          <mat-icon aria-hidden="true" fontIcon="favorite"></mat-icon>
+          <span>{{ likeCount }}</span>
+          } @else {
+          <mat-icon aria-hidden="true" fontIcon="favorite_border"></mat-icon>
+          <span>{{ likeCount }}</span>
+          }
         </div>
-        <div class="card__view-count" *ngIf="article.author.uid === authService.uid">
+        @if (article.author.uid === authService.uid) {
+        <div class="card__view-count">
           <mat-icon aria-hidden="true" fontIcon="visibility"></mat-icon>
           <span>{{ viewCount$ | async }}</span>
         </div>
+        }
         <div class="card__updated-date">
           <mat-icon aria-hidden="true" fontIcon="update"></mat-icon>
           <span>{{

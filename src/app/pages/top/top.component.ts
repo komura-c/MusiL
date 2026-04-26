@@ -6,23 +6,21 @@ import { take } from 'rxjs/operators';
 import { SeoService } from 'src/app/services/seo.service';
 import { ArticleCardSkeltonComponent } from '../../components/article-card-skelton/article-card-skelton.component';
 import { ArticleCardComponent } from '../../components/article-card/article-card.component';
-import { NgIf, NgFor, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { WelcomeComponent } from '../../components/welcome/welcome.component';
 
 @Component({
-    selector: 'app-top',
-    templateUrl: './top.component.html',
-    styleUrls: ['./top.component.scss'],
-    imports: [
-        WelcomeComponent,
-        MatIconModule,
-        NgIf,
-        NgFor,
-        ArticleCardComponent,
-        ArticleCardSkeltonComponent,
-        AsyncPipe,
-    ]
+  selector: 'app-top',
+  templateUrl: './top.component.html',
+  styleUrls: ['./top.component.scss'],
+  imports: [
+    WelcomeComponent,
+    MatIconModule,
+    ArticleCardComponent,
+    ArticleCardSkeltonComponent,
+    AsyncPipe,
+  ],
 })
 export default class TopComponent {
   latestArticles$: Observable<ArticleWithAuthor[]> = this.articleService
@@ -46,7 +44,7 @@ export default class TopComponent {
     this.seoService.createLinkTagForCanonicalURL();
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   getPopularArticles() {
     if (this.isPopularLoaded) {
       return;

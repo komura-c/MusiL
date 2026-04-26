@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ArticleWithAuthor } from '@interfaces/article-with-author';
 import { LikeService } from 'src/app/services/like.service';
 import { MatSnackBar as MatSnackBar } from '@angular/material/snack-bar';
-import { Location, NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { Location, AsyncPipe, DatePipe } from '@angular/common';
 import { Clipboard } from '@angular/cdk/clipboard';
 import { ScrollService } from 'src/app/services/scroll.service';
 import { SeoService } from 'src/app/services/seo.service';
@@ -33,28 +33,26 @@ import { DocumentService } from 'src/app/services/document.service';
 import { WindowService } from 'src/app/services/window.service';
 
 @Component({
-    selector: 'app-article-detail',
-    templateUrl: './article-detail.component.html',
-    styleUrls: ['./article-detail.component.scss'],
-    imports: [
-        NgIf,
-        MatButtonModule,
-        MatTooltipModule,
-        MatIconModule,
-        RouterLink,
-        ArticleEditButtonsComponent,
-        MatChipsModule,
-        NgFor,
-        MatDividerModule,
-        ArticleCommentComponent,
-        RecommendArticleComponent,
-        AsyncPipe,
-        DatePipe,
-        StringToLinkPipe,
-        EncodeUrlPipe,
-        SafeHTMLPipe,
-        MatDialogModule,
-    ]
+  selector: 'app-article-detail',
+  templateUrl: './article-detail.component.html',
+  styleUrls: ['./article-detail.component.scss'],
+  imports: [
+    MatButtonModule,
+    MatTooltipModule,
+    MatIconModule,
+    RouterLink,
+    ArticleEditButtonsComponent,
+    MatChipsModule,
+    MatDividerModule,
+    ArticleCommentComponent,
+    RecommendArticleComponent,
+    AsyncPipe,
+    DatePipe,
+    StringToLinkPipe,
+    EncodeUrlPipe,
+    SafeHTMLPipe,
+    MatDialogModule,
+  ],
 })
 export default class ArticleDetailComponent implements OnDestroy {
   private screenName$: Observable<string> = this.route.parent.paramMap.pipe(
@@ -163,7 +161,7 @@ export default class ArticleDetailComponent implements OnDestroy {
     }
   }
 
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll')
   getTableOfContents() {
     if (this.isTocLoaded) {
       return;

@@ -27,23 +27,21 @@ import { Subscription } from 'rxjs';
 import { startWith, debounceTime } from 'rxjs/operators';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { NgFor, NgIf } from '@angular/common';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-    selector: 'app-tag-form',
-    templateUrl: './tag-form.component.html',
-    styleUrls: ['./tag-form.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatChipsModule,
-        NgFor,
-        NgIf,
-        MatIconModule,
-        MatAutocompleteModule,
-        MatOptionModule,
-    ]
+  selector: 'app-tag-form',
+  templateUrl: './tag-form.component.html',
+  styleUrls: ['./tag-form.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule,
+    MatOptionModule,
+  ],
 })
 export class TagFormComponent implements OnInit, OnDestroy {
   @Input() parentForm: UntypedFormGroup;

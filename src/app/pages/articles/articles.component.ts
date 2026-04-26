@@ -12,23 +12,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { InfiniteScrollDirective } from '../../directives/infinite-scroll.directive';
 import { ArticleEditButtonsComponent } from '../../components/article-edit-buttons/article-edit-buttons.component';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgFor, AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 
 @Component({
-    selector: 'app-articles',
-    templateUrl: './articles.component.html',
-    styleUrls: ['./articles.component.scss'],
-    imports: [
-        NgIf,
-        NgFor,
-        RouterLink,
-        ArticleEditButtonsComponent,
-        InfiniteScrollDirective,
-        MatButtonModule,
-        MatIconModule,
-        AsyncPipe,
-        DatePipe,
-    ]
+  selector: 'app-articles',
+  templateUrl: './articles.component.html',
+  styleUrls: ['./articles.component.scss'],
+  imports: [
+    RouterLink,
+    ArticleEditButtonsComponent,
+    InfiniteScrollDirective,
+    MatButtonModule,
+    MatIconModule,
+    AsyncPipe,
+    DatePipe,
+  ],
 })
 export default class ArticlesComponent implements OnInit {
   user$: Observable<UserData> = this.authService.user$;

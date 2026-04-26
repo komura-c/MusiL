@@ -17,9 +17,11 @@
     #search="matAutocomplete"
     (optionSelected)="selected($event)"
   >
-    <mat-option *ngFor="let option of searchResult?.hits" [value]="option">
+    @for (option of searchResult?.hits; track option) {
+    <mat-option [value]="option">
       {{ option.title }}
     </mat-option>
+    }
   </mat-autocomplete>
   <button
     mat-icon-button

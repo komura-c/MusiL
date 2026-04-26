@@ -8,20 +8,18 @@ import { RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { NgIf } from '@angular/common';
 
 @Component({
-    selector: 'app-about',
-    templateUrl: './about.component.html',
-    styleUrls: ['./about.component.scss'],
-    imports: [
-        NgIf,
-        MatProgressSpinnerModule,
-        MatButtonModule,
-        MatIconModule,
-        RouterLink,
-        MatCardModule,
-    ]
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.scss'],
+  imports: [
+    MatProgressSpinnerModule,
+    MatButtonModule,
+    MatIconModule,
+    RouterLink,
+    MatCardModule,
+  ],
 })
 export default class AboutComponent implements OnInit {
   user: UserData;

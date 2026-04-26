@@ -11,22 +11,21 @@ import {
   MatDialogModule,
 } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
-    selector: 'app-link-insert-dialog',
-    templateUrl: './link-insert-dialog.component.html',
-    styleUrls: ['./link-insert-dialog.component.scss'],
-    imports: [
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgIf,
-        MatDialogModule,
-        MatButtonModule,
-    ]
+  selector: 'app-link-insert-dialog',
+  templateUrl: './link-insert-dialog.component.html',
+  styleUrls: ['./link-insert-dialog.component.scss'],
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+  ],
 })
 export class LinkInsertDialogComponent {
   form = this.fb.group({

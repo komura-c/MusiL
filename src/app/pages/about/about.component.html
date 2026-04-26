@@ -6,49 +6,44 @@
     <h2 class="about-hero__sub-title">
       DTMや作曲の知識記録<span class="new-line">プラットフォーム</span>
     </h2>
-    <ng-container *ngIf="isLoading; else button">
-      <mat-spinner
-        class="loading-bar"
-        diameter="30"
-        strokeWidth="3"
-      ></mat-spinner>
-    </ng-container>
-    <ng-template #button>
-      <ng-container *ngIf="!user; else top">
-        <button
-          [disabled]="authService.loginProcessing"
-          (click)="login()"
-          mat-flat-button
-          color="primary"
-          class="login-button"
-        >
-          <mat-icon aria-hidden="true"
-            ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
-          /></mat-icon>
-          <span>{{
-            authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
-          }}</span>
-        </button>
-        <p class="about-hero__notice">
-          <a routerLink="/terms" class="terms-link">利用規約</a
-          >が適用されます。<span class="new-line"
-            >許可なくツイート等は行いません。</span
-          >
-        </p>
-      </ng-container>
-      <ng-template #top>
-        <button
-          mat-flat-button
-          color="primary"
-          routerLink="/articles/create"
-          *ngIf="user"
-          class="post-button"
-        >
-          <mat-icon aria-hidden="true" fontIcon="post_add"></mat-icon>
-          <span>投稿してみる</span>
-        </button>
-      </ng-template>
-    </ng-template>
+    @if (isLoading) {
+    <mat-spinner
+      class="loading-bar"
+      diameter="30"
+      strokeWidth="3"
+    ></mat-spinner>
+    } @else { @if (!user) {
+    <button
+      [disabled]="authService.loginProcessing"
+      (click)="login()"
+      mat-flat-button
+      color="primary"
+      class="login-button"
+    >
+      <mat-icon aria-hidden="true"
+        ><img src="/assets/icons/twitter-logo-white.svg" alt="Twitterロゴ"
+      /></mat-icon>
+      <span>{{
+        authService.loginProcessing ? 'ログイン中' : 'Twitterでログイン'
+      }}</span>
+    </button>
+    <p class="about-hero__notice">
+      <a routerLink="/terms" class="terms-link">利用規約</a
+      >が適用されます。<span class="new-line"
+        >許可なくツイート等は行いません。</span
+      >
+    </p>
+    } @else { @if (user) {
+    <button
+      mat-flat-button
+      color="primary"
+      routerLink="/articles/create"
+      class="post-button"
+    >
+      <mat-icon aria-hidden="true" fontIcon="post_add"></mat-icon>
+      <span>投稿してみる</span>
+    </button>
+    } } }
   </section>
   <div class="about-wave"><div class="about-wave__bg"></div></div>
   <section class="about-features">

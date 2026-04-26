@@ -6,14 +6,14 @@ import { LikeService } from 'src/app/services/like.service';
 import { ViewCountService } from 'src/app/services/view-count.service';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { NgIf, DatePipe, AsyncPipe } from '@angular/common';
+import { DatePipe, AsyncPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'app-article-card',
-    templateUrl: './article-card.component.html',
-    styleUrls: ['./article-card.component.scss'],
-    imports: [RouterLink, NgIf, MatIconModule, DatePipe, AsyncPipe]
+  selector: 'app-article-card',
+  templateUrl: './article-card.component.html',
+  styleUrls: ['./article-card.component.scss'],
+  imports: [RouterLink, MatIconModule, DatePipe, AsyncPipe],
 })
 export class ArticleCardComponent implements OnInit {
   @Input() article: ArticleWithAuthor;
@@ -31,7 +31,9 @@ export class ArticleCardComponent implements OnInit {
     this.likeCount = this.article.likeCount;
     this.updateLikeCount();
     if (this.article.author.uid === this.authService.uid) {
-      this.viewCount$ = this.viewCountService.getViewCount(this.article.articleId);
+      this.viewCount$ = this.viewCountService.getViewCount(
+        this.article.articleId
+      );
     }
   }
 

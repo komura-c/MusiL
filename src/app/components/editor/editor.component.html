@@ -1,4 +1,5 @@
-<div [formGroup]="parentForm" *ngIf="quillComponentLoaded">
+@if (quillComponentLoaded) {
+<div [formGroup]="parentForm">
   <app-quill-editor
     formControlName="editorContent"
     [modules]="quillModules"
@@ -15,3 +16,4 @@
     #imageInput
   />
 </div>
+}

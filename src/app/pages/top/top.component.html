@@ -7,25 +7,17 @@
         <span>最新の投稿</span>
       </h2>
       <div class="top-main__body">
-        <ng-container
-          *ngIf="latestArticles$ | async as latestArticles; else latestLoading"
-        >
-          <div
-            class="top-main__card"
-            *ngFor="let article of latestArticles"
-            [class.fade]="latestArticles"
-          >
-            <app-article-card [article]="article"></app-article-card>
-          </div>
-        </ng-container>
-        <ng-template #latestLoading>
-          <div
-            class="top-main__card"
-            *ngFor="let article of 'skelton'.repeat(21).split('s')"
-          >
-            <app-article-card-skelton></app-article-card-skelton>
-          </div>
-        </ng-template>
+        @if (latestArticles$ | async; as latestArticles) { @for (article of
+        latestArticles; track article) {
+        <div class="top-main__card" [class.fade]="latestArticles">
+          <app-article-card [article]="article"></app-article-card>
+        </div>
+        } } @else { @for (article of 'skelton'.repeat(21).split('s'); track
+        article) {
+        <div class="top-main__card">
+          <app-article-card-skelton></app-article-card-skelton>
+        </div>
+        } }
       </div>
     </section>
     <section class="top-main">
@@ -34,28 +26,17 @@
         <span>人気の投稿</span>
       </h2>
       <div class="top-main__body">
-        <ng-container
-          *ngIf="
-            popularArticles$ | async as popularArticles;
-            else popularLoading
-          "
-        >
-          <div
-            class="top-main__card"
-            *ngFor="let article of popularArticles"
-            [class.fade]="popularArticles"
-          >
-            <app-article-card [article]="article"></app-article-card>
-          </div>
-        </ng-container>
-        <ng-template #popularLoading>
-          <div
-            class="top-main__card"
-            *ngFor="let article of 'skelton'.repeat(21).split('s')"
-          >
-            <app-article-card-skelton></app-article-card-skelton>
-          </div>
-        </ng-template>
+        @if ( popularArticles$ | async; as popularArticles) { @for (article of
+        popularArticles; track article) {
+        <div class="top-main__card" [class.fade]="popularArticles">
+          <app-article-card [article]="article"></app-article-card>
+        </div>
+        } } @else { @for (article of 'skelton'.repeat(21).split('s'); track
+        article) {
+        <div class="top-main__card">
+          <app-article-card-skelton></app-article-card-skelton>
+        </div>
+        } }
       </div>
     </section>
   </div>

@@ -1,20 +1,19 @@
 <div [formGroup]="parentForm">
   <mat-form-field class="tag-form" color="accent">
     <mat-chip-grid #chipList aria-label="タグセレクション">
-      <mat-chip-row
-        *ngFor="let tag of tags"
-        [removable]="removable"
-        (removed)="remove(tag)"
-      >
+      @for (tag of tags; track tag) {
+      <mat-chip-row [removable]="removable" (removed)="remove(tag)">
         {{ tag }}
+        @if (removable) {
         <mat-icon
           matChipRemove
-          *ngIf="removable"
           aria-hidden="false"
           [attr.aria-label]="tag + 'をタグから除く'"
           fontIcon="cancel"
         ></mat-icon>
+        }
       </mat-chip-row>
+      }
       <input
         placeholder="タグ"
         #tagInput
@@ -29,13 +28,15 @@
       #auto="matAutocomplete"
       (optionSelected)="selected($event)"
     >
-      <mat-option *ngFor="let tag of allTags" [value]="tag.value">
+      @for (tag of allTags; track tag) {
+      <mat-option [value]="tag.value">
         {{ tag.value }}
       </mat-option>
+      }
     </mat-autocomplete>
     <mat-hint align="end">{{ tags?.length || 0 }}/{{ tagMaxLength }}</mat-hint>
-    <mat-error *ngIf="chipList.errorState"
-      >タグは{{ tagMaxWordCount }}文字以内です</mat-error
-    >
+    @if (chipList.errorState) {
+    <mat-error>タグは{{ tagMaxWordCount }}文字以内です</mat-error>
+    }
   </mat-form-field>
 </div>

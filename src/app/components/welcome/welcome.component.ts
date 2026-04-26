@@ -7,13 +7,13 @@ import { environment } from 'src/environments/environment';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf, AsyncPipe } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-welcome',
-    templateUrl: './welcome.component.html',
-    styleUrls: ['./welcome.component.scss'],
-    imports: [NgIf, MatButtonModule, RouterLink, MatIconModule, AsyncPipe]
+  selector: 'app-welcome',
+  templateUrl: './welcome.component.html',
+  styleUrls: ['./welcome.component.scss'],
+  imports: [MatButtonModule, RouterLink, MatIconModule, AsyncPipe],
 })
 export class WelcomeComponent {
   user$: Observable<UserData> = this.authService.user$.pipe(

@@ -2,44 +2,41 @@
   <div class="search-result">
     <div class="search-result__header">
       <h2 class="search-result__title">
-        <span class="search-result__keyword" *ngIf="searchQuery"
-          >{{ searchQuery }} の検索結果</span
-        >
-        <span class="search-result__keyword" *ngIf="searchTag"
-          >{{ searchTag }} に関する記事</span
-        >
+        @if (searchQuery) {
+        <span class="search-result__keyword">{{ searchQuery }} の検索結果</span>
+        } @if (searchTag) {
+        <span class="search-result__keyword">{{ searchTag }} に関する記事</span>
+        }
         <span class="search-result__hits">{{ searchResult?.nbHits }} 件</span>
       </h2>
     </div>
-    <ng-container *ngIf="searchResult?.nbHits; else blank">
-      <mat-spinner
-        *ngIf="isLoading"
-        class="loading-bar"
-        diameter="55"
-        strokeWidth="4"
-      ></mat-spinner>
-      <div *ngIf="articles$ | async as articles" [class.fade]="articles">
-        <app-article-card
-          *ngFor="let article of articles"
-          [article]="article"
-        ></app-article-card>
-      </div>
-      <mat-paginator
-        *ngIf="searchResult?.nbHits > defaultPageSize"
-        [length]="searchResult?.nbHits"
-        [pageSize]="defaultPageSize"
-        [pageIndex]="pageIndex"
-        (page)="routeSearch($event)"
-      >
-      </mat-paginator>
-    </ng-container>
-    <ng-template #blank>
-      <div class="no-article" *ngIf="!isLoading">
-        <p>
-          {{ searchQuery ? searchQuery : searchTag }}
-          に関する記事は見つかりませんでした。
-        </p>
-      </div>
-    </ng-template>
+    @if (searchResult?.nbHits) { @if (isLoading) {
+    <mat-spinner
+      class="loading-bar"
+      diameter="55"
+      strokeWidth="4"
+    ></mat-spinner>
+    } @if (articles$ | async; as articles) {
+    <div [class.fade]="articles">
+      @for (article of articles; track article) {
+      <app-article-card [article]="article"></app-article-card>
+      }
+    </div>
+    } @if (searchResult?.nbHits > defaultPageSize) {
+    <mat-paginator
+      [length]="searchResult?.nbHits"
+      [pageSize]="defaultPageSize"
+      [pageIndex]="pageIndex"
+      (page)="routeSearch($event)"
+    >
+    </mat-paginator>
+    } } @else { @if (!isLoading) {
+    <div class="no-article">
+      <p>
+        {{ searchQuery ? searchQuery : searchTag }}
+        に関する記事は見つかりませんでした。
+      </p>
+    </div>
+    } }
   </div>
 </div>
