@@ -45,6 +45,10 @@ jobs:
         working-directory: functions
         run: pnpm lint
 
+      - name: build functions
+        working-directory: functions
+        run: pnpm build
+
       # TODO: テストが整ったら入れる
       # - name: test
       #   run: pnpm test
