@@ -4,6 +4,8 @@ onlyBuiltDependencies:
   - esbuild
   - "@parcel/watcher"
   - "@firebase/util"
+  - nice-napi
+  - protobufjs
 strictDepBuilds: true
 minimumReleaseAge: 4320
 blockExoticSubdeps: true
