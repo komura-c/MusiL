@@ -22,7 +22,6 @@
     "indexes": "firestore.indexes.json"
   },
   "functions": {
-    "predeploy": ["pnpm --dir \"$RESOURCE_DIR\" build"],
     "source": "functions"
   },
   "storage": {

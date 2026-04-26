@@ -18,8 +18,6 @@ jobs:
 
       - name: setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: update node
         uses: actions/setup-node@v4
@@ -47,6 +45,10 @@ jobs:
         working-directory: functions
         run: pnpm lint
 
+      - name: build functions
+        working-directory: functions
+        run: pnpm build
+
       # TODO: テストが整ったら入れる
       # - name: test
       #   run: pnpm test
@@ -54,7 +56,7 @@ jobs:
       - name: deploy to firebase
         uses: w9jds/firebase-action@v14.10.1
         with:
-          args: deploy
+          args: deploy --force
         env:
           GCP_SA_KEY: ${{ secrets.GCP_SA_KEY_DEV }}
           PROJECT_ID: dev
